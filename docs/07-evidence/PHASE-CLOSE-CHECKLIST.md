@@ -62,10 +62,10 @@ curl -s https://civicaid-voice.onrender.com/health | python -m json.tool
 
 | Check | Accion | Estado |
 |-------|--------|--------|
-| Phase Releases DB actualizada | Crear entrada Phase 1 con commit SHA, URL, estado | PENDING |
-| Backlog: tareas a "Hecho" | Mover D1.x, D2.x completadas a Hecho | PENDING |
-| Demo & Testing: resultados | Actualizar con "Pasa"/"Falla" por test | PENDING |
-| Metricas de latencia registradas | Cache <2s, TwiML ACK <1s, audio pipeline <15s | PENDING |
+| Phase Releases DB actualizada | Crear entrada Phase 1 con commit SHA, URL, estado | PASS |
+| Backlog: tareas a "Hecho" | Mover D1.x, D2.x completadas a Hecho | PASS |
+| Demo & Testing: resultados | Actualizar con "Pasa"/"Falla" por test | PASS |
+| Metricas de latencia registradas | Cache <2s, TwiML ACK <1s, audio pipeline <15s | PASS |
 
 ---
 
@@ -113,11 +113,11 @@ git tag phase-1-v1.0 && git push --tags
 | 1. Codigo | 5 | 0 | 5 |
 | 2. Deploy | 1 | 4 | 5 |
 | 3. Documentacion | 5 | 0 | 5 |
-| 4. Notion | 0 | 4 | 4 |
+| 4. Notion | 4 | 0 | 4 |
 | 5. GitHub | 0 | 4 | 4 |
 | 6. Demo/QA | 0 | 3 | 3 |
 | 7. Comunicacion | 0 | 2 | 2 |
-| **Total** | **11** | **17** | **28** |
+| **Total** | **15** | **13** | **28** |
 
 ---
 

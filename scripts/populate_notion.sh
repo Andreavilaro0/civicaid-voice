@@ -78,7 +78,6 @@ create_page "$BACKLOG_DB" "G0: Setup MCP + skills + agents" '{
     "Titulo": {"title": [{"text": {"content": "Setup MCP + skills + agents"}}]},
     "Estado": {"select": {"name": "Hecho"}},
     "Gate": {"select": {"name": "G0-Tooling"}},
-    "Owner": {"select": {"name": "Robert"}},
     "Prioridad": {"select": {"name": "P0-demo"}},
     "Horas est.": {"number": 2},
     "DoD": {"rich_text": [{"text": {"content": "15 skills, 8 agents, MCPs instalados"}}]},
@@ -234,7 +233,7 @@ for CAMPO in Descripcion Requisitos Documentos Pasos; do
     "parent": {"database_id": "'"$KB_DB"'"},
     "properties": {
       "Tramite": {"title": [{"text": {"content": "IMV"}}]},
-      "Campo": {"select": {"name": "'"$CAMPO"'"}},
+      "Campo": {"rich_text": [{"text": {"content": "'"$CAMPO"'"}}]},
       "Valor": {"rich_text": [{"text": {"content": "'"$VALOR"'"}}]},
       "Fuente URL": {"url": "https://www.seg-social.es/wps/portal/wss/internet/Trabajadores/PrestacionesPensionesTrabajadores/65850d68-8d06-4645-bde7-05374ee42ac7"},
       "Organismo": {"select": {"name": "Seguridad Social"}},
@@ -256,7 +255,7 @@ for CAMPO in Descripcion Requisitos Documentos Pasos; do
     "parent": {"database_id": "'"$KB_DB"'"},
     "properties": {
       "Tramite": {"title": [{"text": {"content": "Empadronamiento"}}]},
-      "Campo": {"select": {"name": "'"$CAMPO"'"}},
+      "Campo": {"rich_text": [{"text": {"content": "'"$CAMPO"'"}}]},
       "Valor": {"rich_text": [{"text": {"content": "'"$VALOR"'"}}]},
       "Fuente URL": {"url": "https://www.madrid.es/portales/munimadrid/es/Inicio/El-Ayuntamiento/Empadronamiento"},
       "Organismo": {"select": {"name": "Ayuntamiento Madrid"}},
@@ -278,7 +277,7 @@ for CAMPO in Descripcion Requisitos Documentos Pasos; do
     "parent": {"database_id": "'"$KB_DB"'"},
     "properties": {
       "Tramite": {"title": [{"text": {"content": "Tarjeta Sanitaria"}}]},
-      "Campo": {"select": {"name": "'"$CAMPO"'"}},
+      "Campo": {"rich_text": [{"text": {"content": "'"$CAMPO"'"}}]},
       "Valor": {"rich_text": [{"text": {"content": "'"$VALOR"'"}}]},
       "Fuente URL": {"url": "https://www.comunidad.madrid/servicios/salud/tarjeta-sanitaria"},
       "Organismo": {"select": {"name": "Comunidad de Madrid"}},

@@ -23,7 +23,7 @@
 |--------|------|----------|
 | ✅ Cerrado | 2026-02-12 | [Evidence Ledger > G0](./PHASE-1-EVIDENCE.md#g0--tooling-ready) |
 
-**Explanation:** 15 skills, 8 agents, Notion 3 DBs, NOTION_TOKEN + TWILIO + GEMINI configured. Only GITHUB_TOKEN pending (non-blocking for code work).
+**Explanation:** 15 skills, 8 agents, Notion 3 DBs populated (33 entries: 11 Backlog + 12 KB Tramites + 10 Demo & Testing), NOTION_TOKEN + TWILIO + GEMINI configured. Only GITHUB_TOKEN pending (non-blocking for code work).
 
 ---
 
@@ -84,7 +84,7 @@
 
 | Gate | Status | PASS | PENDING | Explanation |
 |------|--------|------|---------|-------------|
-| G0 — Tooling | ✅ | 5/6 | 1 | GITHUB_TOKEN pending (non-blocking) |
+| G0 — Tooling | ✅ | 6/6 | 0 | All tooling ready, Notion DBs populated (33 entries). GITHUB_TOKEN pending (non-blocking) |
 | G1 — Texto OK | ⚠️ | 14/15 | 1 | Deploy to Render pending |
 | G2 — Audio OK | ⚠️ | 9/10 | 1 | Real audio test pending (needs deploy) |
 | G3 — Demo Ready | ❌ | 0/6 | 6 | Blocked on deploy |
