@@ -28,4 +28,14 @@ services:
         value: "production"
       - key: LOG_LEVEL
         value: "INFO"
+      - key: AUDIO_BASE_URL
+        value: "https://civicaid-voice.onrender.com/static/cache"
+      - key: OBSERVABILITY_ON
+        value: "true"
+      - key: STRUCTURED_OUTPUT_ON
+        value: "false"
+      - key: GUARDRAILS_ON
+        value: "true"
+      - key: RAG_ENABLED
+        value: "false"
     healthCheckPath: /health

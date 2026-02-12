@@ -21,10 +21,11 @@ RUN pip install --no-cache-dir "setuptools<75" wheel && \
 # Copy application code
 COPY . .
 
-EXPOSE 5000
+EXPOSE 10000
 
 # Gunicorn config:
 # --timeout 120: Whisper can take up to 12s + LLM 6s + overhead
 # --workers 1: Render free tier has limited RAM
 # --preload: Load Whisper model at startup, not per-request
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--timeout", "120", "--workers", "1", "--preload", "src.app:create_app()"]
+# Render sets PORT=10000 by default; fall back to 5000 for local
+CMD gunicorn --bind "0.0.0.0:${PORT:-5000}" --timeout 120 --workers 1 --preload "src.app:create_app()"
