@@ -11,11 +11,11 @@ RUN apt-get update && \
 WORKDIR /app
 
 # Copy requirements first (leverage Docker cache)
-COPY requirements.txt .
+COPY requirements.txt requirements-audio.txt ./
 # openai-whisper needs pkg_resources (setuptools<75) and --no-build-isolation
 # to avoid pip's isolated build env pulling a newer setuptools without it
 RUN pip install --no-cache-dir "setuptools<75" wheel && \
-    pip install --no-cache-dir --no-build-isolation openai-whisper==20231117 && \
+    pip install --no-cache-dir --no-build-isolation -r requirements-audio.txt && \
     pip install --no-cache-dir -r requirements.txt
 
 # Copy application code

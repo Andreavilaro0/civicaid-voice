@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
 # =============================================================
 # run-local.sh — One-command local development server
-# Usage: ./scripts/run-local.sh
+#
+# Usage:
+#   ./scripts/run-local.sh                 # text-only (default)
+#   INSTALL_AUDIO=1 ./scripts/run-local.sh # attempt whisper install
+#
+# On macOS, whisper + torch are heavy and may fail to compile.
+# Text features work fine without whisper.
+# In Docker/Render, whisper is always installed via Dockerfile.
 # =============================================================
 
 set -euo pipefail
@@ -36,10 +43,25 @@ fi
 echo "Activating venv..."
 source venv/bin/activate
 
-echo "Installing dependencies..."
+echo "Installing core dependencies..."
 pip install -q -r requirements.txt
 
-# 4. Check ffmpeg
+# 4. Optional: install audio/whisper dependencies
+if [ "${INSTALL_AUDIO:-0}" = "1" ]; then
+    echo ""
+    echo "INSTALL_AUDIO=1 detected — attempting whisper install..."
+    if pip install -q "setuptools<75" wheel && \
+       pip install -q --no-build-isolation -r requirements-audio.txt; then
+        echo "Whisper installed successfully."
+    else
+        echo "WARNING: Whisper installation failed. Audio transcription disabled."
+        echo "  Text features will work normally."
+    fi
+else
+    echo "Skipping whisper (set INSTALL_AUDIO=1 to enable audio transcription)."
+fi
+
+# 5. Check ffmpeg
 if command -v ffmpeg &> /dev/null; then
     echo "ffmpeg: $(ffmpeg -version 2>&1 | head -1)"
 else
@@ -47,7 +69,7 @@ else
     echo "  Install with: brew install ffmpeg (macOS) or apt install ffmpeg (Linux)"
 fi
 
-# 5. Run Flask dev server
+# 6. Run Flask dev server
 echo ""
 echo "Starting Flask development server on http://localhost:5000"
 echo "Health check: http://localhost:5000/health"

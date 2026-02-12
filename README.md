@@ -35,15 +35,30 @@ Ver documentacion completa en [`docs/02-architecture/ARCHITECTURE.md`](docs/02-a
 - Python 3.11+
 - ffmpeg (`brew install ffmpeg` / `apt-get install ffmpeg`)
 
-### Instalacion
+### Local macOS (sin audio)
 
 ```bash
 git clone https://github.com/YOUR-ORG/civicaid-voice.git
 cd civicaid-voice
-python -m venv venv && source venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env  # Rellenar con claves reales
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt   # ligero, sin torch/whisper
+cp .env.example .env              # Rellenar con claves reales
 ```
+
+Texto, cache y LLM funcionan sin whisper. Audio queda deshabilitado (`whisper_loaded: false` en `/health`).
+
+### Audio opcional (macOS)
+
+```bash
+INSTALL_AUDIO=1 ./scripts/run-local.sh
+# o manualmente:
+pip install "setuptools<75" wheel
+pip install --no-build-isolation -r requirements-audio.txt
+```
+
+Si la instalacion falla, el servidor arranca igual (solo texto).
+
+> **Nota:** En Docker/Render, whisper se instala siempre via Dockerfile. No necesitas hacer nada extra.
 
 ### Variables de entorno (.env)
 
@@ -104,7 +119,8 @@ civicaid-voice/
 ├── scripts/                    # Scripts de operacion
 ├── Dockerfile                  # Python 3.11 + ffmpeg + gunicorn
 ├── render.yaml                 # Render Blueprint
-└── requirements.txt            # 10 dependencias
+├── requirements.txt            # Core dependencies (9 packages)
+└── requirements-audio.txt      # Whisper/audio (optional on macOS, always in Docker)
 ```
 
 ## Deploy (Render)

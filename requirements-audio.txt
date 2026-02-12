@@ -1,0 +1,3 @@
+# Audio transcription dependencies (optional on macOS, required in Docker/Render)
+# Install with: pip install "setuptools<75" wheel && pip install --no-build-isolation -r requirements-audio.txt
+openai-whisper==20231117
