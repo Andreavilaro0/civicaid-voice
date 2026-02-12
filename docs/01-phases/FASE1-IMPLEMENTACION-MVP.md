@@ -19,14 +19,14 @@
 1. **MVP funcional end-to-end:** Un usuario envia un mensaje de texto o audio por WhatsApp y recibe una respuesta util sobre tramites (IMV, empadronamiento, tarjeta sanitaria) en menos de 20 segundos.
 2. **Cache-first para fiabilidad de demo:** Con `DEMO_MODE=true`, las 8 preguntas frecuentes se responden desde cache en menos de 2 segundos, con audio pregrabado.
 3. **Audio pipeline completo:** Whisper base transcribe notas de voz con timeout de 12s y fallback controlado.
-4. **Deploy estable en Render:** Docker build exitoso, health endpoint funcional, cron keep-alive cada 8 minutos, cold start inferior a 15 segundos.
+4. **Deploy estable en Render:** Docker build exitoso, health endpoint funcional, cron keep-alive cada 14 minutos, cold start inferior a 15 segundos.
 5. **Evidencia verificable:** Cada tarea y gate tiene evidencia medible: comando ejecutado, output obtenido, archivo generado, fecha y hora.
 
 ---
 
 ## 2. Alcance
 
-### En Scope (MVP listo)
+### Dentro del Alcance (MVP listo)
 
 | # | Condicion | Verificacion |
 |---|-----------|-------------|
@@ -35,9 +35,9 @@
 | 3 | Cache-first activo | `DEMO_MODE=true` → respuestas en <2s |
 | 4 | Logs estructurados | `[ACK]`, `[CACHE]`, `[WHISPER]`, `[LLM]`, `[REST]` en logs |
 | 5 | Health endpoint | `GET /health` → JSON con estado de componentes |
-| 6 | Deploy estable | Render + cron cada 8 min + cold start <15s |
+| 6 | Deploy estable | Render + cron cada 14 min + cold start <15s |
 
-### Fuera de Scope
+### Fuera del Alcance
 
 | Excluido | Razon |
 |----------|-------|
@@ -111,7 +111,7 @@ Cada gate es un checkpoint de calidad. **No se avanza al siguiente gate sin evid
 | G0.3 | `NOTION_TOKEN` configurado | MCP Notion responde | Consulta exitosa a Notion API |
 | G0.4 | `GITHUB_TOKEN` configurado | `gh auth status` exitoso | Output de `gh auth status` |
 | G0.5 | `.env` con valores reales | Todas las variables criticas tienen valor | `.env` existe (no se commitea), `python -c "from src.core.config import Config; c = Config(); print(c)"` sin errores |
-| G0.6 | Notion OS (3 DBs) creadas | 3 databases visibles en Notion | IDs en `project-settings.json` o screenshot de Notion |
+| G0.6 | Notion OS (3 DBs) creadas | 3 databases visibles en Notion | IDs en `project-settings.json` o captura de pantalla de Notion |
 
 ### Gate 1 — Texto OK
 
@@ -121,7 +121,7 @@ Cada gate es un checkpoint de calidad. **No se avanza al siguiente gate sin evid
 | G1.2 | WA texto cache hit funciona | Cache match retorna respuesta correcta | `pytest tests/unit/test_cache.py -v` → PASSED |
 | G1.3 | Respuesta incluye audio MP3 | `media_url` presente en FinalResponse | `pytest tests/integration/test_pipeline.py -v` → PASSED |
 | G1.4 | /health retorna JSON | Endpoint responde con componentes | `curl http://localhost:5000/health \| python -m json.tool` → JSON valido |
-| G1.5 | Tests T1-T8 pasan | Suite completa verde | `pytest tests/ -v --tb=short` → 32/32 passed |
+| G1.5 | Tests T1-T8 pasan | Suite completa verde | `pytest tests/ -v --tb=short` → 93 passed (88 passed + 5 xpassed) |
 | G1.6 | CI workflow funcional | GitHub Actions verde | Link a workflow run en GitHub |
 | G1.7 | Deploy Render exitoso | App accesible en URL publica | `curl https://[render-url]/health` → JSON OK |
 
@@ -132,8 +132,8 @@ Cada gate es un checkpoint de calidad. **No se avanza al siguiente gate sin evid
 | G2.1 | Audio pipeline implementado | Skills 2-4 existen y pasan tests | `pytest tests/ -k "audio or whisper or fetch_media or convert" -v` → PASSED |
 | G2.2 | Whisper timeout enforced (12s) | ThreadPoolExecutor con timeout | `grep -n "ThreadPoolExecutor\|timeout" src/core/skills/transcribe.py` → lineas relevantes |
 | G2.3 | LLM timeout (6s) | request_options con timeout | `grep -n "timeout\|request_options" src/core/skills/llm_generate.py` → lineas relevantes |
-| G2.4 | Tests completos pasan | 32+ tests verdes | `pytest tests/ -v --tb=short` → all passed |
-| G2.5 | Test real con audio en Render | Nota de voz → respuesta | Screenshot o log de Render con `[WHISPER] Done` |
+| G2.4 | Tests completos pasan | 93+ tests verdes | `pytest tests/ -v --tb=short` → todos pasan |
+| G2.5 | Test real con audio en Render | Nota de voz → respuesta | Captura de pantalla o log de Render con `[WHISPER] Done` |
 
 ### Gate 3 — Demo Ready
 
@@ -151,45 +151,45 @@ Cada gate es un checkpoint de calidad. **No se avanza al siguiente gate sin evid
 
 ### Dia 1 — Infraestructura + WA Texto
 
-| ID | Descripcion | Owner | Depends-on | DoD | Evidencia (comando + output esperado) | Status |
-|----|-------------|-------|------------|-----|---------------------------------------|--------|
-| D1.1 | Crear repo + estructura de carpetas | Robert | — | `git clone` + `pip install` funciona | `ls src/ tests/ data/ docs/` → carpetas existen | Done |
-| D1.2 | `config.py` con 6 feature flags | Robert | — | Dataclass Config carga 6 flags de env | `python -c "from src.core.config import Config; print(Config())"` → sin error | Done |
-| D1.3 | `logger.py` estructurado | Robert | — | Logs con prefijos `[ACK]`, `[CACHE]`, etc. | `grep -rn "ACK\|CACHE\|WHISPER" src/utils/logger.py` → patrones presentes | Done |
-| D1.4 | `demo_cache.json` con 8 entradas | Robert | — | 8 entradas validas con patterns e idioma | `python -c "import json; d=json.load(open('data/cache/demo_cache.json')); print(len(d['entries']))"` → 8 | Done |
-| D1.5 | 6 audios MP3 pre-generados | Robert | — | 6 archivos .mp3 en `data/cache/` | `ls data/cache/*.mp3 \| wc -l` → 6 | Done |
-| D1.6 | `cache.py` + `cache_match.py` | Robert | D1.4 | Cache match retorna hit para keywords conocidos | `pytest tests/unit/test_cache.py -v` → PASSED | Done |
-| D1.7 | `app.py` + `health.py` | Marcos | — | Flask app inicia, /health responde | `curl localhost:5000/health` → JSON | Done |
-| D1.8 | `webhook.py` con TwiML ACK | Marcos | — | POST /webhook retorna TwiML en <1s | `pytest tests/integration/test_webhook.py -v` → PASSED | Done |
-| D1.9 | `static_files.py` para servir MP3 | Marcos | D1.5 | GET /static/cache/*.mp3 retorna audio | `curl -I localhost:5000/static/cache/imv_es.mp3` → 200 | Done |
-| D1.10 | `twilio_client.py` + `send_response.py` | Marcos | — | Twilio REST wrapper funcional | `pytest tests/unit/ -k "twilio or send" -v` → PASSED | Done |
-| D1.11 | `pipeline.py` (texto + cache) | Marcos | D1.6, D1.8 | Pipeline texto completo funciona | `pytest tests/integration/test_pipeline.py -v` → PASSED | Done |
-| D1.12 | JSONs tramites (IMV, empadronamiento, tarjeta) | Lucas | — | 3 JSONs validos en `data/tramites/` | `ls data/tramites/*.json \| wc -l` → 3 | Done |
-| D1.13 | CI workflow (GitHub Actions) | Robert | — | Lint + tests en CI | `cat .github/workflows/ci.yml` → existe; link a run verde | Done |
-| D1.14 | Deploy Render | Marcos | D1.7, D1.11 | App accesible en URL publica | `curl https://[render-url]/health` → JSON OK | Pending |
+| ID | Descripcion | Responsable | Depende de | DoD | Evidencia (comando + output esperado) | Estado |
+|----|-------------|-------------|------------|-----|---------------------------------------|--------|
+| D1.1 | Crear repo + estructura de carpetas | Robert | — | `git clone` + `pip install` funciona | `ls src/ tests/ data/ docs/` → carpetas existen | Hecho |
+| D1.2 | `config.py` con 6 feature flags | Robert | — | Dataclass Config carga 6 flags de env | `python -c "from src.core.config import Config; print(Config())"` → sin error | Hecho |
+| D1.3 | `logger.py` estructurado | Robert | — | Logs con prefijos `[ACK]`, `[CACHE]`, etc. | `grep -rn "ACK\|CACHE\|WHISPER" src/utils/logger.py` → patrones presentes | Hecho |
+| D1.4 | `demo_cache.json` con 8 entradas | Robert | — | 8 entradas validas con patterns e idioma | `python -c "import json; d=json.load(open('data/cache/demo_cache.json')); print(len(d['entries']))"` → 8 | Hecho |
+| D1.5 | 6 audios MP3 pre-generados | Robert | — | 6 archivos .mp3 en `data/cache/` | `ls data/cache/*.mp3 \| wc -l` → 6 | Hecho |
+| D1.6 | `cache.py` + `cache_match.py` | Robert | D1.4 | Cache match retorna hit para keywords conocidos | `pytest tests/unit/test_cache.py -v` → PASSED | Hecho |
+| D1.7 | `app.py` + `health.py` | Marcos | — | Flask app inicia, /health responde | `curl localhost:5000/health` → JSON | Hecho |
+| D1.8 | `webhook.py` con TwiML ACK | Marcos | — | POST /webhook retorna TwiML en <1s | `pytest tests/integration/test_webhook.py -v` → PASSED | Hecho |
+| D1.9 | `static_files.py` para servir MP3 | Marcos | D1.5 | GET /static/cache/*.mp3 retorna audio | `curl -I localhost:5000/static/cache/imv_es.mp3` → 200 | Hecho |
+| D1.10 | `twilio_client.py` + `send_response.py` | Marcos | — | Twilio REST wrapper funcional | `pytest tests/unit/ -k "twilio or send" -v` → PASSED | Hecho |
+| D1.11 | `pipeline.py` (texto + cache) | Marcos | D1.6, D1.8 | Pipeline texto completo funciona | `pytest tests/integration/test_pipeline.py -v` → PASSED | Hecho |
+| D1.12 | JSONs tramites (IMV, empadronamiento, tarjeta) | Lucas | — | 3 JSONs validos en `data/tramites/` | `ls data/tramites/*.json \| wc -l` → 3 | Hecho |
+| D1.13 | CI workflow (GitHub Actions) | Robert | — | Lint + tests en CI | `cat .github/workflows/ci.yml` → existe; link a run verde | Hecho |
+| D1.14 | Deploy Render | Marcos | D1.7, D1.11 | App accesible en URL publica | `curl https://[render-url]/health` → JSON OK | Pendiente |
 
 ### Dia 2 — Audio Pipeline + Whisper + LLM
 
-| ID | Descripcion | Owner | Depends-on | DoD | Evidencia (comando + output esperado) | Status |
+| ID | Descripcion | Responsable | Depende de | DoD | Evidencia (comando + output esperado) | Estado |
 |----|-------------|-------|------------|-----|---------------------------------------|--------|
-| D2.1 | `fetch_media.py` | Marcos | D1.8 | Descarga .ogg de Twilio con auth | `pytest tests/ -k "fetch_media" -v` → PASSED | Done |
-| D2.2 | `convert_audio.py` | Marcos | — | Convierte .ogg a .wav via ffmpeg | `pytest tests/ -k "convert" -v` → PASSED | Done |
-| D2.3 | `transcribe.py` con timeout 12s | Marcos | D2.2 | Whisper base transcribe con ThreadPoolExecutor | `pytest tests/ -k "transcribe" -v` → PASSED | Done |
-| D2.4 | `detect_lang.py` | Robert | — | Detecta idioma con langdetect, fallback "es" | `pytest tests/unit/test_detect_lang.py -v` → PASSED | Done |
-| D2.5 | `kb_lookup.py` | Robert | D1.12 | Extrae secciones relevantes de JSONs de tramites | `pytest tests/unit/test_kb_lookup.py -v` → PASSED | Done |
-| D2.6 | `llm_generate.py` con timeout 6s | Robert | D2.5 | Gemini genera respuesta con timeout enforced | `pytest tests/ -k "llm" -v` → PASSED | Done |
-| D2.7 | `verify_response.py` | Robert | D2.6 | Valida longitud, idioma, no-alucinaciones | `pytest tests/ -k "verify" -v` → PASSED | Done |
-| D2.8 | Audio pipeline en `pipeline.py` | Marcos | D2.1-D2.3 | Pipeline audio completo funciona e2e | `pytest tests/e2e/test_demo_flows.py -v` → PASSED | Done |
+| D2.1 | `fetch_media.py` | Marcos | D1.8 | Descarga .ogg de Twilio con auth | `pytest tests/ -k "fetch_media" -v` → PASSED | Hecho |
+| D2.2 | `convert_audio.py` | Marcos | — | Convierte .ogg a .wav via ffmpeg | `pytest tests/ -k "convert" -v` → PASSED | Hecho |
+| D2.3 | `transcribe.py` con timeout 12s | Marcos | D2.2 | Whisper base transcribe con ThreadPoolExecutor | `pytest tests/ -k "transcribe" -v` → PASSED | Hecho |
+| D2.4 | `detect_lang.py` | Robert | — | Detecta idioma con langdetect, fallback "es" | `pytest tests/unit/test_detect_lang.py -v` → PASSED | Hecho |
+| D2.5 | `kb_lookup.py` | Robert | D1.12 | Extrae secciones relevantes de JSONs de tramites | `pytest tests/unit/test_kb_lookup.py -v` → PASSED | Hecho |
+| D2.6 | `llm_generate.py` con timeout 6s | Robert | D2.5 | Gemini genera respuesta con timeout enforced | `pytest tests/ -k "llm" -v` → PASSED | Hecho |
+| D2.7 | `verify_response.py` | Robert | D2.6 | Valida longitud, idioma, no-alucinaciones | `pytest tests/ -k "verify" -v` → PASSED | Hecho |
+| D2.8 | Audio pipeline en `pipeline.py` | Marcos | D2.1-D2.3 | Pipeline audio completo funciona e2e | `pytest tests/e2e/test_demo_flows.py -v` → PASSED | Hecho |
 
 ### Dia 3 — Endurecimiento + Demo
 
-| ID | Descripcion | Owner | Depends-on | DoD | Evidencia (comando + output esperado) | Status |
+| ID | Descripcion | Responsable | Depende de | DoD | Evidencia (comando + output esperado) | Estado |
 |----|-------------|-------|------------|-----|---------------------------------------|--------|
-| D3.1 | Fallbacks completos en todos los skills | Marcos | D2.8 | Cada skill tiene except/fallback | `grep -c "except\|fallback" src/core/skills/*.py` → cobertura | Done |
-| D3.2 | Feature flags probados en deploy | Robert | D1.14 | Cambiar flag → comportamiento cambia | Test manual documentado en evidence | Pending |
-| D3.3 | Demo rehearsal | Robert | D3.1, D3.2 | Runbook ejecutado completo, tiempos medidos | Notas del rehearsal en `docs/07-evidence/` | Pending |
-| D3.4 | Video backup (90s) | Daniel | D3.3 | Video grabado y disponible | Archivo de video o link | Pending |
-| D3.5 | Phase close script ejecutado | Release/PM | D3.1-D3.4 | Reporte de cierre generado | `./scripts/phase_close.sh 1 [URL]` → report en `docs/07-evidence/` | Pending |
+| D3.1 | Fallbacks completos en todos los skills | Marcos | D2.8 | Cada skill tiene except/fallback | `grep -c "except\|fallback" src/core/skills/*.py` → cobertura | Hecho |
+| D3.2 | Feature flags probados en deploy | Robert | D1.14 | Cambiar flag → comportamiento cambia | Test manual documentado en evidence | Pendiente |
+| D3.3 | Demo rehearsal | Robert | D3.1, D3.2 | Runbook ejecutado completo, tiempos medidos | Notas del rehearsal en `docs/07-evidence/` | Pendiente |
+| D3.4 | Video backup (90s) | Daniel | D3.3 | Video grabado y disponible | Archivo de video o link | Pendiente |
+| D3.5 | Phase close script ejecutado | Release/PM | D3.1-D3.4 | Reporte de cierre generado | `./scripts/phase_close.sh 1 [URL]` → report en `docs/07-evidence/` | Pendiente |
 
 ---
 
@@ -197,7 +197,7 @@ Cada gate es un checkpoint de calidad. **No se avanza al siguiente gate sin evid
 
 | # | Riesgo | Probabilidad | Impacto | Mitigacion |
 |---|--------|-------------|---------|------------|
-| R1 | Render cold start >15s durante demo | Media | Alto | Cron keep-alive cada 8 min via cron-job.org. Warm-up manual T-15 min antes de demo |
+| R1 | Render cold start >15s durante demo | Media | Alto | Cron keep-alive cada 14 min via cron-job.org. Warm-up manual T-15 min antes de demo |
 | R2 | Whisper excede 512MB RAM en Render free | Media | Alto | Usar modelo `base` (290MB). Si falla: `WHISPER_ON=false` y solo texto |
 | R3 | Gemini API timeout o caida | Baja | Alto | Timeout 6s enforced. Fallback: respuesta generica con URLs oficiales. Kill switch: `LLM_LIVE=false` |
 | R4 | Twilio sandbox expira o rate limit | Baja | Critico | Re-enviar `join [code]` desde cada telefono. Tener screenshots backup de respuestas |
@@ -218,8 +218,8 @@ El proyecto se ejecuta con 6 equipos de agentes especializados, coordinados por 
 |-------|-------|
 | **Responsabilidad** | Docker build, Render deploy, health endpoint, cron keep-alive, CI/CD pipeline |
 | **Skills / MCP** | `docker-expert`, `github-actions-creator`, `devops-engineer`, `render-deploy` |
-| **Outputs** | `Dockerfile`, `render.yaml`, `.github/workflows/ci.yml`, health endpoint funcional |
-| **Reporte** | Deploy URL + `/health` JSON output + CI run link |
+| **Salidas** | `Dockerfile`, `render.yaml`, `.github/workflows/ci.yml`, health endpoint funcional |
+| **Reporte** | URL de deploy + salida JSON de `/health` + enlace a ejecucion de CI |
 
 ### Panel 2 — Backend / Pipeline
 
@@ -227,8 +227,8 @@ El proyecto se ejecuta con 6 equipos de agentes especializados, coordinados por 
 |-------|-------|
 | **Responsabilidad** | Flask app, webhook handler, TwiML ACK, pipeline de 10 skills, timeouts, Twilio REST integration |
 | **Skills / MCP** | `twilio-communications`, `python-patterns`, `senior-fullstack` |
-| **Outputs** | `src/app.py`, `src/routes/*.py`, `src/core/pipeline.py`, `src/core/skills/*.py` |
-| **Reporte** | Test results (`pytest -v`) + log de pipeline con tiempos por skill |
+| **Salidas** | `src/app.py`, `src/routes/*.py`, `src/core/pipeline.py`, `src/core/skills/*.py` |
+| **Reporte** | Resultados de tests (`pytest -v`) + log de pipeline con tiempos por skill |
 
 ### Panel 3 — QA / Testing
 
@@ -236,8 +236,8 @@ El proyecto se ejecuta con 6 equipos de agentes especializados, coordinados por 
 |-------|-------|
 | **Responsabilidad** | Tests unitarios, de integracion y e2e. Cobertura. Criterios de aceptacion por gate. Validacion de evidencia |
 | **Skills / MCP** | `pytest`, `webapp-testing`, `python-patterns` |
-| **Outputs** | `tests/unit/*.py`, `tests/integration/*.py`, `tests/e2e/*.py`, reporte de cobertura |
-| **Reporte** | `pytest tests/ -v --tb=short` output completo + conteo passed/failed |
+| **Salidas** | `tests/unit/*.py`, `tests/integration/*.py`, `tests/e2e/*.py`, reporte de cobertura |
+| **Reporte** | Salida completa de `pytest tests/ -v --tb=short` + conteo de pasados/fallidos |
 
 ### Panel 4 — Notion Ops
 
@@ -245,8 +245,8 @@ El proyecto se ejecuta con 6 equipos de agentes especializados, coordinados por 
 |-------|-------|
 | **Responsabilidad** | Crear y mantener workspace Notion: 3 databases (Backlog, KB Tramites, Demo & Testing), vistas Kanban, actualizaciones de estado |
 | **Skills / MCP** | `notion-knowledge-capture`, `notion-template-business`, MCP `notionApi` |
-| **Outputs** | 3 databases populadas, vistas creadas, tareas actualizadas |
-| **Reporte** | Database IDs + link a workspace + screenshot de vistas |
+| **Salidas** | 3 databases populadas, vistas creadas, tareas actualizadas |
+| **Reporte** | IDs de databases + enlace al workspace + captura de pantalla de vistas |
 
 ### Panel 5 — Docs / Arquitectura
 
@@ -254,7 +254,7 @@ El proyecto se ejecuta con 6 equipos de agentes especializados, coordinados por 
 |-------|-------|
 | **Responsabilidad** | `ARCHITECTURE.md`, diagramas Mermaid (secuencia, dataflow, componentes), README, runbooks |
 | **Skills / MCP** | Markdown, Mermaid, `obsidian-markdown` |
-| **Outputs** | `docs/02-architecture/ARCHITECTURE.md`, `*.mmd` diagramas, `docs/03-runbooks/RUNBOOK-DEMO.md` |
+| **Salidas** | `docs/02-architecture/ARCHITECTURE.md`, `*.mmd` diagramas, `docs/03-runbooks/RUNBOOK-DEMO.md` |
 | **Reporte** | Lista de archivos actualizados + diff de cambios |
 
 ### Panel 6 — Release / PM
@@ -263,8 +263,8 @@ El proyecto se ejecuta con 6 equipos de agentes especializados, coordinados por 
 |-------|-------|
 | **Responsabilidad** | Estructura del plan, tracking de gates, riesgos, milestones, cierre de fase, evidencia consolidada |
 | **Skills / MCP** | `writing-plans`, `executing-plans` |
-| **Outputs** | Este documento (`FASE1-IMPLEMENTACION-MVP.md`), `PHASE-STATUS.md`, evidence reports |
-| **Reporte** | Gate status + risk register + phase close report |
+| **Salidas** | Este documento (`FASE1-IMPLEMENTACION-MVP.md`), `PHASE-STATUS.md`, reportes de evidencia |
+| **Reporte** | Estado de gates + registro de riesgos + reporte de cierre de fase |
 
 ---
 
@@ -284,26 +284,26 @@ El lead **no** escribe codigo, no ejecuta deploys, no crea tests. Si una tarea n
 
 ## 9. Reglas de Evidencia (ESTRICTAS)
 
-> **Nada esta "Done" sin evidencia verificable.**
+> **Nada esta "Hecho" sin evidencia verificable.**
 
 ### Minimo requerido por tarea
 
-Cada tarea marcada como "Done" debe tener **todos** estos elementos:
+Cada tarea marcada como "Hecho" debe tener **todos** estos elementos:
 
 | Elemento | Descripcion | Ejemplo |
 |----------|-------------|---------|
 | **Comando** | El comando exacto ejecutado | `pytest tests/unit/test_cache.py -v` |
 | **Output** | La salida real del comando (no inventada) | `3 passed in 0.42s` |
 | **Archivo/test** | El archivo creado o test que lo valida | `src/core/cache.py`, `tests/unit/test_cache.py` |
-| **Fecha/hora** | Timestamp de cuando se obtuvo la evidencia | `2026-02-12 14:30 UTC` |
+| **Fecha/hora** | Marca temporal de cuando se obtuvo la evidencia | `2026-02-12 14:30 UTC` |
 
 ### Reglas adicionales
 
-1. **Screenshots no reemplazan logs.** Un screenshot es complemento, no evidencia primaria.
+1. **Las capturas de pantalla no reemplazan logs.** Una captura de pantalla es complemento, no evidencia primaria.
 2. **"Tests pasan" requiere output de pytest.** No basta con decir "funciona".
 3. **Deploy requiere curl al endpoint publico.** No basta con "Render dice deployed".
 4. **Evidencia se guarda en `docs/07-evidence/`.** Logs, outputs, reportes.
-5. **Si no hay evidencia, la tarea vuelve a Pending.** Sin excepciones.
+5. **Si no hay evidencia, la tarea vuelve a Pendiente.** Sin excepciones.
 
 ---
 

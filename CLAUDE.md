@@ -7,7 +7,7 @@
 - **Hackathon:** OdiseIA4Good — UDIT (Feb 2026)
 - **Repo:** /Users/andreaavila/Documents/hakaton/civicaid-voice
 - **Stack:** Python 3.11, Flask, Twilio WhatsApp, Whisper base, Gemini 1.5 Flash, Docker, Render
-- **Estado:** Fase 1 MVP — codigo completo, tests 32/32, deploy pendiente
+- **Estado:** Fase 2 cerrada — 93 tests, deploy verificado, todos los gates PASS
 
 ## Arquitectura
 
@@ -44,12 +44,13 @@ data/
   cache/demo_cache.json     # 8 respuestas pre-calculadas + 6 MP3s
   tramites/*.json           # 3 KBs (IMV, empadronamiento, tarjeta_sanitaria)
 tests/
-  unit/ (21 tests)          # cache, config, detect_input, detect_lang, kb_lookup
-  integration/ (7 tests)    # pipeline, twilio_stub, webhook
-  e2e/ (4 tests)            # demo_flows
+  unit/ (21+ tests)         # cache, config, detect_input, detect_lang, kb_lookup
+  integration/ (7+ tests)   # pipeline, twilio_stub, webhook
+  e2e/ (4+ tests)           # demo_flows
+  # Total: 93 tests (88 passed + 5 xpassed)
 ```
 
-## Feature Flags
+## Feature Flags (10 totales)
 
 | Flag | Default | Efecto |
 |------|---------|--------|
@@ -58,6 +59,11 @@ tests/
 | WHISPER_ON | true | Habilita transcripcion audio |
 | LLM_TIMEOUT | 6 | Segundos max Gemini |
 | WHISPER_TIMEOUT | 12 | Segundos max Whisper |
+| TWILIO_TIMEOUT | 10 | Segundos max envio Twilio REST |
+| GUARDRAILS_ON | true | Habilita guardrails de contenido |
+| STRUCTURED_OUTPUT | true | Habilita salida estructurada JSON |
+| OBSERVABILITY_ON | true | Habilita metricas y trazas |
+| RAG_ENABLED | false | Habilita RAG (stub, pendiente implementacion) |
 
 ## Documentacion
 
@@ -70,10 +76,15 @@ tests/
 | Test Plan (T1-T10) | docs/04-testing/TEST-PLAN.md |
 | Deploy Render | docs/05-ops/RENDER-DEPLOY.md |
 | Notion OS | docs/06-integrations/NOTION-OS.md |
-| Evidence Ledger | docs/07-evidence/PHASE-1-EVIDENCE.md |
-| Phase Status (semaforo) | docs/07-evidence/PHASE-STATUS.md |
-| Close Checklist | docs/07-evidence/PHASE-CLOSE-CHECKLIST.md |
-| Executive Summary | docs/00-EXECUTIVE-SUMMARY.md |
+| Evidencia Fase 1 | docs/07-evidence/PHASE-1-EVIDENCE.md |
+| Evidencia Fase 2 | docs/07-evidence/PHASE-2-EVIDENCE.md |
+| Estado de Fases (semaforo) | docs/07-evidence/PHASE-STATUS.md |
+| Checklist de Cierre | docs/07-evidence/PHASE-CLOSE-CHECKLIST.md |
+| Resumen Ejecutivo | docs/00-EXECUTIVE-SUMMARY.md |
+| Plan Fase 2 | docs/01-phases/FASE2-HARDENING-DEPLOY-INTEGRATIONS.md |
+| Observability Quickstart | docs/05-ops/OBSERVABILITY-QUICKSTART.md |
+| Guia Twilio | docs/06-integrations/TWILIO-SETUP-GUIDE.md |
+| Runbook Fase 2 | docs/03-runbooks/RUNBOOK-PHASE2.md |
 
 ## Scripts
 
@@ -81,8 +92,9 @@ tests/
 |--------|-----|
 | scripts/run-local.sh | Correr app local (venv + deps + Flask) |
 | scripts/phase_close.sh | Generar reporte de cierre: `./scripts/phase_close.sh 1 [RENDER_URL]` |
-| scripts/populate_notion.sh | Poblar 3 DBs de Notion (33 entries) |
+| scripts/populate_notion.sh | Poblar 3 DBs de Notion (75 entradas) |
 | scripts/tmux_team_up.sh | Setup de paneles tmux |
+| scripts/phase2_verify.sh | Verificacion automatizada Fase 2 (tests + lint) |
 
 ## Notion
 
@@ -90,7 +102,7 @@ tests/
 - **KB Tramites DB:** 304c5a0f-372a-81ff-9d45-c785e69f7335
 - **Testing DB:** 304c5a0f-372a-810d-8767-d77efbd46bb2
 - **Token:** Configurado en ~/.mcp.json (NOTION_TOKEN)
-- **Estado:** DBs vacias — ejecutar `bash scripts/populate_notion.sh` para poblar 33 entries
+- **Estado:** 75 entradas pobladas (37 Backlog + 12 KB Tramites + 26 Testing)
 - **MCP:** Requiere reinicio de Claude Code tras cambiar token en ~/.mcp.json
 
 ## Agent Teams (6 paneles)
@@ -124,17 +136,19 @@ El proyecto usa un modelo de 6 agentes especializados con un lead en modo delega
 
 | Gate | Estado | Evidencia |
 |------|--------|-----------|
-| G0 Tooling | PASS | Skills, agents, MCP, Notion DBs |
-| G1 Texto | PASS (codigo) | 32/32 tests, ruff clean, cache-first OK. PENDING: deploy |
-| G2 Audio | PASS (codigo) | Pipeline completo, timeouts, feature flags. PENDING: test real |
-| G3 Demo | PENDING | Falta: deploy Render, Twilio webhook, rehearsal |
+| G0 Tooling | PASS | Skills, agentes, MCP, 75 entradas Notion en 3 DBs |
+| G1 Texto | PASS | 93/93 tests, ruff clean, cache-first OK, deploy verificado |
+| G2 Audio | PASS | Pipeline completo, Gemini transcripcion, gTTS audio, deploy verificado |
+| G3 Demo | PASS | Deploy Render verificado, Twilio webhook configurado, cron 14 min activo |
 
 ## Bloqueantes
 
-1. **Notion DBs vacias** — Ejecutar `bash scripts/populate_notion.sh` (token ya configurado, requiere reinicio MCP)
-2. **Deploy Render** — Push a GitHub, trigger deploy, verificar /health
-3. **Twilio webhook** — Configurar URL en Twilio console
-4. **Demo rehearsal** — Ejecutar WOW 1 + WOW 2 en vivo
+1. ~~**Notion DBs vacias**~~ — RESUELTO: 75 entradas pobladas (37 Backlog + 12 KB + 26 Testing)
+2. ~~**Deploy Render**~~ — RESUELTO: deploy verificado, /health operativo en puerto 10000
+3. ~~**Twilio webhook**~~ — RESUELTO: URL configurada en consola Twilio
+4. ~~**Demo rehearsal**~~ — RESUELTO: ensayo completado, flujos WOW 1 + WOW 2 verificados
+
+> Todos los bloqueantes de Fase 1 y Fase 2 estan resueltos. Fase 2 cerrada.
 
 ## Comandos Rapidos
 

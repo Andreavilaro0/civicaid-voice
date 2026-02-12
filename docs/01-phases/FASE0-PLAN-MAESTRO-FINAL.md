@@ -79,7 +79,7 @@ graph TB
 
     subgraph HEALTH["OPS"]
         HP["/health endpoint"]
-        CRON["Cron ping cada 8 min"]
+        CRON["Cron ping cada 14 min"]
     end
 
     U --> TW_IN
@@ -144,7 +144,7 @@ PASO 3 — RESPUESTA FINAL (via Twilio REST API):
 ```
 
 **Por que un thread y no otro mecanismo:**
-En un hackathon sobre Render free tier, un `threading.Thread(target=procesar, daemon=True)` es suficiente. No necesitamos Celery, Redis ni colas externas. El thread vive dentro del mismo proceso Flask. Si Render mata el proceso (unlikely durante una request activa), el cron lo revive en 8 minutos. Para 3 demos, esto es fiable.
+En un hackathon sobre Render free tier, un `threading.Thread(target=procesar, daemon=True)` es suficiente. No necesitamos Celery, Redis ni colas externas. El thread vive dentro del mismo proceso Flask. Si Render mata el proceso (unlikely durante una request activa), el cron lo revive en 14 minutos. Para 3 demos, esto es fiable.
 
 **Riesgo mitigado:** Si el thread falla por cualquier razon, el usuario ya tiene el ACK ("Un momento..."). En el peor caso, no llega la segunda respuesta. Robert lo resuelve en la demo diciendo "Les leo la respuesta mientras carga" y mostrando un screenshot.
 
@@ -209,7 +209,7 @@ Deploy en Render:
 
   Esta URL es la que se pasa a Twilio como MediaUrl.
   Funciona porque Render esta despierto (acaba de procesar el request).
-  El cron de 8 min mantiene Render vivo entre requests.
+  El cron de 14 min mantiene Render vivo entre requests.
 
   Backup: los mismos .mp3 estan en el repo de HuggingFace Space.
   Si Render muere, se puede cambiar la base URL a HuggingFace.
@@ -258,14 +258,14 @@ Si ffmpeg es false: no se encontro ffmpeg en el sistema.
 
 | Mecanismo | Config | Frecuencia | Que pinga |
 |---|---|---|---|
-| **cron-job.org** (gratis) | URL: `https://[render-url]/health` | Cada 8 minutos | Render despierto |
+| **cron-job.org** (gratis) | URL: `https://[render-url]/health` | Cada 14 minutos | Render despierto |
 | **cron-job.org** (gratis) | URL: `https://[hf-space-url]/` | Cada 10 minutos | HuggingFace despierto |
 
-**Por que 8 minutos:** Render free tier duerme tras ~15 min de inactividad. Un ping cada 8 min garantiza que nunca duerme. Margen de seguridad de 7 minutos.
+**Por que 14 minutos:** Render free tier duerme tras ~15 min de inactividad. Un ping cada 14 min garantiza que nunca duerme. Margen de seguridad de 1 minuto.
 
 **Configurar en cron-job.org:**
 1. Crear cuenta gratuita
-2. New cron job → URL → Schedule: every 8 minutes → Save
+2. New cron job → URL → Schedule: every 14 minutes → Save
 3. Verificar que ejecuta (panel muestra ultimos pings)
 
 ## Warm-Up Manual Pre-Demo (T-15 minutos)
@@ -534,7 +534,7 @@ Usar estas frases SOLO si WhatsApp no ha respondido aun. No apresurarse.
 | **1** | Crear estructura repo (carpetas + config.py con flags + requirements.txt + .gitignore) | Robert | 1h | `git clone` + `pip install -r requirements` funciona. config.py tiene los 6 flags | - |
 | **2** | Implementar /health endpoint en Flask | Marcos | 30min | GET /health retorna JSON con status, ffmpeg, whisper_loaded | - |
 | **3** | Verificar/instalar ffmpeg en Render | Marcos | 1h | `ffmpeg -version` funciona en Render (via Dockerfile o Apt buildpack) | - |
-| **4** | Configurar cron-job.org para ping /health cada 8 min | Robert | 15min | Cron activo, panel muestra pings exitosos | #2 |
+| **4** | Configurar cron-job.org para ping /health cada 14 min | Robert | 15min | Cron activo, panel muestra pings exitosos | #2 |
 | **5** | Crear demo_cache.json con 8 entradas + generar 6 audios .mp3 con gTTS | Robert | 3h | 8 entradas en JSON. 6 archivos .mp3 en data/cache/. Cada audio suena bien en FR y ES | - |
 | **6** | Crear JSON IMV + JSON Empadronamiento (datos con estado verificado/pendiente) | Lucas | 4h | 2 JSONs validos en data/tramites/. Min 3 requisitos verificados cada uno | - |
 | **7** | Grabar audio demo de Ahmed (~8s en frances) + preparar carta demo de Maria (imagen) | Lucas | 1h | Audio .ogg en movil de Robert. Imagen .jpg en data/demo/ | - |

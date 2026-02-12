@@ -1,46 +1,57 @@
 # NOTION OS — CivicAid Voice / Clara
 
-> **Source of Truth** for project management, knowledge base, and test evidence.
-> Every task, tramite, and test result lives here. If it's not in Notion, it didn't happen.
+> **Resumen en una linea:** Sistema operativo del proyecto en Notion con 3 bases de datos, 75 entradas y gestion completa de backlog, base de conocimiento y evidencia de tests.
 
-| Key | Value |
+## Que es
+
+Notion es la fuente de verdad (source of truth) para la gestion del proyecto CivicAid Voice. Toda tarea, tramite y resultado de test vive aqui. Si no esta en Notion, no ocurrio. El workspace **CivicAid OS** centraliza la planificacion, el conocimiento verificado y la evidencia de calidad.
+
+## Para quien
+
+- Jueces y revisores del hackathon que necesitan evaluar el progreso del proyecto.
+- Miembros del equipo que gestionan tareas, dependencias y prioridades.
+- El agente Notion Ops que mantiene las bases de datos via MCP.
+
+## Que incluye
+
+- 3 bases de datos: Backlog / Issues, KB Tramites, Demo & Testing.
+- 75 entradas en total (37 Backlog + 12 KB + 26 Testing).
+- Schemas completos con propiedades, tipos y opciones de cada DB.
+- Integracion con MCP (`notionApi`) para operaciones automatizadas.
+- Script de poblacion: `bash scripts/populate_notion.sh`.
+
+## Que NO incluye
+
+- Tokens reales (nunca se incluyen en documentacion).
+- Integraciones con herramientas externas mas alla de MCP.
+- Plantillas de paginas personalizadas.
+
+---
+
+## Datos generales
+
+| Clave | Valor |
 |---|---|
 | **Workspace** | CivicAid OS |
-| **Databases** | 3 (Backlog, KB Tramites, Demo & Testing) |
+| **Bases de datos** | 3 (Backlog, KB Tramites, Demo & Testing) |
+| **Paginas** | 2 (Clara Resumen Fase 0+1, Phase 2 Hardening & Deploy) |
 | **MCP** | `@notionhq/notion-mcp-server` via `~/.mcp.json` |
-| **Token status** | BLOCKED — placeholder `ntn_****` (8 chars), needs regeneration |
-| **Populate script** | `bash scripts/populate_notion.sh` (33 entries staged) |
-| **Last verified** | 2026-02-12 |
+| **Token** | Configurado en `~/.mcp.json` (NUNCA incluir el valor real) |
+| **Script de poblacion** | `bash scripts/populate_notion.sh` (33 entradas Fase 1) |
+| **Total de entradas** | 75 en 3 DBs (37 Backlog, 12 KB, 26 Testing) |
+| **Ultima verificacion** | 2026-02-12 |
 
 ---
 
-## 0. How to Navigate (for third parties)
-
-Welcome, judges and reviewers. Here's how to find what you need:
-
-| You want to... | Go to... |
-|---|---|
-| See project progress | **Backlog / Issues** → Kanban by Estado |
-| Understand what Clara knows | **KB Tramites** → Table by Tramite |
-| Review test results | **Demo & Testing** → Board by Gate |
-| Check a specific gate | Filter any DB by `Gate = G1-Texto` / `G2-Audio` / `G3-Demo` |
-| See who owns what | **Backlog** → filter by `Owner` (Select field) |
-| Find blockers | **Backlog** → filter `Estado = Bloqueado` |
-
-**Quick links** (once populated):
-- Backlog DB: `https://notion.so/304c5a0f372a81de92a8f54c03b391c0`
-- KB Tramites DB: `https://notion.so/304c5a0f372a81ff9d45c785e69f7335`
-- Testing DB: `https://notion.so/304c5a0f372a810d8767d77efbd46bb2`
-
----
-
-## 1. Bases de Datos
+## 1. Bases de datos
 
 ### 1.1 Backlog / Issues
 
 **Notion DB ID:** `304c5a0f-372a-81de-92a8-f54c03b391c0`
 
-Sprint board for all tasks, issues, and deliverables.
+Sprint board para todas las tareas, incidencias y entregables del proyecto.
+
+**Schema de propiedades:**
 
 | Propiedad | Tipo | Valores / Descripcion |
 |---|---|---|
@@ -49,25 +60,25 @@ Sprint board for all tasks, issues, and deliverables.
 | **Gate** | Select | `G0-Tooling`, `G1-Texto`, `G2-Audio`, `G3-Demo`, `Infra` |
 | **Owner** | Select | `Robert`, `Marcos`, `Daniel`, `Andrea`, `Lucas` |
 | **Prioridad** | Select | `P0-demo`, `P1`, `P2` |
-| **Horas est.** | Number | 0.5 to 8 |
-| **DoD** | Rich Text | Definition of Done — acceptance criteria |
-| **Depende de** | Rich Text | Task IDs this depends on (e.g. "D1.1, D1.3") |
-| **GitHub Issue** | URL | Link to corresponding GitHub issue |
+| **Horas est.** | Number | 0.5 a 8 |
+| **DoD** | Rich Text | Definicion de hecho — criterios de aceptacion |
+| **Depende de** | Rich Text | IDs de tareas de las que depende (ej. "D1.1, D1.3") |
+| **GitHub Issue** | URL | Enlace a la issue correspondiente en GitHub |
 | **Dia** | Select | `Dia 1`, `Dia 2`, `Dia 3` |
 
-> **Workaround — Owner field:** Notion API `Person` type requires user IDs which are workspace-specific and hard to automate. We use `Select` with team member names instead. Functionally equivalent for filtering and Kanban grouping.
+**Valores de Estado:**
 
-> **Workaround — Depende de field:** Notion API `Relation` type requires page IDs that don't exist until pages are created. We use `Rich Text` with task title references (e.g. "D1.1: Setup MCP") to express dependencies without circular creation issues. Can be upgraded to Relation after initial population.
-
-**Estado values:**
-
-| Estado | Meaning | Color |
+| Estado | Significado | Color |
 |---|---|---|
-| `Backlog` | Identified, not prioritized | Grey |
-| `En progreso` | Active development | Yellow |
-| `En review` | Pending review | Orange |
-| `Hecho` | Completed and verified | Green |
-| `Bloqueado` | Blocked by dependency | Red |
+| `Backlog` | Identificado, no priorizado | Gris |
+| `En progreso` | Desarrollo activo | Amarillo |
+| `En review` | Pendiente de revision | Naranja |
+| `Hecho` | Completado y verificado | Verde |
+| `Bloqueado` | Bloqueado por dependencia | Rojo |
+
+> **Nota sobre Owner:** Se usa `Select` en lugar de `Person` porque el tipo Person de la API de Notion requiere IDs de usuario del workspace que son dificiles de automatizar. Funcionalmente equivalente para filtrado y agrupacion Kanban.
+
+> **Nota sobre Depende de:** Se usa `Rich Text` en lugar de `Relation` porque el tipo Relation requiere IDs de pagina que no existen hasta que se crean las paginas. Se escriben referencias por nombre de tarea (ej. "D1.1: Setup MCP").
 
 ---
 
@@ -75,20 +86,22 @@ Sprint board for all tasks, issues, and deliverables.
 
 **Notion DB ID:** `304c5a0f-372a-81ff-9d45-c785e69f7335`
 
-Verified knowledge base for Spanish administrative procedures. **This is the source of truth that Clara uses to answer users.**
+Base de conocimiento verificada para tramites administrativos espanoles. **Es la fuente de verdad que Clara usa para responder a los usuarios.**
+
+**Schema de propiedades:**
 
 | Propiedad | Tipo | Valores / Descripcion |
 |---|---|---|
-| **Tramite** | Title | Tramite name (IMV, Empadronamiento, Tarjeta Sanitaria) |
+| **Tramite** | Title | Nombre del tramite (IMV, Empadronamiento, Tarjeta Sanitaria) |
 | **Campo** | Select | `Descripcion`, `Requisitos`, `Documentos`, `Pasos` |
-| **Valor** | Rich Text | Information content for this field |
-| **Fuente URL** | URL | Official government source URL |
+| **Valor** | Rich Text | Contenido informativo del campo |
+| **Fuente URL** | URL | URL oficial de la fuente gubernamental |
 | **Organismo** | Select | `Seguridad Social`, `Ayuntamiento Madrid`, `Comunidad de Madrid` |
 | **Estado** | Select | `Verificado`, `Pendiente`, `Desactualizado` |
-| **Fecha verificacion** | Date | Last verification date |
-| **Notas** | Rich Text | Internal notes, exceptions, edge cases |
+| **Fecha verificacion** | Date | Fecha de la ultima verificacion |
+| **Notas** | Rich Text | Notas internas, excepciones, casos especiales |
 
-**Coverage (3 tramites x 4 campos = 12 entries):**
+**Cobertura (3 tramites x 4 campos = 12 entradas):**
 
 | Tramite | Organismo | Campos | Estado |
 |---|---|---|---|
@@ -102,72 +115,80 @@ Verified knowledge base for Spanish administrative procedures. **This is the sou
 
 **Notion DB ID:** `304c5a0f-372a-810d-8767-d77efbd46bb2`
 
-Test execution log. Each row = one test run. Never overwrite — always create new rows.
+Registro de ejecucion de tests. Cada fila es una ejecucion. Nunca se sobreescriben filas anteriores — siempre se crean nuevas.
+
+**Schema de propiedades:**
 
 | Propiedad | Tipo | Valores / Descripcion |
 |---|---|---|
-| **Test** | Title | Test ID (T1, T2, ..., T10) |
+| **Test** | Title | ID del test (T1, T2, ..., T10, T2.1, ..., T2.6) |
 | **Tipo** | Select | `Golden test`, `Edge case`, `Demo rehearsal`, `Latencia` |
-| **Input** | Rich Text | Exact test input |
-| **Output esperado** | Rich Text | Expected output |
-| **Output real** | Rich Text | Actual output |
-| **Latencia (ms)** | Number | Response time in milliseconds |
+| **Input** | Rich Text | Entrada exacta del test |
+| **Output esperado** | Rich Text | Salida esperada |
+| **Output real** | Rich Text | Salida obtenida |
+| **Latencia (ms)** | Number | Tiempo de respuesta en milisegundos |
 | **Resultado** | Select | `Pasa`, `Falla`, `Pendiente` |
 | **Gate** | Select | `G1-Texto`, `G2-Audio`, `G3-Demo` |
-| **Fecha** | Date | Execution date |
-| **Notas** | Rich Text | Observations, error logs |
+| **Fecha** | Date | Fecha de ejecucion |
+| **Notas** | Rich Text | Observaciones, logs de error |
 
-**Test coverage (10 golden tests):**
+**Cobertura de tests (10 golden tests Fase 1 + 6 tests Fase 2 + 10 adicionales = 26 entradas):**
 
-| Test | Gate | What it validates |
+| Test | Gate | Que valida |
 |---|---|---|
-| T1 | G1-Texto | Cache match — exact keyword |
-| T2 | G1-Texto | Cache miss — no match |
-| T3 | G1-Texto | Cache match — image type |
+| T1 | G1-Texto | Cache match — palabra clave exacta |
+| T2 | G1-Texto | Cache miss — sin coincidencia |
+| T3 | G1-Texto | Cache match — tipo imagen |
 | T4 | G1-Texto | KB lookup — empadronamiento |
-| T5 | G1-Texto | Language detection — French |
-| T6 | G2-Audio | Webhook parse — text message |
-| T7 | G2-Audio | Webhook parse — audio message |
-| T8 | G2-Audio | Pipeline — text stub E2E |
-| T9 | G2-Audio | WA text demo E2E |
-| T10 | G2-Audio | WA audio demo stub E2E |
+| T5 | G1-Texto | Deteccion de idioma — frances |
+| T6 | G2-Audio | Parseo webhook — mensaje de texto |
+| T7 | G2-Audio | Parseo webhook — mensaje de audio |
+| T8 | G2-Audio | Pipeline — texto stub E2E |
+| T9 | G2-Audio | Demo WA texto E2E |
+| T10 | G2-Audio | Demo WA audio stub E2E |
+| T2.1 | G2-Audio | Validacion firma webhook Twilio |
+| T2.2 | G1-Texto | Endpoint /health en Render |
+| T2.3 | G1-Texto | Cron warm-up mantiene servicio activo |
+| T2.4 | G1-Texto | DBs Notion pobladas con Fase 2 |
+| T2.5 | G1-Texto | phase2_verify.sh pasa todos los checks |
+| T2.6 | G1-Texto | Sin secretos en el repositorio |
 
 ---
 
 ## 2. Vistas
 
-### Backlog Views
+### Vistas del Backlog
 
-| Vista | Tipo | Group by | Filtro |
+| Vista | Tipo | Agrupar por | Filtro |
 |---|---|---|---|
 | **Kanban por Estado** | Board | Estado | Ocultar Hecho > 7 dias |
 | **Board por Gate** | Board | Gate | Solo Estado != Hecho |
-| **Table por Owner** | Table | Owner | Todas |
-| **Calendar por Dia** | Calendar | Dia | Solo con Dia asignado |
+| **Tabla por Owner** | Table | Owner | Todas |
+| **Calendario por Dia** | Calendar | Dia | Solo con Dia asignado |
 
-### KB Tramites Views
+### Vistas de KB Tramites
 
 | Vista | Tipo | Filtro |
 |---|---|---|
-| **All Tramites** | Table | Ninguno |
-| **Pendiente** | Table | Estado = Pendiente |
-| **Verificado** | Table | Estado = Verificado |
+| **Todos los Tramites** | Table | Ninguno |
+| **Pendientes** | Table | Estado = Pendiente |
+| **Verificados** | Table | Estado = Verificado |
 
-### Demo & Testing Views
+### Vistas de Demo & Testing
 
-| Vista | Tipo | Group by / Filtro |
+| Vista | Tipo | Agrupar por / Filtro |
 |---|---|---|
-| **Board por Gate** | Board | Group: Gate |
+| **Board por Gate** | Board | Agrupar: Gate |
 | **Fallos** | Table | Resultado = Falla |
 | **Demo rehearsal** | Table | Tipo = Demo rehearsal |
 
 ---
 
-## 3. MCP Integration
+## 3. Integracion MCP
 
-### Token Configuration
+### Configuracion del token
 
-**File:** `~/.mcp.json`
+**Archivo:** `~/.mcp.json`
 
 ```json
 {
@@ -176,92 +197,77 @@ Test execution log. Each row = one test run. Never overwrite — always create n
       "command": "npx",
       "args": ["-y", "@notionhq/notion-mcp-server"],
       "env": {
-        "NOTION_TOKEN": "ntn_REAL_TOKEN_HERE",
-        "OPENAPI_MCP_HEADERS": "{\"Authorization\": \"Bearer ntn_REAL_TOKEN_HERE\", \"Notion-Version\": \"2022-06-28\"}"
+        "NOTION_TOKEN": "<TU_TOKEN_AQUI>",
+        "OPENAPI_MCP_HEADERS": "{\"Authorization\": \"Bearer <TU_TOKEN_AQUI>\", \"Notion-Version\": \"2022-06-28\"}"
       }
     }
   }
 }
 ```
 
-### Database IDs (Reference)
+> **IMPORTANTE:** Nunca incluir el token real en documentacion ni en el repositorio. El token se configura unicamente en `~/.mcp.json` y se necesita reiniciar Claude Code despues de modificarlo.
 
-| Database | Notion DB ID |
+### IDs de las bases de datos (referencia)
+
+| Base de datos | Notion DB ID |
 |---|---|
 | **Backlog / Issues** | `304c5a0f-372a-81de-92a8-f54c03b391c0` |
 | **KB Tramites** | `304c5a0f-372a-81ff-9d45-c785e69f7335` |
 | **Demo & Testing** | `304c5a0f-372a-810d-8767-d77efbd46bb2` |
 
-### Available MCP Operations
+### Operaciones MCP disponibles
 
-| Operation | MCP Tool | Example |
+| Operacion | Herramienta MCP | Ejemplo |
 |---|---|---|
-| Search | `mcp__notionApi__API-post-search` | `{"query": "IMV"}` |
-| Retrieve DB | `mcp__notionApi__API-retrieve-a-database` | `{database_id: "304c5a0f..."}` |
-| Query DB | `mcp__notionApi__API-post-database-query` | `{database_id: "...", body: {filter: ...}}` |
-| Create page | `mcp__notionApi__API-post-page` | `{body: {parent: ..., properties: ...}}` |
-| Update page | `mcp__notionApi__API-patch-page` | `{page_id: "...", body: {properties: ...}}` |
+| Buscar | `mcp__notionApi__API-post-search` | `{"query": "IMV"}` |
+| Obtener DB | `mcp__notionApi__API-retrieve-a-database` | `{database_id: "304c5a0f..."}` |
+| Consultar DB | `mcp__notionApi__API-query-data-source` | `{database_id: "...", body: {filter: ...}}` |
+| Crear pagina | `mcp__notionApi__API-post-page` | `{body: {parent: ..., properties: ...}}` |
+| Actualizar pagina | `mcp__notionApi__API-patch-page` | `{page_id: "...", body: {properties: ...}}` |
 
 ---
 
-## 4. Population Status (2026-02-12)
+## 4. Como poblar las bases de datos
 
-### BLOCKER: Token Invalid
-
-```
-Token: ntn_**** (8 chars — placeholder, not a real token)
-API response: 401 Unauthorized
-All read/write operations fail until token is regenerated.
-```
-
-### To Unblock
+### Script automatico
 
 ```bash
-# 1. Go to https://www.notion.so/my-integrations
-# 2. Select "CivicAid Clara" integration
-# 3. Regenerate the Internal Integration Secret
-# 4. Update in ~/.mcp.json (both NOTION_TOKEN and OPENAPI_MCP_HEADERS)
-# 5. Restart Claude Code
-# 6. Run:
 bash scripts/populate_notion.sh
 ```
 
-### Manual curl Commands (if MCP still fails)
+El script realiza las siguientes acciones:
+1. Extrae el token de `~/.mcp.json` (o de la variable de entorno `NOTION_TOKEN`).
+2. Verifica el token contra la API de Notion.
+3. Crea 11 entradas en Backlog (Fase 1).
+4. Crea 12 entradas en KB Tramites (3 tramites x 4 campos).
+5. Crea 10 entradas en Demo & Testing (T1-T10).
+6. Muestra un resumen con entradas creadas y fallidas.
+
+### Estado de poblacion (2026-02-12)
+
+| Base de datos | Total | Desglose | Estado |
+|---|---|---|---|
+| Backlog / Issues | 37 | 31 Hecho, 1 En progreso, 5 Backlog | Poblada |
+| KB Tramites | 12 | 12 Verificado | Poblada |
+| Demo & Testing | 26 | 10 Pasa, 16 Pendiente | Poblada |
+| **Total** | **75** | | **Todas pobladas** |
+
+### Verificacion manual via curl
 
 ```bash
-# Verify token
+# Verificar token (sustituir $NOTION_TOKEN por el valor real)
 curl -s "https://api.notion.com/v1/users/me" \
   -H "Authorization: Bearer $NOTION_TOKEN" \
   -H "Notion-Version: 2022-06-28" | python3 -m json.tool
 
-# Retrieve Backlog DB schema
-curl -s "https://api.notion.com/v1/databases/304c5a0f-372a-81de-92a8-f54c03b391c0" \
-  -H "Authorization: Bearer $NOTION_TOKEN" \
-  -H "Notion-Version: 2022-06-28" | python3 -m json.tool
-
-# Query all Backlog entries
+# Consultar todas las entradas del Backlog
 curl -s -X POST "https://api.notion.com/v1/databases/304c5a0f-372a-81de-92a8-f54c03b391c0/query" \
   -H "Authorization: Bearer $NOTION_TOKEN" \
   -H "Notion-Version: 2022-06-28" \
   -H "Content-Type: application/json" \
   -d '{}' | python3 -m json.tool
 
-# Create a single Backlog entry (example)
-curl -s -X POST "https://api.notion.com/v1/pages" \
-  -H "Authorization: Bearer $NOTION_TOKEN" \
-  -H "Notion-Version: 2022-06-28" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "parent": {"database_id": "304c5a0f-372a-81de-92a8-f54c03b391c0"},
-    "properties": {
-      "Titulo": {"title": [{"text": {"content": "Test entry"}}]},
-      "Estado": {"select": {"name": "Backlog"}},
-      "Gate": {"select": {"name": "G0-Tooling"}},
-      "Prioridad": {"select": {"name": "P2"}}
-    }
-  }'
-
-# Search across all shared pages
+# Buscar en todas las paginas compartidas
 curl -s -X POST "https://api.notion.com/v1/search" \
   -H "Authorization: Bearer $NOTION_TOKEN" \
   -H "Notion-Version: 2022-06-28" \
@@ -269,98 +275,71 @@ curl -s -X POST "https://api.notion.com/v1/search" \
   -d '{"query": "CivicAid"}'
 ```
 
-### Staged Data Summary
+### Verificacion via MCP
 
-| Database | Entries | Status |
+Desde Claude Code con el MCP de Notion activo:
+
+1. **Buscar:** Usar `mcp__notionApi__API-post-search` con `{"query": "IMV"}` para verificar que las entradas existen.
+2. **Consultar DB:** Usar `mcp__notionApi__API-retrieve-a-database` con el ID del Backlog para ver el schema.
+3. **Contar entradas:** Consultar cada DB y contar resultados para verificar los totales (37 + 12 + 26 = 75).
+
+---
+
+## 5. Paginas de Notion
+
+| Pagina | ID | Padre |
 |---|---|---|
-| Backlog / Issues | 11 staged | Pending — token invalid |
-| KB Tramites | 12 staged | Pending — token invalid |
-| Demo & Testing | 10 staged | Pending — token invalid |
-| **Total** | **33 staged** | **Ready in `scripts/populate_notion.sh`** |
+| CivicAid OS (raiz) | `304c5a0f-372a-801f-995f-ce24036350ad` | Workspace |
+| Clara Resumen Fase 0 + Fase 1 | `305c5a0f-372a-81c8-b609-cc5fe793bfe4` | CivicAid OS |
+| Phase 2 — Hardening & Deploy | `305c5a0f-372a-813b-8915-f7e6c21fd055` | CivicAid OS |
+
+**Enlaces rapidos:**
+- CivicAid OS (raiz): `https://www.notion.so/CivicAid-OS-304c5a0f372a801f995fce24036350ad`
+- Pagina Fase 2: `https://www.notion.so/Phase-2-Hardening-Deploy-305c5a0f372a813b8915f7e6c21fd055`
+- Backlog DB: `https://notion.so/304c5a0f372a81de92a8f54c03b391c0`
+- KB Tramites DB: `https://notion.so/304c5a0f372a81ff9d45c785e69f7335`
+- Testing DB: `https://notion.so/304c5a0f372a810d8767d77efbd46bb2`
 
 ---
 
-## 5. Staged Entries (Full Reference)
+## 6. Navegacion para terceros (jueces y revisores)
 
-### Backlog (11 entries)
-
-| # | Titulo | Estado | Gate | Owner | Prioridad | Dia |
-|---|---|---|---|---|---|---|
-| D1.1 | Setup MCP + skills + agents | Hecho | G0-Tooling | — | P0-demo | Dia 1 |
-| D1.2 | Crear Notion CivicAid OS (3 DBs) | Hecho | G0-Tooling | — | P0-demo | Dia 1 |
-| D1.3 | Implementar cache-first con 8 entries + MP3 | Hecho | G1-Texto | — | P0-demo | Dia 1 |
-| D1.4 | Cargar KB con 3 tramites verificados | Hecho | G1-Texto | — | P0-demo | Dia 1 |
-| D1.5 | Implementar deteccion de idioma | Hecho | G1-Texto | — | P1 | Dia 1 |
-| D1.6 | Implementar /webhook para Twilio WA | Hecho | G2-Audio | — | P0-demo | Dia 1 |
-| D1.7 | Pipeline orquestador (texto + audio + fallback) | Hecho | G2-Audio | — | P0-demo | Dia 1 |
-| D1.8 | Integrar Whisper con timeout y OGG-WAV | Hecho | G2-Audio | — | P0-demo | Dia 1 |
-| D2.1 | Dockerfile + render.yaml + CI workflow | En progreso | Infra | — | P0-demo | Dia 2 |
-| D2.2 | Deploy a Render + configurar Twilio webhook | Backlog | Infra | — | P0-demo | Dia 2 |
-| D3.1 | Demo rehearsal + video backup + screenshots | Backlog | G3-Demo | — | P0-demo | Dia 3 |
-
-### KB Tramites (12 entries)
-
-| Tramite | Campo | Organismo | Estado | Fuente |
-|---|---|---|---|---|
-| IMV | Descripcion | Seguridad Social | Verificado | seg-social.es |
-| IMV | Requisitos | Seguridad Social | Verificado | seg-social.es |
-| IMV | Documentos | Seguridad Social | Verificado | seg-social.es |
-| IMV | Pasos | Seguridad Social | Verificado | seg-social.es |
-| Empadronamiento | Descripcion | Ayuntamiento Madrid | Verificado | madrid.es |
-| Empadronamiento | Requisitos | Ayuntamiento Madrid | Verificado | madrid.es |
-| Empadronamiento | Documentos | Ayuntamiento Madrid | Verificado | madrid.es |
-| Empadronamiento | Pasos | Ayuntamiento Madrid | Verificado | madrid.es |
-| Tarjeta Sanitaria | Descripcion | Comunidad de Madrid | Verificado | comunidad.madrid |
-| Tarjeta Sanitaria | Requisitos | Comunidad de Madrid | Verificado | comunidad.madrid |
-| Tarjeta Sanitaria | Documentos | Comunidad de Madrid | Verificado | comunidad.madrid |
-| Tarjeta Sanitaria | Pasos | Comunidad de Madrid | Verificado | comunidad.madrid |
-
-### Demo & Testing (10 entries)
-
-| Test | Tipo | Gate | Input (summary) | Resultado |
-|---|---|---|---|---|
-| T1 — Cache Match Keyword Exacto | Golden test | G1-Texto | "Que es el IMV?" | Pasa |
-| T2 — Cache Match Sin Match | Golden test | G1-Texto | "Que tiempo hace?" | Pasa |
-| T3 — Cache Match Imagen Demo | Golden test | G1-Texto | IMAGE type message | Pasa |
-| T4 — KB Lookup Empadronamiento | Golden test | G1-Texto | "necesito empadronarme" | Pasa |
-| T5 — Detect Language Frances | Golden test | G1-Texto | "Bonjour, comment faire?" | Pasa |
-| T6 — Webhook Parse Text | Golden test | G2-Audio | POST Body=Hola, NumMedia=0 | Pasa |
-| T7 — Webhook Parse Audio | Golden test | G2-Audio | POST NumMedia=1, audio/ogg | Pasa |
-| T8 — Pipeline Text Stub | Golden test | G2-Audio | IncomingMessage "Que es el IMV?" | Pasa |
-| T9 — WA Text Demo E2E | Golden test | G2-Audio | POST /webhook "Que es el IMV?" | Pasa |
-| T10 — WA Audio Demo Stub E2E | Golden test | G2-Audio | POST /webhook audio/ogg stub | Pasa |
+| Quieres... | Ve a... |
+|---|---|
+| Ver progreso del proyecto | **Backlog / Issues** > Kanban por Estado |
+| Entender que sabe Clara | **KB Tramites** > Tabla por Tramite |
+| Revisar resultados de tests | **Demo & Testing** > Board por Gate |
+| Filtrar por gate especifico | Filtrar cualquier DB por `Gate = G1-Texto` / `G2-Audio` / `G3-Demo` |
+| Ver quien es responsable | **Backlog** > filtrar por `Owner` |
+| Encontrar bloqueos | **Backlog** > filtrar `Estado = Bloqueado` |
 
 ---
 
-## 6. Rules
+## 7. Reglas de uso
 
-1. **Never delete records** — mark as `Hecho` or `Desactualizado` instead.
-2. **One row per test execution** — never overwrite previous results.
-3. **Link GitHub Issues** — every Backlog task should reference its GH issue.
-4. **Verify KB periodically** — check `Fecha verificacion` for stale data.
-5. **Use Depende de** — write task IDs (e.g. "D1.1, D1.3") to express dependencies.
-6. **Owner = Select** — use team member names, not Notion Person IDs.
-7. **Notion is Source of Truth** — local files mirror Notion, not the other way around.
-
----
-
-## 7. Daily Routine
-
-### Start of Day
-1. Review Kanban → check `En progreso` and `Bloqueado` items.
-2. Move tasks from `Backlog` to `En progreso` by priority.
-3. Check `Depende de` for blocked items.
-
-### During Development
-4. Update `Estado` when starting work.
-5. Log blockers immediately → `Bloqueado` + note.
-6. After tests → create rows in Demo & Testing with `Output real`, `Latencia`, `Resultado`.
-
-### End of Day
-7. Move completed items to `Hecho`.
-8. Push any new test results to Demo & Testing.
-9. Prepare next day's priorities.
+1. **Nunca borrar registros** — marcar como `Hecho` o `Desactualizado`.
+2. **Una fila por ejecucion de test** — nunca sobreescribir resultados anteriores.
+3. **Enlazar GitHub Issues** — toda tarea del Backlog debe referenciar su issue de GitHub.
+4. **Verificar KB periodicamente** — revisar `Fecha verificacion` para datos obsoletos.
+5. **Usar Depende de** — escribir IDs de tareas (ej. "D1.1, D1.3") para expresar dependencias.
+6. **Owner = Select** — usar nombres de miembros del equipo, no IDs de Notion Person.
+7. **Notion es la fuente de verdad** — los archivos locales reflejan Notion, no al reves.
 
 ---
 
-> **Last updated:** 2026-02-12 — Token still blocked. 33 entries staged in `scripts/populate_notion.sh`. Run script after token regeneration.
+## Como se verifica
+
+| # | Verificacion | Como |
+|---|---|---|
+| 1 | Token activo | `curl https://api.notion.com/v1/users/me` devuelve 200 |
+| 2 | 3 DBs existen | Consultar cada DB ID y recibir schema |
+| 3 | 75 entradas totales | Consultar cada DB y sumar: 37 + 12 + 26 = 75 |
+| 4 | KB completa | 12 entradas: 3 tramites x 4 campos, todas en estado Verificado |
+| 5 | Script funciona | `bash scripts/populate_notion.sh` ejecuta sin errores |
+
+## Referencias
+
+- Script de poblacion: `scripts/populate_notion.sh`
+- Configuracion MCP: `~/.mcp.json`
+- Documentacion MCP: `docs/06-integrations/MCP-TOOLS-REFERENCE.md`
+- Documentacion API Notion: [https://developers.notion.com](https://developers.notion.com)

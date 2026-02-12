@@ -1,66 +1,94 @@
 # Clara — CivicAid Voice
 
-> Asistente conversacional WhatsApp-first que ayuda a personas vulnerables en Espana a navegar tramites de servicios sociales.
+> **Resumen en una linea:** Asistente conversacional WhatsApp-first que ayuda a personas vulnerables en Espana a navegar tramites de servicios sociales, respondiendo en su idioma con texto y audio.
 
-**Hackathon:** OdiseIA4Good — UDIT (Feb 2026)
-**Estado:** Fase 1 MVP en progreso
+## Que es
+
+Clara es un **chatbot de WhatsApp** que responde preguntas sobre 3 tramites administrativos esenciales en Espana:
+
+- **Ingreso Minimo Vital (IMV)** — Prestacion economica de la Seguridad Social
+- **Empadronamiento** — Registro municipal, requisito previo para servicios publicos
+- **Tarjeta Sanitaria** — Acceso a la sanidad publica
+
+Soporta texto, audio (via Gemini/Whisper) e imagenes. Responde en 2 idiomas: espanol y frances.
+
+## Para quien
+
+- **Personas vulnerables en Espana:** inmigrantes, mayores, personas en riesgo de exclusion social.
+- **Jurado del hackathon OdiseIA4Good:** Para evaluar el proyecto.
+- **Desarrolladores:** Para contribuir o extender la funcionalidad.
+
+## Que incluye
+
+- Pipeline de 10 skills para procesamiento de mensajes.
+- 8 respuestas precalculadas en cache para demo.
+- 10 feature flags configurables.
+- 93 tests automatizados.
+- Documentacion completa ([ver indice](docs/00-DOCS-INDEX.md)).
+
+## Que NO incluye
+
+- Interfaz web (solo WhatsApp).
+- Base de datos (los datos se almacenan en JSON).
+- Soporte multiusuario persistente (sin sesiones).
 
 ---
 
-## Que es Clara
-
-Clara es un chatbot de WhatsApp que responde preguntas sobre:
-- **Ingreso Minimo Vital (IMV)** — prestacion economica
-- **Empadronamiento** — registro municipal
-- **Tarjeta Sanitaria** — acceso a sanidad publica
-
-Soporta texto, audio (via Whisper) e imagenes. Responde en espanol y frances.
+**Hackathon:** OdiseIA4Good — UDIT | **Fecha:** Febrero 2026 | **Estado:** Fases 0-2 cerradas
 
 ## Arquitectura
 
 ```
-Usuario WhatsApp → Twilio → Flask /webhook → TwiML ACK (< 1s)
-                                            → Background Thread:
-                                              cache_match → HIT → Twilio REST → Usuario
-                                              cache_match → MISS → KB + Gemini → Twilio REST → Usuario
+Usuario WhatsApp > Twilio > Flask /webhook > TwiML ACK (< 1s)
+                                            > Hilo de fondo:
+                                              cache_match > HIT > Twilio REST > Usuario
+                                              cache_match > MISS > KB + Gemini > Twilio REST > Usuario
 ```
 
 Patron **TwiML ACK**: respuesta HTTP 200 inmediata, procesamiento en hilo de fondo, envio final via Twilio REST API.
 
-Ver documentacion completa en [`docs/02-architecture/ARCHITECTURE.md`](docs/02-architecture/ARCHITECTURE.md).
+Documentacion completa de arquitectura: [docs/02-architecture/ARCHITECTURE.md](docs/02-architecture/ARCHITECTURE.md)
 
-## Quick Start
+---
 
-### Requisitos
-- Python 3.11+
-- ffmpeg (`brew install ffmpeg` / `apt-get install ffmpeg`)
+## Inicio Rapido (5 pasos)
 
-### Local macOS (sin audio)
+### Requisitos Previos
+
+- **Python 3.11+**
+- **ffmpeg** (`brew install ffmpeg` en macOS / `apt-get install ffmpeg` en Linux)
+- Cuenta de **Twilio** (sandbox gratuito)
+- Clave API de **Google Gemini**
+
+### Paso 1: Clonar el repositorio
 
 ```bash
 git clone https://github.com/YOUR-ORG/civicaid-voice.git
 cd civicaid-voice
-python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt   # ligero, sin torch/whisper
-cp .env.example .env              # Rellenar con claves reales
 ```
 
-Texto, cache y LLM funcionan sin whisper. Audio queda deshabilitado (`whisper_loaded: false` en `/health`).
-
-### Audio opcional (macOS)
+### Paso 2: Crear entorno virtual
 
 ```bash
-INSTALL_AUDIO=1 ./scripts/run-local.sh
-# o manualmente:
-pip install "setuptools<75" wheel
-pip install --no-build-isolation -r requirements-audio.txt
+python3 -m venv .venv
+source .venv/bin/activate
 ```
 
-Si la instalacion falla, el servidor arranca igual (solo texto).
+### Paso 3: Instalar dependencias
 
-> **Nota:** En Docker/Render, whisper se instala siempre via Dockerfile. No necesitas hacer nada extra.
+```bash
+pip install -r requirements.txt
+```
 
-### Variables de entorno (.env)
+Esto instala las 10 dependencias core (Flask, Twilio, Gemini, gTTS, langdetect, etc.). Texto, cache y LLM funcionan sin Whisper. El audio queda deshabilitado (`whisper_loaded: false` en `/health`).
+
+### Paso 4: Configurar variables de entorno
+
+```bash
+cp .env.example .env
+```
+
+Editar `.env` con las claves reales:
 
 ```bash
 TWILIO_ACCOUNT_SID=ACxxxxxxxx
@@ -75,112 +103,215 @@ WHISPER_TIMEOUT=12       # Segundos
 AUDIO_BASE_URL=https://civicaid-voice.onrender.com/static/cache
 ```
 
-### Correr local
+### Paso 5: Ejecutar
 
 ```bash
+bash scripts/run-local.sh
+# O directamente:
 python -m src.app
-# → http://localhost:5000/health
+# > http://localhost:5000/health
 ```
 
-### Correr tests
+---
+
+## Audio Opcional (macOS)
+
+En macOS, Whisper se puede instalar manualmente si se necesita transcripcion local:
 
 ```bash
+INSTALL_AUDIO=1 ./scripts/run-local.sh
+# O manualmente:
+pip install "setuptools<75" wheel
+pip install --no-build-isolation -r requirements-audio.txt
+```
+
+Si la instalacion falla, el servidor arranca igual (solo texto).
+
+> **Nota:** En Docker/Render, la configuracion de audio se maneja automaticamente. No es necesario hacer nada extra.
+
+---
+
+## Tests
+
+```bash
+# Ejecutar los 93 tests
 pytest tests/ -v --tb=short
-# 32 tests: 21 unit + 7 integration + 4 e2e
+
+# Ejecucion rapida
+pytest tests/ -q
+
+# Solo tests unitarios
+pytest tests/unit/ -v
+
+# Solo tests de integracion
+pytest tests/integration/ -v
+
+# Solo tests end-to-end
+pytest tests/e2e/ -v
 ```
 
-### Docker
+Resultado esperado: **93 tests** (88 passed + 5 xpassed).
+
+---
+
+## Lint
 
 ```bash
-docker build -t civicaid-voice .
-docker run -p 5000:5000 --env-file .env civicaid-voice
+ruff check src/ tests/ --select E,F,W --ignore E501
 ```
+
+---
+
+## Docker
+
+```bash
+# Construir imagen
+docker build -t civicaid-voice .
+
+# Ejecutar contenedor
+docker run -p 10000:10000 --env-file .env civicaid-voice
+
+# Verificar salud
+curl http://localhost:10000/health | python3 -m json.tool
+```
+
+El Dockerfile usa Python 3.11, gunicorn con 1 worker, y expone el puerto 10000 (compatible con Render). En local sin Docker, el puerto por defecto es 5000.
+
+---
+
+## Deploy en Render
+
+Guia completa: [docs/05-ops/RENDER-DEPLOY.md](docs/05-ops/RENDER-DEPLOY.md)
+
+Resumen:
+
+1. Crear Web Service en Render > conectar GitHub > Docker
+2. Configurar variables de entorno (puerto 10000)
+3. Deploy > verificar `/health`
+4. Configurar Twilio webhook > `https://URL/webhook` POST
+5. Configurar cron en cron-job.org > `https://URL/health` cada 14 minutos
+
+---
 
 ## Estructura del Proyecto
 
 ```
 civicaid-voice/
 ├── src/
-│   ├── app.py                  # Flask entry point
-│   ├── routes/                 # webhook, health, static_files
+│   ├── app.py                    # Punto de entrada Flask — create_app()
+│   ├── routes/
+│   │   ├── webhook.py            # POST /webhook — entrada de Twilio
+│   │   ├── health.py             # GET /health — 8 componentes
+│   │   └── static_files.py       # GET /static/cache/* — audios MP3
 │   ├── core/
-│   │   ├── config.py           # Feature flags
-│   │   ├── models.py           # 8 dataclasses
-│   │   ├── cache.py            # demo_cache.json loader
-│   │   ├── pipeline.py         # Orchestrator
-│   │   ├── skills/             # 9 atomic skills
-│   │   └── prompts/            # System prompt + templates
-│   └── utils/                  # Logger + timing
+│   │   ├── config.py             # 10 feature flags
+│   │   ├── models.py             # 8 dataclasses
+│   │   ├── cache.py              # Carga demo_cache.json
+│   │   ├── pipeline.py           # Orquestador de 10 skills
+│   │   ├── guardrails.py         # Capa de seguridad pre/post
+│   │   ├── skills/               # 10 skills atomicas
+│   │   └── prompts/              # System prompt + plantillas
+│   └── utils/
+│       ├── logger.py             # 7 funciones de logging con tags
+│       ├── timing.py             # Decorador @timed
+│       └── observability.py      # RequestContext + hooks Flask
 ├── data/
-│   ├── cache/                  # demo_cache.json + 6 MP3s
-│   └── tramites/               # 3 KB JSONs (IMV, empadronamiento, tarjeta)
-├── tests/                      # 32 tests (unit/integration/e2e)
-├── docs/                       # Documentacion completa
-├── scripts/                    # Scripts de operacion
-├── Dockerfile                  # Python 3.11 + ffmpeg + gunicorn
-├── render.yaml                 # Render Blueprint
-├── requirements.txt            # Core dependencies (9 packages)
-└── requirements-audio.txt      # Whisper/audio (optional on macOS, always in Docker)
+│   ├── cache/                    # demo_cache.json (8 entradas) + 6 MP3s
+│   └── tramites/                 # 3 KBs JSON (IMV, empadronamiento, tarjeta)
+├── tests/                        # 93 tests (unit/integration/e2e)
+├── docs/                         # 29 documentos (ver indice)
+├── scripts/                      # Scripts de operacion
+├── Dockerfile                    # Python 3.11 + gunicorn (puerto 10000)
+├── render.yaml                   # Render Blueprint
+├── pyproject.toml                # Configuracion proyecto + ruff + pytest
+├── requirements.txt              # 10 dependencias core
+└── requirements-audio.txt        # Whisper/audio (opcional en macOS)
 ```
 
-## Optional Tooling
+---
 
-| Feature | Flag | Default | Module | Docs |
-|---------|------|---------|--------|------|
-| Observability | OBSERVABILITY_ON | true | src/utils/observability.py | docs/02-architecture/OBSERVABILITY.md |
-| Structured Outputs | STRUCTURED_OUTPUT_ON | false | src/core/models_structured.py | docs/06-integrations/STRUCTURED_OUTPUTS.md |
-| Guardrails | GUARDRAILS_ON | true | src/core/guardrails.py | docs/06-integrations/GUARDRAILS.md |
-| RAG (vector store) | RAG_ENABLED | false | src/core/retriever.py | docs/06-integrations/RAG_OPTIONAL.md |
+## Feature Flags
 
-## Verification
+| # | Flag | Default | Descripcion |
+|---|------|---------|-------------|
+| 1 | `DEMO_MODE` | `false` | Modo demo: cache-only, skip LLM tras cache miss |
+| 2 | `LLM_LIVE` | `true` | Habilitar llamadas a Gemini |
+| 3 | `WHISPER_ON` | `true` | Habilitar transcripcion de audio |
+| 4 | `LLM_TIMEOUT` | `6` | Timeout en segundos para Gemini |
+| 5 | `WHISPER_TIMEOUT` | `12` | Timeout en segundos para transcripcion |
+| 6 | `AUDIO_BASE_URL` | `""` | URL base para audios MP3 |
+| 7 | `OBSERVABILITY_ON` | `true` | Habilitar request_id y logs [OBS] |
+| 8 | `GUARDRAILS_ON` | `true` | Habilitar capa de seguridad pre/post |
+| 9 | `STRUCTURED_OUTPUT_ON` | `false` | Habilitar salidas JSON estructuradas |
+| 10 | `RAG_ENABLED` | `false` | Habilitar vector store (stub, futuro) |
+
+---
+
+## Modulos Opcionales del Toolkit
+
+| Modulo | Flag | Default | Archivo | Documentacion |
+|--------|------|---------|---------|---------------|
+| Observabilidad | `OBSERVABILITY_ON` | `true` | `src/utils/observability.py` | [OBSERVABILITY.md](docs/02-architecture/OBSERVABILITY.md) |
+| Guardrails | `GUARDRAILS_ON` | `true` | `src/core/guardrails.py` | [GUARDRAILS.md](docs/06-integrations/GUARDRAILS.md) |
+| Structured Outputs | `STRUCTURED_OUTPUT_ON` | `false` | `src/core/models_structured.py` | [STRUCTURED_OUTPUTS.md](docs/06-integrations/STRUCTURED_OUTPUTS.md) |
+| RAG (vector store) | `RAG_ENABLED` | `false` | `src/core/retriever.py` | [RAG_OPTIONAL.md](docs/06-integrations/RAG_OPTIONAL.md) |
+
+---
+
+## Verificacion
 
 ```bash
-# Run all tests
+# Todos los tests
 pytest tests/ -q
 
-# Run eval suite
+# Suite de evaluacion
 python scripts/run_evals.py
 
-# Verify specific modules
+# Verificar modulos individuales
 bash scripts/verify_obs.sh
 bash scripts/verify_structured.sh
 bash scripts/verify_guardrails.sh
+
+# Health check local
+curl http://localhost:5000/health | python3 -m json.tool
 ```
 
-## Deploy (Render)
-
-Ver [`docs/05-ops/RENDER-DEPLOY.md`](docs/05-ops/RENDER-DEPLOY.md) para guia completa.
-
-Resumen:
-1. Crear Web Service en Render → conectar GitHub → Docker
-2. Configurar env vars
-3. Deploy → verificar `/health`
-4. Configurar Twilio webhook → `https://URL/webhook` POST
-5. cron-job.org → `https://URL/health` cada 8 min
+---
 
 ## Documentacion
 
+Indice completo: [docs/00-DOCS-INDEX.md](docs/00-DOCS-INDEX.md)
+
 | Documento | Ruta |
-|---|---|
-| Plan Maestro (Fase 0) | [`docs/01-phases/FASE0-PLAN-MAESTRO-FINAL.md`](docs/01-phases/FASE0-PLAN-MAESTRO-FINAL.md) |
-| Implementacion MVP (Fase 1) | [`docs/01-phases/FASE1-IMPLEMENTACION-MVP.md`](docs/01-phases/FASE1-IMPLEMENTACION-MVP.md) |
-| Arquitectura + diagramas | [`docs/02-architecture/`](docs/02-architecture/) |
-| Runbook Demo | [`docs/03-runbooks/RUNBOOK-DEMO.md`](docs/03-runbooks/RUNBOOK-DEMO.md) |
-| Plan de Tests (T1-T10) | [`docs/04-testing/TEST-PLAN.md`](docs/04-testing/TEST-PLAN.md) |
-| Deploy Render | [`docs/05-ops/RENDER-DEPLOY.md`](docs/05-ops/RENDER-DEPLOY.md) |
-| Notion OS | [`docs/06-integrations/NOTION-OS.md`](docs/06-integrations/NOTION-OS.md) |
-| Estado de Fases | [`docs/07-evidence/PHASE-STATUS.md`](docs/07-evidence/PHASE-STATUS.md) |
+|-----------|------|
+| Resumen Ejecutivo | [docs/00-EXECUTIVE-SUMMARY.md](docs/00-EXECUTIVE-SUMMARY.md) |
+| Indice de Documentacion | [docs/00-DOCS-INDEX.md](docs/00-DOCS-INDEX.md) |
+| Plan Maestro (Fase 0) | [docs/01-phases/FASE0-PLAN-MAESTRO-FINAL.md](docs/01-phases/FASE0-PLAN-MAESTRO-FINAL.md) |
+| Implementacion MVP (Fase 1) | [docs/01-phases/FASE1-IMPLEMENTACION-MVP.md](docs/01-phases/FASE1-IMPLEMENTACION-MVP.md) |
+| Hardening y Deploy (Fase 2) | [docs/01-phases/FASE2-HARDENING-DEPLOY-INTEGRATIONS.md](docs/01-phases/FASE2-HARDENING-DEPLOY-INTEGRATIONS.md) |
+| Arquitectura + diagramas | [docs/02-architecture/](docs/02-architecture/) |
+| Observabilidad | [docs/02-architecture/OBSERVABILITY.md](docs/02-architecture/OBSERVABILITY.md) |
+| Runbook Demo | [docs/03-runbooks/RUNBOOK-DEMO.md](docs/03-runbooks/RUNBOOK-DEMO.md) |
+| Plan de Tests (T1-T10) | [docs/04-testing/TEST-PLAN.md](docs/04-testing/TEST-PLAN.md) |
+| Deploy en Render | [docs/05-ops/RENDER-DEPLOY.md](docs/05-ops/RENDER-DEPLOY.md) |
+| Guia de Twilio | [docs/06-integrations/TWILIO-SETUP-GUIDE.md](docs/06-integrations/TWILIO-SETUP-GUIDE.md) |
+| Notion OS | [docs/06-integrations/NOTION-OS.md](docs/06-integrations/NOTION-OS.md) |
+| Estado de Fases | [docs/07-evidence/PHASE-STATUS.md](docs/07-evidence/PHASE-STATUS.md) |
+
+---
 
 ## Equipo
 
 | Persona | Rol |
-|---|---|
-| Robert | Backend lead, pipeline, demo presenter |
-| Marcos | Routes, Twilio, deploy, audio pipeline |
-| Lucas | KB research, testing, demo assets |
+|---------|-----|
+| Robert | Backend lead, pipeline, presentador de demo |
+| Marcos | Routes, Twilio, deploy, pipeline de audio |
+| Lucas | Investigacion KB, testing, assets de demo |
 | Daniel | Web Gradio (backup), video |
-| Andrea | Notion, slides, coordination |
+| Andrea | Notion, slides, coordinacion |
+
+---
 
 ## Licencia
 
-Proyecto de hackathon. Uso educativo.
+Proyecto de hackathon OdiseIA4Good — UDIT (Febrero 2026). Uso educativo.

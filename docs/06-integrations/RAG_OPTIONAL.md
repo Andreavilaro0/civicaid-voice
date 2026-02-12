@@ -1,22 +1,24 @@
-# RAG Integration — Optional Upgrade Path
+# Integracion RAG — Ruta de Mejora Opcional
 
-## Current Architecture
+> **Resumen en una linea:** Arquitectura actual de base de conocimiento JSON con keyword matching y ruta de migracion hacia busqueda vectorial con FAISS/Chroma.
 
-Clara uses a **JSON Knowledge Base** with keyword matching for tramite lookups:
+## Arquitectura actual
+
+Clara usa una **Base de Conocimiento JSON** con keyword matching para busquedas de tramites:
 
 ```
-User query -> kb_lookup (keyword match) -> tramite.json -> KBContext -> LLM prompt
+Consulta usuario -> kb_lookup (keyword match) -> tramite.json -> KBContext -> prompt LLM
 ```
 
-- 3 KB files: `data/tramites/{imv,empadronamiento,tarjeta_sanitaria}.json`
-- Keyword lists in `src/core/skills/kb_lookup.py`
-- Returns `KBContext` dataclass with tramite name, data, source URL, and verification flag
+- 3 archivos KB: `data/tramites/{imv,empadronamiento,tarjeta_sanitaria}.json`
+- Listas de keywords en `src/core/skills/kb_lookup.py`
+- Devuelve un dataclass `KBContext` con nombre del tramite, datos, URL fuente y flag de verificacion
 
-This approach works well for the current scope (3 tramites, ~15 keywords each).
+Este enfoque funciona bien para el alcance actual (3 tramites, ~15 keywords cada uno).
 
-## Retriever Interface
+## Interfaz del Retriever
 
-`src/core/retriever.py` defines an abstract `Retriever` interface:
+`src/core/retriever.py` define una interfaz abstracta `Retriever`:
 
 ```python
 class Retriever(ABC):
@@ -25,34 +27,34 @@ class Retriever(ABC):
         pass
 ```
 
-Two implementations:
-- **JSONKBRetriever** (current) -- wraps `kb_lookup`, keyword matching
-- **VectorRetriever** (stub) -- placeholder for FAISS/Chroma vector search
+Dos implementaciones:
+- **JSONKBRetriever** (actual) — envuelve `kb_lookup`, keyword matching
+- **VectorRetriever** (stub) — placeholder para busqueda vectorial FAISS/Chroma
 
-Factory function `get_retriever()` returns the active implementation.
+La funcion factory `get_retriever()` devuelve la implementacion activa.
 
-## Feature Flag
+## Feature flag
 
 ```
-RAG_ENABLED=false   # default — uses JSONKBRetriever
-RAG_ENABLED=true    # future — would use VectorRetriever
+RAG_ENABLED=false   # por defecto — usa JSONKBRetriever
+RAG_ENABLED=true    # futuro — usaria VectorRetriever
 ```
 
-## Upgrade Path: Adding Vector Search
+## Ruta de mejora: Anadir busqueda vectorial
 
-When the knowledge base grows beyond ~10 tramites or keyword matching becomes insufficient:
+Cuando la base de conocimiento crezca mas alla de ~10 tramites o el keyword matching resulte insuficiente:
 
-### Step 1: Choose a vector store
+### Paso 1: Elegir un almacen vectorial
 
-| Option | Install | Pros | Cons |
-|--------|---------|------|------|
-| FAISS | `pip install faiss-cpu` | Fast, no server needed | No persistence built-in |
-| Chroma | `pip install chromadb` | Persistent, easy API | Heavier dependency |
+| Opcion | Instalacion | Ventajas | Desventajas |
+|--------|-------------|----------|-------------|
+| FAISS | `pip install faiss-cpu` | Rapido, sin servidor | Sin persistencia nativa |
+| Chroma | `pip install chromadb` | Persistente, API sencilla | Dependencia mas pesada |
 
-### Step 2: Embed documents
+### Paso 2: Generar embeddings de documentos
 
 ```python
-# At startup or as a build step:
+# Al arrancar o como paso de build:
 from sentence_transformers import SentenceTransformer
 
 model = SentenceTransformer("all-MiniLM-L6-v2")
@@ -60,10 +62,10 @@ for tramite_file in Path("data/tramites").glob("*.json"):
     data = json.loads(tramite_file.read_text())
     text = json.dumps(data, ensure_ascii=False)
     embedding = model.encode(text)
-    # Store in FAISS index or Chroma collection
+    # Almacenar en indice FAISS o coleccion Chroma
 ```
 
-### Step 3: Implement VectorRetriever
+### Paso 3: Implementar VectorRetriever
 
 ```python
 class VectorRetriever(Retriever):
@@ -79,17 +81,22 @@ class VectorRetriever(Retriever):
         return self._index_to_kb_context(indices[0][0])
 ```
 
-### Step 4: Enable
+### Paso 4: Activar
 
 ```bash
 RAG_ENABLED=true
 ```
 
-Update `get_retriever()` in `src/core/retriever.py` to return `VectorRetriever` when the flag is set.
+Actualizar `get_retriever()` en `src/core/retriever.py` para devolver `VectorRetriever` cuando la flag este activada.
 
-## When to Upgrade
+## Cuando hacer la mejora
 
-- Knowledge base exceeds 10 tramite documents
-- Users ask questions that don't match exact keywords but are semantically relevant
-- Multi-language queries need semantic matching instead of keyword lists
-- Accuracy drops below acceptable threshold on eval suite
+- La base de conocimiento supera 10 documentos de tramites
+- Los usuarios hacen preguntas que no coinciden con keywords exactos pero son semanticamente relevantes
+- Las consultas multilingue necesitan matching semantico en vez de listas de keywords
+- La precision cae por debajo del umbral aceptable en la suite de evals
+
+## Referencias
+
+- [Integracion del Toolkit](../02-architecture/TOOLKIT-INTEGRATION.md)
+- [Plan de Testing](../04-testing/TEST-PLAN.md)

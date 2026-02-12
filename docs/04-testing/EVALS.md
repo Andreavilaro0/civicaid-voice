@@ -1,24 +1,26 @@
-# Eval Framework
+# Framework de Evaluacion
 
-## Overview
+> **Resumen en una linea:** Suite de evaluacion automatizada para medir la calidad de las respuestas de Clara contra patrones de contenido esperados.
 
-Automated evaluation suite for Clara's response quality. Tests cache responses and KB lookups against expected content patterns.
+## Vision general
 
-## Structure
+Suite de evaluacion automatizada para la calidad de respuestas de Clara. Testea respuestas de cache y busquedas de KB contra patrones de contenido esperados.
+
+## Estructura
 
 ```
 data/evals/
-  imv_evals.json              # 5 cases — IMV queries
-  empadronamiento_evals.json  # 5 cases — empadronamiento queries
-  tarjeta_evals.json          # 3 cases — tarjeta sanitaria queries
-  safety_evals.json           # 3 cases — safety/off-topic queries
+  imv_evals.json              # 5 casos — consultas sobre IMV
+  empadronamiento_evals.json  # 5 casos — consultas sobre empadronamiento
+  tarjeta_evals.json          # 3 casos — consultas sobre tarjeta sanitaria
+  safety_evals.json           # 3 casos — consultas de seguridad/fuera de tema
 
-src/utils/eval_runner.py      # Eval engine (load, run, report)
-scripts/run_evals.py          # CLI runner
-tests/unit/test_evals.py      # Unit tests for eval framework
+src/utils/eval_runner.py      # Motor de evaluacion (cargar, ejecutar, reportar)
+scripts/run_evals.py          # Ejecutor CLI
+tests/unit/test_evals.py      # Tests unitarios del framework de evals
 ```
 
-## Eval Case Format
+## Formato de caso de evaluacion
 
 ```json
 {
@@ -31,22 +33,27 @@ tests/unit/test_evals.py      # Unit tests for eval framework
 }
 ```
 
-- `expected_contains`: case-insensitive substrings that MUST appear in the response
-- `expected_not_contains`: case-insensitive substrings that MUST NOT appear
-- `expected_tramite`: metadata for classification (not checked by runner)
+- `expected_contains`: subcadenas (sin distincion de mayusculas) que DEBEN aparecer en la respuesta
+- `expected_not_contains`: subcadenas que NO DEBEN aparecer
+- `expected_tramite`: metadato para clasificacion (no verificado por el runner)
 
-## Running Evals
+## Ejecucion de evals
 
 ```bash
-# Run eval suite
+# Ejecutar suite de evaluacion
 python3 scripts/run_evals.py
 
-# Run eval unit tests
+# Ejecutar tests unitarios del framework de evals
 pytest tests/unit/test_evals.py -v
 ```
 
-## Scoring
+## Puntuacion
 
-- Each case gets a score from 0.0 to 1.0 based on checks passed / total checks
-- A case passes only if ALL checks pass (score = 1.0)
-- Reports show per-set and overall pass rates
+- Cada caso recibe una puntuacion de 0.0 a 1.0 basada en verificaciones pasadas / total de verificaciones
+- Un caso aprueba solo si TODAS las verificaciones pasan (puntuacion = 1.0)
+- Los reportes muestran tasas de aprobacion por conjunto y globales
+
+## Referencias
+
+- [Plan de Testing](TEST-PLAN.md)
+- [Integracion del Toolkit](../02-architecture/TOOLKIT-INTEGRATION.md)

@@ -1,63 +1,65 @@
-# Structured Outputs — Clara LLM Pipeline
+# Structured Outputs — Pipeline LLM de Clara
 
-## Overview
+> **Resumen en una linea:** Los Structured Outputs anaden validacion JSON con schema Pydantic a las respuestas de Gemini, con fallback seguro si el parseo falla.
 
-Structured outputs add optional JSON schema enforcement to Clara's Gemini LLM responses. When enabled, the LLM returns a validated `ClaraStructuredResponse` object that is then formatted into clean display text for the user.
+## Vision general
 
-**Feature flag:** `STRUCTURED_OUTPUT_ON` (default: `false` — zero impact when off)
+Los Structured Outputs anaden una capa opcional de validacion de schema JSON a las respuestas del LLM (Gemini Flash) de Clara. Cuando estan habilitados, el LLM devuelve un objeto `ClaraStructuredResponse` validado que luego se formatea en texto limpio para el usuario.
 
-## Architecture
+**Feature flag:** `STRUCTURED_OUTPUT_ON` (por defecto: `false` — impacto cero cuando esta desactivado)
+
+## Arquitectura
 
 ```
-User query -> llm_generate (prompt + JSON schema instruction)
-           -> Gemini Flash -> raw JSON text
-           -> verify_response (rules-based checks)
-           -> parse_structured_response -> ClaraStructuredResponse (Pydantic)
-           -> display_text (formatted summary + steps + docs + warnings)
-           -> send_final_message
+Consulta usuario -> llm_generate (prompt + instruccion schema JSON)
+                 -> Gemini Flash -> texto JSON bruto
+                 -> verify_response (verificaciones basadas en reglas)
+                 -> parse_structured_response -> ClaraStructuredResponse (Pydantic)
+                 -> display_text (resumen formateado + pasos + docs + avisos)
+                 -> send_final_message
 ```
 
-When the flag is off, the pipeline is unchanged — `parse_structured_response` is never called.
+Cuando la flag esta desactivada, el pipeline no cambia — `parse_structured_response` nunca se ejecuta.
 
 ## Schema: ClaraStructuredResponse
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `intent` | string | yes | User intent: informacion, requisitos, pasos, documentos, otro |
-| `language` | string | yes | Response language: es, fr, en, ar |
+| Campo | Tipo | Requerido | Descripcion |
+|-------|------|-----------|-------------|
+| `intent` | string | si | Intencion del usuario: informacion, requisitos, pasos, documentos, otro |
+| `language` | string | si | Idioma de respuesta: es, fr, en, ar |
 | `tramite` | string\|null | no | Tramite: imv, empadronamiento, tarjeta_sanitaria |
-| `summary` | string | yes | Brief 1-2 sentence answer |
-| `steps` | list[string] | no | Ordered steps if applicable |
-| `required_docs` | list[string] | no | Required documents |
-| `warnings` | list[string] | no | Important warnings or caveats |
-| `sources` | list[string] | no | Official source URLs |
-| `disclaimer` | string | no | Legal disclaimer (has default) |
+| `summary` | string | si | Resumen breve de 1-2 frases |
+| `steps` | list[string] | no | Pasos ordenados si aplica |
+| `required_docs` | list[string] | no | Documentos requeridos |
+| `warnings` | list[string] | no | Avisos o advertencias importantes |
+| `sources` | list[string] | no | URLs de fuentes oficiales |
+| `disclaimer` | string | no | Disclaimer legal (tiene valor por defecto) |
 
-## Graceful Fallback
+## Fallback seguro
 
-If the LLM returns invalid JSON or the response doesn't match the schema, `parse_structured_response` returns `(None, original_text)` — the original unstructured text is used with zero breakage.
+Si el LLM devuelve JSON invalido o la respuesta no coincide con el schema, `parse_structured_response` retorna `(None, original_text)` — se usa el texto original sin estructura con cero interrupciones.
 
-## Enabling
+## Activacion
 
 ```bash
 export STRUCTURED_OUTPUT_ON=true
 ```
 
-Or in `.env`:
+O en `.env`:
 ```
 STRUCTURED_OUTPUT_ON=true
 ```
 
-## Files
+## Archivos
 
-| File | Purpose |
-|------|---------|
-| `src/core/models_structured.py` | Pydantic model + parse function |
-| `src/core/config.py` | `STRUCTURED_OUTPUT_ON` flag |
-| `src/core/skills/llm_generate.py` | JSON schema prompt injection |
-| `src/core/pipeline.py` | Parse step after verify |
-| `tests/unit/test_structured_outputs.py` | 10 unit tests |
-| `scripts/verify_structured.sh` | Verification script |
+| Archivo | Proposito |
+|---------|-----------|
+| `src/core/models_structured.py` | Modelo Pydantic + funcion de parseo |
+| `src/core/config.py` | Flag `STRUCTURED_OUTPUT_ON` |
+| `src/core/skills/llm_generate.py` | Inyeccion de schema JSON en el prompt |
+| `src/core/pipeline.py` | Paso de parseo despues de verify |
+| `tests/unit/test_structured_outputs.py` | 10 tests unitarios |
+| `scripts/verify_structured.sh` | Script de verificacion |
 
 ## Tests
 
@@ -65,4 +67,9 @@ STRUCTURED_OUTPUT_ON=true
 pytest tests/unit/test_structured_outputs.py -v
 ```
 
-10 tests covering: model validation, defaults, required field enforcement, JSON parsing, markdown code block parsing, fallback on invalid JSON, display formatting, and flag default verification.
+10 tests que cubren: validacion del modelo, valores por defecto, campos requeridos, parseo JSON, parseo de bloques de codigo markdown, fallback con JSON invalido, formateo de display y verificacion de flag por defecto.
+
+## Referencias
+
+- [Structured Outputs y Guardrails (guia completa)](../05-ops/STRUCTURED-OUTPUTS-GUARDRAILS.md)
+- [Integracion del Toolkit](../02-architecture/TOOLKIT-INTEGRATION.md)

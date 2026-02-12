@@ -1,103 +1,110 @@
-# Guardrails — Safety Layer for Clara
+# Guardrails — Capa de Seguridad de Clara
 
-## Overview
+> **Resumen en una linea:** Sistema de seguridad pre/post que bloquea entradas peligrosas, redacta PII y anade disclaimers legales/medicos a las respuestas.
 
-Clara includes a pre/post safety layer that protects users and ensures responsible AI behavior. Guardrails run **before** processing user input (pre-check) and **after** generating LLM output (post-check).
+## Vision general
 
-## Architecture
+Clara incluye una capa de seguridad pre/post que protege a los usuarios y asegura un comportamiento responsable de la IA. Los guardrails se ejecutan **antes** de procesar la entrada del usuario (pre-check) y **despues** de generar la salida del LLM (post-check).
+
+## Arquitectura
 
 ```
-User Input -> [PRE-CHECK] -> Pipeline (cache/KB/LLM) -> [POST-CHECK] -> User
-                 |                                           |
-                 v                                           v
-          Block harmful input                     Add disclaimers
-          Return helpline info                    Redact PII
+Entrada Usuario -> [PRE-CHECK] -> Pipeline (cache/KB/LLM) -> [POST-CHECK] -> Usuario
+                      |                                           |
+                      v                                           v
+               Bloquear entrada danina                   Anadir disclaimers
+               Devolver info de linea de ayuda           Redactar PII
 ```
 
 ## Feature Flag
 
-| Flag | Env Var | Default | Effect |
-|------|---------|---------|--------|
-| GUARDRAILS_ON | `GUARDRAILS_ON` | `true` | Enable/disable all guardrails |
+| Flag | Variable de entorno | Por defecto | Efecto |
+|------|---------------------|-------------|--------|
+| GUARDRAILS_ON | `GUARDRAILS_ON` | `true` | Activar/desactivar todos los guardrails |
 
-When `GUARDRAILS_ON=false`, all checks are bypassed and input/output passes through unchanged.
+Cuando `GUARDRAILS_ON=false`, todas las verificaciones se omiten y la entrada/salida pasa sin cambios.
 
-## Pre-Check Rules
+## Reglas de Pre-Check
 
-The pre-check runs on user input **before** any pipeline processing. If a blocked pattern is detected, the pipeline returns immediately with a safe response (helpline number, etc.).
+El pre-check se ejecuta sobre la entrada del usuario **antes** de cualquier procesamiento del pipeline. Si se detecta un patron bloqueado, el pipeline retorna inmediatamente con una respuesta segura (numero de linea de ayuda, etc.).
 
-| Category | Patterns | Response |
-|----------|----------|----------|
-| self_harm | suicid, matarme, hacerme dano, autolesion | Helpline 024 / 112 |
-| violence | bomba, explosivo, arma, terroris | Emergency 112 |
-| illegal | hackear, robar identidad, falsificar documento | Legal professional referral |
+| Categoria | Patrones | Respuesta |
+|-----------|----------|-----------|
+| self_harm | suicid, matarme, hacerme dano, autolesion | Linea de ayuda 024 / 112 |
+| violence | bomba, explosivo, arma, terroris | Emergencias 112 |
+| illegal | hackear, robar identidad, falsificar documento | Derivacion a profesional legal |
 
-## Post-Check Rules
+## Reglas de Post-Check
 
-The post-check runs on LLM output **before** sending to the user.
+El post-check se ejecuta sobre la salida del LLM **antes** de enviarla al usuario.
 
-### Legal/Medical Disclaimer
-If the response mentions legal or medical terms (abogado, legal, medico, tratamiento, etc.), a disclaimer is appended:
+### Disclaimer legal/medico
+Si la respuesta menciona terminos legales o medicos (abogado, legal, medico, tratamiento, etc.), se anade un disclaimer:
 
 > IMPORTANTE: Esta informacion es orientativa y no constituye asesoramiento legal ni medico. Consulte con un profesional cualificado o visite las fuentes oficiales para su caso concreto.
 
-### PII Redaction
-Sensitive data patterns are redacted from LLM output to prevent echoing back user PII:
+### Redaccion de PII
+Los patrones de datos sensibles se redactan de la salida del LLM para evitar devolver PII del usuario:
 
-| Pattern | Type | Replacement |
-|---------|------|-------------|
+| Patron | Tipo | Reemplazo |
+|--------|------|-----------|
 | `\b\d{8}[A-Z]\b` | DNI | `[DNI REDACTADO]` |
 | `\b[XYZ]\d{7}[A-Z]\b` | NIE | `[NIE REDACTADO]` |
-| `\b\d{3}[-.]?\d{3}[-.]?\d{3}\b` | Phone | `[phone REDACTADO]` |
+| `\b\d{3}[-.]?\d{3}[-.]?\d{3}\b` | Telefono | `[phone REDACTADO]` |
 
-## How to Extend
+## Como extender
 
-### Adding a new blocked pattern
-Edit `BLOCKED_PATTERNS` in `src/core/guardrails.py`:
+### Anadir un nuevo patron bloqueado
+Editar `BLOCKED_PATTERNS` en `src/core/guardrails.py`:
 
 ```python
 BLOCKED_PATTERNS = [
     ...
-    (r'\bnew_pattern\b', 'category_name', 'Response message to user.'),
+    (r'\bnuevo_patron\b', 'nombre_categoria', 'Mensaje de respuesta al usuario.'),
 ]
 ```
 
-### Adding a new PII pattern
-Edit `PII_PATTERNS` in `src/core/guardrails.py`:
+### Anadir un nuevo patron de PII
+Editar `PII_PATTERNS` en `src/core/guardrails.py`:
 
 ```python
 PII_PATTERNS = [
     ...
-    (r'regex_pattern', 'PII_TYPE'),
+    (r'patron_regex', 'TIPO_PII'),
 ]
 ```
 
-## NeMo Guardrails (Future)
+## NeMo Guardrails (futuro)
 
-For production, consider integrating NVIDIA NeMo Guardrails for:
-- Topical rails (keep conversation on-topic)
-- Jailbreak detection
-- Fact-checking rails
-- Multi-turn conversation safety
+Para produccion, considerar integrar NVIDIA NeMo Guardrails para:
+- Rails tematicos (mantener la conversacion en tema)
+- Deteccion de jailbreak
+- Rails de verificacion de hechos
+- Seguridad en conversaciones multi-turno
 
-The current regex-based approach is a lightweight MVP suitable for the hackathon demo, designed to be replaced by NeMo or similar frameworks in production.
+El enfoque actual basado en regex es un MVP ligero adecuado para la demo del hackathon, disenado para ser reemplazado por NeMo o frameworks similares en produccion.
 
-## Testing
+## Tests
 
 ```bash
-# Run guardrails unit tests
+# Ejecutar tests unitarios de guardrails
 pytest tests/unit/test_guardrails.py -v
 
-# Run full verification script
+# Ejecutar script de verificacion completo
 bash scripts/verify_guardrails.sh
 ```
 
-## Files
+## Archivos
 
-| File | Purpose |
-|------|---------|
-| `src/core/guardrails.py` | Pre-check and post-check logic |
-| `src/core/config.py` | `GUARDRAILS_ON` flag |
-| `src/core/pipeline.py` | Integration points (pre/post) |
-| `tests/unit/test_guardrails.py` | Unit tests (16 tests) |
-| `scripts/verify_guardrails.sh` | Verification script |
+| Archivo | Proposito |
+|---------|-----------|
+| `src/core/guardrails.py` | Logica de pre-check y post-check |
+| `src/core/config.py` | Flag `GUARDRAILS_ON` |
+| `src/core/pipeline.py` | Puntos de integracion (pre/post) |
+| `tests/unit/test_guardrails.py` | Tests unitarios (16 tests) |
+| `scripts/verify_guardrails.sh` | Script de verificacion |
+
+## Referencias
+
+- [Structured Outputs y Guardrails (guia completa)](../05-ops/STRUCTURED-OUTPUTS-GUARDRAILS.md)
+- [Integracion del Toolkit](../02-architecture/TOOLKIT-INTEGRATION.md)
