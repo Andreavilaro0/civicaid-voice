@@ -78,6 +78,7 @@ create_page "$BACKLOG_DB" "G0: Setup MCP + skills + agents" '{
     "Titulo": {"title": [{"text": {"content": "Setup MCP + skills + agents"}}]},
     "Estado": {"select": {"name": "Hecho"}},
     "Gate": {"select": {"name": "G0-Tooling"}},
+    "Owner": {"select": {"name": "Robert"}},
     "Prioridad": {"select": {"name": "P0-demo"}},
     "Horas est.": {"number": 2},
     "DoD": {"rich_text": [{"text": {"content": "15 skills, 8 agents, MCPs instalados"}}]},
