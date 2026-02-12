@@ -3,20 +3,15 @@ FROM python:3.11-slim
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
-# Install ffmpeg (required for Whisper audio processing)
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends ffmpeg && \
-    rm -rf /var/lib/apt/lists/*
+# ffmpeg skipped — Whisper disabled on free tier to stay under 512MB RAM
 
 WORKDIR /app
 
 # Copy requirements first (leverage Docker cache)
-COPY requirements.txt requirements-audio.txt ./
-# openai-whisper needs pkg_resources (setuptools<75) and --no-build-isolation
-# to avoid pip's isolated build env pulling a newer setuptools without it
-RUN pip install --no-cache-dir "setuptools<75" wheel && \
-    pip install --no-cache-dir --no-build-isolation -r requirements-audio.txt && \
-    pip install --no-cache-dir -r requirements.txt
+COPY requirements.txt ./
+# Skip requirements-audio.txt (openai-whisper + PyTorch) on Render free tier
+# to stay under 512MB RAM limit. Set WHISPER_ON=false in env vars.
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
 COPY . .

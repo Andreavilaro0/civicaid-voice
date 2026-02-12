@@ -1,7 +1,6 @@
 """Orchestrator: receives IncomingMessage, executes skills in order, sends response."""
 
 import time
-import os
 from src.core.models import (
     IncomingMessage, InputType, FinalResponse, CacheResult,
     TranscriptResult, KBContext, LLMResponse,
@@ -48,14 +47,9 @@ def process(msg: IncomingMessage) -> None:
                 send_final_message(response)
                 return
 
-        # --- AUDIO PIPELINE ---
+        # --- AUDIO PIPELINE (Gemini transcription) ---
         if msg.input_type == InputType.AUDIO and msg.media_url:
-            if not config.WHISPER_ON:
-                _send_fallback(msg, "whisper_fail", start)
-                return
-
             from src.core.skills.fetch_media import fetch_media
-            from src.core.skills.convert_audio import convert_ogg_to_wav
             from src.core.skills.transcribe import transcribe
 
             media_bytes = fetch_media(msg.media_url)
@@ -63,17 +57,8 @@ def process(msg: IncomingMessage) -> None:
                 _send_fallback(msg, "whisper_fail", start)
                 return
 
-            wav_path = convert_ogg_to_wav(media_bytes)
-            if wav_path is None:
-                _send_fallback(msg, "whisper_fail", start)
-                return
-
-            transcript: TranscriptResult = transcribe(wav_path)
-            # Clean up temp file
-            try:
-                os.remove(wav_path)
-            except OSError:
-                pass
+            mime_type = msg.media_type or "audio/ogg"
+            transcript: TranscriptResult = transcribe(media_bytes, mime_type)
 
             if not transcript.success or not transcript.text:
                 _send_fallback(msg, "whisper_fail", start)
@@ -142,6 +127,14 @@ def process(msg: IncomingMessage) -> None:
             from src.core.guardrails import post_check
             verified_text = post_check(verified_text)
 
+        # --- TTS: convert response to audio ---
+        audio_url = None
+        try:
+            from src.core.skills.tts import text_to_audio
+            audio_url = text_to_audio(verified_text, language)
+        except Exception as tts_err:
+            log_error("tts", str(tts_err))
+
         # --- SEND FINAL ---
         elapsed_ms = int((time.time() - start) * 1000)
         if ctx:
@@ -150,6 +143,7 @@ def process(msg: IncomingMessage) -> None:
         response = FinalResponse(
             to_number=msg.from_number,
             body=verified_text,
+            media_url=audio_url,
             source="llm" if llm_resp.success else "fallback",
             total_ms=elapsed_ms,
         )
