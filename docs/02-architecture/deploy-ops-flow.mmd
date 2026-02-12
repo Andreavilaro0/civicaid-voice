@@ -1,0 +1,56 @@
+sequenceDiagram
+    participant CJ as cron-job.org<br/>(every 14 min)
+    participant R as Render<br/>(Flask + Docker)
+    participant H as /health
+    participant U as Usuario (WhatsApp)
+    participant TW as Twilio
+    participant WH as /webhook
+    participant BG as Background Thread
+    participant P as Pipeline<br/>(10 skills)
+    participant TR as Twilio REST API
+
+    Note over CJ,R: KEEP-ALIVE FLOW
+    loop Every 14 minutes
+        CJ->>R: GET /health
+        R->>H: Route handler
+        H->>H: Check components<br/>(demo_mode, cache, whisper,<br/>ffmpeg, gemini_key)
+        H-->>CJ: 200 OK + JSON status
+    end
+
+    Note over R: Render stays awake<br/>(free tier sleeps after ~15 min idle)
+
+    Note over U,TR: MESSAGE PROCESSING FLOW
+    U->>TW: Send message (text/audio/image)
+    TW->>R: POST /webhook
+    R->>WH: Route handler
+
+    WH->>WH: Validate Twilio signature<br/>(RequestValidator)
+    WH->>WH: Parse IncomingMessage
+    WH->>WH: Generate TwiML ACK
+
+    WH-->>TW: HTTP 200 + TwiML XML<br/>("Un momento...")
+    TW-->>U: ACK delivered (<1s)
+
+    WH->>BG: threading.Thread(target=process)
+
+    BG->>P: pipeline.process(message)
+
+    alt Cache HIT
+        P->>P: detect_input -> detect_lang -> cache_match
+        P-->>BG: FinalResponse (source=cache)
+    else Cache MISS
+        P->>P: detect_input -> [audio skills] -> detect_lang
+        P->>P: cache_match(MISS) -> kb_lookup -> llm_generate -> verify
+        P-->>BG: FinalResponse (source=llm)
+    end
+
+    BG->>TR: client.messages.create<br/>(body + media_url)
+    TR->>TW: REST API call
+    TW-->>U: Final response<br/>(text + optional audio)
+
+    Note over R: STATIC AUDIO SERVING
+    TW->>R: GET /static/cache/ahmed_fr.mp3
+    R-->>TW: 200 OK + audio/mpeg
+
+    Note over R,H: LOGGING & OBSERVABILITY
+    R->>R: Structured logs:<br/>[ACK] [CACHE] [WHISPER]<br/>[LLM] [REST] [ERROR]
