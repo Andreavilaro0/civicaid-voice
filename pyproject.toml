@@ -1,0 +1,14 @@
+[project]
+name = "civicaid-voice"
+version = "0.1.0"
+description = "Clara — WhatsApp-first conversational assistant for social services in Spain"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
+
+[tool.ruff]
+select = ["E", "F", "W"]
+ignore = ["E501"]

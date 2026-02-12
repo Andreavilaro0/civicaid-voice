@@ -1,0 +1,18 @@
+flowchart TD
+    A[Twilio POST /webhook] --> B{detect_input_type}
+    B -->|TEXT| D[detect_language]
+    B -->|AUDIO| C1[fetch_media]
+    B -->|IMAGE| E[cache_match image_demo]
+    C1 --> C2[convert_ogg_to_wav]
+    C2 --> C3[transcribe whisper]
+    C3 --> D
+    D --> E2[cache_match keywords]
+    E2 -->|HIT| F[FinalResponse source=cache]
+    E2 -->|MISS| G[kb_lookup]
+    E -->|HIT| F
+    G --> H[llm_generate gemini]
+    H --> I[verify_response]
+    I --> J[FinalResponse source=llm]
+    F --> K[send_final_message Twilio REST]
+    J --> K
+    K --> L[Usuario recibe respuesta]

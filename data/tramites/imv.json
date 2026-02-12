@@ -1,0 +1,56 @@
+{
+  "tramite": "imv",
+  "nombre": "Ingreso Mínimo Vital",
+  "organismo": "Seguridad Social",
+  "descripcion": "Prestación económica dirigida a prevenir el riesgo de pobreza y exclusión social de personas que vivan solas o integradas en una unidad de convivencia y carezcan de recursos económicos básicos.",
+  "requisitos": [
+    "Tener entre 23 y 65 años (excepciones: menores con hijos, mayores de 65 sin pensión)",
+    "Residencia legal y efectiva en España durante al menos 1 año continuado e inmediatamente anterior a la solicitud",
+    "Estar en situación de vulnerabilidad económica (ingresos y patrimonio por debajo del umbral)",
+    "Haber solicitado las pensiones y prestaciones a las que pudiera tener derecho",
+    "Estar inscrito como demandante de empleo (si está en edad laboral)",
+    "No ser administrador de una sociedad mercantil"
+  ],
+  "cuantias_2024": {
+    "adulto_solo": "604,21€/mes",
+    "adulto_con_1_menor": "785,47€/mes",
+    "adulto_con_2_menores": "966,74€/mes",
+    "adulto_con_3_menores": "1.147,99€/mes",
+    "pareja_sin_menores": "785,47€/mes",
+    "complemento_monoparental": "100€/mes adicionales"
+  },
+  "documentos": [
+    "DNI/NIE de todos los miembros de la unidad de convivencia",
+    "Certificado de empadronamiento",
+    "Libro de familia o certificado de nacimiento",
+    "Declaración de la renta (o certificado de no obligación)",
+    "Certificado bancario de cuentas",
+    "Certificado de demandante de empleo"
+  ],
+  "como_solicitar": [
+    {
+      "via": "Online",
+      "detalle": "Sede electrónica de la Seguridad Social: sede.seg-social.gob.es",
+      "requisito": "Certificado digital, cl@ve o DNI electrónico"
+    },
+    {
+      "via": "Presencial",
+      "detalle": "Oficinas de la Seguridad Social (CAISS)",
+      "requisito": "Cita previa por teléfono o web"
+    },
+    {
+      "via": "Teléfono",
+      "detalle": "900 20 22 22 (gratuito) — línea IMV",
+      "requisito": "Ninguno"
+    }
+  ],
+  "plazos": {
+    "resolucion": "6 meses desde la solicitud",
+    "silencio_administrativo": "Desestimatorio (si no responden en 6 meses, se considera denegado)",
+    "recurso": "30 días desde la notificación de denegación"
+  },
+  "fuente_url": "https://www.seg-social.es/wps/portal/wss/internet/Trabajadores/PrestacionesPensionesTrabajadores/65850d68-8d06-4645-bde7-05374ee42ac7",
+  "telefono": "900 20 22 22",
+  "verificado": true,
+  "fecha_verificacion": "2024-12-01"
+}

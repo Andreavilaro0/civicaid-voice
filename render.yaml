@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: civicaid-voice
+    runtime: docker
+    region: frankfurt
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: TWILIO_ACCOUNT_SID
+        sync: false
+      - key: TWILIO_AUTH_TOKEN
+        sync: false
+      - key: TWILIO_SANDBOX_FROM
+        value: "whatsapp:+14155238886"
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: DEMO_MODE
+        value: "true"
+      - key: LLM_LIVE
+        value: "true"
+      - key: WHISPER_ON
+        value: "true"
+      - key: LLM_TIMEOUT
+        value: "6"
+      - key: WHISPER_TIMEOUT
+        value: "12"
+      - key: FLASK_ENV
+        value: "production"
+      - key: LOG_LEVEL
+        value: "INFO"
+    healthCheckPath: /health

@@ -1,0 +1,41 @@
+sequenceDiagram
+    participant U as Usuario (WhatsApp)
+    participant T as Twilio
+    participant W as Flask /webhook
+    participant P as Pipeline (thread)
+    participant C as Cache
+    participant Wh as Whisper
+    participant G as Gemini Flash
+    participant TR as Twilio REST
+
+    U->>T: Mensaje (texto/audio/imagen)
+    T->>W: POST /webhook (Body, From, NumMedia)
+    W->>W: Parsear IncomingMessage
+    W->>W: Generar TwiML ACK
+    W-->>T: HTTP 200 + TwiML XML
+    T-->>U: ACK: "Un momento..."
+    W->>P: threading.Thread(pipeline.process)
+
+    alt Audio input
+        P->>T: fetch_media (auth)
+        T-->>P: bytes .ogg
+        P->>P: convert_ogg_to_wav
+        P->>Wh: transcribe (timeout 12s)
+        Wh-->>P: TranscriptResult
+    end
+
+    P->>P: detect_language
+    P->>C: cache_match(text, idioma)
+    alt Cache HIT
+        C-->>P: CacheResult(hit=true)
+        P->>TR: send_final_message (texto + audio URL)
+        TR-->>U: Respuesta completa (~500ms)
+    else Cache MISS
+        C-->>P: CacheResult(hit=false)
+        P->>P: kb_lookup
+        P->>G: llm_generate (timeout 6s)
+        G-->>P: LLMResponse
+        P->>P: verify_response
+        P->>TR: send_final_message
+        TR-->>U: Respuesta LLM (~4s)
+    end

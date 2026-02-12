@@ -1,0 +1,58 @@
+{
+  "tramite": "empadronamiento",
+  "nombre": "Empadronamiento / Alta en el Padrón Municipal",
+  "organismo": "Ayuntamiento (Madrid)",
+  "descripcion": "Registro obligatorio en el municipio donde resides. Es la puerta de acceso a sanidad, educación, servicios sociales y muchos otros derechos.",
+  "requisitos": [
+    "Vivir en el municipio donde te empadronas",
+    "Tener documento de identidad válido (DNI, NIE, pasaporte)",
+    "Acreditar la vivienda (contrato, escritura o declaración del titular)"
+  ],
+  "documentos": {
+    "identificacion": [
+      "DNI (ciudadanos españoles)",
+      "NIE + pasaporte (ciudadanos UE)",
+      "Pasaporte o documento de viaje (ciudadanos no UE)",
+      "Para menores: libro de familia o partida de nacimiento"
+    ],
+    "vivienda": [
+      "Contrato de alquiler en vigor",
+      "Escritura de propiedad",
+      "Si no hay contrato: autorización del titular de la vivienda + fotocopia de su DNI + acta de manifestaciones notarial (no siempre requerido)"
+    ]
+  },
+  "como_hacerlo_madrid": [
+    {
+      "paso": 1,
+      "accion": "Pedir cita previa",
+      "detalle": "Online en madrid.es/padron o por teléfono al 010"
+    },
+    {
+      "paso": 2,
+      "accion": "Acudir a la OAC (Oficina de Atención a la Ciudadanía)",
+      "detalle": "Llevar todos los documentos originales"
+    },
+    {
+      "paso": 3,
+      "accion": "Rellenar la hoja padronal",
+      "detalle": "Te la dan en la oficina. Rellenar datos de todos los que se empadronan"
+    },
+    {
+      "paso": 4,
+      "accion": "Recibir el volante de empadronamiento",
+      "detalle": "Se emite en el acto. El certificado oficial tarda 1-2 días"
+    }
+  ],
+  "datos_importantes": [
+    "El empadronamiento es un DERECHO. Los ayuntamientos no pueden negarlo.",
+    "Las personas sin hogar pueden empadronarse en servicios sociales del municipio.",
+    "No se necesita permiso de residencia para empadronarse.",
+    "El empadronamiento NO otorga permiso de residencia, pero es requisito para muchos trámites.",
+    "Hay que renovar el padrón cada 2 años si eres extranjero no comunitario.",
+    "El certificado de empadronamiento caduca a los 3 meses."
+  ],
+  "fuente_url": "https://www.madrid.es/portales/munimadrid/es/Inicio/El-Ayuntamiento/Empadronamiento",
+  "telefono": "010 (desde Madrid) / 915 298 210",
+  "verificado": true,
+  "fecha_verificacion": "2024-12-01"
+}

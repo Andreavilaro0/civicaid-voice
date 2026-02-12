@@ -1,0 +1,56 @@
+{
+  "tramite": "tarjeta_sanitaria",
+  "nombre": "Tarjeta Sanitaria Individual (TSI)",
+  "organismo": "Comunidad de Madrid / SERMAS",
+  "descripcion": "Documento que acredita el derecho a la asistencia sanitaria pública en España. Da acceso a médico de familia, pediatra, urgencias, especialistas y medicamentos subvencionados.",
+  "quien_tiene_derecho": [
+    "Trabajadores afiliados a la Seguridad Social y sus beneficiarios",
+    "Pensionistas del sistema de Seguridad Social",
+    "Personas que cobran prestaciones de desempleo",
+    "Personas empadronadas sin recursos económicos suficientes",
+    "Menores de edad empadronados",
+    "Mujeres embarazadas empadronadas",
+    "Solicitantes de protección internacional",
+    "Víctimas de trata de seres humanos"
+  ],
+  "documentos": [
+    "Certificado de empadronamiento (reciente, menos de 3 meses)",
+    "DNI, NIE o pasaporte",
+    "Número de afiliación a la Seguridad Social (si lo tienes)",
+    "Para menores: libro de familia + documento de identidad del padre/madre"
+  ],
+  "como_solicitarla_madrid": [
+    {
+      "paso": 1,
+      "accion": "Ir al Centro de Salud más cercano a tu domicilio",
+      "detalle": "Buscar tu centro en madrid.org/cs"
+    },
+    {
+      "paso": 2,
+      "accion": "Solicitar el alta en ventanilla de admisión",
+      "detalle": "Llevar documentos originales"
+    },
+    {
+      "paso": 3,
+      "accion": "Asignación de médico",
+      "detalle": "Te asignan médico de familia y enfermero/a. Pediatra si tienes hijos menores de 14"
+    },
+    {
+      "paso": 4,
+      "accion": "Recibir la tarjeta",
+      "detalle": "Tarjeta provisional inmediata. La definitiva llega por correo en 2-4 semanas"
+    }
+  ],
+  "datos_importantes": [
+    "La asistencia sanitaria de urgencias es un derecho para TODOS, independientemente de la situación administrativa.",
+    "Si no tienes NIE pero estás empadronado, puedes solicitar la tarjeta sanitaria en la Comunidad de Madrid.",
+    "La tarjeta sanitaria es válida en toda España (portabilidad interterritorial).",
+    "Los medicamentos tienen copago reducido o gratuito según la renta.",
+    "Si pierdes la tarjeta, pide cita en tu centro de salud para duplicado."
+  ],
+  "fuente_url": "https://www.comunidad.madrid/servicios/salud/tarjeta-sanitaria",
+  "telefono_cita_medica": "900 102 112",
+  "telefono_informacion": "012 (Comunidad de Madrid)",
+  "verificado": true,
+  "fecha_verificacion": "2024-12-01"
+}

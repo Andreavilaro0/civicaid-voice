@@ -1,0 +1,60 @@
+graph TB
+    subgraph "WhatsApp / Twilio"
+        WA[Usuario WhatsApp]
+        TW[Twilio Sandbox]
+    end
+
+    subgraph "Flask App (Render)"
+        WH["/webhook POST"]
+        HE["/health GET"]
+        SF["/static/cache GET"]
+
+        subgraph "Core"
+            CFG[config.py]
+            MDL[models.py]
+            CACHE[cache.py]
+            PIPE[pipeline.py]
+            TC[twilio_client.py]
+        end
+
+        subgraph "Skills"
+            DI[detect_input]
+            FM[fetch_media]
+            CA[convert_audio]
+            TR[transcribe]
+            DL[detect_lang]
+            CM[cache_match]
+            KB[kb_lookup]
+            LLM[llm_generate]
+            VR[verify_response]
+            SR[send_response]
+        end
+
+        subgraph "Prompts"
+            SP[system_prompt.py]
+            TPL[templates.py]
+        end
+
+        subgraph "Data"
+            DC[demo_cache.json]
+            MP3[6x .mp3 audios]
+            TRA[tramites/*.json]
+        end
+    end
+
+    subgraph "External"
+        WHIS[Whisper base model]
+        GEM[Gemini 1.5 Flash API]
+    end
+
+    WA --> TW --> WH
+    WH --> PIPE
+    PIPE --> CM --> DC
+    PIPE --> KB --> TRA
+    PIPE --> LLM --> GEM
+    PIPE --> TR --> WHIS
+    PIPE --> SR --> TC --> TW --> WA
+    LLM --> SP
+    WH --> TPL
+    SF --> MP3
+    HE --> CFG
