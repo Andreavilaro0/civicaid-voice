@@ -123,6 +123,30 @@ civicaid-voice/
 └── requirements-audio.txt      # Whisper/audio (optional on macOS, always in Docker)
 ```
 
+## Optional Tooling
+
+| Feature | Flag | Default | Module | Docs |
+|---------|------|---------|--------|------|
+| Observability | OBSERVABILITY_ON | true | src/utils/observability.py | docs/02-architecture/OBSERVABILITY.md |
+| Structured Outputs | STRUCTURED_OUTPUT_ON | false | src/core/models_structured.py | docs/06-integrations/STRUCTURED_OUTPUTS.md |
+| Guardrails | GUARDRAILS_ON | true | src/core/guardrails.py | docs/06-integrations/GUARDRAILS.md |
+| RAG (vector store) | RAG_ENABLED | false | src/core/retriever.py | docs/06-integrations/RAG_OPTIONAL.md |
+
+## Verification
+
+```bash
+# Run all tests
+pytest tests/ -q
+
+# Run eval suite
+python scripts/run_evals.py
+
+# Verify specific modules
+bash scripts/verify_obs.sh
+bash scripts/verify_structured.sh
+bash scripts/verify_guardrails.sh
+```
+
 ## Deploy (Render)
 
 Ver [`docs/05-ops/RENDER-DEPLOY.md`](docs/05-ops/RENDER-DEPLOY.md) para guia completa.

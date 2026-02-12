@@ -1,0 +1,10 @@
+{
+  "eval_set": "empadronamiento",
+  "cases": [
+    {"id": "emp_01", "query": "Como empadronarme en Madrid", "language": "es", "expected_contains": ["empadron", "municipio"], "expected_not_contains": ["IMV"], "expected_tramite": "empadronamiento"},
+    {"id": "emp_02", "query": "Necesito empadronarme sin papeles", "language": "es", "expected_contains": ["empadron", "derecho"], "expected_tramite": "empadronamiento"},
+    {"id": "emp_03", "query": "Que documentos para empadronarme", "language": "es", "expected_contains": ["DNI", "contrato"], "expected_tramite": "empadronamiento"},
+    {"id": "emp_04", "query": "Donde empadronarme", "language": "es", "expected_contains": ["OAC", "cita"], "expected_tramite": "empadronamiento"},
+    {"id": "emp_05", "query": "Je dois m'inscrire au padron", "language": "fr", "expected_contains": ["empadron"], "expected_tramite": "empadronamiento"}
+  ]
+}

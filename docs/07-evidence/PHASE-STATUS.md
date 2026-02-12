@@ -10,7 +10,7 @@
 |-------|--------|-------|-------|------------|------------|-------|-------|
 | Fase 0 — Plan Maestro | ✅ Cerrada | 2026-02-10 | 2026-02-11 | — | — | — | Docs en /docs/01-phases/ |
 | Fase 1 — MVP | ⚠️ En progreso | 2026-02-12 | — | Pendiente | Pendiente | 32/32 PASS | Codigo completo, deploy pendiente |
-| Fase 2 — Endurecimiento | ⏳ Pendiente | — | — | — | — | — | — |
+| Fase 2 — Endurecimiento | ⚠️ En progreso | 2026-02-12 | — | — | — | — | Toolkit integration started, Phase 0 audit done |
 | Fase 3 — Post-hackathon | ⏳ Pendiente | — | — | — | — | — | — |
 
 ---

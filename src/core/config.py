@@ -29,10 +29,23 @@ class Config:
     WHISPER_TIMEOUT: int = field(default_factory=lambda: int(os.getenv("WHISPER_TIMEOUT", "12")))
     AUDIO_BASE_URL: str = field(default_factory=lambda: os.getenv("AUDIO_BASE_URL", ""))
 
+    # --- Observability ---
+    OBSERVABILITY_ON: bool = field(default_factory=lambda: _bool(os.getenv("OBSERVABILITY_ON", "true")))
+    OTEL_ENDPOINT: str = field(default_factory=lambda: os.getenv("OTEL_ENDPOINT", ""))
+
     # --- App ---
     FLASK_ENV: str = field(default_factory=lambda: os.getenv("FLASK_ENV", "development"))
     LOG_LEVEL: str = field(default_factory=lambda: os.getenv("LOG_LEVEL", "INFO"))
     ADMIN_TOKEN: str = field(default_factory=lambda: os.getenv("ADMIN_TOKEN", ""))
+
+    # --- Structured Outputs ---
+    STRUCTURED_OUTPUT_ON: bool = field(default_factory=lambda: _bool(os.getenv("STRUCTURED_OUTPUT_ON", "false")))
+
+    # --- Guardrails ---
+    GUARDRAILS_ON: bool = field(default_factory=lambda: _bool(os.getenv("GUARDRAILS_ON", "true")))
+
+    # --- RAG ---
+    RAG_ENABLED: bool = field(default_factory=lambda: _bool(os.getenv("RAG_ENABLED", "false")))
 
 
 # Singleton — import this everywhere

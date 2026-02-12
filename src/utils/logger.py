@@ -42,3 +42,7 @@ def log_rest(to_number: str, source: str, total_ms: int) -> None:
 
 def log_error(stage: str, error: str) -> None:
     logger.error("[ERROR] stage=%s error=%s", stage, error)
+
+
+def log_observability(ctx) -> None:
+    logger.info("[OBS] request_id=%s timings=%s", ctx.request_id, ctx.timings)

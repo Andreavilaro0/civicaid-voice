@@ -22,6 +22,12 @@ def create_app() -> Flask:
         load_whisper_model()
         app.logger.info("Whisper model loaded (enabled=%s)", config.WHISPER_ON)
 
+    # Initialize observability hooks
+    if config.OBSERVABILITY_ON:
+        from src.utils.observability import init_app as obs_init
+        obs_init(app)
+        app.logger.info("Observability enabled (OTEL_ENDPOINT=%s)", config.OTEL_ENDPOINT or "none")
+
     # Register blueprints
     from src.routes.health import health_bp
     from src.routes.webhook import webhook_bp

@@ -20,6 +20,7 @@ class IncomingMessage:
     media_type: Optional[str] = None
     input_type: InputType = InputType.TEXT
     timestamp: float = 0.0
+    request_id: str = ""
 
 
 @dataclass

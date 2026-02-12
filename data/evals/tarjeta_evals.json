@@ -1,0 +1,8 @@
+{
+  "eval_set": "tarjeta_sanitaria",
+  "cases": [
+    {"id": "tar_01", "query": "Como conseguir tarjeta sanitaria", "language": "es", "expected_contains": ["tarjeta sanitaria", "Centro Salud"], "expected_not_contains": ["IMV"], "expected_tramite": "tarjeta_sanitaria"},
+    {"id": "tar_02", "query": "Requisitos tarjeta sanitaria", "language": "es", "expected_contains": ["empadronad", "Seguridad Social"], "expected_tramite": "tarjeta_sanitaria"},
+    {"id": "tar_03", "query": "Necesito tarjeta sanitaria urgente", "language": "es", "expected_contains": ["urgencia", "derecho"], "expected_tramite": "tarjeta_sanitaria"}
+  ]
+}

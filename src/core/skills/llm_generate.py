@@ -31,13 +31,23 @@ def llm_generate(
 
     system = build_prompt(kb_context=kb_str, language=language)
 
+    # Structured output instruction (opt-in)
+    prompt_text = f"{system}\n\nPregunta del usuario: {user_text}"
+    if config.STRUCTURED_OUTPUT_ON:
+        prompt_text += (
+            '\n\nIMPORTANT: Respond ONLY with valid JSON matching this schema: '
+            '{"intent":"string","language":"string","tramite":"string|null",'
+            '"summary":"string","steps":["string"],"required_docs":["string"],'
+            '"warnings":["string"],"sources":["string"],"disclaimer":"string"}'
+        )
+
     start = time.time()
     try:
         import google.generativeai as genai
         genai.configure(api_key=config.GEMINI_API_KEY)
         model = genai.GenerativeModel("gemini-1.5-flash")
         response = model.generate_content(
-            [{"role": "user", "parts": [{"text": f"{system}\n\nPregunta del usuario: {user_text}"}]}],
+            [{"role": "user", "parts": [{"text": prompt_text}]}],
             generation_config={"max_output_tokens": 500, "temperature": 0.3},
             request_options={"timeout": config.LLM_TIMEOUT},
         )

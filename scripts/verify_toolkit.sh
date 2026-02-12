@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+echo "=============================="
+echo "CivicAid Voice — Toolkit Check"
+echo "=============================="
+echo ""
+echo "1. Tests..."
+pytest tests/ -q
+echo ""
+echo "2. Lint..."
+ruff check src/ tests/ --select E,F,W --ignore E501
+echo ""
+echo "3. Observability..."
+python3 -c "from src.utils.observability import RequestContext; print('OK')"
+echo "4. Structured Outputs..."
+python3 -c "from src.core.models_structured import ClaraStructuredResponse; print('OK')"
+echo "5. Guardrails..."
+python3 -c "from src.core.guardrails import pre_check, post_check; print('OK')"
+echo "6. Retriever..."
+python3 -c "from src.core.retriever import get_retriever; print('OK')"
+echo "7. Eval runner..."
+python3 -c "from src.utils.eval_runner import load_eval_cases; print('OK')"
+echo ""
+echo "=============================="
+echo "ALL TOOLKIT CHECKS PASSED"
+echo "=============================="

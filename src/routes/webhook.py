@@ -61,6 +61,13 @@ def webhook():
         timestamp=time.time(),
     )
 
+    # Attach observability request_id
+    if config.OBSERVABILITY_ON:
+        from src.utils.observability import get_context
+        ctx = get_context()
+        if ctx:
+            msg.request_id = ctx.request_id
+
     log_ack(from_number, input_type.value)
 
     # ACK template based on input type

@@ -14,7 +14,8 @@ from src.core.skills.llm_generate import llm_generate
 from src.core.skills.verify_response import verify_response
 from src.core.skills.send_response import send_final_message
 from src.core.prompts.templates import get_template
-from src.utils.logger import log_cache, log_error
+from src.utils.logger import log_cache, log_error, log_observability
+from src.utils.observability import get_context
 
 
 def _build_media_url(audio_file: str | None) -> str | None:
@@ -29,8 +30,24 @@ def process(msg: IncomingMessage) -> None:
     start = time.time()
     text = msg.body
     language = "es"
+    ctx = get_context()
 
     try:
+        # --- GUARDRAILS PRE-CHECK ---
+        if config.GUARDRAILS_ON:
+            from src.core.guardrails import pre_check
+            guard_result = pre_check(text)
+            if not guard_result.safe:
+                elapsed_ms = int((time.time() - start) * 1000)
+                response = FinalResponse(
+                    to_number=msg.from_number,
+                    body=guard_result.modified_text or "No puedo ayudar con ese tema.",
+                    source="guardrail",
+                    total_ms=elapsed_ms,
+                )
+                send_final_message(response)
+                return
+
         # --- AUDIO PIPELINE ---
         if msg.input_type == InputType.AUDIO and msg.media_url:
             if not config.WHISPER_ON:
@@ -75,6 +92,10 @@ def process(msg: IncomingMessage) -> None:
         if cache_result.hit and cache_result.entry:
             elapsed_ms = int((time.time() - start) * 1000)
             log_cache(True, cache_result.entry.id, elapsed_ms)
+            if ctx:
+                ctx.add_timing("cache", elapsed_ms)
+                ctx.add_timing("total", elapsed_ms)
+                log_observability(ctx)
             response = FinalResponse(
                 to_number=msg.from_number,
                 body=cache_result.entry.respuesta,
@@ -109,8 +130,23 @@ def process(msg: IncomingMessage) -> None:
         # --- VERIFY ---
         verified_text = verify_response(llm_resp.text, kb_context)
 
+        # --- STRUCTURED OUTPUT (optional) ---
+        if config.STRUCTURED_OUTPUT_ON:
+            from src.core.models_structured import parse_structured_response
+            parsed, display_text = parse_structured_response(verified_text)
+            if parsed:
+                verified_text = display_text
+
+        # --- GUARDRAILS POST-CHECK ---
+        if config.GUARDRAILS_ON:
+            from src.core.guardrails import post_check
+            verified_text = post_check(verified_text)
+
         # --- SEND FINAL ---
         elapsed_ms = int((time.time() - start) * 1000)
+        if ctx:
+            ctx.add_timing("total", elapsed_ms)
+            log_observability(ctx)
         response = FinalResponse(
             to_number=msg.from_number,
             body=verified_text,

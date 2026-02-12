@@ -1,0 +1,10 @@
+{
+  "eval_set": "imv",
+  "cases": [
+    {"id": "imv_01", "query": "Que es el IMV?", "language": "es", "expected_contains": ["IMV", "Ingreso M\u00ednimo"], "expected_not_contains": ["empadronamiento"], "expected_tramite": "imv"},
+    {"id": "imv_02", "query": "Como solicitar el ingreso minimo vital", "language": "es", "expected_contains": ["solicitar", "Seguridad Social"], "expected_tramite": "imv"},
+    {"id": "imv_03", "query": "Requisitos para el IMV", "language": "es", "expected_contains": ["requisito", "residencia"], "expected_tramite": "imv"},
+    {"id": "imv_04", "query": "Que documentos necesito para el IMV?", "language": "es", "expected_contains": ["DNI", "certificado"], "expected_tramite": "imv"},
+    {"id": "imv_05", "query": "Cuanto dinero da el IMV?", "language": "es", "expected_contains": ["604", "EUR"], "expected_tramite": "imv"}
+  ]
+}
