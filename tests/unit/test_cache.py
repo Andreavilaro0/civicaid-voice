@@ -41,10 +41,11 @@ def test_cache_match_french():
     assert result.entry.id == "ahmed_empadronamiento_fr"
 
 
-def test_cache_match_language_filter():
-    """Cache match: Spanish query doesn't match French entry."""
+def test_cache_match_language_fallback():
+    """Cache match: misdetected language still finds correct entry via Pass 2."""
     result = cache_match("inscrire mairie", "es", InputType.TEXT, ENTRIES)
-    assert result.hit is False
+    assert result.hit is True
+    assert result.entry.id == "ahmed_empadronamiento_fr"
 
 
 def test_cache_match_empty_text():
