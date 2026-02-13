@@ -2834,3 +2834,60 @@ FAIL:  0
 SKIP:  0
 RESULT: OK
 ```
+
+---
+
+## P3.RC — Release Close: Stale Doc Fixes + Final Verification
+
+> Fecha: 2026-02-13 01:23
+> Metodologia: pytest truth-first, grep coherence scan, verify script PASS/FAIL
+
+### Motivo
+
+Corregir conteos stale en docs operacionales (93→96 tests, 82→85 unit) y dejar evidencia reproducible de coherencia final.
+
+### Evidencia de verdad (pytest)
+
+```
+pytest -q                         → 91 passed, 5 xpassed (96 total)
+pytest --collect-only -q          → 96 tests collected
+pytest tests/unit --collect-only  → 85 tests collected
+pytest tests/integration --co     → 7 tests collected
+pytest tests/e2e --collect-only   → 4 tests collected
+```
+
+### 4 fixes stale aplicados (commit 2d7d92f)
+
+| # | Archivo | Cambio | Evidencia |
+|---|---------|--------|-----------|
+| 1 | TEST-PLAN.md L3,52,142-149,410 | "93 tests" → "96 tests (91 passed + 5 xpassed)" | `pytest -q` output |
+| 2 | TEST-PLAN.md L43,49 | "82 tests unitarios" → "85" | `pytest tests/unit --co -q` → 85 |
+| 3 | TEST-PLAN.md L73,327-333 | Agregado `test_transcribe.py` (3 tests) | `grep test_transcribe TEST-PLAN.md` → 3 matches |
+| 4 | EXECUTIVE-SUMMARY.md L56,91,116 | "93" → "96" | `grep "93 tests" docs/00-EXECUTIVE-SUMMARY.md` → 0 |
+
+### Verify script result
+
+```
+bash scripts/phase3_verify.sh --bootstrap --local --docker
+  Step 1/4 pytest:  PASS — 96 collected, 91 passed, 5 xpassed
+  Step 2/4 ruff:    PASS — All checks passed!
+  Step 3/4 Docker:  PASS — build OK, no warnings
+  Step 4/4 /health: PASS — status:ok, cache_entries:8, whisper_loaded:false
+PASS: 4 | FAIL: 0 | SKIP: 0
+```
+
+### Grep coherence
+
+- `grep -rn "93 tests" docs/` → 0 matches en docs operacionales (TEST-PLAN, EXEC-SUMMARY, ARCHITECTURE, RUNBOOK-DEMO, FASE3-DEMO-OPS). Matches restantes son en archivos historicos de evidencia Fase 2.
+- `grep -rn "82 tests unit" docs/` → 0 matches.
+- `grep -rn "test_transcribe" docs/04-testing/TEST-PLAN.md` → 3 matches (L73, L327, L407).
+
+### Artifacts
+
+| Archivo | Ruta |
+|---------|------|
+| pytest -q output | `artifacts/phase3/2026-02-13_0135/pytest-q.txt` |
+| pytest --collect-only | `artifacts/phase3/2026-02-13_0135/pytest-collect.txt` |
+| pytest per-folder collect | `artifacts/phase3/2026-02-13_0135/pytest-unit-collect.txt` |
+| phase3_verify.sh output | `artifacts/phase3/2026-02-13_0135/phase3-verify-FINAL.txt` |
+| grep coherence scan | `artifacts/phase3/2026-02-13_0135/doc-grep-scan.txt` |

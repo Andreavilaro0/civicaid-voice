@@ -1,0 +1,5 @@
+        <Function test_whisper_model_none_when_disabled>
+        <Function test_whisper_model_truthy_when_enabled>
+        <Function test_whisper_model_none_when_no_key>
+
+========================= 96 tests collected in 0.67s ==========================
