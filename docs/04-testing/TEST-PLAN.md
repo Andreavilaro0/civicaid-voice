@@ -1,6 +1,6 @@
 # Plan de Testing — CivicAid Voice "Clara"
 
-> **Resumen en una linea:** Estrategia completa de testing con 93 tests automatizados (88 passed + 5 xpassed) organizados en piramide: unitarios, integracion y end-to-end.
+> **Resumen en una linea:** Estrategia completa de testing con 96 tests automatizados (91 passed + 5 xpassed) organizados en piramide: unitarios, integracion y end-to-end.
 
 ## Que es
 
@@ -40,16 +40,16 @@ Se aplica la **piramide de testing clasica**, priorizando cantidad y velocidad d
      /------\
     / Integ. \     7 tests   — pipeline, webhook, Twilio stub
    /----------\
-  /  Unitarios  \  82 tests  — skills, cache, config, guardrails, evals, etc.
+  /  Unitarios  \  85 tests  — skills, cache, config, guardrails, evals, transcribe, etc.
  /________________\
 ```
 
 | Nivel | Cantidad | Tiempo estimado | Que valida |
 |-------|----------|-----------------|------------|
-| Unitario | 82 | < 1s | Skills individuales, modelos, configuracion, guardrails, evals |
+| Unitario | 85 | < 1s | Skills individuales, modelos, configuracion, guardrails, evals, transcribe |
 | Integracion | 7 | < 0.5s | Pipeline completo, webhook parsing, envio Twilio |
 | E2E | 4 | < 1s | Flujos completos POST /webhook con respuestas reales |
-| **Total** | **93** | **~1.3s** | **Cobertura completa del MVP + toolkit** |
+| **Total** | **96** | **~1.1s** | **Cobertura completa del MVP + toolkit + Fase 3 QA** |
 
 ---
 
@@ -70,6 +70,7 @@ tests/
     test_redteam.py                  # 10 tests — validacion archivo red team, bloqueo adversarial
     test_observability.py            # 6 tests — RequestContext, timings, thread-local
     test_retriever.py                # 7 tests — interfaz abstracta, JSONKBRetriever, factory
+    test_transcribe.py               # 3 tests — whisper flag consistency, Gemini key guard
   integration/
     test_pipeline.py                 # 2 tests — pipeline texto con cache hit y cache miss
     test_twilio_stub.py              # 2 tests — envio Twilio con y sin media
@@ -138,14 +139,14 @@ bash scripts/phase2_verify.sh [RENDER_URL]
 
 | Metrica | Valor |
 |---------|-------|
-| Tests totales | 93 |
-| Tests passed | 88 |
+| Tests totales | 96 |
+| Tests passed | 91 |
 | Tests xpassed | 5 (red team — marcados `xfail` que ahora pasan) |
 | Tests failed | 0 |
-| Tiempo total | ~1.27s |
+| Tiempo total | ~1.1s |
 | Lint (ruff) | 0 errores |
 
-**Resultado: 93/93 PASS (88 passed + 5 xpassed)**
+**Resultado: 96/96 PASS (91 passed + 5 xpassed)**
 
 Los 5 tests XPASSED corresponden a `test_redteam.py::TestRedTeamGuardrails::test_blocked_prompts[rt_01..rt_05]`. Estaban marcados con `xfail` porque la cobertura de regex de guardrails es iterativa, pero todos los vectores de ataque son bloqueados exitosamente.
 
@@ -323,6 +324,14 @@ Para los tests originales del plan T1-T10, se mantiene el prefijo `test_tN_`:
 | `TestGetRetriever::test_get_retriever_returns_json` | Factory devuelve instancia de `JSONKBRetriever` | Factory |
 | `TestGetRetriever::test_get_retriever_returns_retriever` | Factory devuelve instancia de `Retriever` | Factory |
 
+#### test_transcribe.py (3 tests)
+
+| Funcion | Que verifica | Categoria |
+|---------|-------------|-----------|
+| `test_whisper_model_none_when_disabled` | `get_whisper_model()` devuelve `None` cuando `WHISPER_ON=false`, incluso con GEMINI_API_KEY | Flag consistency |
+| `test_whisper_model_truthy_when_enabled` | `get_whisper_model()` devuelve truthy cuando `WHISPER_ON=true` y key presente | Flag consistency |
+| `test_whisper_model_none_when_no_key` | `get_whisper_model()` devuelve `None` cuando `GEMINI_API_KEY` vacio, incluso con `WHISPER_ON=true` | Key guard |
+
 ### 7.2 Tests de Integracion — `tests/integration/`
 
 #### test_pipeline.py (2 tests)
@@ -378,7 +387,7 @@ Para los tests originales del plan T1-T10, se mantiene el prefijo `test_tN_`:
 | Otros unit (config...) | `tests/unit/` | +1 |
 | **Total Fase 1** | | **32** |
 
-### Fase 2 — Toolkit (61 tests nuevos, 93 total)
+### Fase 2 — Toolkit (61 tests nuevos, 93 total Fase 2)
 
 | Suite | Archivo | Tests | Cobertura |
 |-------|---------|-------|-----------|
@@ -393,14 +402,14 @@ Para los tests originales del plan T1-T10, se mantiene el prefijo `test_tN_`:
 
 ### Resumen comparativo
 
-| Tipo | Fase 1 | Fase 2 | Delta | Nota |
-|------|--------|--------|-------|------|
-| Unit | 21 | 82 | +61 | Incluye 10 red team (5 xpassed) |
-| Integracion | 7 | 7 | 0 | pipeline(2) + twilio(2) + webhook(3) |
-| E2E | 4 | 4 | 0 | demo_flows(4) |
-| **Total** | **32** | **93** | **+61** | **88 passed + 5 xpassed** |
+| Tipo | Fase 1 | Fase 2 | Fase 3 | Delta F2→F3 | Nota |
+|------|--------|--------|--------|-------------|------|
+| Unit | 21 | 82 | 85 | +3 | +3 test_transcribe.py (whisper flag consistency) |
+| Integracion | 7 | 7 | 7 | 0 | pipeline(2) + twilio(2) + webhook(3) |
+| E2E | 4 | 4 | 4 | 0 | demo_flows(4) |
+| **Total** | **32** | **93** | **96** | **+3** | **91 passed + 5 xpassed** |
 
-> **Nota sobre conteo:** Los 5 tests `xpassed` son tests unitarios en `test_redteam.py`. Estan incluidos en el conteo de Unit (82). El total verificado: `pytest tests/unit/ --co -q` -> 82, `pytest tests/integration/ --co -q` -> 7, `pytest tests/e2e/ --co -q` -> 4.
+> **Nota sobre conteo:** Los 5 tests `xpassed` son tests unitarios en `test_redteam.py`. Estan incluidos en el conteo de Unit (85). El total verificado: `pytest tests/unit/ --co -q` -> 85, `pytest tests/integration/ --co -q` -> 7, `pytest tests/e2e/ --co -q` -> 4.
 
 ---
 
@@ -408,7 +417,7 @@ Para los tests originales del plan T1-T10, se mantiene el prefijo `test_tN_`:
 
 ### Criterio General
 
-- **TODOS** los 93 tests deben pasar: 88 PASSED + 5 XPASSED es el resultado aceptable.
+- **TODOS** los 96 tests deben pasar: 91 PASSED + 5 XPASSED es el resultado aceptable.
 - **XPASSED** = tests marcados `xfail` que pasan exitosamente (prompts red team bloqueados por guardrails).
 - **Cero tolerancia a fallos.** Si un test falla, se bloquea el deploy.
 - `ruff check src/ tests/ --select E,F,W --ignore E501` debe reportar cero errores.
@@ -418,7 +427,7 @@ Para los tests originales del plan T1-T10, se mantiene el prefijo `test_tN_`:
 | Gate | Criterio | Tests implicados |
 |------|----------|-----------------|
 | G1 — Texto OK | POST /webhook devuelve TwiML ACK, cache hit funciona, /health retorna JSON | T1-T5, T6-T7, T9 |
-| G2 — Audio OK | Pipeline audio implementado, timeouts configurados, 93/93 tests pasan | T8, T10, todos |
+| G2 — Audio OK | Pipeline audio implementado, timeouts configurados, 96/96 tests pasan | T8, T10, todos |
 | G3 — Demo Ready | Deploy en Render, Twilio webhook configurado, demo rehearsal completo | Verificacion manual |
 
 ---
@@ -442,7 +451,7 @@ bash scripts/phase3_verify.sh [RENDER_URL]
 Resultado esperado:
 
 ```
-======================== 88 passed, 5 xpassed in 2.52s =========================
+======================== 91 passed, 5 xpassed in 1.07s =========================
 ```
 
 ## 10. Reproducibilidad (Fase 3 QA)
@@ -466,7 +475,7 @@ pip install -r requirements.txt -r requirements-dev.txt
 
 # 4. Ejecutar tests
 pytest tests/ -v --tb=short
-# Esperado: 88 passed, 5 xpassed in ~2.5s
+# Esperado: 91 passed, 5 xpassed in ~1.1s
 
 # 5. Lint
 ruff check src/ tests/ --select E,F,W --ignore E501

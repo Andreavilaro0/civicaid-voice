@@ -404,10 +404,10 @@ A continuacion se documentan las 8 entradas del archivo `data/cache/demo_cache.j
 > "Y ahi esta. Ahmed tiene su respuesta en frances. Le explica que es el empadronamiento, que documentos necesita, donde ir en Madrid, y que es un derecho — incluso sin contrato de alquiler. Sin traductor. Sin intermediarios. Solo WhatsApp y Clara."
 
 **EVIDENCIA** →
-- Pipeline: 10 skills en `src/core/pipeline.py`.
+- Pipeline: 11 skills en `src/core/pipeline.py`.
 - Cache entry `ahmed_empadronamiento_fr` con audio `ahmed_fr.mp3`.
 - Ruta: webhook → fetch_media → transcribe (Gemini) → detect_lang → cache_match → send_response.
-- 93 tests verifican el pipeline: `pytest tests/ -v --tb=short`.
+- 96 tests verifican el pipeline: `pytest tests/ -v --tb=short`.
 
 ### t=6:00 — Evidencia Tecnica (1 minuto)
 
@@ -417,15 +417,15 @@ A continuacion se documentan las 8 entradas del archivo `data/cache/demo_cache.j
 
 > "Esto no es un mockup. Es un sistema real desplegado en produccion."
 >
-> "93 tests automatizados. Un pipeline de 10 skills. 10 feature flags. Base de conocimiento con informacion verificada del gobierno. Deploy en Render con health check cada 14 minutos. Coste por consulta: 0 coma 2 centimos en cache, 1 centimo con IA."
+> "96 tests automatizados. Un pipeline de 11 skills. 9 feature flags. Base de conocimiento con informacion verificada del gobierno. Deploy en Render con health check cada 14 minutos. Coste por consulta: 0 coma 2 centimos en cache, 1 centimo con IA."
 
 **EVIDENCIA** →
 
 | Claim | Comando | Output esperado |
 |-------|---------|-----------------|
-| 93 tests | `pytest tests/ -v --tb=short` | 93 passed (88+5 xpassed) |
-| 10 skills | `ls src/core/skills/*.py` | 10 archivos |
-| 10 flags | Ver `src/core/config.py` | 10 flags |
+| 96 tests | `pytest tests/ -v --tb=short` | 96 passed (91+5 xpassed) |
+| 11 skills | `ls src/core/skills/*.py` | 11 archivos |
+| 9 flags | Ver `src/core/config.py` | 9 flags |
 | KB oficial | `ls data/tramites/` | 3 JSON |
 | Deploy activo | `curl -s https://civicaid-voice.onrender.com/health` | `"status": "ok"` |
 | 8 cache | health output | `"cache_entries": 8` |

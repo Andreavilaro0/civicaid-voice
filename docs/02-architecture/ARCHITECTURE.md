@@ -1,10 +1,10 @@
 # Arquitectura de Clara — Asistente Conversacional por WhatsApp
 
-> **Resumen en una linea:** Documentacion tecnica completa de la arquitectura de Clara: patron TwiML ACK, pipeline de 10 skills, feature flags, modelos de datos y decisiones de diseno.
+> **Resumen en una linea:** Documentacion tecnica completa de la arquitectura de Clara: patron TwiML ACK, pipeline de 11 skills, feature flags, modelos de datos y decisiones de diseno.
 
 ## Que es
 
-Este documento describe la arquitectura tecnica completa de Clara, el asistente conversacional WhatsApp-first del proyecto CivicAid Voice. Cubre desde el patron de comunicacion con Twilio hasta las 10 skills del pipeline, pasando por los modelos de datos, las feature flags y las decisiones de diseno fundamentales.
+Este documento describe la arquitectura tecnica completa de Clara, el asistente conversacional WhatsApp-first del proyecto CivicAid Voice. Cubre desde el patron de comunicacion con Twilio hasta las 11 skills del pipeline, pasando por los modelos de datos, las feature flags y las decisiones de diseno fundamentales.
 
 ## Para quien
 
@@ -15,8 +15,8 @@ Este documento describe la arquitectura tecnica completa de Clara, el asistente 
 ## Que incluye
 
 - Vision general y patron TwiML ACK.
-- Pipeline completo de 10 skills con diagramas.
-- 10 feature flags con valores por defecto.
+- Pipeline completo de 11 skills con diagramas.
+- 9 feature flags con valores por defecto.
 - 8 dataclasses de modelos de datos.
 - Estructura de directorios del proyecto.
 - Decisiones de diseno y sus justificaciones.
@@ -55,7 +55,7 @@ El patron arquitectonico central de Clara resuelve una restriccion critica de la
        <Message>Un momento, estoy procesando tu consulta...</Message>
    </Response>
    ```
-3. **Antes de retornar**, Flask lanza un **`threading.Thread`** que ejecuta el pipeline completo de 10 skills en segundo plano.
+3. **Antes de retornar**, Flask lanza un **`threading.Thread`** que ejecuta el pipeline completo de 11 skills en segundo plano.
 4. **El hilo de fondo** procesa el mensaje (transcripcion, deteccion de idioma, busqueda en cache, consulta al LLM, verificacion) y al finalizar envia la respuesta definitiva al usuario mediante la **Twilio REST API** (`client.messages.create`).
 
 ### Ventajas
@@ -79,7 +79,7 @@ sequenceDiagram
     FL->>BG: threading.Thread(pipeline.process)
     FL->>TW: HTTP 200 + TwiML ACK (< 1s)
     TW->>U: "Un momento, estoy procesando..."
-    BG->>BG: Ejecutar 10 skills
+    BG->>BG: Ejecutar 11 skills
     BG->>TR: Enviar respuesta final
     TR->>U: Mensaje completo (texto + audio)
 ```
@@ -103,9 +103,9 @@ sequenceDiagram
 
 ---
 
-## 4. Pipeline de 10 Skills
+## 4. Pipeline de 11 Skills
 
-El pipeline es una cadena secuencial de 10 skills especializadas. Cada skill recibe el contexto acumulado y lo enriquece para la siguiente. El orquestador (`pipeline.py`) ejecuta las skills en orden y gestiona errores con fallbacks.
+El pipeline es una cadena secuencial de 11 skills especializadas. Cada skill recibe el contexto acumulado y lo enriquece para la siguiente. El orquestador (`pipeline.py`) ejecuta las skills en orden y gestiona errores con fallbacks.
 
 ### Tabla de Skills
 
@@ -352,9 +352,9 @@ civicaid-voice/
 │   │   └── static_files.py       # GET /static/cache/* — servir audios MP3
 │   │
 │   ├── core/
-│   │   ├── config.py             # Variables de entorno y 10 feature flags (dataclass Config)
+│   │   ├── config.py             # Variables de entorno y 9 feature flags (dataclass Config)
 │   │   ├── cache.py              # Carga demo_cache.json + delega matching a cache_match
-│   │   ├── pipeline.py           # Orquestador del pipeline de 10 skills
+│   │   ├── pipeline.py           # Orquestador del pipeline de 11 skills
 │   │   ├── models.py             # 8 dataclasses: IncomingMessage, CacheEntry, FinalResponse...
 │   │   ├── models_structured.py  # Parseo de salidas estructuradas (opcional)
 │   │   ├── guardrails.py         # Capa de seguridad pre/post (opcional)
@@ -439,7 +439,7 @@ Los diagramas visuales de la arquitectura se encuentran en archivos Mermaid junt
 | Diagrama | Archivo | Descripcion |
 |----------|---------|-------------|
 | Secuencia TwiML ACK + REST | [`sequence-wa-ack-rest.mmd`](sequence-wa-ack-rest.mmd) | Flujo temporal completo desde WhatsApp hasta la respuesta final |
-| Flujo de datos | [`dataflow.mmd`](dataflow.mmd) | Pipeline de 10 skills como flowchart con bifurcaciones |
+| Flujo de datos | [`dataflow.mmd`](dataflow.mmd) | Pipeline de 11 skills como flowchart con bifurcaciones |
 | Componentes | [`components.mmd`](components.mmd) | Vista estatica de modulos y dependencias |
 | Deploy y operaciones | [`deploy-ops-flow.mmd`](deploy-ops-flow.mmd) | Ciclo de keep-alive con cron cada 14 min, flujo de mensajes, logging |
 
@@ -452,12 +452,12 @@ Los diagramas visuales de la arquitectura se encuentran en archivos Mermaid junt
 | Punto de entrada | [`src/app.py`](../../src/app.py) — `create_app()` registra blueprints |
 | Configuracion | [`src/core/config.py`](../../src/core/config.py) — dataclass `Config` con 10 feature flags |
 | Pipeline | [`src/core/pipeline.py`](../../src/core/pipeline.py) — orquestador `process()` |
-| Skills (10) | [`src/core/skills/*.py`](../../src/core/skills/) |
+| Skills (11) | [`src/core/skills/*.py`](../../src/core/skills/) |
 | Modelos (8) | [`src/core/models.py`](../../src/core/models.py) — 8 dataclasses |
 | Plantillas | [`src/core/prompts/templates.py`](../../src/core/prompts/templates.py) — ACK, fallback, errores |
 | Base de conocimiento | [`data/tramites/*.json`](../../data/tramites/) — 3 tramites |
 | Cache de demo | [`data/cache/demo_cache.json`](../../data/cache/demo_cache.json) — 8 entradas |
-| Tests | [`tests/`](../../tests/) — 93 tests (unit, integration, e2e) |
+| Tests | [`tests/`](../../tests/) — 96 tests (unit, integration, e2e) |
 | Dockerfile | [`Dockerfile`](../../Dockerfile) — puerto 10000 (Render) / 5000 (local) |
 | Despliegue | [`render.yaml`](../../render.yaml) — Render free tier con auto-deploy desde main |
 | Observabilidad | [`OBSERVABILITY.md`](OBSERVABILITY.md) — logs, tags, timings, /health |
@@ -468,7 +468,7 @@ Los diagramas visuales de la arquitectura se encuentran en archivos Mermaid junt
 ## Como se verifica
 
 ```bash
-# Ejecutar los 93 tests
+# Ejecutar los 96 tests
 pytest tests/ -q
 
 # Verificar que el pipeline se ejecuta correctamente

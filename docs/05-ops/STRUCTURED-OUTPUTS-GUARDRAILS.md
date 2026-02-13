@@ -119,7 +119,7 @@ Esta informacion es orientativa. Consulte fuentes oficiales para confirmar.
 
 ### Tests
 
-93 tests totales en el proyecto (88 passed + 5 xpassed). Los tests especificos de structured outputs estan en `tests/unit/test_structured_outputs.py` y cubren:
+96 tests totales en el proyecto (91 passed + 5 xpassed). Los tests especificos de structured outputs estan en `tests/unit/test_structured_outputs.py` y cubren:
 
 - Validacion del modelo Pydantic (campos requeridos y opcionales).
 - Parseo de JSON valido, JSON en bloques de codigo markdown.

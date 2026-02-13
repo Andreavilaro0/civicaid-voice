@@ -53,7 +53,7 @@ Usuario WhatsApp --> Twilio --> Flask /webhook --> TwiML ACK (<1s)
 
 | Metrica | Valor | Comando de verificacion |
 |---------|-------|------------------------|
-| Tests automatizados | **93** (88 passed + 5 xpassed) | `pytest tests/ -v --tb=short` |
+| Tests automatizados | **96** (91 passed + 5 xpassed) | `pytest tests/ -v --tb=short` |
 | Skills en pipeline | **11** | `ls src/core/skills/*.py` |
 | Feature flags | **9** | `src/core/config.py` |
 | Entradas de cache | **8** (6 con audio MP3) | `curl .../health` → `cache_entries: 8` |
@@ -88,7 +88,7 @@ Usuario WhatsApp --> Twilio --> Flask /webhook --> TwiML ACK (<1s)
 | 1:30 | **WOW 1:** Maria pregunta "Que es el IMV?" por texto → respuesta instantanea con texto + audio | Cache hit, <2s |
 | 3:30 | Transicion — presentando a Ahmed, inmigrante francofono | Narrativa |
 | 4:00 | **WOW 2:** Ahmed envia nota de voz en frances sobre empadronamiento → respuesta en frances con audio | Transcripcion → detect lang → KB → ~10s |
-| 6:00 | **Evidencia tecnica** — 93 tests, 11 skills, deploy verificado | Datos en pantalla |
+| 6:00 | **Evidencia tecnica** — 96 tests, 11 skills, deploy verificado | Datos en pantalla |
 | 7:00 | **Cierre** — escalabilidad, impacto, vision | Slide final |
 
 Guion completo con procedimientos de fallback: [RUNBOOK-DEMO.md](03-runbooks/RUNBOOK-DEMO.md)
@@ -113,7 +113,7 @@ Analisis de conceptos y riesgos: [FASE3-DEMO-OPS-REAL.md](01-phases/FASE3-DEMO-O
 | Fase | Estado |
 |------|--------|
 | Fase 0 — Plan Maestro | COMPLETADA |
-| Fase 1 — MVP | COMPLETADA — 93 tests, pipeline 11 skills, cache-first |
+| Fase 1 — MVP | COMPLETADA — 96 tests, pipeline 11 skills, cache-first |
 | Fase 2 — Hardening | COMPLETADA — deploy Render, Twilio, Notion 81 entradas, observabilidad |
 | Fase 3 — Demo en Vivo | COMPLETADA — Twilio, ops, observabilidad, Notion, QA Deep PASS |
 

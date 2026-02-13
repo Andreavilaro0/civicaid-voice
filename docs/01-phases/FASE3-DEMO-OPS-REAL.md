@@ -16,7 +16,7 @@
 
 ## 1. Objetivo de Fase
 
-Fases 1 y 2 entregaron un MVP funcional, desplegado y verificado: 93 tests, pipeline de 10 skills, deploy en Render, Twilio configurado, observabilidad activa. Fase 3 convierte todo eso en una **presentacion convincente de 6-8 minutos** que demuestre impacto social y solidez tecnica.
+Fases 1 y 2 entregaron un MVP funcional, desplegado y verificado: 96 tests, pipeline de 11 skills, deploy en Render, Twilio configurado, observabilidad activa. Fase 3 convierte todo eso en una **presentacion convincente de 6-8 minutos** que demuestre impacto social y solidez tecnica.
 
 Fase 3 NO modifica codigo. Se enfoca en:
 
@@ -78,14 +78,14 @@ Fase 3 NO modifica codigo. Se enfoca en:
 
 ### Concepto C: Jurado Tecnico (Arquitectura-first)
 
-**Enfoque:** Abrir con el diagrama de arquitectura, explicar el patron TwiML ACK, las 10 skills, los feature flags. Despues hacer la demo en vivo como "prueba" de que funciona.
+**Enfoque:** Abrir con el diagrama de arquitectura, explicar el patron TwiML ACK, las 11 skills, los feature flags. Despues hacer la demo en vivo como "prueba" de que funciona.
 
 | Aspecto | Detalle |
 |---------|---------|
-| **Apertura** | "Hemos construido un pipeline de 10 skills con patron TwiML ACK..." |
+| **Apertura** | "Hemos construido un pipeline de 11 skills con patron TwiML ACK..." |
 | **WOW 1** | Mostrar la ruta tecnica en vivo: webhook → cache hit → <2s |
 | **WOW 2** | Mostrar transcripcion + deteccion de idioma + KB lookup → respuesta |
-| **Cierre** | 93 tests, 10 feature flags, deploy reproducible, observabilidad |
+| **Cierre** | 96 tests, 9 feature flags, deploy reproducible, observabilidad |
 
 **Pros:**
 - Demuestra solidez de ingenieria y decision-making.
@@ -103,7 +103,7 @@ Fase 3 NO modifica codigo. Se enfoca en:
 
 **Razon:** En un hackathon de impacto social (OdiseIA4Good), el jurado evalua tanto la calidad tecnica como el impacto real. El concepto A maximiza el impacto emocional y permite insertar evidencia tecnica en puntos estrategicos sin perder la narrativa.
 
-**Adaptacion:** Intercalar "evidence checkpoints" en momentos naturales de la demo. Cuando Robert dice "en menos de 2 segundos", hay un comando detras que lo prueba. Cuando dice "93 tests", hay un `pytest` que lo respalda.
+**Adaptacion:** Intercalar "evidence checkpoints" en momentos naturales de la demo. Cuando Robert dice "en menos de 2 segundos", hay un comando detras que lo prueba. Cuando dice "96 tests", hay un `pytest` que lo respalda.
 
 ---
 
@@ -332,10 +332,10 @@ Cada entrada sigue el formato:
 > "Y ahi esta. Ahmed tiene su respuesta en frances. Le explica que es el empadronamiento, que documentos necesita, donde ir en Madrid, y que es un derecho — incluso sin contrato de alquiler. Sin traductor. Sin intermediarios. Solo WhatsApp y Clara."
 
 **EVIDENCIA** →
-- Pipeline completo: 10 skills ejecutadas secuencialmente. Ver `src/core/pipeline.py`.
+- Pipeline completo: 11 skills ejecutadas secuencialmente. Ver `src/core/pipeline.py`.
 - Cache entry `ahmed_empadronamiento_fr` con audio `ahmed_fr.mp3`.
 - Ruta tecnica: webhook → fetch_media → transcribe (Gemini) → detect_lang → cache_match → send_response.
-- 93 tests verifican el pipeline: `pytest tests/ -v --tb=short`.
+- 96 tests verifican el pipeline: `pytest tests/ -v --tb=short`.
 
 ---
 
@@ -346,9 +346,9 @@ Cada entrada sigue el formato:
 **DIGO** →
 > "Esto no es un mockup. Es un sistema real desplegado en produccion. Dejadme mostraros los numeros:"
 >
-> "93 tests automatizados que verifican cada parte del sistema."
-> "Un pipeline de 10 skills especializadas — desde la deteccion del tipo de entrada hasta el envio de la respuesta."
-> "10 feature flags que nos permiten controlar el comportamiento sin tocar codigo."
+> "96 tests automatizados que verifican cada parte del sistema."
+> "Un pipeline de 11 skills especializadas — desde la deteccion del tipo de entrada hasta el envio de la respuesta."
+> "9 feature flags que nos permiten controlar el comportamiento sin tocar codigo."
 > "Base de conocimiento con informacion verificada de fuentes oficiales del gobierno."
 > "Deploy en Render con health check cada 14 minutos."
 > "Coste por consulta: 0 coma 2 centimos en cache, 1 centimo con IA."
@@ -357,9 +357,9 @@ Cada entrada sigue el formato:
 
 | Claim | Comando de verificacion | Output esperado |
 |-------|------------------------|-----------------|
-| 93 tests | `pytest tests/ -v --tb=short` | 93 passed (88 passed + 5 xpassed) |
-| 10 skills | `grep -c "def " src/core/skills/*.py` | 10 archivos con funciones |
-| 10 feature flags | Ver `src/core/config.py` | 10 flags documentadas |
+| 96 tests | `pytest tests/ -v --tb=short` | 96 passed (91 passed + 5 xpassed) |
+| 11 skills | `ls src/core/skills/*.py` | 11 archivos |
+| 9 feature flags | Ver `src/core/config.py` | 9 flags documentadas |
 | KB verificada | `ls data/tramites/` | 3 archivos JSON |
 | Deploy activo | `curl -s https://civicaid-voice.onrender.com/health` | `"status": "ok"` |
 | 8 cache entries | health output | `"cache_entries": 8` |
@@ -443,12 +443,12 @@ Si el jurado hace preguntas tras los 6-8 minutos, Robert puede expandir sobre:
 
 | Tema | Puntos clave | Evidencia |
 |------|-------------|-----------|
-| **Tecnologia** | Gemini 1.5 Flash, gTTS, pipeline 10 skills, patron TwiML ACK | `docs/02-architecture/ARCHITECTURE.md` |
+| **Tecnologia** | Gemini 1.5 Flash, gTTS, pipeline 11 skills, patron TwiML ACK | `docs/02-architecture/ARCHITECTURE.md` |
 | **Seguridad** | Guardrails pre/post, signature validation, scan de secretos | Gate P2.6 PASS |
 | **Escalabilidad** | Stateless, KB extensible, coste $0.002-$0.01/consulta | `src/core/config.py` |
 | **Modelo de negocio** | B2G (ayuntamientos), ONG/cooperacion, freemium | 1-pager |
 | **Observabilidad** | request_id por peticion, timings por skill, /health con 8 componentes | `docs/05-ops/OBSERVABILITY-QUICKSTART.md` |
-| **Testing** | 93 tests (unit + integration + e2e), ruff lint clean | `pytest tests/ -v` |
+| **Testing** | 96 tests (unit + integration + e2e), ruff lint clean | `pytest tests/ -v` |
 
 ---
 

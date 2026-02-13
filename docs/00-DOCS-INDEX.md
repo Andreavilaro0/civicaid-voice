@@ -47,9 +47,9 @@ Documentos para entender, modificar y extender el codigo:
 | # | Documento | Ruta | Descripcion |
 |---|-----------|------|-------------|
 | 6 | [README del Proyecto](../README.md) | `README.md` | Inicio rapido, instalacion, tests, estructura del proyecto |
-| 7 | [Arquitectura Tecnica](02-architecture/ARCHITECTURE.md) | `docs/02-architecture/ARCHITECTURE.md` | Pipeline de 10 skills, dataclasses, feature flags, diagramas |
+| 7 | [Arquitectura Tecnica](02-architecture/ARCHITECTURE.md) | `docs/02-architecture/ARCHITECTURE.md` | Pipeline de 11 skills, dataclasses, feature flags, diagramas |
 | 8 | [Observabilidad](02-architecture/OBSERVABILITY.md) | `docs/02-architecture/OBSERVABILITY.md` | Logs estructurados, tags, decorador @timed, /health |
-| 9 | [Plan de Tests](04-testing/TEST-PLAN.md) | `docs/04-testing/TEST-PLAN.md` | Plan de 10 escenarios de test (T1-T10), 93 tests totales |
+| 9 | [Plan de Tests](04-testing/TEST-PLAN.md) | `docs/04-testing/TEST-PLAN.md` | Plan de 10 escenarios de test (T1-T10), 96 tests totales |
 | 10 | [Framework de Evals](04-testing/EVALS.md) | `docs/04-testing/EVALS.md` | Suite de evaluacion automatizada de calidad de respuestas |
 | 11 | [Reporte de Evals](04-testing/evals_report.md) | `docs/04-testing/evals_report.md` | Resultados de la ultima ejecucion de evaluaciones |
 | 12 | [Guardrails](06-integrations/GUARDRAILS.md) | `docs/06-integrations/GUARDRAILS.md` | Capa de seguridad pre/post para entrada y salida del LLM |

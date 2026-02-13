@@ -23,4 +23,4 @@ EXPOSE 10000
 # --workers 1: Render free tier has limited RAM
 # --preload: Load Whisper model at startup, not per-request
 # Render sets PORT=10000 by default; fall back to 5000 for local
-CMD gunicorn --bind "0.0.0.0:${PORT:-5000}" --timeout 120 --workers 1 --preload "src.app:create_app()"
+CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:${PORT:-5000} --timeout 120 --workers 1 --preload 'src.app:create_app()'"]
