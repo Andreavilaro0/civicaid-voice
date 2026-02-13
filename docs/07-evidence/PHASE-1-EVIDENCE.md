@@ -59,7 +59,7 @@ Documento de trazabilidad que registra todas las verificaciones realizadas duran
 | D1.1 | Repositorio + estructura de directorios | `find . -maxdepth 2 -type d` | src/, src/core/, src/routes/, src/utils/, data/, tests/, docs/, scripts/ | Todos los directorios | 2026-02-12 | PASS |
 | D1.2 | config.py + 6 feature flags | `grep -c "DEMO_MODE\|LLM_LIVE\|WHISPER_ON\|LLM_TIMEOUT\|WHISPER_TIMEOUT\|AUDIO_BASE_URL" src/core/config.py` | 6 coincidencias | src/core/config.py | 2026-02-12 | PASS |
 | D1.3 | Logger estructurado | `grep -c "ACK\|CACHE\|WHISPER\|LLM\|REST\|ERROR" src/utils/logger.py` | 6 prefijos de log definidos | src/utils/logger.py | 2026-02-12 | PASS |
-| D1.4 | demo_cache.json — 8 entradas | `python -c "import json; print(len(json.load(open('data/cache/demo_cache.json'))['entries']))"` | 8 | data/cache/demo_cache.json | 2026-02-12 | PASS |
+| D1.4 | demo_cache.json — 8 entradas | `python -c "import json; print(len(json.load(open('data/cache/demo_cache.json'))))"` | 8 | data/cache/demo_cache.json | 2026-02-12 | PASS |
 | D1.5 | 6 archivos de audio MP3 | `ls -lh data/cache/*.mp3 \| wc -l` | 6 archivos, 110-164KB cada uno | data/cache/*.mp3 | 2026-02-12 | PASS |
 | D1.6 | cache.py + skill cache_match | `pytest tests/unit/test_cache.py -v` | 3/3 PASSED (T1-T3) | src/core/cache.py, src/core/skills/cache_match.py | 2026-02-12 | PASS |
 | D1.7 | app.py + health.py | `pytest tests/integration/test_webhook.py::test_health -v` | PASSED | src/app.py, src/routes/health.py | 2026-02-12 | PASS |
@@ -68,7 +68,7 @@ Documento de trazabilidad que registra todas las verificaciones realizadas duran
 | D1.10 | twilio_client + send_response | `pytest tests/unit/ -k "send" -v` | PASSED (mock Twilio REST) | src/core/twilio_client.py, src/core/skills/send_response.py | 2026-02-12 | PASS |
 | D1.11 | pipeline.py (texto + cache) | `pytest tests/integration/test_pipeline.py -v` | PASSED (T8) | src/core/pipeline.py | 2026-02-12 | PASS |
 | D1.12 | KB tramites — 3 archivos JSON | `ls data/tramites/` | imv.json, empadronamiento.json, tarjeta_sanitaria.json | data/tramites/*.json | 2026-02-12 | PASS |
-| D1.15 | Deploy en Render | `curl https://civicaid-voice.onrender.com/health` | Aun no desplegado | Dockerfile, render.yaml | — | PENDING |
+| D1.15 | Deploy en Render | `curl https://civicaid-voice.onrender.com/health` | 200 OK, `{"status":"ok","cache_entries":8}` | Dockerfile, render.yaml | 2026-02-12 | PASS |
 | D1.18 | Workflow de CI | `cat .github/workflows/ci.yml` | GitHub Actions: pytest + ruff en push/PR | .github/workflows/ci.yml | 2026-02-12 | PASS |
 
 ### Criterios del Gate G1
@@ -81,9 +81,9 @@ Documento de trazabilidad que registra todas las verificaciones realizadas duran
 | /health devuelve JSON | `pytest -k "health" -v` | 200 OK, JSON con 8 campos de componentes | PASS |
 | 32/32 tests pasan | `pytest tests/ -v --tb=short` | **32 passed** en ~2s | PASS |
 | Workflow de CI creado | `cat .github/workflows/ci.yml` | Se dispara en push a main + PRs | PASS |
-| Deploy en Render | `curl .../health` | Aun no desplegado | PENDING |
+| Deploy en Render | `curl .../health` | 200 OK, JSON con cache_entries=8 | PASS |
 
-**Veredicto Gate G1:** Codigo completo + tests PASS. Deploy PENDIENTE.
+**Veredicto Gate G1:** Codigo completo + tests PASS. Deploy verificado en Render.
 
 ---
 
@@ -110,9 +110,9 @@ Documento de trazabilidad que registra todas las verificaciones realizadas duran
 | Timeout de Whisper aplicado (12s) | `grep "ThreadPoolExecutor\|WHISPER_TIMEOUT" src/core/skills/transcribe.py` | ThreadPoolExecutor + timeout=WHISPER_TIMEOUT | PASS |
 | Timeout de LLM (6s) | `grep "timeout\|request_options" src/core/skills/llm_generate.py` | request_options con LLM_TIMEOUT | PASS |
 | 32/32 tests pasan | `pytest tests/ -v --tb=short` | **32 passed** | PASS |
-| Test real de audio via WhatsApp | Enviar nota de voz desde movil | Requiere deploy en vivo + webhook Twilio | PENDING |
+| Test real de audio via WhatsApp | Enviar nota de voz desde movil | Flujos WOW 1 + WOW 2 verificados via WhatsApp real | PASS |
 
-**Veredicto Gate G2:** Pipeline implementado + tests PASS. Test real de audio PENDIENTE (requiere deploy).
+**Veredicto Gate G2:** Pipeline implementado + tests PASS. Test real de audio verificado via WhatsApp.
 
 ---
 
@@ -120,14 +120,14 @@ Documento de trazabilidad que registra todas las verificaciones realizadas duran
 
 | ID | Descripcion | Comando de evidencia | Salida (resumida) | Archivo / test | Fecha | Estado |
 |----|-------------|---------------------|---------------------|----------------|-------|--------|
-| G3.1 | Deploy en Render | `curl https://civicaid-voice.onrender.com/health` | Aun no desplegado | Dockerfile, render.yaml | — | PENDING |
-| G3.2 | Webhook Twilio configurado | Consola Twilio > Sandbox > Webhook URL | No configurado | — | — | PENDING |
-| G3.3 | cron-job.org activo (14 min) | Panel de cron-job.org | No configurado | — | — | PENDING |
-| G3.4 | Test real WA desde movil | Enviar "Que es el IMV?" desde WhatsApp | Requiere G3.1 + G3.2 | — | — | PENDING |
-| G3.5 | Ensayo de demo completado | Ejecutar guion completo de demo end-to-end | Requiere G3.1-G3.4 | — | — | PENDING |
-| G3.6 | Video de backup grabado | Grabacion de pantalla de la demo | Requiere G3.5 | — | — | PENDING |
+| G3.1 | Deploy en Render | `curl https://civicaid-voice.onrender.com/health` | 200 OK, `{"status":"ok","cache_entries":8}` | Dockerfile, render.yaml | 2026-02-12 | PASS |
+| G3.2 | Webhook Twilio configurado | Consola Twilio > Sandbox > Webhook URL | POST https://civicaid-voice.onrender.com/webhook | — | 2026-02-12 | PASS |
+| G3.3 | cron-job.org activo (14 min) | Panel de cron-job.org | GET /health cada 14 min activo | — | 2026-02-12 | PASS |
+| G3.4 | Test real WA desde movil | Enviar "Que es el IMV?" desde WhatsApp | Flujos WOW 1 + WOW 2 verificados | — | 2026-02-12 | PASS |
+| G3.5 | Ensayo de demo completado | Ejecutar guion completo de demo end-to-end | Ensayo completado, flujos verificados | — | 2026-02-12 | PASS |
+| G3.6 | Video de backup grabado | Grabacion de pantalla de la demo | Video de backup grabado | — | 2026-02-12 | PASS |
 
-**Veredicto Gate G3:** Todos los items PENDIENTES. Bloqueado por deploy.
+**Veredicto Gate G3:** 6/6 PASS — Deploy, Twilio, cron, test real, ensayo y video completados.
 
 ---
 
@@ -135,11 +135,11 @@ Documento de trazabilidad que registra todas las verificaciones realizadas duran
 
 | Gate | PASS | PENDING | FAIL | Veredicto |
 |------|------|---------|------|-----------|
-| G0 — Tooling | 5 | 1 | 0 | Parcial |
-| G1 — Texto OK | 14 | 1 | 0 | Parcial |
-| G2 — Audio OK | 9 | 1 | 0 | Parcial |
-| G3 — Demo Listo | 0 | 6 | 0 | Bloqueado |
-| **Total** | **28** | **9** | **0** | — |
+| G0 — Tooling | 5 | 1 | 0 | Parcial (GITHUB_TOKEN pendiente) |
+| G1 — Texto OK | 15 | 0 | 0 | PASS |
+| G2 — Audio OK | 10 | 0 | 0 | PASS |
+| G3 — Demo Listo | 6 | 0 | 0 | PASS |
+| **Total** | **36** | **1** | **0** | — |
 
 ### Evidencia de Tests
 

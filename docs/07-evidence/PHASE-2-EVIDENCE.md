@@ -219,7 +219,7 @@ Archivos de test nuevos en la Fase 2:
 | Archivo | Tests | Cobertura |
 |---------|-------|-----------|
 | tests/unit/test_evals.py | 9 | Eval runner, casos de evaluacion, reportes |
-| tests/unit/test_guardrails.py | 18 | Bloqueadores pre-check, disclaimers post-check, redaccion PII |
+| tests/unit/test_guardrails.py | 19 | Bloqueadores pre-check, disclaimers post-check, redaccion PII |
 | tests/unit/test_observability.py | 6 | RequestContext, timings, thread-local, feature flag |
 | tests/unit/test_redteam.py | 9 | Validacion archivo red team, prompts adversariales contra guardrails |
 | tests/unit/test_retriever.py | 7 | Interfaz Retriever, JSON KB retriever, factory |
@@ -300,7 +300,7 @@ Veredicto: PASS
 
 ```
 Escaneados: docs/, scripts/, .claude/
-- docs/06-integrations/NOTION-OS.md: contiene "ntn_REAL_TOKEN_HERE" (placeholder, seguro)
+- docs/06-integrations/NOTION-OS.md: contiene "ntn_XXXX...XXXX" (placeholder, seguro)
 - .claude/NOTION-SETUP-MANUAL.md: contiene "ntn_XXXXXXXXXXXXXXXXXXXXXXXX" (placeholder, seguro)
 - .claude/project-settings.json: contiene "ntn_xxx" (placeholder, seguro)
 - scripts/populate_notion.sh: contiene "ntn_xxx" (ejemplo en mensaje de error, seguro)

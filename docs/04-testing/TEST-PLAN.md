@@ -393,13 +393,14 @@ Para los tests originales del plan T1-T10, se mantiene el prefijo `test_tN_`:
 
 ### Resumen comparativo
 
-| Tipo | Fase 1 | Fase 2 | Delta |
-|------|--------|--------|-------|
-| Unit | 21 | 75 | +54 |
-| Integracion | 7 | 8 | +1 |
-| E2E | 4 | 4 | 0 |
-| Red team (xpassed) | 0 | 5 | +5 |
-| **Total** | **32** | **93** | **+61** |
+| Tipo | Fase 1 | Fase 2 | Delta | Nota |
+|------|--------|--------|-------|------|
+| Unit | 21 | 82 | +61 | Incluye 10 red team (5 xpassed) |
+| Integracion | 7 | 7 | 0 | pipeline(2) + twilio(2) + webhook(3) |
+| E2E | 4 | 4 | 0 | demo_flows(4) |
+| **Total** | **32** | **93** | **+61** | **88 passed + 5 xpassed** |
+
+> **Nota sobre conteo:** Los 5 tests `xpassed` son tests unitarios en `test_redteam.py`. Estan incluidos en el conteo de Unit (82). El total verificado: `pytest tests/unit/ --co -q` -> 82, `pytest tests/integration/ --co -q` -> 7, `pytest tests/e2e/ --co -q` -> 4.
 
 ---
 
@@ -433,13 +434,51 @@ ruff check src/ tests/ --select E,F,W --ignore E501
 
 # Script de verificacion Fase 2 (pytest + ruff + docker + health)
 bash scripts/phase2_verify.sh [RENDER_URL]
+
+# Script de verificacion Fase 3 (pytest + ruff + docker + health + Render + webhook 403 + Twilio smoke)
+bash scripts/phase3_verify.sh [RENDER_URL]
 ```
 
 Resultado esperado:
 
 ```
-======================== 88 passed, 5 xpassed in 1.27s =========================
+======================== 88 passed, 5 xpassed in 2.52s =========================
 ```
+
+## 10. Reproducibilidad (Fase 3 QA)
+
+### Prerequisitos
+
+- Python >= 3.11 (verificado con 3.11.8 y 3.14.3)
+- pip
+
+### Pasos para reproducir
+
+```bash
+# 1. Clonar el repo
+git clone <repo-url> && cd civicaid-voice
+
+# 2. Crear virtualenv
+python3 -m venv .venv && source .venv/bin/activate
+
+# 3. Instalar deps runtime + dev
+pip install -r requirements.txt -r requirements-dev.txt
+
+# 4. Ejecutar tests
+pytest tests/ -v --tb=short
+# Esperado: 88 passed, 5 xpassed in ~2.5s
+
+# 5. Lint
+ruff check src/ tests/ --select E,F,W --ignore E501
+# Esperado: All checks passed!
+```
+
+### Notas
+
+- `requirements-audio.txt` (Whisper) NO es necesario para tests — `conftest.py` desactiva Whisper (`WHISPER_ON=false`).
+- Los 5 XPASSED son tests red team marcados `xfail(strict=False)` que pasan porque guardrails cubre todos los vectores. Ver [Evidencia Fase 3](../07-evidence/PHASE-3-EVIDENCE.md) seccion P3.Q2.6 para analisis completo.
+
+---
 
 ## Referencias
 
@@ -448,5 +487,6 @@ Resultado esperado:
 - [Arquitectura](../02-architecture/ARCHITECTURE.md)
 - [Evidencia Fase 1](../07-evidence/PHASE-1-EVIDENCE.md)
 - [Evidencia Fase 2](../07-evidence/PHASE-2-EVIDENCE.md)
+- [Evidencia Fase 3](../07-evidence/PHASE-3-EVIDENCE.md)
 - [Estado de Fases](../07-evidence/PHASE-STATUS.md)
 - [pyproject.toml](../../pyproject.toml) — configuracion de pytest y ruff

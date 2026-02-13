@@ -39,7 +39,7 @@ Documento central de seguimiento que muestra el estado de cada fase del proyecto
 | Fase 0 — Plan Maestro | COMPLETADA | 2026-02-10 | 2026-02-11 | — | — | — | Documentacion en /docs/01-phases/ |
 | Fase 1 — MVP | COMPLETADA | 2026-02-12 | 2026-02-12 | c6a896e | — | 32/32 PASS | Codigo completo, pipeline funcional |
 | Fase 2 — Endurecimiento | COMPLETADA | 2026-02-12 | 2026-02-12 | ec05382 | Verificado | 93/93 PASS (88 passed + 5 xpassed) | Docs, QA, Notion, observabilidad, seguridad — todos los gates PASS |
-| Fase 3 — Demo en vivo | PENDIENTE | — | — | — | — | — | Demo presencial hackathon |
+| Fase 3 — Demo en vivo | COMPLETADA | 2026-02-12 | 2026-02-13 | 77d5f88 | Verificado | 93/93 PASS | Demo, ops, Twilio, observabilidad, Notion — QA Deep audit PASS |
 
 ---
 
@@ -67,7 +67,7 @@ Documento central de seguimiento que muestra el estado de cada fase del proyecto
 - TwiML ACK devuelve XML en <1s
 - Cache-first devuelve datos correctos de tramites (3 tramites: IMV, Empadronamiento, Tarjeta Sanitaria)
 - /health devuelve JSON con 8 componentes
-- Pipeline de 10 skills funcional
+- Pipeline de 11 skills funcional
 - Deploy a Render verificado
 
 ---
@@ -100,7 +100,7 @@ Documento central de seguimiento que muestra el estado de cada fase del proyecto
 - cron-job.org configurado (cada 14 min)
 - Test real via WhatsApp completado
 - Ensayo de demo realizado
-- 10 feature flags operativas
+- 9 feature flags en config.py (TWILIO_TIMEOUT hardcodeado aparte)
 
 ---
 
@@ -193,6 +193,18 @@ Documento central de seguimiento que muestra el estado de cada fase del proyecto
 | P2.4 — Notion | PASS | 4/4 | 0 | 75 entradas en 3 DBs, pagina Fase 2 activa |
 | P2.5 — QA | PASS | 3/3 | 0 | 93/93 tests, script de verificacion listo |
 | P2.6 — Seguridad | PASS | 7/7 | 0 | Cero secretos, todos los patrones escaneados |
+| P3.1 — Twilio Real | PASS | 6/6 | 0 | Sandbox, signature 403, checklist Twilio |
+| P3.2 — Deploy Ops | PASS | 8/8 | 0 | Health OK, cron, runbook 8 incidentes |
+| P3.3 — QA Evidence | PASS | 6/6 | 0 | phase3_verify.sh, 93/93, lint clean |
+| P3.4 — Observability | PASS | 6/6 | 0 | JSON logs, request_id, timings |
+| P3.5 — Notion PMO | PASS | 10/10 | 0 | 81 entradas, owners, Phase 3 page |
+| P3.6 — Demo Ready | PASS | 3/3 | 0 | WOW 1+2, guion 6-8 min, 1-pager |
+| P3.Q1 — Repo Forensics | PASS | 7/7 | 0 | 0 secretos, 7 contradicciones corregidas |
+| P3.Q2 — Testing Repro | PASS | 9/9 | 0 | venv reproducible, xpassed documentado |
+| P3.Q3 — Docker/CI | PASS | 8/8 | 0 | Build OK, .venv bloat corregido |
+| P3.Q4-Q5 — Deploy Smoke | PASS | 7/7 | 0 | Health 200, webhook 403, 6 MP3s OK |
+| P3.Q6 — Notion Truth | PASS | 7/7 | 0 | 81 entradas verificadas por API |
+| P3.Q7 — Observability | PASS | 9/9 | 0 | JSON valido con request_id |
 
 ---
 
@@ -217,15 +229,21 @@ bash scripts/phase2_verify.sh
 
 ---
 
-## Proximas Acciones (Fase 3 — Demo en Vivo)
+## Fase 3 Completada — Resumen
 
-1. **Ensayo final de demo** — Ejecutar flujos WOW 1 (texto) + WOW 2 (audio) en vivo con WhatsApp real
-2. **Grabacion de video backup** — Capturar demo completa como respaldo en caso de fallo en vivo
-3. **Presentacion hackathon** — Demo presencial OdiseIA4Good en UDIT
-4. **Logging JSON estructurado** — Migrar de texto plano a JSON (mejora de observabilidad)
-5. **Integracion OTEL** — Reemplazar stub con exportador real de OpenTelemetry
-6. **Esquema Notion Backlog** — Anadir propiedades Owner + Depende de
-7. **Git commit + push + tag** — Cerrar checklist de GitHub con tag de version
+1. **Twilio WhatsApp Real** — Sandbox configurado, signature validation activa (403 sin firma), checklist paso a paso
+2. **Deploy & Ops** — Render estable (avg 166ms), cron 14 min, runbook 8 escenarios de incidente
+3. **QA & Evidence** — phase3_verify.sh (7 pasos), 93/93 tests, ruff clean, Docker smoke OK
+4. **Logging JSON** — JSONFormatter con request_id + timings por stage, demo-grade
+5. **Notion OS** — 81 entradas, owners asignados (97.7%), pagina Phase 3 Demo Ready creada
+6. **Demo** — Guion 6-8 min con WOW 1 (texto) + WOW 2 (audio), 1-pager, 8 riesgos mitigados
+7. **QA Deep Audit** — 12 contradicciones detectadas, 11 corregidas, 0 secretos
+
+## Pendiente (dia de demo)
+
+1. **Ensayo final** — Probar WOW 1 + WOW 2 con telefono fisico 30 min antes
+2. **Video backup** — Grabar demo como respaldo
+3. **Git tag** — Crear tag de version tras commit final
 
 ---
 

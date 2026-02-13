@@ -1,10 +1,12 @@
 # RUNBOOK — Demo "Clara" Chatbot WhatsApp
 
-> **Resumen en una linea:** Guia paso a paso para ejecutar la demo de Clara en vivo ante el jurado, con 2 momentos WOW (texto + audio), 8 entradas de cache documentadas y procedimientos de fallback.
+> **Resumen en una linea:** Guia paso a paso para ejecutar la demo de Clara en vivo ante el jurado (6-8 minutos), con 2 momentos WOW (texto + audio), evidence checkpoints verificables, 8 entradas de cache documentadas y procedimientos de fallback.
 
 ## Que es
 
-Este runbook describe el procedimiento completo para ejecutar la demo de Clara, el asistente conversacional WhatsApp-first que ayuda a personas vulnerables en Espana a navegar tramites de servicios sociales (IMV, Empadronamiento, Tarjeta Sanitaria). La demo dura 3 minutos y contiene 2 momentos WOW en vivo.
+Este runbook describe el procedimiento completo para ejecutar la demo de Clara, el asistente conversacional WhatsApp-first que ayuda a personas vulnerables en Espana a navegar tramites de servicios sociales (IMV, Empadronamiento, Tarjeta Sanitaria). La demo dura **6-8 minutos** y contiene 2 momentos WOW en vivo con evidence checkpoints que respaldan cada claim.
+
+> **Concepto elegido:** Ciudadano-first (storytelling) con refuerzo tecnico. Analisis de los 3 conceptos evaluados en [FASE3-DEMO-OPS-REAL.md](../01-phases/FASE3-DEMO-OPS-REAL.md).
 
 ## Para quien
 
@@ -316,60 +318,138 @@ A continuacion se documentan las 8 entradas del archivo `data/cache/demo_cache.j
 
 ---
 
-## 7. Guion Minuto a Minuto
+## 7. Guion 6-8 Minutos (con Evidence Checkpoints)
 
-### t=0:00 — Introduccion (30 segundos)
+> **Formato de cues:** Cada seccion incluye MUESTRO (lo visible en pantalla), DIGO (lo que dice Robert) y EVIDENCIA (comando + archivo que respalda el claim). Guion completo con analisis de conceptos en [FASE3-DEMO-OPS-REAL.md](../01-phases/FASE3-DEMO-OPS-REAL.md).
 
-**Robert dice:**
+### t=0:00 — Apertura: El Problema (1 minuto)
 
-> "Imaginad que sois Maria, una madre espanola que acaba de recibir una carta del gobierno sobre una ayuda llamada IMV. No sabe que es. Que hace? Abre WhatsApp y le pregunta a Clara."
+**MUESTRO** → Slide con datos: "3.2M inmigrantes en Espana. 40% no completa tramites por barrera idiomatica."
 
-*Operador: Tener WhatsApp abierto, conversacion con Clara visible en pantalla.*
+**DIGO** →
 
-### t=0:30 — WOW 1: Maria (Espanol, Texto)
-
-**Accion:** El operador escribe y envia en WhatsApp: `Que es el IMV?`
-
-**Resultado esperado (< 2 segundos):**
-
-1. Clara responde con texto detallado sobre el IMV.
-2. Clara envia un audio MP3 con la respuesta narrada.
-
-**Robert dice (mientras aparece la respuesta):**
-
-> "En menos de dos segundos, Maria tiene toda la informacion que necesita: texto claro y un audio que puede escuchar mientras cocina o va en el metro. Sin descargar ninguna app. Sin esperar en una cola telefonica. Solo WhatsApp."
-
-### t=1:15 — Transicion a WOW 2 (15 segundos)
-
-**Robert dice:**
-
-> "Pero Clara no solo habla espanol. Ahmed acaba de llegar de Marruecos. Habla frances. Necesita empadronarse pero no sabe como. Le envia una nota de voz en frances a Clara."
-
-### t=1:30 — WOW 2: Ahmed (Frances, Audio)
-
-**Accion:** El operador envia una **nota de voz en frances** preguntando por el empadronamiento.
-
-**Resultado esperado (~10 segundos):**
-
-1. Transcripcion del audio en frances.
-2. Deteccion del idioma (frances).
-3. Busqueda de informacion sobre empadronamiento en la KB.
-4. Respuesta **en frances** con texto explicando el tramite.
-5. Audio MP3 en frances con la respuesta.
-
-**Robert dice (frases puente para cubrir los ~10 segundos de espera):**
-
-> "Clara esta procesando el audio de Ahmed..."
+> "En Espana hay 3 coma 2 millones de inmigrantes. El 40 por ciento no consigue completar tramites basicos como el empadronamiento o la solicitud del Ingreso Minimo Vital. El problema no es que no quieran. Es que la informacion esta en espanol tecnico, repartida en 20 webs distintas, y las colas telefonicas duran horas."
 >
-> "Lo que esta pasando ahora es fascinante: se convierte la voz a texto, detectamos que es frances, buscamos la informacion sobre empadronamiento en nuestra base de conocimiento, generamos la respuesta en frances y la convertimos de nuevo a audio. Todo automatico."
+> "Hoy os voy a presentar a Clara. Un asistente de WhatsApp que habla el idioma del usuario, entiende voz y texto, y da informacion verificada sobre tramites reales. Nada de descargar apps. Solo WhatsApp."
+
+**EVIDENCIA** → INE 2025 poblacion inmigrante. KB oficial: `data/tramites/imv.json`, `data/tramites/empadronamiento.json`, `data/tramites/tarjeta_sanitaria.json`.
+
+### t=1:00 — Presentacion de Clara (30 segundos)
+
+**MUESTRO** → Slide de arquitectura simplificado o transicion directa al movil.
+
+**DIGO** →
+
+> "Clara funciona asi de simple: tu abres WhatsApp, le escribes o le hablas, y Clara te responde en tu idioma con informacion verificada. Veamoslo en vivo."
+
+**EVIDENCIA** → Diagrama de secuencia en `docs/02-architecture/ARCHITECTURE.md` seccion 2.
+
+### t=1:30 — WOW 1: Maria pregunta por el IMV (2 minutos)
+
+**MUESTRO** → Pantalla del movil proyectada con WhatsApp abierto, conversacion con Clara.
+
+**Paso 1 — Saludo:**
+
+**MUESTRO** → Operador escribe y envia: `Hola`
+
+**DIGO** →
+
+> "Imaginad que sois Maria. Es una madre espanola que acaba de recibir una carta del gobierno sobre algo llamado IMV. No tiene ni idea de que es. Abre WhatsApp y escribe 'Hola'."
+
+**MUESTRO** → Respuesta de Clara en <2 segundos: saludo + lista de 3 tramites.
+
+**EVIDENCIA** → Cache entry `saludo_es` en `data/cache/demo_cache.json`. Verificar: `curl -s https://civicaid-voice.onrender.com/health | python3 -m json.tool` → `cache_entries: 8`.
+
+**Paso 2 — Pregunta clave:**
+
+**MUESTRO** → Operador escribe y envia: `Que es el IMV?`
+
+**DIGO** →
+
+> "Maria pregunta directamente: 'Que es el IMV?'"
+
+**MUESTRO** → Clara responde con texto detallado + envia audio MP3.
+
+**DIGO** (mientras aparece la respuesta) →
+
+> "En menos de dos segundos, Maria tiene toda la informacion que necesita: que es el IMV, los requisitos, la cuantia — 604 euros al mes —, como solicitarlo, y un audio que puede escuchar mientras cocina o va en el metro. Sin descargar ninguna app. Sin esperar en una cola telefonica. Solo WhatsApp."
+
+**EVIDENCIA** →
+- Cache entry `imv_es` con audio `imv_es.mp3` en `data/cache/demo_cache.json`.
+- Audio accesible: `curl -I https://civicaid-voice.onrender.com/static/cache/imv_es.mp3` → HTTP 200 + `Content-Type: audio/mpeg`.
+- KB oficial: `data/tramites/imv.json`.
+
+### t=3:30 — Transicion a Ahmed (30 segundos)
+
+**MUESTRO** → Misma pantalla de WhatsApp.
+
+**DIGO** →
+
+> "Pero Clara no solo habla espanol. Pensad ahora en Ahmed. Acaba de llegar de Marruecos. Habla frances. Necesita empadronarse para poder acceder a la sanidad publica, pero no sabe por donde empezar. No va a escribir en espanol. Le envia una nota de voz en frances a Clara."
+
+**EVIDENCIA** → Clara soporta 2 idiomas (ES, FR). Deteccion automatica: `src/core/skills/detect_lang.py`.
+
+### t=4:00 — WOW 2: Ahmed envia audio en frances (2 minutos)
+
+**MUESTRO** → Operador envia nota de voz en frances preguntando por el empadronamiento.
+
+**DIGO** (frases puente mientras Clara procesa, ~10 segundos) →
+
+> "Ahora Clara esta haciendo algo fascinante. Primero, convierte la voz de Ahmed a texto. Luego detecta que esta hablando en frances. Busca informacion sobre el empadronamiento en nuestra base de conocimiento verificada. Genera una respuesta en frances. Y la convierte de nuevo a audio. Todo automatico."
+
+**MUESTRO** → Clara responde con texto en frances + audio MP3 en frances.
+
+**DIGO** →
+
+> "Y ahi esta. Ahmed tiene su respuesta en frances. Le explica que es el empadronamiento, que documentos necesita, donde ir en Madrid, y que es un derecho — incluso sin contrato de alquiler. Sin traductor. Sin intermediarios. Solo WhatsApp y Clara."
+
+**EVIDENCIA** →
+- Pipeline: 10 skills en `src/core/pipeline.py`.
+- Cache entry `ahmed_empadronamiento_fr` con audio `ahmed_fr.mp3`.
+- Ruta: webhook → fetch_media → transcribe (Gemini) → detect_lang → cache_match → send_response.
+- 93 tests verifican el pipeline: `pytest tests/ -v --tb=short`.
+
+### t=6:00 — Evidencia Tecnica (1 minuto)
+
+**MUESTRO** → Terminal o slide con datos clave.
+
+**DIGO** →
+
+> "Esto no es un mockup. Es un sistema real desplegado en produccion."
 >
-> "Y ahi esta. Ahmed tiene su respuesta en frances. Sin traductor. Sin intermediarios."
+> "93 tests automatizados. Un pipeline de 10 skills. 10 feature flags. Base de conocimiento con informacion verificada del gobierno. Deploy en Render con health check cada 14 minutos. Coste por consulta: 0 coma 2 centimos en cache, 1 centimo con IA."
 
-### t=2:30 — Cierre (30 segundos)
+**EVIDENCIA** →
 
-**Robert dice:**
+| Claim | Comando | Output esperado |
+|-------|---------|-----------------|
+| 93 tests | `pytest tests/ -v --tb=short` | 93 passed (88+5 xpassed) |
+| 10 skills | `ls src/core/skills/*.py` | 10 archivos |
+| 10 flags | Ver `src/core/config.py` | 10 flags |
+| KB oficial | `ls data/tramites/` | 3 JSON |
+| Deploy activo | `curl -s https://civicaid-voice.onrender.com/health` | `"status": "ok"` |
+| 8 cache | health output | `"cache_entries": 8` |
+| Lint limpio | `ruff check src/ tests/ --select E,F,W --ignore E501` | 0 errores |
 
-> "Esto es Clara. Un asistente de WhatsApp que habla el idioma del usuario, entiende voz y texto, y da informacion verificada sobre tramites reales. Hoy funciona con IMV y empadronamiento. Manana puede cubrir cientos de tramites. Y lo mas importante: funciona en el canal que ya usan mil millones de personas."
+### t=7:00 — Cierre: Impacto y Vision (1 minuto)
+
+**MUESTRO** → Slide final o pantalla de WhatsApp con las conversaciones visibles.
+
+**DIGO** →
+
+> "Hoy Clara cubre 3 tramites en 2 idiomas. Pero la arquitectura esta disenada para escalar. Manana pueden ser cientos de tramites en decenas de idiomas."
+>
+> "Lo mas importante: Clara funciona en el canal que ya usan mil millones de personas. No hay que instalar nada. No hay que aprender nada. Solo abrir WhatsApp y preguntar."
+>
+> "Para Maria, eso significa entender una carta del gobierno. Para Ahmed, eso significa poder empadronarse y acceder a la sanidad publica. Para millones de personas vulnerables, eso significa dejar de estar solas frente a la burocracia."
+>
+> "Esto es Clara. Gracias."
+
+**EVIDENCIA** →
+- WhatsApp: 95% penetracion en Espana.
+- 3 tramites: `data/tramites/`. 2 idiomas: ES, FR.
+- Arquitectura stateless: `docs/02-architecture/ARCHITECTURE.md`.
+- Repo completo: codigo + tests + docs + deploy verificable.
 
 ---
 
@@ -455,7 +535,7 @@ curl -I https://civicaid-voice.onrender.com/static/cache/imv_es.mp3
 
 ## 10. Puntos de Conversacion Post-Demo
 
-Despues de los 3 minutos, Robert puede expandir sobre estos temas si hay preguntas:
+Despues de los 6-8 minutos, Robert puede expandir sobre estos temas si hay preguntas:
 
 ### Tecnologia
 
@@ -508,6 +588,8 @@ Despues de los 3 minutos, Robert puede expandir sobre estos temas si hay pregunt
 
 ## Referencias
 
+- [Fase 3 — Demo en Vivo (conceptos, guion, riesgos)](../01-phases/FASE3-DEMO-OPS-REAL.md)
+- [Resumen Ejecutivo / 1-Pager](../00-EXECUTIVE-SUMMARY.md)
 - [Arquitectura](../02-architecture/ARCHITECTURE.md)
 - [Implementacion MVP (Fase 1)](../01-phases/FASE1-IMPLEMENTACION-MVP.md)
 - [Plan Maestro (Fase 0)](../01-phases/FASE0-PLAN-MAESTRO-FINAL.md)

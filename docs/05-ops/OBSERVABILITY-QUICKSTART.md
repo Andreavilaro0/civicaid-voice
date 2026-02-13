@@ -26,7 +26,6 @@ No requiere agentes externos ni infraestructura adicional. Todo se emite a stdou
 
 - Exportacion OpenTelemetry (existe stub, no implementado).
 - Dashboards Grafana pre-construidos (se dan queries de referencia).
-- Logging JSON estructurado (se usa formato texto plano).
 
 ---
 
@@ -45,7 +44,7 @@ Twilio POST /webhook
         v
   Pipeline (hilo de fondo)
     -> Timings por etapa via ctx.add_timing()
-    -> Lineas de log etiquetadas: [ACK], [CACHE], [WHISPER], [LLM], [REST], [ERROR], [OBS]
+    -> Lineas de log etiquetadas: [ACK], [CACHE], [WHISPER], [LLM], [REST], [ERROR], [OBS], [WEBHOOK]
         |
         v
   Flask after_request
@@ -84,10 +83,10 @@ LOG_LEVEL=DEBUG
 
 ## 3. Tags de log -- Referencia completa
 
-Todos los logs usan el logger `clara` de Python y se imprimen a stdout con el formato:
+Todos los logs usan el logger `clara` de Python y se imprimen a stdout como **JSON estructurado** (una linea JSON por evento):
 
-```
-HH:MM:SS NIVEL [TAG] clave=valor clave=valor ...
+```json
+{"ts": "2026-02-12T14:02:31", "level": "INFO", "logger": "clara", "msg": "[TAG] clave=valor", "tag": "TAG", "campo1": "valor1"}
 ```
 
 ### Tabla de tags
@@ -105,32 +104,32 @@ HH:MM:SS NIVEL [TAG] clave=valor clave=valor ...
 
 ### Ejemplo: PIPELINE -- Cache hit (entrada de texto)
 
-```
-14:02:31 INFO [ACK] from=whatsapp:+34612345678 type=text
-14:02:31 INFO [CACHE] HIT id=imv_es_01 12ms
-14:02:31 INFO [OBS] request_id=a1b2c3d4-e5f6-7890-abcd-ef1234567890 timings={'cache': 12, 'total': 12}
-14:02:31 INFO [REST] Sent to=whatsapp:+34612345678 source=cache total=15ms
+```json
+{"ts":"2026-02-12T14:02:31","level":"INFO","logger":"clara","msg":"[ACK] from=whatsapp:+34612345678 type=text","tag":"ACK","from_number":"whatsapp:+34612345678","input_type":"text"}
+{"ts":"2026-02-12T14:02:31","level":"INFO","logger":"clara","msg":"[CACHE] HIT id=imv_es_01 12ms","tag":"CACHE","hit":true,"entry_id":"imv_es_01","ms":12}
+{"ts":"2026-02-12T14:02:31","level":"INFO","logger":"clara","msg":"[OBS] request_id=a1b2c3d4... timings={...}","tag":"OBS","request_id":"a1b2c3d4-e5f6-7890-abcd-ef1234567890","timings":{"cache":12,"total":12}}
+{"ts":"2026-02-12T14:02:31","level":"INFO","logger":"clara","msg":"[REST] Sent to=whatsapp:+34612345678 source=cache total=15ms","tag":"REST","to_number":"whatsapp:+34612345678","source":"cache","total_ms":15}
 ```
 
 ### Ejemplo: PIPELINE -- Cache miss, ruta LLM
 
-```
-14:03:12 INFO [ACK] from=whatsapp:+34612345678 type=text
-14:03:12 INFO [CACHE] MISS 5ms
-14:03:15 INFO [LLM] OK 2800ms source=gemini
-14:03:15 INFO [OBS] request_id=b2c3d4e5-f6a7-8901-bcde-f12345678901 timings={'total': 3100}
-14:03:15 INFO [REST] Sent to=whatsapp:+34612345678 source=llm total=3100ms
+```json
+{"ts":"2026-02-12T14:03:12","level":"INFO","logger":"clara","msg":"[ACK] from=whatsapp:+34612345678 type=text","tag":"ACK","from_number":"whatsapp:+34612345678","input_type":"text"}
+{"ts":"2026-02-12T14:03:12","level":"INFO","logger":"clara","msg":"[CACHE] MISS 5ms","tag":"CACHE","hit":false,"ms":5}
+{"ts":"2026-02-12T14:03:15","level":"INFO","logger":"clara","msg":"[LLM] OK 2800ms source=gemini","tag":"LLM","success":true,"duration_ms":2800,"source":"gemini"}
+{"ts":"2026-02-12T14:03:15","level":"INFO","logger":"clara","msg":"[OBS] request_id=b2c3d4e5...","tag":"OBS","request_id":"b2c3d4e5-f6a7-8901-bcde-f12345678901","timings":{"total":3100}}
+{"ts":"2026-02-12T14:03:15","level":"INFO","logger":"clara","msg":"[REST] Sent to=... source=llm total=3100ms","tag":"REST","to_number":"whatsapp:+34612345678","source":"llm","total_ms":3100}
 ```
 
 ### Ejemplo: AUDIO -- Transcripcion Gemini + LLM
 
-```
-14:05:00 INFO [ACK] from=whatsapp:+34612345678 type=audio
-14:05:04 INFO [WHISPER] OK 3500ms "Necesito ayuda con el ingreso minimo vital..."
-14:05:04 INFO [CACHE] MISS 3ms
-14:05:07 INFO [LLM] OK 2600ms source=gemini
-14:05:07 INFO [OBS] request_id=c3d4e5f6-a7b8-9012-cdef-123456789012 timings={'total': 6500}
-14:05:07 INFO [REST] Sent to=whatsapp:+34612345678 source=llm total=6500ms
+```json
+{"ts":"2026-02-12T14:05:00","level":"INFO","logger":"clara","msg":"[ACK] from=whatsapp:+34612345678 type=audio","tag":"ACK","from_number":"whatsapp:+34612345678","input_type":"audio"}
+{"ts":"2026-02-12T14:05:04","level":"INFO","logger":"clara","msg":"[WHISPER] OK 3500ms","tag":"WHISPER","success":true,"duration_ms":3500,"preview":"Necesito ayuda con el ingreso minimo vital..."}
+{"ts":"2026-02-12T14:05:04","level":"INFO","logger":"clara","msg":"[CACHE] MISS 3ms","tag":"CACHE","hit":false,"ms":3}
+{"ts":"2026-02-12T14:05:07","level":"INFO","logger":"clara","msg":"[LLM] OK 2600ms source=gemini","tag":"LLM","success":true,"duration_ms":2600,"source":"gemini"}
+{"ts":"2026-02-12T14:05:07","level":"INFO","logger":"clara","msg":"[OBS] request_id=c3d4e5f6...","tag":"OBS","request_id":"c3d4e5f6-a7b8-9012-cdef-123456789012","timings":{"total":6500}}
+{"ts":"2026-02-12T14:05:07","level":"INFO","logger":"clara","msg":"[REST] Sent to=... source=llm total=6500ms","tag":"REST","to_number":"whatsapp:+34612345678","source":"llm","total_ms":6500}
 ```
 
 ### Ejemplo: SKILL timing (nivel DEBUG)
@@ -296,21 +295,9 @@ Clara cuenta con 10 feature flags en total. Las que afectan a la observabilidad 
 
 ## 9. Mejoras futuras
 
-### 9.1 Logging JSON estructurado
+### 9.1 Logging JSON estructurado — IMPLEMENTADO (Fase 3)
 
-Los logs actuales usan formato texto plano (`HH:MM:SS NIVEL [TAG] clave=valor`). Para agregacion de logs en produccion (Datadog, Grafana Loki, CloudWatch), migrar a JSON:
-
-```python
-# Propuesta: reemplazar formato basicConfig con handler JSON
-import json
-class JSONFormatter(logging.Formatter):
-    def format(self, record):
-        return json.dumps({
-            "ts": self.formatTime(record),
-            "level": record.levelname,
-            "msg": record.getMessage(),
-        })
-```
+Los logs ahora usan formato JSON estructurado. Cada linea es un JSON object con campos `ts`, `level`, `logger`, `msg`, `tag`, y campos especificos por tag. Implementado en `src/utils/logger.py` con la clase `JSONFormatter`.
 
 ### 9.2 Integracion OpenTelemetry
 

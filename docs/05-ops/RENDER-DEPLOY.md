@@ -58,7 +58,7 @@ Render es una plataforma de despliegue cloud que permite ejecutar servicios web 
 
 **Limitaciones del plan gratuito:**
 - El servicio se apaga tras 15 minutos de inactividad (cold start).
-- 512 MB de RAM — Whisper (modelo base) no cabe con el resto de dependencias.
+- 512 MB de RAM — Whisper + PyTorch no caben con el resto de dependencias.
 - Primer arranque tras inactividad puede tardar 15-30 segundos.
 
 ---
@@ -77,7 +77,6 @@ services:
     region: frankfurt
     plan: free
     dockerfilePath: ./Dockerfile
-    healthCheckPath: /health
     envVars:
       - key: TWILIO_ACCOUNT_SID
         sync: false
@@ -111,6 +110,7 @@ services:
         value: "true"
       - key: RAG_ENABLED
         value: "false"
+    healthCheckPath: /health
 ```
 
 ### Explicacion de cada variable
@@ -336,22 +336,56 @@ Respuesta esperada: `HTTP/1.1 200 OK` con `Content-Type: audio/mpeg`.
 
 ---
 
-## 7. Cron warm-up: cada 14 minutos
+## 7. Estrategias anti cold-start (3 opciones)
 
-El plan gratuito de Render apaga el servicio tras 15 minutos de inactividad. Para mantenerlo activo durante la demo, se configura un ping periodico cada 14 minutos (dentro del margen de 15 minutos).
+El plan gratuito de Render apaga el servicio tras 15 minutos de inactividad (cold start). El primer arranque tras inactividad tarda 15-30 segundos. A continuacion se evaluan 3 estrategias para mitigarlo.
 
-### Configuracion con cron-job.org (recomendado)
+### Comparativa
+
+| Estrategia | Coste | Fiabilidad | Latencia cold-start | Complejidad |
+|---|---|---|---|---|
+| **A. cron-job.org** | Gratis | Alta (99.9% uptime del servicio externo) | Eliminada (ping cada 14 min) | Baja (5 min setup) |
+| **B. Render paid (Starter)** | $7/mes | Muy alta (always-on nativo) | Eliminada (servicio nunca duerme) | Nula (cambio de plan) |
+| **C. Keep-warm endpoint interno** | Gratis | Media (depende de trafico entrante) | Reducida pero no eliminada | Media (codigo + cron externo) |
+
+### Estrategia A: cron-job.org (ELEGIDA)
+
+**Por que:** Gratis, fiable, sin cambios de codigo, setup de 5 minutos. Ideal para hackathon.
 
 1. Ir a [cron-job.org](https://cron-job.org) y crear una cuenta gratuita.
 2. Crear un nuevo cron job:
    - **Titulo:** `CivicAid Health Ping`
    - **URL:** `https://civicaid-voice.onrender.com/health`
-   - **Intervalo:** Cada **14 minutos**
+   - **Intervalo:** Cada **14 minutos** (`*/14 * * * *`)
    - **Metodo:** `GET`
    - **Timeout:** `30` segundos
 3. Activar el cron job.
+4. Verificar en el historial que devuelve HTTP 200.
 
-### Alternativa con crontab local (solo desarrollo)
+**Pros:** Zero-cost, independiente del codigo, funciona 24/7, historial de ejecuciones visible.
+**Contras:** Dependencia de servicio externo, no aplica si cambia la URL de Render.
+
+### Estrategia B: Render paid (Starter $7/mes)
+
+**Descripcion:** Migrar del plan `free` al plan `Starter` en el dashboard de Render. El servicio nunca se apaga.
+
+**Pros:** Eliminacion total de cold starts, mas RAM (1 GB), sin dependencia externa.
+**Contras:** Coste mensual, innecesario para hackathon de un dia.
+
+**Como activar:** Dashboard > servicio > Settings > Instance Type > cambiar de Free a Starter.
+
+### Estrategia C: Keep-warm endpoint interno
+
+**Descripcion:** Anadir un endpoint `/ping` ultraligero que devuelve 200 sin tocar la app. Combinado con cron externo o JavaScript `setInterval` desde un navegador del equipo.
+
+**Pros:** Control total, endpoint minimalista.
+**Contras:** Requiere cambio de codigo + cron externo de todos modos, complejidad innecesaria.
+
+### Decision: Estrategia A (cron-job.org)
+
+Razon: coste cero + maxima fiabilidad para el contexto hackathon. El cron de 14 minutos mantiene el servicio caliente con margen de 1 minuto antes del limite de 15 minutos de Render.
+
+### Alternativa local con crontab (solo desarrollo/dia de la demo)
 
 ```bash
 # Anadir al crontab: crontab -e

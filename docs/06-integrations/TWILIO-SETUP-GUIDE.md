@@ -23,9 +23,45 @@ Twilio es la plataforma de comunicaciones en la nube que conecta Clara con Whats
 
 ## Que NO incluye
 
-- Configuracion de numeros de telefono de produccion (solo sandbox).
 - Integracion con otros canales (SMS, voz).
 - Facturacion de Twilio.
+
+---
+
+## 0. Analisis de Opciones Twilio WhatsApp (Fase 3)
+
+### 3 opciones evaluadas
+
+| # | Opcion | Descripcion |
+|---|--------|-------------|
+| A | **WhatsApp Sandbox** | Entorno de pruebas gratuito de Twilio. Numero compartido `+14155238886`. Cada usuario debe enviar `join <code>` manualmente. |
+| B | **Numero propio WhatsApp Business** | Numero dedicado vinculado a un WhatsApp Business Profile aprobado por Meta. Requiere cuenta Twilio pagada + aprobacion Meta. |
+| C | **Proxy / Middleware** (ej. ngrok + local) | Servidor local expuesto via tunel (ngrok/cloudflare). Twilio apunta al tunel en vez de a Render. |
+
+### Pros y Contras
+
+| Criterio | A: Sandbox | B: Numero propio | C: Proxy/Middleware |
+|----------|-----------|-------------------|---------------------|
+| **Coste** | Gratis | $15+/mes + coste por mensaje | Gratis (ngrok free) |
+| **Setup** | 5 min | 3-5 dias (aprobacion Meta) | 10 min |
+| **Limite usuarios** | Sin limite (pero cada uno hace join) | Sin limite, sin join | Solo devs locales |
+| **Persistencia** | Session expira 72h inactivo | Permanente | URL cambia al reiniciar ngrok |
+| **Demo hackathon** | Perfecto: rapido, funcional, sin coste | Overkill: demasiado tiempo de aprobacion | Fragil: depende de portatil encendido |
+| **Audio soportado** | Si (media URLs autenticadas) | Si | Si |
+| **Validacion firma** | Si (X-Twilio-Signature) | Si | Si (pero URL cambia) |
+| **Produccion real** | No recomendado | Recomendado | No recomendado |
+
+### Decision: Opcion A — WhatsApp Sandbox
+
+**Justificacion:**
+
+1. **Tiempo:** El hackathon tiene horas, no dias. La aprobacion de Meta para numero propio tarda 3-5 dias habiles.
+2. **Coste cero:** No requiere tarjeta de credito ni cuenta pagada.
+3. **Funcionalidad completa:** Soporta texto, audio, imagenes — exactamente los 3 tipos de input que Clara maneja.
+4. **Seguridad demostrable:** La validacion de firma `X-Twilio-Signature` funciona identicamente en sandbox y produccion.
+5. **Escalabilidad futura clara:** Migrar de sandbox a numero propio solo requiere cambiar `TWILIO_SANDBOX_FROM` y el webhook URL en la consola — cero cambios de codigo.
+
+> **Nota de produccion:** Para un despliegue real post-hackathon, se recomienda migrar a Opcion B (numero propio) para eliminar el paso de `join` y tener un perfil WhatsApp Business verificado.
 
 ---
 
@@ -148,10 +184,10 @@ if config.TWILIO_AUTH_TOKEN:
     validator = RequestValidator(config.TWILIO_AUTH_TOKEN)
     signature = request.headers.get("X-Twilio-Signature", "")
     if not validator.validate(request.url, request.form, signature):
-        logger.warning("[WEBHOOK] Firma Twilio invalida desde %s", request.remote_addr)
+        logger.warning("[WEBHOOK] Invalid Twilio signature from %s", request.remote_addr)
         abort(403)
 else:
-    logger.warning("[WEBHOOK] Validacion de firma omitida — no hay auth token configurado")
+    logger.warning("[WEBHOOK] Twilio signature validation skipped — no auth token configured")
 ```
 
 ### Comportamiento segun entorno
@@ -317,7 +353,73 @@ curl -X POST https://civicaid-voice.onrender.com/webhook \
 
 ---
 
-## Como se verifica
+## 8. Checklist de Verificacion Fase 3 (paso a paso)
+
+### Pre-requisitos
+
+- [ ] Cuenta Twilio creada (Console > Account Info muestra SID y Auth Token)
+- [ ] Sandbox WhatsApp activado (seccion 3.1)
+- [ ] Al menos 1 telefono unido al sandbox (`join <code>` enviado y confirmado)
+- [ ] Deploy en Render activo (`curl https://civicaid-voice.onrender.com/health` → 200 OK)
+
+### Variables de entorno en Render
+
+| Variable | Donde | Verificacion |
+|----------|-------|-------------|
+| `TWILIO_ACCOUNT_SID` | Render Dashboard > Environment | `sync: false` en render.yaml — valor real solo en Render |
+| `TWILIO_AUTH_TOKEN` | Render Dashboard > Environment | `sync: false` en render.yaml — valor real solo en Render |
+| `TWILIO_SANDBOX_FROM` | render.yaml | `whatsapp:+14155238886` (valor por defecto sandbox) |
+| `GEMINI_API_KEY` | Render Dashboard > Environment | Necesario para transcripcion de audio |
+| `AUDIO_BASE_URL` | render.yaml | `https://civicaid-voice.onrender.com/static/cache` |
+| `DEMO_MODE` | render.yaml | `true` (cache-first, fallback generico si miss) |
+
+### Verificacion de firma (seguridad)
+
+```bash
+# V1: Sin firma → debe devolver 403
+curl -s -o /dev/null -w "%{http_code}" \
+  -X POST https://civicaid-voice.onrender.com/webhook \
+  -d "Body=test&From=whatsapp:+34600000000&NumMedia=0"
+# Esperado: 403
+
+# V2: Con firma invalida → debe devolver 403
+curl -s -o /dev/null -w "%{http_code}" \
+  -X POST https://civicaid-voice.onrender.com/webhook \
+  -d "Body=test&From=whatsapp:+34600000000&NumMedia=0" \
+  -H "X-Twilio-Signature: invalida123"
+# Esperado: 403
+```
+
+### Verificacion E2E desde WhatsApp
+
+| # | Paso | Esperado |
+|---|------|----------|
+| 1 | Enviar `Hola, necesito ayuda con el IMV` | ACK: "Un momento..." + Respuesta con info IMV |
+| 2 | Enviar `Que es el empadronamiento?` | ACK + Respuesta con info empadronamiento |
+| 3 | Enviar nota de audio preguntando por IMV | ACK: "Estoy escuchando tu audio..." + Transcripcion + Respuesta |
+| 4 | Enviar `Bonjour, j'ai besoin d'aide` | ACK + Respuesta en frances |
+
+### Verificacion de logs en Render
+
+Despues de cada mensaje, los logs de Render deben mostrar:
+
+```
+INFO [ACK] from=whatsapp:+34... type=text
+INFO [CACHE] HIT id=imv_es_01 XXms       # o MISS si no hay cache match
+INFO [REST] Sent to=whatsapp:+34... source=cache total=XXms
+```
+
+Para audio:
+```
+INFO [ACK] from=whatsapp:+34... type=audio
+INFO [WHISPER] ok=true XXms text="..."
+INFO [CACHE] HIT/MISS ...
+INFO [REST] Sent to=whatsapp:+34... source=cache/llm total=XXms
+```
+
+---
+
+## Como se verifica (resumen)
 
 | # | Verificacion | Comando / Accion |
 |---|---|---|
@@ -325,8 +427,11 @@ curl -X POST https://civicaid-voice.onrender.com/webhook \
 | 2 | Sandbox unido | Enviar join code y recibir confirmacion |
 | 3 | Webhook configurado | Twilio Console > Sandbox Configuration apunta a URL correcta |
 | 4 | Variables de entorno | `curl /health` muestra `twilio_configured: true` |
-| 5 | Validacion de firma | curl directo a produccion devuelve 403 |
-| 6 | Flujo completo | Enviar "Que es el IMV?" por WhatsApp y recibir 2 mensajes |
+| 5 | Validacion de firma (sin firma) | `curl -s -o /dev/null -w "%{http_code}" -X POST .../webhook -d "Body=test"` → 403 |
+| 6 | Validacion de firma (firma invalida) | curl con `X-Twilio-Signature: fake` → 403 |
+| 7 | Flujo texto E2E | Enviar "Que es el IMV?" por WhatsApp → 2 mensajes (ACK + respuesta) |
+| 8 | Flujo audio E2E | Enviar nota de voz por WhatsApp → ACK audio + transcripcion + respuesta |
+| 9 | Flujo frances | Enviar "Bonjour" → respuesta en frances |
 
 ## Referencias
 

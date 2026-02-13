@@ -13,7 +13,9 @@ def load_whisper_model():
 
 
 def get_whisper_model():
-    """Return truthy value when Gemini key is available (for health check)."""
+    """Return truthy value when transcription is enabled and Gemini key is available."""
+    if not config.WHISPER_ON:
+        return None
     return "gemini" if config.GEMINI_API_KEY else None
 
 

@@ -7,7 +7,7 @@
 - **Hackathon:** OdiseIA4Good — UDIT (Feb 2026)
 - **Repo:** /Users/andreaavila/Documents/hakaton/civicaid-voice
 - **Stack:** Python 3.11, Flask, Twilio WhatsApp, Whisper base, Gemini 1.5 Flash, Docker, Render
-- **Estado:** Fase 2 cerrada — 93 tests, deploy verificado, todos los gates PASS
+- **Estado:** Fase 3 cerrada — 93 tests, deploy verificado, todos los gates PASS, QA Deep audit completado
 
 ## Arquitectura
 
@@ -33,9 +33,9 @@ src/
     config.py               # Feature flags (DEMO_MODE, LLM_LIVE, WHISPER_ON, timeouts)
     models.py               # 8 dataclasses (IncomingMessage, CacheEntry, FinalResponse, etc.)
     cache.py                # Carga demo_cache.json
-    pipeline.py             # Orquestador de 10 skills
+    pipeline.py             # Orquestador de 11 skills
     twilio_client.py        # Wrapper Twilio REST
-    skills/                 # 10 skills atomicas
+    skills/                 # 11 skills atomicas (incl. tts.py)
     prompts/                # system_prompt.py, templates.py
   utils/
     logger.py               # Logging estructurado
@@ -44,13 +44,13 @@ data/
   cache/demo_cache.json     # 8 respuestas pre-calculadas + 6 MP3s
   tramites/*.json           # 3 KBs (IMV, empadronamiento, tarjeta_sanitaria)
 tests/
-  unit/ (21+ tests)         # cache, config, detect_input, detect_lang, kb_lookup
-  integration/ (7+ tests)   # pipeline, twilio_stub, webhook
-  e2e/ (4+ tests)           # demo_flows
+  unit/ (82 tests)          # cache, config, detect_input, detect_lang, kb_lookup, guardrails, evals, redteam, retriever, structured_outputs, observability
+  integration/ (7 tests)    # pipeline, twilio_stub, webhook
+  e2e/ (4 tests)            # demo_flows
   # Total: 93 tests (88 passed + 5 xpassed)
 ```
 
-## Feature Flags (10 totales)
+## Feature Flags (9 en config.py)
 
 | Flag | Default | Efecto |
 |------|---------|--------|
@@ -59,11 +59,12 @@ tests/
 | WHISPER_ON | true | Habilita transcripcion audio |
 | LLM_TIMEOUT | 6 | Segundos max Gemini |
 | WHISPER_TIMEOUT | 12 | Segundos max Whisper |
-| TWILIO_TIMEOUT | 10 | Segundos max envio Twilio REST |
 | GUARDRAILS_ON | true | Habilita guardrails de contenido |
-| STRUCTURED_OUTPUT | true | Habilita salida estructurada JSON |
+| STRUCTURED_OUTPUT_ON | false | Habilita salida estructurada JSON |
 | OBSERVABILITY_ON | true | Habilita metricas y trazas |
 | RAG_ENABLED | false | Habilita RAG (stub, pendiente implementacion) |
+
+> **Nota:** TWILIO_TIMEOUT (10s) esta hardcodeado en `src/core/skills/send_response.py`, no es un flag en config.py.
 
 ## Documentacion
 
@@ -92,9 +93,17 @@ tests/
 |--------|-----|
 | scripts/run-local.sh | Correr app local (venv + deps + Flask) |
 | scripts/phase_close.sh | Generar reporte de cierre: `./scripts/phase_close.sh 1 [RENDER_URL]` |
-| scripts/populate_notion.sh | Poblar 3 DBs de Notion (75 entradas) |
+| scripts/populate_notion.sh | Poblar 3 DBs de Notion (81 entradas) |
 | scripts/tmux_team_up.sh | Setup de paneles tmux |
 | scripts/phase2_verify.sh | Verificacion automatizada Fase 2 (tests + lint) |
+| scripts/phase3_verify.sh | Verificacion Fase 3 (7 pasos: tests+lint+docker+render+twilio) |
+| scripts/run_evals.py | Runner de evaluaciones (16 casos, 4 sets) |
+| scripts/verify_evals.sh | Verificar evals |
+| scripts/verify_guardrails.sh | Verificar guardrails |
+| scripts/verify_obs.sh | Verificar observabilidad |
+| scripts/verify_structured.sh | Verificar structured outputs |
+| scripts/verify_toolkit.sh | Verificar toolkit completo |
+| scripts/phase_close.sh | Generar reporte de cierre de fase |
 
 ## Notion
 
@@ -102,7 +111,7 @@ tests/
 - **KB Tramites DB:** 304c5a0f-372a-81ff-9d45-c785e69f7335
 - **Testing DB:** 304c5a0f-372a-810d-8767-d77efbd46bb2
 - **Token:** Configurado en ~/.mcp.json (NOTION_TOKEN)
-- **Estado:** 75 entradas pobladas (37 Backlog + 12 KB Tramites + 26 Testing)
+- **Estado:** 81 entradas pobladas (43 Backlog + 12 KB Tramites + 26 Testing)
 - **MCP:** Requiere reinicio de Claude Code tras cambiar token en ~/.mcp.json
 
 ## Agent Teams (6 paneles)
@@ -136,14 +145,14 @@ El proyecto usa un modelo de 6 agentes especializados con un lead en modo delega
 
 | Gate | Estado | Evidencia |
 |------|--------|-----------|
-| G0 Tooling | PASS | Skills, agentes, MCP, 75 entradas Notion en 3 DBs |
+| G0 Tooling | PASS | Skills, agentes, MCP, 81 entradas Notion en 3 DBs |
 | G1 Texto | PASS | 93/93 tests, ruff clean, cache-first OK, deploy verificado |
 | G2 Audio | PASS | Pipeline completo, Gemini transcripcion, gTTS audio, deploy verificado |
 | G3 Demo | PASS | Deploy Render verificado, Twilio webhook configurado, cron 14 min activo |
 
 ## Bloqueantes
 
-1. ~~**Notion DBs vacias**~~ — RESUELTO: 75 entradas pobladas (37 Backlog + 12 KB + 26 Testing)
+1. ~~**Notion DBs vacias**~~ — RESUELTO: 81 entradas pobladas (43 Backlog + 12 KB + 26 Testing)
 2. ~~**Deploy Render**~~ — RESUELTO: deploy verificado, /health operativo en puerto 10000
 3. ~~**Twilio webhook**~~ — RESUELTO: URL configurada en consola Twilio
 4. ~~**Demo rehearsal**~~ — RESUELTO: ensayo completado, flujos WOW 1 + WOW 2 verificados

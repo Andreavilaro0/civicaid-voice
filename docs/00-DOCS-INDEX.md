@@ -17,7 +17,7 @@ Este documento es el **indice maestro** de toda la documentacion del proyecto Ci
 - Navegacion por audiencia (3 secciones).
 - Diagrama Mermaid de la estructura documental.
 - Tabla de estado de cada documento.
-- Enlaces directos a los 31+ documentos del proyecto.
+- Enlaces directos a los 32 documentos del proyecto (31 unicos, Arquitectura aparece en 2 secciones).
 
 ## Que NO incluye
 
@@ -65,26 +65,26 @@ Documentos para desplegar, monitorizar y operar Clara en produccion:
 
 | # | Documento | Ruta | Descripcion |
 |---|-----------|------|-------------|
-| 17 | [Guia de Deploy en Render](05-ops/RENDER-DEPLOY.md) | `docs/05-ops/RENDER-DEPLOY.md` | Paso a paso para desplegar en Render con Docker |
-| 18 | [Observability Quickstart](05-ops/OBSERVABILITY-QUICKSTART.md) | `docs/05-ops/OBSERVABILITY-QUICKSTART.md` | Guia rapida de observabilidad para operadores |
-| 19 | [Guia de Twilio](06-integrations/TWILIO-SETUP-GUIDE.md) | `docs/06-integrations/TWILIO-SETUP-GUIDE.md` | Configuracion completa de Twilio WhatsApp Sandbox |
-| 20 | [Notion OS](06-integrations/NOTION-OS.md) | `docs/06-integrations/NOTION-OS.md` | Sistema operativo en Notion: backlog, KB, testing |
-| 21 | [Runbook Fase 2](03-runbooks/RUNBOOK-PHASE2.md) | `docs/03-runbooks/RUNBOOK-PHASE2.md` | Runbook operativo: deploy, verificacion y warm-up |
-| 22 | [Referencia MCP](06-integrations/MCP-TOOLS-REFERENCE.md) | `docs/06-integrations/MCP-TOOLS-REFERENCE.md` | Herramientas MCP: notionApi, filesystem, github |
-| 23 | [Structured Outputs y Guardrails (Ops)](05-ops/STRUCTURED-OUTPUTS-GUARDRAILS.md) | `docs/05-ops/STRUCTURED-OUTPUTS-GUARDRAILS.md` | Guia operativa combinada de structured outputs y guardrails |
-| 24 | [Toolkit Matrix](00-tooling/TOOLKIT-MATRIX.md) | `docs/00-tooling/TOOLKIT-MATRIX.md` | Inventario de herramientas evaluadas e integradas |
-| 25 | [Tooling Instalado](00-tooling/installed.md) | `docs/00-tooling/installed.md` | MCPs y skills activos en el entorno de desarrollo |
+| 18 | [Guia de Deploy en Render](05-ops/RENDER-DEPLOY.md) | `docs/05-ops/RENDER-DEPLOY.md` | Paso a paso para desplegar en Render con Docker |
+| 19 | [Observability Quickstart](05-ops/OBSERVABILITY-QUICKSTART.md) | `docs/05-ops/OBSERVABILITY-QUICKSTART.md` | Guia rapida de observabilidad para operadores |
+| 20 | [Guia de Twilio](06-integrations/TWILIO-SETUP-GUIDE.md) | `docs/06-integrations/TWILIO-SETUP-GUIDE.md` | Configuracion completa de Twilio WhatsApp Sandbox |
+| 21 | [Notion OS](06-integrations/NOTION-OS.md) | `docs/06-integrations/NOTION-OS.md` | Sistema operativo en Notion: backlog, KB, testing |
+| 22 | [Runbook Fase 2](03-runbooks/RUNBOOK-PHASE2.md) | `docs/03-runbooks/RUNBOOK-PHASE2.md` | Runbook operativo: deploy, verificacion y warm-up |
+| 23 | [Referencia MCP](06-integrations/MCP-TOOLS-REFERENCE.md) | `docs/06-integrations/MCP-TOOLS-REFERENCE.md` | Herramientas MCP: notionApi, filesystem, github |
+| 24 | [Structured Outputs y Guardrails (Ops)](05-ops/STRUCTURED-OUTPUTS-GUARDRAILS.md) | `docs/05-ops/STRUCTURED-OUTPUTS-GUARDRAILS.md` | Guia operativa combinada de structured outputs y guardrails |
+| 25 | [Toolkit Matrix](00-tooling/TOOLKIT-MATRIX.md) | `docs/00-tooling/TOOLKIT-MATRIX.md` | Inventario de herramientas evaluadas e integradas |
+| 26 | [Tooling Instalado](00-tooling/installed.md) | `docs/00-tooling/installed.md` | MCPs y skills activos en el entorno de desarrollo |
 
 ### Evidencia y Cierre
 
 | # | Documento | Ruta | Descripcion |
 |---|-----------|------|-------------|
-| 26 | [Evidencia Fase 1](07-evidence/PHASE-1-EVIDENCE.md) | `docs/07-evidence/PHASE-1-EVIDENCE.md` | Registro de evidencia del MVP |
-| 27 | [Evidencia Fase 2](07-evidence/PHASE-2-EVIDENCE.md) | `docs/07-evidence/PHASE-2-EVIDENCE.md` | Registro de evidencia de hardening y deploy |
-| 28 | [Checklist de Cierre](07-evidence/PHASE-CLOSE-CHECKLIST.md) | `docs/07-evidence/PHASE-CLOSE-CHECKLIST.md` | Checklist de cierre de fases |
-| 29 | [Reporte de Cierre Fase 1](07-evidence/phase-1-close-report.md) | `docs/07-evidence/phase-1-close-report.md` | Reporte generado automaticamente al cerrar Fase 1 |
-| 30 | [Evidencia Toolkit](07-evidence/TOOLKIT-INTEGRATION-EVIDENCE.md) | `docs/07-evidence/TOOLKIT-INTEGRATION-EVIDENCE.md` | Evidencia de integracion del toolkit |
-| 31 | [Plan de Auditoria Fase 2](plans/2026-02-12-phase2-audit.md) | `docs/plans/2026-02-12-phase2-audit.md` | Plan de auditoria basado en evidencia |
+| 27 | [Evidencia Fase 1](07-evidence/PHASE-1-EVIDENCE.md) | `docs/07-evidence/PHASE-1-EVIDENCE.md` | Registro de evidencia del MVP |
+| 28 | [Evidencia Fase 2](07-evidence/PHASE-2-EVIDENCE.md) | `docs/07-evidence/PHASE-2-EVIDENCE.md` | Registro de evidencia de hardening y deploy |
+| 29 | [Checklist de Cierre](07-evidence/PHASE-CLOSE-CHECKLIST.md) | `docs/07-evidence/PHASE-CLOSE-CHECKLIST.md` | Checklist de cierre de fases |
+| 30 | [Reporte de Cierre Fase 1](07-evidence/phase-1-close-report.md) | `docs/07-evidence/phase-1-close-report.md` | Reporte generado automaticamente al cerrar Fase 1 |
+| 31 | [Evidencia Toolkit](07-evidence/TOOLKIT-INTEGRATION-EVIDENCE.md) | `docs/07-evidence/TOOLKIT-INTEGRATION-EVIDENCE.md` | Evidencia de integracion del toolkit |
+| 32 | [Plan de Auditoria Fase 2](plans/2026-02-12-phase2-audit.md) | `docs/plans/2026-02-12-phase2-audit.md` | Plan de auditoria basado en evidencia |
 
 ---
 

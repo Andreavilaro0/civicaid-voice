@@ -1,6 +1,6 @@
 # NOTION OS — CivicAid Voice / Clara
 
-> **Resumen en una linea:** Sistema operativo del proyecto en Notion con 3 bases de datos, 75 entradas y gestion completa de backlog, base de conocimiento y evidencia de tests.
+> **Resumen en una linea:** Sistema operativo del proyecto en Notion con 3 bases de datos, 81 entradas y gestion completa de backlog, base de conocimiento y evidencia de tests.
 
 ## Que es
 
@@ -15,7 +15,7 @@ Notion es la fuente de verdad (source of truth) para la gestion del proyecto Civ
 ## Que incluye
 
 - 3 bases de datos: Backlog / Issues, KB Tramites, Demo & Testing.
-- 75 entradas en total (37 Backlog + 12 KB + 26 Testing).
+- 81 entradas en total (43 Backlog + 12 KB + 26 Testing).
 - Schemas completos con propiedades, tipos y opciones de cada DB.
 - Integracion con MCP (`notionApi`) para operaciones automatizadas.
 - Script de poblacion: `bash scripts/populate_notion.sh`.
@@ -34,11 +34,11 @@ Notion es la fuente de verdad (source of truth) para la gestion del proyecto Civ
 |---|---|
 | **Workspace** | CivicAid OS |
 | **Bases de datos** | 3 (Backlog, KB Tramites, Demo & Testing) |
-| **Paginas** | 2 (Clara Resumen Fase 0+1, Phase 2 Hardening & Deploy) |
+| **Paginas** | 3 (Clara Resumen Fase 0+1, Phase 2 Hardening & Deploy, Phase 3 Demo Ready) |
 | **MCP** | `@notionhq/notion-mcp-server` via `~/.mcp.json` |
 | **Token** | Configurado en `~/.mcp.json` (NUNCA incluir el valor real) |
 | **Script de poblacion** | `bash scripts/populate_notion.sh` (33 entradas Fase 1) |
-| **Total de entradas** | 75 en 3 DBs (37 Backlog, 12 KB, 26 Testing) |
+| **Total de entradas** | 81 en 3 DBs (43 Backlog, 12 KB, 26 Testing) |
 | **Ultima verificacion** | 2026-02-12 |
 
 ---
@@ -243,14 +243,14 @@ El script realiza las siguientes acciones:
 5. Crea 10 entradas en Demo & Testing (T1-T10).
 6. Muestra un resumen con entradas creadas y fallidas.
 
-### Estado de poblacion (2026-02-12)
+### Estado de poblacion (2026-02-12, post Fase 3)
 
 | Base de datos | Total | Desglose | Estado |
 |---|---|---|---|
-| Backlog / Issues | 37 | 31 Hecho, 1 En progreso, 5 Backlog | Poblada |
+| Backlog / Issues | 43 | 42 Hecho, 1 Backlog | Poblada + owners |
 | KB Tramites | 12 | 12 Verificado | Poblada |
-| Demo & Testing | 26 | 10 Pasa, 16 Pendiente | Poblada |
-| **Total** | **75** | | **Todas pobladas** |
+| Demo & Testing | 26 | 26 Pasa | Poblada + actualizada |
+| **Total** | **81** | | **Todas pobladas y verificadas** |
 
 ### Verificacion manual via curl
 
@@ -281,7 +281,7 @@ Desde Claude Code con el MCP de Notion activo:
 
 1. **Buscar:** Usar `mcp__notionApi__API-post-search` con `{"query": "IMV"}` para verificar que las entradas existen.
 2. **Consultar DB:** Usar `mcp__notionApi__API-retrieve-a-database` con el ID del Backlog para ver el schema.
-3. **Contar entradas:** Consultar cada DB y contar resultados para verificar los totales (37 + 12 + 26 = 75).
+3. **Contar entradas:** Consultar cada DB y contar resultados para verificar los totales (43 + 12 + 26 = 81).
 
 ---
 
@@ -292,10 +292,12 @@ Desde Claude Code con el MCP de Notion activo:
 | CivicAid OS (raiz) | `304c5a0f-372a-801f-995f-ce24036350ad` | Workspace |
 | Clara Resumen Fase 0 + Fase 1 | `305c5a0f-372a-81c8-b609-cc5fe793bfe4` | CivicAid OS |
 | Phase 2 — Hardening & Deploy | `305c5a0f-372a-813b-8915-f7e6c21fd055` | CivicAid OS |
+| Phase 3 — Demo Ready | `305c5a0f-372a-818d-91a7-f59c22551350` | CivicAid OS |
 
 **Enlaces rapidos:**
 - CivicAid OS (raiz): `https://www.notion.so/CivicAid-OS-304c5a0f372a801f995fce24036350ad`
 - Pagina Fase 2: `https://www.notion.so/Phase-2-Hardening-Deploy-305c5a0f372a813b8915f7e6c21fd055`
+- Pagina Fase 3: `https://www.notion.so/Phase-3-Demo-Ready-305c5a0f372a818d91a7f59c22551350`
 - Backlog DB: `https://notion.so/304c5a0f372a81de92a8f54c03b391c0`
 - KB Tramites DB: `https://notion.so/304c5a0f372a81ff9d45c785e69f7335`
 - Testing DB: `https://notion.so/304c5a0f372a810d8767d77efbd46bb2`
@@ -333,7 +335,7 @@ Desde Claude Code con el MCP de Notion activo:
 |---|---|---|
 | 1 | Token activo | `curl https://api.notion.com/v1/users/me` devuelve 200 |
 | 2 | 3 DBs existen | Consultar cada DB ID y recibir schema |
-| 3 | 75 entradas totales | Consultar cada DB y sumar: 37 + 12 + 26 = 75 |
+| 3 | 81 entradas totales | Consultar cada DB y sumar: 43 + 12 + 26 = 81 |
 | 4 | KB completa | 12 entradas: 3 tramites x 4 campos, todas en estado Verificado |
 | 5 | Script funciona | `bash scripts/populate_notion.sh` ejecuta sin errores |
 

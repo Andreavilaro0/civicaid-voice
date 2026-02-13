@@ -1,5 +1,6 @@
-"""Observability: request_id tracking, stage timings, optional OTEL export."""
+"""Observability: request_id tracking, stage timings, JSON structured logs."""
 
+import json
 import threading
 import uuid
 import time
@@ -63,15 +64,14 @@ def init_app(app):
             if ctx:
                 elapsed_ms = int((time.time() - ctx.start_time) * 1000)
                 ctx.add_timing("http_total", elapsed_ms)
-                logger.info(
-                    "[OBS] request_id=%s timings=%s",
-                    ctx.request_id,
-                    ctx.timings,
-                )
-                if config.OTEL_ENDPOINT:
-                    logger.info(
-                        "[OBS] OTEL export stub — endpoint=%s (not yet implemented)",
-                        config.OTEL_ENDPOINT,
-                    )
+                # Emit structured JSON summary for the request
+                summary = {
+                    "tag": "OBS_SUMMARY",
+                    "request_id": ctx.request_id,
+                    "http_status": response.status_code,
+                    "http_total_ms": elapsed_ms,
+                    "timings": ctx.timings,
+                }
+                logger.info("[OBS] %s", json.dumps(summary, ensure_ascii=False))
             clear_context()
         return response

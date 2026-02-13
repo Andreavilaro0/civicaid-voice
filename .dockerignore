@@ -32,5 +32,11 @@ __pycache__
 .DS_Store
 Thumbs.db
 
+# Virtual environments
+.venv
+.venv-*
+.auditvenv
+.ruff_cache
+
 # Claude
 .claude

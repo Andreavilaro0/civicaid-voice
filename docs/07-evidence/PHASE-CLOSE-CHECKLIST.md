@@ -69,8 +69,8 @@ grep -r "TWILIO_AUTH\|ntn_\|sk-" src/ && echo "FALLO: secretos encontrados" || e
 | Docker build exitoso | `docker build -t civicaid-voice .` | Successfully tagged | PASS |
 | Deploy en Render exitoso | `curl -s https://civicaid-voice.onrender.com/health` | HTTP 200, cuerpo JSON | PASS |
 | /health devuelve JSON OK | `curl -s [URL]/health \| python -m json.tool` | 8 campos de componentes, status OK | PASS |
-| Webhook Twilio configurado | Consola Twilio > Sandbox > Webhook URL | POST https://[URL]/webhook | PENDING |
-| cron-job.org activo (cada 14 min) | Panel de cron-job.org | GET [URL]/health cada 14 min | PENDING |
+| Webhook Twilio configurado | Consola Twilio > Sandbox > Webhook URL | POST https://civicaid-voice.onrender.com/webhook | PASS |
+| cron-job.org activo (cada 14 min) | Panel de cron-job.org | GET /health cada 14 min activo | PASS |
 
 ```bash
 # Ejecutar verificacion de deploy:
@@ -81,8 +81,8 @@ curl -s https://civicaid-voice.onrender.com/health | python -m json.tool
 - [x] Docker build exitoso
 - [x] Deploy en Render exitoso
 - [x] /health devuelve JSON OK
-- [ ] Webhook Twilio configurado
-- [ ] cron-job.org activo (cada 14 min)
+- [x] Webhook Twilio configurado
+- [x] cron-job.org activo (cada 14 min)
 
 ---
 
@@ -147,13 +147,13 @@ git tag phase-1-v1.0 && git push --tags
 
 | Verificacion | Accion | Estado |
 |-------------|--------|--------|
-| Ensayo de demo completado | Ejecutar guion completo de RUNBOOK-DEMO.md | PENDING |
-| Video de backup grabado | Grabacion de pantalla del demo end-to-end | PENDING |
-| Screenshots de fallback listos | Capturas de /health, conversacion WA, Notion | PENDING |
+| Ensayo de demo completado | Ejecutar guion completo de RUNBOOK-DEMO.md | PASS |
+| Video de backup grabado | Grabacion de pantalla del demo end-to-end | PASS |
+| Screenshots de fallback listos | Capturas de /health, conversacion WA, Notion | PASS |
 
-- [ ] Ensayo de demo completado
-- [ ] Video de backup grabado
-- [ ] Screenshots de fallback listos
+- [x] Ensayo de demo completado
+- [x] Video de backup grabado
+- [x] Screenshots de fallback listos
 
 ---
 
@@ -161,10 +161,10 @@ git tag phase-1-v1.0 && git push --tags
 
 | Verificacion | Accion | Estado |
 |-------------|--------|--------|
-| Equipo notificado del cierre | Mensaje en canal del equipo | PENDING |
+| Equipo notificado del cierre | Mensaje en canal del equipo | PASS |
 | Siguiente fase planificada | Scope de Fase 2 definido en documento FASE2 | PASS |
 
-- [ ] Equipo notificado del cierre
+- [x] Equipo notificado del cierre
 - [x] Siguiente fase planificada
 
 ---
@@ -292,13 +292,13 @@ git tag phase-1-v1.0 && git push --tags
 | Seccion | PASS | PENDING | Total |
 |---------|------|---------|-------|
 | 1. Codigo | 5 | 0 | 5 |
-| 2. Deploy | 3 | 2 | 5 |
+| 2. Deploy | 5 | 0 | 5 |
 | 3. Documentacion | 5 | 0 | 5 |
 | 4. Notion | 4 | 0 | 4 |
 | 5. GitHub | 2 | 2 | 4 |
-| 6. Demo/QA | 0 | 3 | 3 |
-| 7. Comunicacion | 1 | 1 | 2 |
-| **Total Fase 1** | **20** | **8** | **28** |
+| 6. Demo/QA | 3 | 0 | 3 |
+| 7. Comunicacion | 2 | 0 | 2 |
+| **Total Fase 1** | **26** | **2** | **28** |
 
 ### Fase 2
 
@@ -316,9 +316,9 @@ git tag phase-1-v1.0 && git push --tags
 
 | | PASS | PENDING | Total |
 |-|------|---------|-------|
-| **Ambas fases** | **53** | **8** | **61** |
+| **Ambas fases** | **59** | **2** | **61** |
 
-Los 8 items pendientes corresponden a configuraciones de produccion de la Fase 1: webhook Twilio en consola, cron-job.org, tag release de Git, cierre de issues, ensayo de demo, video de backup, screenshots y comunicacion al equipo.
+Los 2 items pendientes corresponden a tareas de GitHub de la Fase 1: tag release (`git tag phase-1-v1.0`) y cierre de issues (`gh issue list --state open`).
 
 ---
 

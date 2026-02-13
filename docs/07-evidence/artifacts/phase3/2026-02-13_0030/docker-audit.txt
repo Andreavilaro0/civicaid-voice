@@ -1,0 +1,131 @@
+============================================================
+  DOCKER / CI AUDIT — CivicAid Voice / Clara
+  Date: 2026-02-13  Agent: docker-ci-auditor
+============================================================
+
+1. .dockerignore VERIFICATION
+------------------------------------------------------------
+Required entries and status:
+  .venv            PRESENT
+  .venv-*          PRESENT
+  .auditvenv       PRESENT
+  .ruff_cache      PRESENT
+  .claude          PRESENT
+  docs             PRESENT
+  tests            PRESENT
+  __pycache__      PRESENT
+
+Additional entries: .git, .gitignore, .github, *.pyc, *.pyo,
+  *.egg-info, .pytest_cache, .env, .env.*, .vscode, .idea,
+  *.swp, .DS_Store, Thumbs.db
+
+Verdict: PASS — All 8 required entries present.
+
+2. DOCKERFILE ANALYSIS
+------------------------------------------------------------
+Stage:        Single stage
+Base image:   python:3.11-slim
+EXPOSE:       10000 (matches render.yaml healthCheckPath config)
+COPY:         requirements.txt first (layer cache), then `. .`
+              .dockerignore excludes .venv, tests, docs — no leakage
+CMD:          gunicorn --bind "0.0.0.0:${PORT:-5000}" --timeout 120
+              --workers 1 --preload "src.app:create_app()"
+Warning:      JSON args recommended for CMD (cosmetic, non-blocking)
+
+Port note: Dockerfile EXPOSE 10000, CMD binds to $PORT (default 5000).
+  Render sets PORT=10000 at runtime -> ports align in production.
+  Local testing uses PORT=5000 (our test used -e PORT=5000 -p 5061:5000).
+
+Verdict: PASS
+
+3. DOCKER BUILD
+------------------------------------------------------------
+Command:   docker build -t civicaid-voice:anti-humo .
+Result:    SUCCESS (all layers cached on repeat build)
+Warnings:  1 (JSONArgsRecommended for CMD — cosmetic)
+
+Verdict: PASS
+
+4. IMAGE SIZE
+------------------------------------------------------------
+Size:      514MB
+Target:    < 800MB
+Breakdown:
+  - Base debian layer:      ~109MB
+  - Python 3.11 install:    ~52MB
+  - pip packages:           ~250MB
+  - App code (COPY . .):    ~1.5MB
+  - Misc:                   ~2MB
+
+Verdict: PASS (514MB << 800MB target)
+
+5. CONTAINER HEALTH CHECK
+------------------------------------------------------------
+Command:   docker run -d -p 5061:5000 -e PORT=5000 \
+             -e DEMO_MODE=true -e LLM_LIVE=false -e WHISPER_ON=false \
+             -e TWILIO_ACCOUNT_SID=test -e TWILIO_AUTH_TOKEN=test \
+             -e GEMINI_API_KEY=test --name anti-humo-test civicaid-voice:anti-humo
+Wait:      5 seconds
+
+curl -s http://localhost:5061/health response:
+{
+    "components": {
+        "cache_entries": 8,
+        "demo_mode": true,
+        "ffmpeg_available": false,
+        "gemini_key_set": true,
+        "llm_live": false,
+        "twilio_configured": true,
+        "whisper_enabled": false,
+        "whisper_loaded": true
+    },
+    "status": "ok",
+    "uptime_s": 6
+}
+
+Components count:  8 (expected: 8)
+cache_entries:     8 (expected: >= 8)
+
+Verdict: PASS
+
+6. MP3 STATIC FILES
+------------------------------------------------------------
+  imv_es.mp3             -> HTTP 200
+  empadronamiento_es.mp3 -> HTTP 200
+  tarjeta_es.mp3         -> HTTP 200
+  ahmed_fr.mp3           -> HTTP 200
+  fatima_fr.mp3          -> HTTP 200
+  maria_es.mp3           -> HTTP 200
+
+Accessible: 6/6 (expected: 6)
+
+Verdict: PASS
+
+7. CLEANUP
+------------------------------------------------------------
+docker stop anti-humo-test -> OK
+docker rm anti-humo-test   -> OK
+
+8. RENDER.YAML PORT ALIGNMENT
+------------------------------------------------------------
+render.yaml:  No explicit port field (Render default PORT=10000)
+Dockerfile:   EXPOSE 10000, CMD binds ${PORT:-5000}
+Runtime:      Render injects PORT=10000 -> gunicorn binds 0.0.0.0:10000
+              EXPOSE 10000 matches.
+healthCheckPath: /health (verified working)
+
+Verdict: PASS
+
+============================================================
+  SUMMARY
+============================================================
+  .dockerignore:     PASS (8/8 required entries)
+  Dockerfile:        PASS (single-stage, slim base, correct CMD)
+  Docker build:      PASS (success, 1 cosmetic warning)
+  Image size:        PASS (514MB < 800MB)
+  Health check:      PASS (8 components, cache=8, status=ok)
+  MP3 files:         PASS (6/6 accessible)
+  Port alignment:    PASS (Dockerfile EXPOSE + render.yaml consistent)
+
+  OVERALL: ALL CHECKS PASS
+============================================================
