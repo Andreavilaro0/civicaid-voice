@@ -121,7 +121,7 @@ Cada gate es un checkpoint de calidad. **No se avanza al siguiente gate sin evid
 | G1.2 | WA texto cache hit funciona | Cache match retorna respuesta correcta | `pytest tests/unit/test_cache.py -v` → PASSED |
 | G1.3 | Respuesta incluye audio MP3 | `media_url` presente en FinalResponse | `pytest tests/integration/test_pipeline.py -v` → PASSED |
 | G1.4 | /health retorna JSON | Endpoint responde con componentes | `curl http://localhost:5000/health \| python -m json.tool` → JSON valido |
-| G1.5 | Tests T1-T8 pasan | Suite completa verde | `pytest tests/ -v --tb=short` → 93 passed (88 passed + 5 xpassed) |
+| G1.5 | Tests T1-T8 pasan | Suite completa verde | `pytest tests/ -v --tb=short` → 96 tests (91 passed + 5 xpassed) |
 | G1.6 | CI workflow funcional | GitHub Actions verde | Link a workflow run en GitHub |
 | G1.7 | Deploy Render exitoso | App accesible en URL publica | `curl https://[render-url]/health` → JSON OK |
 
@@ -132,7 +132,7 @@ Cada gate es un checkpoint de calidad. **No se avanza al siguiente gate sin evid
 | G2.1 | Audio pipeline implementado | Skills 2-4 existen y pasan tests | `pytest tests/ -k "audio or whisper or fetch_media or convert" -v` → PASSED |
 | G2.2 | Whisper timeout enforced (12s) | ThreadPoolExecutor con timeout | `grep -n "ThreadPoolExecutor\|timeout" src/core/skills/transcribe.py` → lineas relevantes |
 | G2.3 | LLM timeout (6s) | request_options con timeout | `grep -n "timeout\|request_options" src/core/skills/llm_generate.py` → lineas relevantes |
-| G2.4 | Tests completos pasan | 93+ tests verdes | `pytest tests/ -v --tb=short` → todos pasan |
+| G2.4 | Tests completos pasan | 96 tests verdes | `pytest tests/ -v --tb=short` → todos pasan |
 | G2.5 | Test real con audio en Render | Nota de voz → respuesta | Captura de pantalla o log de Render con `[WHISPER] Done` |
 
 ### Gate 3 — Demo Ready

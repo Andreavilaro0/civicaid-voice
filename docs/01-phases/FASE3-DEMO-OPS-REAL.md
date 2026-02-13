@@ -157,7 +157,7 @@ Cada gate es un checkpoint de calidad. **No se avanza sin evidencia de que los c
 
 | # | Criterio | DoD | Evidencia requerida |
 |---|----------|-----|---------------------|
-| P3.3.1 | 93+ tests pasan | Suite completa verde | `pytest tests/ -v --tb=short` → 93 passed |
+| P3.3.1 | 96 tests pasan | Suite completa verde | `pytest tests/ -v --tb=short` → 96 tests (91 passed + 5 xpassed) |
 | P3.3.2 | Lint limpio | ruff sin errores | `ruff check src/ tests/ --select E,F,W --ignore E501` → 0 errores |
 | P3.3.3 | Script de verificacion | Script automatizado pasa | `bash scripts/phase2_verify.sh` → PASS |
 | P3.3.4 | Evidencia capturada | Outputs guardados en docs/07-evidence/ | Archivos de evidencia actualizados |

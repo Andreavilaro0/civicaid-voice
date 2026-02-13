@@ -50,7 +50,7 @@ curl -s -o /dev/null -w "%{http_code}" \
 
 # 4. Verificar tests localmente (si hay acceso al repo)
 pytest tests/ -v --tb=short
-# Esperado: 93 passed (88 passed + 5 xpassed)
+# Esperado: 96 tests (91 passed + 5 xpassed)
 ```
 
 ---

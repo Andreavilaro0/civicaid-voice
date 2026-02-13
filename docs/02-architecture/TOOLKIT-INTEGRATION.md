@@ -348,7 +348,7 @@ Clara cuenta con 9 feature flags configurables por variables de entorno:
 ### Verificacion rapida de todas las integraciones
 
 ```bash
-# 1. Ejecutar todos los tests (93 total)
+# 1. Ejecutar todos los tests (96 total)
 pytest tests/ -v --tb=short
 
 # 2. Verificar health endpoint (local)

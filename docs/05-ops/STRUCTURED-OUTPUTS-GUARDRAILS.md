@@ -278,7 +278,7 @@ pytest tests/unit/test_guardrails.py -v
 # Ejecutar tests de red team
 pytest tests/unit/test_redteam.py -v
 
-# Ejecutar todos los tests del proyecto (93 total)
+# Ejecutar todos los tests del proyecto (96 total)
 pytest tests/ -v --tb=short
 
 # Verificar valor por defecto de las flags
