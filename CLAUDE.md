@@ -7,7 +7,7 @@
 - **Hackathon:** OdiseIA4Good — UDIT (Feb 2026)
 - **Repo:** /Users/andreaavila/Documents/hakaton/civicaid-voice
 - **Stack:** Python 3.11, Flask, Twilio WhatsApp, Whisper base, Gemini 1.5 Flash, Docker, Render
-- **Estado:** Fase 3 cerrada — 93 tests, deploy verificado, todos los gates PASS, QA Deep audit completado
+- **Estado:** Fase 3 cerrada — 96 tests, deploy verificado, todos los gates PASS, QA Deep audit completado
 
 ## Arquitectura
 
@@ -47,7 +47,7 @@ tests/
   unit/ (82 tests)          # cache, config, detect_input, detect_lang, kb_lookup, guardrails, evals, redteam, retriever, structured_outputs, observability
   integration/ (7 tests)    # pipeline, twilio_stub, webhook
   e2e/ (4 tests)            # demo_flows
-  # Total: 93 tests (88 passed + 5 xpassed)
+  # Total: 96 tests (91 passed + 5 xpassed)
 ```
 
 ## Feature Flags (9 en config.py)
@@ -132,7 +132,7 @@ El proyecto usa un modelo de 6 agentes especializados con un lead en modo delega
 ## Fixes Aplicados (Fase 1 Hardening)
 
 1. DEMO_MODE implementado en pipeline.py (era dead code)
-2. WHISPER_ON short-circuit para audio
+2. WHISPER_ON preload control (controla carga del modelo)
 3. Twilio REST timeout (10s) en send_response.py
 4. NumMedia safe parsing (try/except) en webhook.py
 5. Silent thread death protection en pipeline.py
@@ -146,7 +146,7 @@ El proyecto usa un modelo de 6 agentes especializados con un lead en modo delega
 | Gate | Estado | Evidencia |
 |------|--------|-----------|
 | G0 Tooling | PASS | Skills, agentes, MCP, 81 entradas Notion en 3 DBs |
-| G1 Texto | PASS | 93/93 tests, ruff clean, cache-first OK, deploy verificado |
+| G1 Texto | PASS | 96/96 tests, ruff clean, cache-first OK, deploy verificado |
 | G2 Audio | PASS | Pipeline completo, Gemini transcripcion, gTTS audio, deploy verificado |
 | G3 Demo | PASS | Deploy Render verificado, Twilio webhook configurado, cron 14 min activo |
 

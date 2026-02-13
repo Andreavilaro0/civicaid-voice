@@ -182,7 +182,7 @@ git tag phase-1-v1.0 && git push --tags
 | Red team: 5 vectores adversariales bloqueados | 5 XPASS en test_redteam.py | PASS |
 | Observabilidad: RequestContext + timings | 6 tests pasan en test_observability.py | PASS |
 | Retriever abstracto + JSONKBRetriever | 7 tests pasan en test_retriever.py | PASS |
-| 10 feature flags configurados | Config con todos los flags verificada | PASS |
+| 9 feature flags configurados | Config con todos los flags verificada | PASS |
 
 - [x] Guardrails implementados (pre-check + post-check)
 - [x] Redaccion PII activa (DNI, NIE, telefono)
@@ -191,7 +191,7 @@ git tag phase-1-v1.0 && git push --tags
 - [x] Red team: 5 vectores adversariales bloqueados
 - [x] Observabilidad: RequestContext + timings
 - [x] Retriever abstracto + JSONKBRetriever
-- [x] 10 feature flags configurados
+- [x] 9 feature flags configurados
 
 ---
 
@@ -237,12 +237,12 @@ git tag phase-1-v1.0 && git push --tags
 
 | Verificacion | Evidencia | Estado |
 |-------------|----------|--------|
-| 75 entradas totales en 3 DBs | 37 Backlog + 12 KB + 26 Testing | PASS |
+| 81 entradas totales en 3 DBs | 43 Backlog + 12 KB + 26 Testing | PASS |
 | Backlog DB poblada (37 entradas) | 31 Hecho, 1 En progreso, 5 Backlog | PASS |
 | KB Tramites DB poblada (12 entradas) | Todas con estado Verificado | PASS |
 | Demo & Testing DB poblada (26 entradas) | 10 Pasa, 16 Pendiente | PASS |
 
-- [x] 75 entradas totales en 3 DBs
+- [x] 81 entradas totales en 3 DBs
 - [x] Backlog DB poblada (37 entradas)
 - [x] KB Tramites DB poblada (12 entradas)
 - [x] Demo & Testing DB poblada (26 entradas)
@@ -273,12 +273,12 @@ git tag phase-1-v1.0 && git push --tags
 
 | Verificacion | Evidencia | Estado |
 |-------------|----------|--------|
-| 93/93 tests pasan (88 passed + 5 xpassed) | `pytest tests/ -v --tb=short` | PASS |
+| 96/96 tests pasan (91 passed + 5 xpassed) | `pytest tests/ -v --tb=short` | PASS |
 | 0 errores de lint | `ruff check src/ tests/ --select E,F,W --ignore E501` | PASS |
 | Script de verificacion operativo | `bash scripts/phase2_verify.sh` | PASS |
 | Evidencia documentada | docs/07-evidence/PHASE-2-EVIDENCE.md | PASS |
 
-- [x] 93/93 tests pasan (88 passed + 5 xpassed)
+- [x] 96/96 tests pasan (91 passed + 5 xpassed)
 - [x] 0 errores de lint
 - [x] Script de verificacion operativo
 - [x] Evidencia documentada

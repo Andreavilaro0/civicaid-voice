@@ -20,10 +20,10 @@ Soporta texto, audio (via Gemini/Whisper) e imagenes. Responde en 2 idiomas: esp
 
 ## Que incluye
 
-- Pipeline de 10 skills para procesamiento de mensajes.
+- Pipeline de 11 skills para procesamiento de mensajes.
 - 8 respuestas precalculadas en cache para demo.
-- 10 feature flags configurables.
-- 93 tests automatizados.
+- 9 feature flags configurables.
+- 96 tests automatizados.
 - Documentacion completa ([ver indice](docs/00-DOCS-INDEX.md)).
 
 ## Que NO incluye
@@ -134,7 +134,7 @@ Si la instalacion falla, el servidor arranca igual (solo texto).
 ## Tests
 
 ```bash
-# Ejecutar los 93 tests
+# Ejecutar los 96 tests
 pytest tests/ -v --tb=short
 
 # Ejecucion rapida
@@ -150,7 +150,7 @@ pytest tests/integration/ -v
 pytest tests/e2e/ -v
 ```
 
-Resultado esperado: **93 tests** (88 passed + 5 xpassed).
+Resultado esperado: **96 tests** (91 passed + 5 xpassed).
 
 ---
 
@@ -204,12 +204,12 @@ civicaid-voice/
 │   │   ├── health.py             # GET /health — 8 componentes
 │   │   └── static_files.py       # GET /static/cache/* — audios MP3
 │   ├── core/
-│   │   ├── config.py             # 10 feature flags
+│   │   ├── config.py             # 9 feature flags
 │   │   ├── models.py             # 8 dataclasses
 │   │   ├── cache.py              # Carga demo_cache.json
-│   │   ├── pipeline.py           # Orquestador de 10 skills
+│   │   ├── pipeline.py           # Orquestador de 11 skills
 │   │   ├── guardrails.py         # Capa de seguridad pre/post
-│   │   ├── skills/               # 10 skills atomicas
+│   │   ├── skills/               # 11 skills atomicas
 │   │   └── prompts/              # System prompt + plantillas
 │   └── utils/
 │       ├── logger.py             # 7 funciones de logging con tags
@@ -218,7 +218,7 @@ civicaid-voice/
 ├── data/
 │   ├── cache/                    # demo_cache.json (8 entradas) + 6 MP3s
 │   └── tramites/                 # 3 KBs JSON (IMV, empadronamiento, tarjeta)
-├── tests/                        # 93 tests (unit/integration/e2e)
+├── tests/                        # 96 tests (unit/integration/e2e)
 ├── docs/                         # 29 documentos (ver indice)
 ├── scripts/                      # Scripts de operacion
 ├── Dockerfile                    # Python 3.11 + gunicorn (puerto 10000)

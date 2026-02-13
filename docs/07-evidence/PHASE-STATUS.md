@@ -38,8 +38,8 @@ Documento central de seguimiento que muestra el estado de cada fase del proyecto
 |------|--------|--------|--------|------------|------------|-------|-------|
 | Fase 0 — Plan Maestro | COMPLETADA | 2026-02-10 | 2026-02-11 | — | — | — | Documentacion en /docs/01-phases/ |
 | Fase 1 — MVP | COMPLETADA | 2026-02-12 | 2026-02-12 | c6a896e | — | 32/32 PASS | Codigo completo, pipeline funcional |
-| Fase 2 — Endurecimiento | COMPLETADA | 2026-02-12 | 2026-02-12 | ec05382 | Verificado | 93/93 PASS (88 passed + 5 xpassed) | Docs, QA, Notion, observabilidad, seguridad — todos los gates PASS |
-| Fase 3 — Demo en vivo | COMPLETADA | 2026-02-12 | 2026-02-13 | 77d5f88 | Verificado | 93/93 PASS | Demo, ops, Twilio, observabilidad, Notion — QA Deep audit PASS |
+| Fase 2 — Endurecimiento | COMPLETADA | 2026-02-12 | 2026-02-12 | ec05382 | Verificado | 93/93 PASS (88 passed + 5 xpassed) | Docs, QA, Notion, observabilidad, seguridad — todos los gates PASS (historico) |
+| Fase 3 — Demo en vivo | COMPLETADA | 2026-02-12 | 2026-02-13 | 77d5f88 | Verificado | 96/96 PASS (91 passed + 5 xpassed) | Demo, ops, Twilio, observabilidad, Notion — QA Deep audit PASS |
 
 ---
 
@@ -51,7 +51,7 @@ Documento central de seguimiento que muestra el estado de cada fase del proyecto
 |--------|-------|-----------|
 | PASS | 2026-02-12 | [Evidencia > G0](./PHASE-1-EVIDENCE.md#g0--tooling-ready) |
 
-**Detalle:** 15 skills configuradas, 8 agentes operativos, 3 bases de datos Notion pobladas (75 entradas totales: 37 Backlog + 12 KB Tramites + 26 Testing). Tokens configurados: NOTION_TOKEN, TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, GEMINI_API_KEY.
+**Detalle:** 15 skills configuradas, 8 agentes operativos, 3 bases de datos Notion pobladas (81 entradas totales: 43 Backlog + 12 KB Tramites + 26 Testing). Tokens configurados: NOTION_TOKEN, TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, GEMINI_API_KEY.
 
 ---
 
@@ -63,7 +63,7 @@ Documento central de seguimiento que muestra el estado de cada fase del proyecto
 
 **Que se verifico:**
 - Todas las tareas D1.x completadas (14 tareas)
-- 93/93 tests pasan (`pytest tests/ -v`)
+- 96/96 tests pasan (`pytest tests/ -v`)
 - TwiML ACK devuelve XML en <1s
 - Cache-first devuelve datos correctos de tramites (3 tramites: IMV, Empadronamiento, Tarjeta Sanitaria)
 - /health devuelve JSON con 8 componentes
@@ -83,7 +83,7 @@ Documento central de seguimiento que muestra el estado de cada fase del proyecto
 - Pipeline de audio: fetch -> convert -> transcribir -> detectar -> cache/llm
 - Transcripcion via Gemini (reemplazo de Whisper) con respuesta audio gTTS
 - Timeout LLM configurado (6s via request_options)
-- 93/93 tests pasan incluyendo mocks de flujo de audio
+- 96/96 tests pasan incluyendo mocks de flujo de audio
 - Deploy verificado en Render
 
 ---
@@ -142,7 +142,7 @@ Documento central de seguimiento que muestra el estado de cada fase del proyecto
 |--------|-------|-----------|
 | PASS | 2026-02-12 | [Evidencia Fase 2 > P2.4](./PHASE-2-EVIDENCE.md#p24--notion-fully-updated) |
 
-**Creado:** Pagina Fase 2 en CivicAid OS (ID: `305c5a0f-372a-813b-8915-f7e6c21fd055`). Entradas P2.1-P2.6 del Backlog actualizadas a Hecho. 6 entradas Demo & Testing (T2.1-T2.6). Total entradas Notion: 75 en 3 bases de datos (37 Backlog, 12 KB, 26 Testing). NOTION-OS.md actualizado.
+**Creado:** Pagina Fase 2 en CivicAid OS (ID: `305c5a0f-372a-813b-8915-f7e6c21fd055`). Entradas P2.1-P2.6 del Backlog actualizadas a Hecho. 6 entradas Demo & Testing (T2.1-T2.6). Total entradas Notion: 81 en 3 bases de datos (43 Backlog, 12 KB, 26 Testing). NOTION-OS.md actualizado.
 
 ---
 
@@ -152,7 +152,7 @@ Documento central de seguimiento que muestra el estado de cada fase del proyecto
 |--------|-------|-----------|
 | PASS | 2026-02-12 | [Evidencia Fase 2 > P2.5](./PHASE-2-EVIDENCE.md#p25--verification-script--qa-evidence) |
 
-**Resultados:** 93/93 tests pasan (88 passed + 5 xpassed), ruff lint cero errores. Crecimiento de tests: 32 (Fase 1) -> 93 (Fase 2), +61 tests nuevos. Script de verificacion en `scripts/phase2_verify.sh`. TEST-PLAN.md actualizado.
+**Resultados:** 96/96 tests pasan (91 passed + 5 xpassed), ruff lint cero errores. Crecimiento de tests: 32 (Fase 1) -> 93 (Fase 2) -> 96 (Fase 3), +64 tests nuevos en total. Script de verificacion en `scripts/phase2_verify.sh`. TEST-PLAN.md actualizado.
 
 ---
 
@@ -184,18 +184,18 @@ Documento central de seguimiento que muestra el estado de cada fase del proyecto
 | Gate | Estado | PASS | PENDIENTE | Explicacion |
 |------|--------|------|-----------|-------------|
 | G0 — Tooling | PASS | 6/6 | 0 | Todo el tooling listo |
-| G1 — Texto OK | PASS | 15/15 | 0 | 93 tests, deploy verificado |
+| G1 — Texto OK | PASS | 15/15 | 0 | 96 tests, deploy verificado |
 | G2 — Audio OK | PASS | 10/10 | 0 | Pipeline audio completo, deploy verificado |
 | G3 — Demo Listo | PASS | 6/6 | 0 | Deploy, Twilio, cron, test real, ensayo completados |
 | P2.1 — Twilio | PASS | 4/4 | 0 | Pipeline verificado, guia creada |
 | P2.2 — Render | PASS | 4/4 | 0 | Docker validado, runbook creado |
 | P2.3 — Cron | PASS | 2/2 | 0 | Documentado con 3 opciones |
-| P2.4 — Notion | PASS | 4/4 | 0 | 75 entradas en 3 DBs, pagina Fase 2 activa |
-| P2.5 — QA | PASS | 3/3 | 0 | 93/93 tests, script de verificacion listo |
+| P2.4 — Notion | PASS | 4/4 | 0 | 81 entradas en 3 DBs (43+12+26), pagina Fase 2 activa |
+| P2.5 — QA | PASS | 3/3 | 0 | 96/96 tests (actual), script de verificacion listo |
 | P2.6 — Seguridad | PASS | 7/7 | 0 | Cero secretos, todos los patrones escaneados |
 | P3.1 — Twilio Real | PASS | 6/6 | 0 | Sandbox, signature 403, checklist Twilio |
 | P3.2 — Deploy Ops | PASS | 8/8 | 0 | Health OK, cron, runbook 8 incidentes |
-| P3.3 — QA Evidence | PASS | 6/6 | 0 | phase3_verify.sh, 93/93, lint clean |
+| P3.3 — QA Evidence | PASS | 6/6 | 0 | phase3_verify.sh, 96/96, lint clean |
 | P3.4 — Observability | PASS | 6/6 | 0 | JSON logs, request_id, timings |
 | P3.5 — Notion PMO | PASS | 10/10 | 0 | 81 entradas, owners, Phase 3 page |
 | P3.6 — Demo Ready | PASS | 3/3 | 0 | WOW 1+2, guion 6-8 min, 1-pager |
@@ -211,7 +211,7 @@ Documento central de seguimiento que muestra el estado de cada fase del proyecto
 ## Como se verifica
 
 ```bash
-# Ejecutar todos los tests (esperado: 93 pass)
+# Ejecutar todos los tests (esperado: 96 pass)
 pytest tests/ -v --tb=short
 
 # Lint (esperado: cero errores)
@@ -233,7 +233,7 @@ bash scripts/phase2_verify.sh
 
 1. **Twilio WhatsApp Real** — Sandbox configurado, signature validation activa (403 sin firma), checklist paso a paso
 2. **Deploy & Ops** — Render estable (avg 166ms), cron 14 min, runbook 8 escenarios de incidente
-3. **QA & Evidence** — phase3_verify.sh (7 pasos), 93/93 tests, ruff clean, Docker smoke OK
+3. **QA & Evidence** — phase3_verify.sh (7 pasos), 96/96 tests, ruff clean, Docker smoke OK
 4. **Logging JSON** — JSONFormatter con request_id + timings por stage, demo-grade
 5. **Notion OS** — 81 entradas, owners asignados (97.7%), pagina Phase 3 Demo Ready creada
 6. **Demo** — Guion 6-8 min con WOW 1 (texto) + WOW 2 (audio), 1-pager, 8 riesgos mitigados

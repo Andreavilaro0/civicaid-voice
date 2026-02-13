@@ -121,6 +121,7 @@ El pipeline es una cadena secuencial de 11 skills especializadas. Cada skill rec
 | 8 | `llm_generate` | texto + KBContext + idioma | LLMResponse | 6s | Solo si cache MISS y LLM_LIVE=true. Gemini 1.5 Flash |
 | 9 | `verify_response` | LLMResponse + KBContext | texto verificado | — | Verifica longitud, idioma, ausencia de alucinaciones |
 | 10 | `send_response` | FinalResponse | mensaje enviado | 10s | Twilio REST API. Incluye texto + URL de audio si disponible |
+| 11 | `tts` | texto + idioma | bytes MP3 / URL audio | 5s | gTTS. Solo si cache MISS y respuesta generada por LLM |
 
 ### Flujo Condicional
 
@@ -171,7 +172,7 @@ flowchart TD
 
 ---
 
-## 5. Feature Flags (10)
+## 5. Feature Flags (9)
 
 Las feature flags permiten controlar el comportamiento de Clara sin cambiar codigo, especialmente util para alternar entre modo demo y modo produccion. Se configuran mediante variables de entorno.
 
@@ -428,7 +429,7 @@ El tier gratuito de Render asigna **512 MB de RAM**. Whisper `base` requiere ~29
 
 ### 8.5 Feature flags para flexibilidad
 
-Las 10 feature flags permiten configurar Clara para distintos escenarios sin cambiar codigo: demo con cache-only, desarrollo local sin audio, produccion completa con todos los modulos activados. Esto es critico para un hackathon donde las condiciones del entorno cambian rapidamente.
+Las 9 feature flags permiten configurar Clara para distintos escenarios sin cambiar codigo: demo con cache-only, desarrollo local sin audio, produccion completa con todos los modulos activados. Esto es critico para un hackathon donde las condiciones del entorno cambian rapidamente.
 
 ---
 
@@ -450,7 +451,7 @@ Los diagramas visuales de la arquitectura se encuentran en archivos Mermaid junt
 | Recurso | Ubicacion |
 |---------|-----------|
 | Punto de entrada | [`src/app.py`](../../src/app.py) — `create_app()` registra blueprints |
-| Configuracion | [`src/core/config.py`](../../src/core/config.py) — dataclass `Config` con 10 feature flags |
+| Configuracion | [`src/core/config.py`](../../src/core/config.py) — dataclass `Config` con 9 feature flags |
 | Pipeline | [`src/core/pipeline.py`](../../src/core/pipeline.py) — orquestador `process()` |
 | Skills (11) | [`src/core/skills/*.py`](../../src/core/skills/) |
 | Modelos (8) | [`src/core/models.py`](../../src/core/models.py) — 8 dataclasses |
