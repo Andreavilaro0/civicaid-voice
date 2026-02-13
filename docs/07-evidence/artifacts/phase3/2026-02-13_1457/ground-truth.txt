@@ -1,0 +1,41 @@
+=== GROUND TRUTH — CivicAid Voice / Clara ===
+Fecha: 2026-02-13 14:57
+Autor: Claude (Tech Lead)
+
+--- Repo ---
+Branch: main (up to date with origin)
+Untracked: 8 files (notion-restructure planning docs)
+Last commit: a5a9b4a fix: correct contradictions across docs + Notion OS restructure
+
+--- Entorno ---
+Python: 3.11.8 (pyenv)
+pytest: 9.0.2
+ruff: 0.15.0
+Flask: 3.1.x (installed)
+Deps: requirements.txt installed (flask, twilio, google-generativeai, langdetect, etc.)
+
+--- pytest ---
+Collected: 96 tests
+Result: 91 passed, 5 xpassed, 0 failed
+Tiempo: 1.88s
+Desglose:
+  unit/: 82 tests (incl. 5 xpassed redteam)
+  integration/: 7 tests
+  e2e/: 4 tests (+ 3 extra = 7? NO — total 96 confirmed by collector)
+Los 5 xpassed son test_blocked_prompts[rt_01..rt_05] en test_redteam.py.
+Marcados xfail pero pasan — guardrails funcionan mejor de lo esperado.
+
+--- ruff ---
+Result: All checks passed! (0 errores)
+Comando: ruff check src/ tests/ --select E,F,W --ignore E501
+
+--- Numeros canonicos ---
+Tests: 96 (91 passed + 5 xpassed)
+Skills: 11 (en src/core/skills/)
+Feature flags: 9 (en config.py, TWILIO_TIMEOUT hardcoded aparte)
+Notion entries: 81 (43 Backlog + 12 KB + 26 Testing)
+Cache entries: 8 (demo_cache.json)
+MP3s: 6 (en data/cache/)
+Tramites: 3 (IMV, Empadronamiento, Tarjeta Sanitaria)
+Idiomas: 2 (es, fr)
+Health components: 8

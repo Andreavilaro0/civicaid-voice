@@ -1,0 +1,14 @@
+{
+    "components": {
+        "cache_entries": 8,
+        "demo_mode": true,
+        "ffmpeg_available": false,
+        "gemini_key_set": true,
+        "llm_live": true,
+        "twilio_configured": true,
+        "whisper_enabled": false,
+        "whisper_loaded": false
+    },
+    "status": "ok",
+    "uptime_s": 34
+}

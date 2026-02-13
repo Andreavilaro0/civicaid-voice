@@ -44,7 +44,7 @@ data/
   cache/demo_cache.json     # 8 respuestas pre-calculadas + 6 MP3s
   tramites/*.json           # 3 KBs (IMV, empadronamiento, tarjeta_sanitaria)
 tests/
-  unit/ (82 tests)          # cache, config, detect_input, detect_lang, kb_lookup, guardrails, evals, redteam, retriever, structured_outputs, observability
+  unit/ (85 tests)          # cache, config, detect_input, detect_lang, kb_lookup, guardrails, evals, redteam, retriever, structured_outputs, observability, transcribe
   integration/ (7 tests)    # pipeline, twilio_stub, webhook
   e2e/ (4 tests)            # demo_flows
   # Total: 96 tests (91 passed + 5 xpassed)

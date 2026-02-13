@@ -92,7 +92,7 @@ Puntos clave: `"status": "ok"` y `"cache_entries": 8`.
 pytest tests/ -v --tb=short
 ```
 
-**Salida esperada:** 93 tests pasados (88 passed + 5 xpassed).
+**Salida esperada:** 96 tests pasados (91 passed + 5 xpassed).
 
 ### 1.5 Ejecutar el linter
 

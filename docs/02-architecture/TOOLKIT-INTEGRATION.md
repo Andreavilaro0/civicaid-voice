@@ -4,7 +4,7 @@
 
 ## Que es
 
-La integracion del toolkit de Clara es un conjunto de 5 modulos transversales que complementan el pipeline principal de 10 skills. Cada modulo se activa/desactiva con una feature flag independiente y esta disenado con un patron "zero breakage": si se activa y falla, el pipeline continua con el comportamiento por defecto.
+La integracion del toolkit de Clara es un conjunto de 5 modulos transversales que complementan el pipeline principal de 11 skills. Cada modulo se activa/desactiva con una feature flag independiente y esta disenado con un patron "zero breakage": si se activa y falla, el pipeline continua con el comportamiento por defecto.
 
 ## Para quien
 
@@ -23,7 +23,7 @@ La integracion del toolkit de Clara es un conjunto de 5 modulos transversales qu
 
 - Detalle de implementacion de cada modulo (ver documentos especificos).
 - Configuracion de infraestructura externa (Grafana, FAISS, etc.).
-- Pipeline principal de 10 skills (ver `docs/02-architecture/ARCHITECTURE.md`).
+- Pipeline principal de 11 skills (ver `docs/02-architecture/ARCHITECTURE.md`).
 
 ---
 
@@ -310,7 +310,7 @@ python3 -c "from src.core.config import Config; print(Config().RAG_ENABLED)"
 
 ## 4. Tabla completa de feature flags
 
-Clara cuenta con 10 feature flags configurables por variables de entorno:
+Clara cuenta con 9 feature flags configurables por variables de entorno:
 
 | # | Flag | Variable de entorno | Valor por defecto | Tipo | Proposito |
 |---|------|---------------------|-------------------|------|-----------|
@@ -331,11 +331,11 @@ Clara cuenta con 10 feature flags configurables por variables de entorno:
 
 | Metrica | Valor |
 |---------|-------|
-| Tests totales | 93 (88 passed + 5 xpassed) |
-| Skills del pipeline | 10 |
-| Feature flags | 10 |
+| Tests totales | 96 (91 passed + 5 xpassed) |
+| Skills del pipeline | 11 |
+| Feature flags | 9 |
 | Entradas de cache | 8 |
-| Entradas de Notion | 75 (37 + 12 + 26) |
+| Entradas de Notion | 81 (43 + 12 + 26) |
 | Intervalo cron (keep-alive) | 14 minutos |
 | Puerto Render | 10000 |
 | Puerto local | 5000 |

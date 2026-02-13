@@ -225,7 +225,7 @@ El proyecto se ejecuta con 6 equipos de agentes especializados, coordinados por 
 
 | Campo | Valor |
 |-------|-------|
-| **Responsabilidad** | Flask app, webhook handler, TwiML ACK, pipeline de 10 skills, timeouts, Twilio REST integration |
+| **Responsabilidad** | Flask app, webhook handler, TwiML ACK, pipeline de 11 skills, timeouts, Twilio REST integration |
 | **Skills / MCP** | `twilio-communications`, `python-patterns`, `senior-fullstack` |
 | **Salidas** | `src/app.py`, `src/routes/*.py`, `src/core/pipeline.py`, `src/core/skills/*.py` |
 | **Reporte** | Resultados de tests (`pytest -v`) + log de pipeline con tiempos por skill |

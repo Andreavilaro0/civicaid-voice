@@ -243,7 +243,7 @@ Los tests de guardrails estan en `tests/unit/test_guardrails.py` (18 tests) y `t
 
 ## 3. Resumen de feature flags
 
-Clara cuenta con 10 feature flags en total. Las dos relevantes para este documento son:
+Clara cuenta con 9 feature flags en total. Las dos relevantes para este documento son:
 
 | Flag | Variable | Valor por defecto | Estado |
 |------|----------|-------------------|--------|

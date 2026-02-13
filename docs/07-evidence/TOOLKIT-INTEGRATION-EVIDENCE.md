@@ -92,7 +92,7 @@
 ## Estado Final (2026-02-12)
 
 ### Suite de Tests
-- 93/93 tests pasan — 88 passed + 5 xpassed (pytest tests/ -q)
+- 96/96 tests pasan — 91 passed + 5 xpassed (pytest tests/ -q)
 - Lint: ruff limpio (0 errores)
 - Todos los modulos nuevos importan correctamente
 
@@ -117,5 +117,5 @@
 ```bash
 bash scripts/verify_toolkit.sh   # Verificacion completa del toolkit
 bash scripts/verify_evals.sh     # Verificacion especifica de evals
-pytest tests/ -v --tb=short      # 93 tests (88 passed + 5 xpassed)
+pytest tests/ -v --tb=short      # 96 tests (91 passed + 5 xpassed)
 ```

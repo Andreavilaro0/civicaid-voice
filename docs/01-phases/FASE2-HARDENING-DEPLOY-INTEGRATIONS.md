@@ -15,7 +15,7 @@
 
 ## 1. Objetivo de Fase
 
-Fase 1 entrego un MVP funcional: 93 tests verdes (88 passed + 5 xpassed), pipeline de 10 skills completo, cache-first operativo. Pero el deploy a Render, la configuracion de Twilio, la observabilidad y la sincronizacion de Notion quedaron pendientes.
+Fase 1 entrego un MVP funcional: 93 tests verdes (88 passed + 5 xpassed) (snapshot al cierre de Fase 2; estado actual: 96 tests, 11 skills), pipeline de 11 skills completo, cache-first operativo. Pero el deploy a Render, la configuracion de Twilio, la observabilidad y la sincronizacion de Notion quedaron pendientes.
 
 Fase 2 cierra esas brechas:
 
@@ -62,10 +62,10 @@ Fase 2 cierra esas brechas:
 
 | Aspecto | Fase 1 | Fase 2 |
 |---------|--------|--------|
-| **Codigo** | Pipeline completo, 93 tests verdes | Sin cambios al core; se agrega observabilidad y guardrails como modulos opcionales |
+| **Codigo** | Pipeline completo, 93 tests verdes (snapshot Fase 2; actual: 96) | Sin cambios al core; se agrega observabilidad y guardrails como modulos opcionales |
 | **Deploy** | Pendiente | Render desplegado y verificado |
 | **Twilio** | Webhook implementado, no conectado | Guia de setup, signature validation verificada |
-| **Notion** | DBs creadas y populadas (75 entradas: 37+12+26) | Paginas actualizadas con evidencia de Fase 2 |
+| **Notion** | DBs creadas y populadas (75 entradas: 37+12+26) (snapshot Fase 2; actual: 81 = 43+12+26) | Paginas actualizadas con evidencia de Fase 2 |
 | **Observabilidad** | Logger basico con prefijos | Logger estructurado + metricas + feature flags de toolkit |
 | **Seguridad** | .gitignore basico | Scan de secretos, audit completo |
 | **Documentacion** | FASE1 plan, arquitectura, runbook | FASE2 plan, executive summary actualizado, diagrama deploy/ops |
@@ -205,7 +205,7 @@ Fase 2 introdujo modulos opcionales de toolkit controlados por feature flags:
 | `GUARDRAILS_ON` | true | `src/core/guardrails.py` | Validacion de inputs y outputs |
 | `RAG_ENABLED` | false | Stub | RAG placeholder para futuras fases |
 
-Estos modulos son **aditivos** y no modifican el pipeline existente de 10 skills. Se activan via variables de entorno en render.yaml.
+Estos modulos son **aditivos** y no modifican el pipeline existente de 11 skills. Se activan via variables de entorno en render.yaml.
 
 ---
 

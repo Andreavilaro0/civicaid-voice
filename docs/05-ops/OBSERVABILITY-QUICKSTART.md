@@ -283,7 +283,7 @@ Clara no incluye alertas integradas. Estas son las recomendaciones de umbrales p
 
 ## 8. Feature flags relacionadas con observabilidad
 
-Clara cuenta con 10 feature flags en total. Las que afectan a la observabilidad son:
+Clara cuenta con 9 feature flags en total. Las que afectan a la observabilidad son:
 
 | Flag | Variable de entorno | Valor por defecto | Efecto |
 |------|---------------------|-------------------|--------|
