@@ -7,7 +7,7 @@
 - **Hackathon:** OdiseIA4Good — UDIT (Feb 2026)
 - **Repo:** /Users/andreaavila/Documents/hakaton/civicaid-voice
 - **Stack:** Python 3.11, Flask, Twilio WhatsApp, Whisper base, Gemini 1.5 Flash, Docker, Render
-- **Estado:** Fase 3 cerrada — 96 tests, deploy verificado, todos los gates PASS, QA Deep audit completado
+- **Estado:** Fases 0-3 cerradas, Fase 4 en curso
 
 ## Arquitectura
 
@@ -35,13 +35,19 @@ src/
     cache.py                # Carga demo_cache.json
     pipeline.py             # Orquestador de 11 skills
     twilio_client.py        # Wrapper Twilio REST
+    guardrails.py           # Capa de seguridad pre/post
+    models_structured.py    # Salidas JSON estructuradas
+    retriever.py            # RAG stub (futuro)
     skills/                 # 11 skills atomicas (incl. tts.py)
     prompts/                # system_prompt.py, templates.py
   utils/
     logger.py               # Logging estructurado
+    eval_runner.py           # Runner de evaluaciones
     timing.py               # Decorador timing
+    observability.py         # RequestContext + hooks Flask
 data/
   cache/demo_cache.json     # 8 respuestas pre-calculadas + 6 MP3s
+  evals/*.json              # 5 archivos de evaluacion
   tramites/*.json           # 3 KBs (IMV, empadronamiento, tarjeta_sanitaria)
 tests/
   unit/ (85 tests)          # cache, config, detect_input, detect_lang, kb_lookup, guardrails, evals, redteam, retriever, structured_outputs, observability, transcribe
@@ -50,7 +56,7 @@ tests/
   # Total: 96 tests (91 passed + 5 xpassed)
 ```
 
-## Feature Flags (9 en config.py)
+## Feature Flags (config.py)
 
 | Flag | Default | Efecto |
 |------|---------|--------|
@@ -70,40 +76,37 @@ tests/
 
 | Documento | Path |
 |-----------|------|
-| Plan Fase 1 (ejecutable) | docs/01-phases/FASE1-IMPLEMENTACION-MVP.md |
-| Plan Maestro (Fase 0) | docs/01-phases/FASE0-PLAN-MAESTRO-FINAL.md |
+| Resumen Ejecutivo | docs/00-EXECUTIVE-SUMMARY.md |
+| Indice de Documentacion | docs/00-DOCS-INDEX.md |
+| Fase 4 — Ideacion | docs/01-phases/FASE4-IDEACION.md |
+| Fase 4 — Plan | docs/01-phases/FASE4-PLAN.md |
+| Fase 4 — Arquitectura | docs/01-phases/FASE4-PLAN-ARQUITECTURA.md |
 | Arquitectura + diagramas | docs/02-architecture/ARCHITECTURE.md |
+| Observabilidad | docs/02-architecture/OBSERVABILITY.md |
+| Propuesta Arq Fase 4 | docs/02-architecture/FASE4-ARCHITECTURE-PROPOSAL.md |
 | Runbook Demo | docs/03-runbooks/RUNBOOK-DEMO.md |
 | Test Plan (T1-T10) | docs/04-testing/TEST-PLAN.md |
+| Framework de Evals | docs/04-testing/EVALS.md |
 | Deploy Render | docs/05-ops/RENDER-DEPLOY.md |
-| Notion OS | docs/06-integrations/NOTION-OS.md |
-| Evidencia Fase 1 | docs/07-evidence/PHASE-1-EVIDENCE.md |
-| Evidencia Fase 2 | docs/07-evidence/PHASE-2-EVIDENCE.md |
-| Estado de Fases (semaforo) | docs/07-evidence/PHASE-STATUS.md |
-| Checklist de Cierre | docs/07-evidence/PHASE-CLOSE-CHECKLIST.md |
-| Resumen Ejecutivo | docs/00-EXECUTIVE-SUMMARY.md |
-| Plan Fase 2 | docs/01-phases/FASE2-HARDENING-DEPLOY-INTEGRATIONS.md |
 | Observability Quickstart | docs/05-ops/OBSERVABILITY-QUICKSTART.md |
 | Guia Twilio | docs/06-integrations/TWILIO-SETUP-GUIDE.md |
-| Runbook Fase 2 | docs/03-runbooks/RUNBOOK-PHASE2.md |
+| Notion OS | docs/06-integrations/NOTION-OS.md |
+| Guardrails | docs/06-integrations/GUARDRAILS.md |
+| Structured Outputs | docs/06-integrations/STRUCTURED_OUTPUTS.md |
+| RAG Opcional | docs/06-integrations/RAG_OPTIONAL.md |
+| Guia Jueces | docs/06-integrations/JUDGES-QUICK-EVAL.md |
+| Tono y Voz Clara | docs/08-marketing/CLARA-TONE-VOICE-GUIDE.md |
+| Narrativa Jueces | docs/08-marketing/NARRATIVA-JUECES-FASE4.md |
+| UX y Accesibilidad | docs/08-ux/PHASE4-UX-ACCESSIBILITY-ANALYSIS.md |
+| Doc Tecnico Sprint 3 | docs/09-academic/Sprint3_DocTecnico.md |
+| Presentacion Sprint 3 | docs/09-academic/Sprint3_Presentacion.md |
 
 ## Scripts
 
 | Script | Uso |
 |--------|-----|
 | scripts/run-local.sh | Correr app local (venv + deps + Flask) |
-| scripts/phase_close.sh | Generar reporte de cierre: `./scripts/phase_close.sh 1 [RENDER_URL]` |
-| scripts/populate_notion.sh | Poblar 3 DBs de Notion (81 entradas) |
-| scripts/tmux_team_up.sh | Setup de paneles tmux |
-| scripts/phase2_verify.sh | Verificacion automatizada Fase 2 (tests + lint) |
-| scripts/phase3_verify.sh | Verificacion Fase 3 (7 pasos: tests+lint+docker+render+twilio) |
 | scripts/run_evals.py | Runner de evaluaciones (16 casos, 4 sets) |
-| scripts/verify_evals.sh | Verificar evals |
-| scripts/verify_guardrails.sh | Verificar guardrails |
-| scripts/verify_obs.sh | Verificar observabilidad |
-| scripts/verify_structured.sh | Verificar structured outputs |
-| scripts/verify_toolkit.sh | Verificar toolkit completo |
-| scripts/phase_close.sh | Generar reporte de cierre de fase |
 
 ## Notion
 
@@ -112,52 +115,6 @@ tests/
 - **Testing DB:** 304c5a0f-372a-810d-8767-d77efbd46bb2
 - **Token:** Configurado en ~/.mcp.json (NOTION_TOKEN)
 - **Estado:** 81 entradas pobladas (43 Backlog + 12 KB Tramites + 26 Testing)
-- **MCP:** Requiere reinicio de Claude Code tras cambiar token en ~/.mcp.json
-
-## Agent Teams (6 paneles)
-
-El proyecto usa un modelo de 6 agentes especializados con un lead en modo delegate-only:
-
-| # | Nombre | Scope | Skills/MCP |
-|---|--------|-------|------------|
-| 1 | DevOps/Infra | Dockerfile, render.yaml, scripts/* | docker-expert, github-actions-creator, devops-engineer |
-| 2 | Backend/Pipeline | src/core/*, src/routes/*, src/app.py | general-purpose |
-| 3 | QA/Testing | tests/**, .github/**, pyproject.toml | general-purpose |
-| 4 | Notion Ops | docs/06-integrations/*, Notion MCP | notion-ops, notion-knowledge-capture |
-| 5 | Docs/Architecture | docs/01-03/* | general-purpose |
-| 6 | Release/PM | docs/01-phases/FASE1*, docs/07-evidence/* | general-purpose |
-
-**Regla:** El lead solo coordina y sintetiza. Todo trabajo lo hacen los teammates. Ningun teammate edita fuera de su scope.
-
-## Fixes Aplicados (Fase 1 Hardening)
-
-1. DEMO_MODE implementado en pipeline.py (era dead code)
-2. WHISPER_ON preload control (controla carga del modelo)
-3. Twilio REST timeout (10s) en send_response.py
-4. NumMedia safe parsing (try/except) en webhook.py
-5. Silent thread death protection en pipeline.py
-6. Twilio webhook signature validation (RequestValidator) en webhook.py
-7. Docker build fix (setuptools<75 + --no-build-isolation para whisper)
-8. .dockerignore creado
-9. Unused import time removido de logger.py
-
-## Estado Actual de Gates
-
-| Gate | Estado | Evidencia |
-|------|--------|-----------|
-| G0 Tooling | PASS | Skills, agentes, MCP, 81 entradas Notion en 3 DBs |
-| G1 Texto | PASS | 96/96 tests, ruff clean, cache-first OK, deploy verificado |
-| G2 Audio | PASS | Pipeline completo, Gemini transcripcion, gTTS audio, deploy verificado |
-| G3 Demo | PASS | Deploy Render verificado, Twilio webhook configurado, cron 14 min activo |
-
-## Bloqueantes
-
-1. ~~**Notion DBs vacias**~~ — RESUELTO: 81 entradas pobladas (43 Backlog + 12 KB + 26 Testing)
-2. ~~**Deploy Render**~~ — RESUELTO: deploy verificado, /health operativo en puerto 10000
-3. ~~**Twilio webhook**~~ — RESUELTO: URL configurada en consola Twilio
-4. ~~**Demo rehearsal**~~ — RESUELTO: ensayo completado, flujos WOW 1 + WOW 2 verificados
-
-> Todos los bloqueantes de Fase 1 y Fase 2 estan resueltos. Fase 2 cerrada.
 
 ## Comandos Rapidos
 
@@ -172,16 +129,13 @@ ruff check src/ tests/ --select E,F,W --ignore E501
 bash scripts/run-local.sh
 
 # Docker
-docker build -t civicaid-voice:test . && docker run -p 5000:5000 --env-file .env civicaid-voice:test
+docker build -t civicaid-voice . && docker run -p 10000:10000 --env-file .env civicaid-voice
 
 # Health
 curl http://localhost:5000/health | python3 -m json.tool
 
-# Cierre de fase
-./scripts/phase_close.sh 1 https://civicaid-voice.onrender.com
-
-# Poblar Notion
-bash scripts/populate_notion.sh
+# Evals
+python scripts/run_evals.py
 ```
 
 ## Equipo Humano

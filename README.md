@@ -34,7 +34,7 @@ Soporta texto, audio (via Gemini/Whisper) e imagenes. Responde en 2 idiomas: esp
 
 ---
 
-**Hackathon:** OdiseIA4Good — UDIT | **Fecha:** Febrero 2026 | **Estado:** Fases 0-2 cerradas
+**Hackathon:** OdiseIA4Good — UDIT | **Fecha:** Febrero 2026 | **Estado:** Fase 4 en curso
 
 ## Arquitectura
 
@@ -267,11 +267,6 @@ pytest tests/ -q
 # Suite de evaluacion
 python scripts/run_evals.py
 
-# Verificar modulos individuales
-bash scripts/verify_obs.sh
-bash scripts/verify_structured.sh
-bash scripts/verify_guardrails.sh
-
 # Health check local
 curl http://localhost:5000/health | python3 -m json.tool
 ```
@@ -286,17 +281,14 @@ Indice completo: [docs/00-DOCS-INDEX.md](docs/00-DOCS-INDEX.md)
 |-----------|------|
 | Resumen Ejecutivo | [docs/00-EXECUTIVE-SUMMARY.md](docs/00-EXECUTIVE-SUMMARY.md) |
 | Indice de Documentacion | [docs/00-DOCS-INDEX.md](docs/00-DOCS-INDEX.md) |
-| Plan Maestro (Fase 0) | [docs/01-phases/FASE0-PLAN-MAESTRO-FINAL.md](docs/01-phases/FASE0-PLAN-MAESTRO-FINAL.md) |
-| Implementacion MVP (Fase 1) | [docs/01-phases/FASE1-IMPLEMENTACION-MVP.md](docs/01-phases/FASE1-IMPLEMENTACION-MVP.md) |
-| Hardening y Deploy (Fase 2) | [docs/01-phases/FASE2-HARDENING-DEPLOY-INTEGRATIONS.md](docs/01-phases/FASE2-HARDENING-DEPLOY-INTEGRATIONS.md) |
-| Arquitectura + diagramas | [docs/02-architecture/](docs/02-architecture/) |
+| Arquitectura + diagramas | [docs/02-architecture/ARCHITECTURE.md](docs/02-architecture/ARCHITECTURE.md) |
 | Observabilidad | [docs/02-architecture/OBSERVABILITY.md](docs/02-architecture/OBSERVABILITY.md) |
 | Runbook Demo | [docs/03-runbooks/RUNBOOK-DEMO.md](docs/03-runbooks/RUNBOOK-DEMO.md) |
 | Plan de Tests (T1-T10) | [docs/04-testing/TEST-PLAN.md](docs/04-testing/TEST-PLAN.md) |
 | Deploy en Render | [docs/05-ops/RENDER-DEPLOY.md](docs/05-ops/RENDER-DEPLOY.md) |
 | Guia de Twilio | [docs/06-integrations/TWILIO-SETUP-GUIDE.md](docs/06-integrations/TWILIO-SETUP-GUIDE.md) |
 | Notion OS | [docs/06-integrations/NOTION-OS.md](docs/06-integrations/NOTION-OS.md) |
-| Estado de Fases | [docs/07-evidence/PHASE-STATUS.md](docs/07-evidence/PHASE-STATUS.md) |
+| Fase 4 — Plan | [docs/01-phases/FASE4-PLAN.md](docs/01-phases/FASE4-PLAN.md) |
 
 ---
 
