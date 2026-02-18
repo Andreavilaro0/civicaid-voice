@@ -15,7 +15,7 @@ services:
       - key: GEMINI_API_KEY
         sync: false
       - key: DEMO_MODE
-        value: "true"
+        value: "false"
       - key: LLM_LIVE
         value: "true"
       - key: WHISPER_ON
@@ -38,4 +38,18 @@ services:
         value: "true"
       - key: RAG_ENABLED
         value: "false"
+      - key: MEMORY_ENABLED
+        value: "false"
+      - key: MEMORY_BACKEND
+        value: "dev"
+      - key: MEMORY_TTL_DAYS
+        value: "30"
+      - key: MEMORY_SECRET_SALT
+        sync: false
+      - key: MEMORY_OPTIN_DEFAULT
+        value: "false"
+      - key: FORGET_TOKEN
+        sync: false
+      - key: REDIS_URL
+        sync: false
     healthCheckPath: /health

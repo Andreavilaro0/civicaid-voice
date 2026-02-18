@@ -47,6 +47,14 @@ class Config:
     # --- RAG ---
     RAG_ENABLED: bool = field(default_factory=lambda: _bool(os.getenv("RAG_ENABLED", "false")))
 
+    # --- Memory / Personalization ---
+    MEMORY_ENABLED: bool = field(default_factory=lambda: _bool(os.getenv("MEMORY_ENABLED", "false")))
+    MEMORY_BACKEND: str = field(default_factory=lambda: os.getenv("MEMORY_BACKEND", "dev"))
+    MEMORY_TTL_DAYS: int = field(default_factory=lambda: int(os.getenv("MEMORY_TTL_DAYS", "30")))
+    MEMORY_SECRET_SALT: str = field(default_factory=lambda: os.getenv("MEMORY_SECRET_SALT", ""))
+    MEMORY_OPTIN_DEFAULT: bool = field(default_factory=lambda: _bool(os.getenv("MEMORY_OPTIN_DEFAULT", "false")))
+    FORGET_TOKEN: str = field(default_factory=lambda: os.getenv("FORGET_TOKEN", ""))
+
 
 # Singleton — import this everywhere
 config = Config()

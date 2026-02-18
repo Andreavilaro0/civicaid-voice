@@ -13,7 +13,13 @@ from src.core.skills.llm_generate import llm_generate
 from src.core.skills.verify_response import verify_response
 from src.core.skills.send_response import send_final_message
 from src.core.prompts.templates import get_template
-from src.utils.logger import log_cache, log_error, log_observability
+from src.core.memory.user_hash import derive_user_id
+from src.core.memory.store import get_store
+from src.core.memory.models import new_memory_state
+from src.core.memory.commands import detect_memory_command, MemoryCommand
+from src.core.memory.sanitize import sanitize_for_prompt
+from src.core.memory.update import update_memory_after_response
+from src.utils.logger import log_cache, log_error, log_memory, log_observability, log_pipeline_result
 from src.utils.observability import get_context
 
 
@@ -38,6 +44,7 @@ def process(msg: IncomingMessage) -> None:
             guard_result = pre_check(text)
             if not guard_result.safe:
                 elapsed_ms = int((time.time() - start) * 1000)
+                log_pipeline_result(msg.request_id, msg.from_number, "guardrail", elapsed_ms)
                 response = FinalResponse(
                     to_number=msg.from_number,
                     body=guard_result.modified_text or "No puedo ayudar con ese tema.",
@@ -71,12 +78,81 @@ def process(msg: IncomingMessage) -> None:
         if msg.input_type == InputType.TEXT:
             language = detect_language(text)
 
+        # --- MEMORY BLOCK ---
+        memory = None
+        user_id = ""
+        memory_store = None
+        tramite_key = None  # Will be set after kb_lookup
+
+        if config.MEMORY_ENABLED:
+            import os
+            user_id = derive_user_id(msg.from_number, config.MEMORY_SECRET_SALT)
+            redis_url = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+            memory_store = get_store(config.MEMORY_BACKEND, redis_url=redis_url)
+            memory = memory_store.get(user_id) or new_memory_state(ttl_days=config.MEMORY_TTL_DAYS)
+
+            # Check for forget command
+            cmd = detect_memory_command(text)
+            if cmd == MemoryCommand.FORGET:
+                memory_store.forget(user_id)
+                elapsed_ms = int((time.time() - start) * 1000)
+                log_pipeline_result(msg.request_id, msg.from_number, "memory_forget", elapsed_ms)
+                response = FinalResponse(
+                    to_number=msg.from_number,
+                    body=get_template("memory_forgotten", language),
+                    source="memory_forget",
+                    total_ms=elapsed_ms,
+                )
+                send_final_message(response)
+                return
+
+            # Check opt-in state
+            if not memory.consent_opt_in and not config.MEMORY_OPTIN_DEFAULT:
+                if cmd == MemoryCommand.OPT_IN_YES:
+                    memory.consent_opt_in = True
+                    memory.consent_set_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+                    memory_store.upsert(user_id, memory)
+                    elapsed_ms = int((time.time() - start) * 1000)
+                    response = FinalResponse(
+                        to_number=msg.from_number,
+                        body=get_template("memory_optin_confirmed", language),
+                        source="memory_optin",
+                        total_ms=elapsed_ms,
+                    )
+                    send_final_message(response)
+                    return
+                elif cmd == MemoryCommand.OPT_IN_NO:
+                    memory.consent_opt_in = False
+                    memory.consent_set_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+                    memory_store.upsert(user_id, memory)
+                    elapsed_ms = int((time.time() - start) * 1000)
+                    response = FinalResponse(
+                        to_number=msg.from_number,
+                        body=get_template("memory_optin_declined", language),
+                        source="memory_optin",
+                        total_ms=elapsed_ms,
+                    )
+                    send_final_message(response)
+                    return
+                elif memory.consent_set_at == "":
+                    # First contact -- ask for consent
+                    elapsed_ms = int((time.time() - start) * 1000)
+                    response = FinalResponse(
+                        to_number=msg.from_number,
+                        body=get_template("memory_optin_ask", language),
+                        source="memory_optin",
+                        total_ms=elapsed_ms,
+                    )
+                    send_final_message(response)
+                    return
+
         # --- CACHE MATCH ---
         cache_result: CacheResult = cache.match(text, language, msg.input_type)
 
         if cache_result.hit and cache_result.entry:
             elapsed_ms = int((time.time() - start) * 1000)
             log_cache(True, cache_result.entry.id, elapsed_ms)
+            log_pipeline_result(msg.request_id, msg.from_number, "cache", elapsed_ms)
             if ctx:
                 ctx.add_timing("cache", elapsed_ms)
                 ctx.add_timing("total", elapsed_ms)
@@ -96,6 +172,7 @@ def process(msg: IncomingMessage) -> None:
         # --- DEMO_MODE: cache-only, skip LLM ---
         if config.DEMO_MODE:
             elapsed_ms = int((time.time() - start) * 1000)
+            log_pipeline_result(msg.request_id, msg.from_number, "fallback", elapsed_ms, fallback_reason="demo_mode")
             fallback_text = get_template("fallback_generic", language)
             response = FinalResponse(
                 to_number=msg.from_number,
@@ -109,8 +186,32 @@ def process(msg: IncomingMessage) -> None:
         # --- KB LOOKUP ---
         kb_context: KBContext | None = kb_lookup(text, language)
 
+        # --- BUILD MEMORY CONTEXT ---
+        memory_profile_str = ""
+        memory_summary_str = ""
+        memory_case_str = ""
+        if config.MEMORY_ENABLED and memory and memory.consent_opt_in:
+            profile_parts = []
+            if memory.profile_name:
+                profile_parts.append(f"Nombre: {memory.profile_name}")
+            if memory.profile_language:
+                profile_parts.append(f"Idioma: {memory.profile_language}")
+            memory_profile_str = sanitize_for_prompt(", ".join(profile_parts)) if profile_parts else ""
+            memory_summary_str = sanitize_for_prompt(memory.conversation_summary)
+            case_parts = []
+            if memory.current_case_tramite:
+                case_parts.append(f"tramite={memory.current_case_tramite}")
+            if memory.current_case_intent:
+                case_parts.append(f"intent={memory.current_case_intent}")
+            memory_case_str = sanitize_for_prompt(", ".join(case_parts)) if case_parts else ""
+
         # --- LLM GENERATE ---
-        llm_resp: LLMResponse = llm_generate(text, language, kb_context)
+        llm_resp: LLMResponse = llm_generate(
+            text, language, kb_context,
+            memory_profile=memory_profile_str,
+            memory_summary=memory_summary_str,
+            memory_case=memory_case_str,
+        )
 
         # --- VERIFY ---
         verified_text = verify_response(llm_resp.text, kb_context)
@@ -127,6 +228,16 @@ def process(msg: IncomingMessage) -> None:
             from src.core.guardrails import post_check
             verified_text = post_check(verified_text)
 
+        # --- MEMORY UPDATE (post-response) ---
+        if config.MEMORY_ENABLED and memory_store and memory and memory.consent_opt_in:
+            if kb_context:
+                tramite_key = kb_context.tramite
+            memory = update_memory_after_response(memory, text, verified_text, tramite_key, language)
+            memory_store.upsert(user_id, memory)
+            log_memory(msg.request_id, user_id, config.MEMORY_BACKEND,
+                        hit=True, write=True, size_bytes=len(str(memory.to_dict())),
+                        latency_ms=0)
+
         # --- TTS: convert response to audio ---
         audio_url = None
         try:
@@ -137,6 +248,11 @@ def process(msg: IncomingMessage) -> None:
 
         # --- SEND FINAL ---
         elapsed_ms = int((time.time() - start) * 1000)
+        if llm_resp.success:
+            log_pipeline_result(msg.request_id, msg.from_number, "llm", elapsed_ms)
+        else:
+            log_pipeline_result(msg.request_id, msg.from_number, "fallback", elapsed_ms,
+                                fallback_reason=llm_resp.error or "")
         if ctx:
             ctx.add_timing("total", elapsed_ms)
             log_observability(ctx)
@@ -151,6 +267,9 @@ def process(msg: IncomingMessage) -> None:
 
     except Exception as e:
         log_error("pipeline", str(e))
+        elapsed_ms = int((time.time() - start) * 1000)
+        log_pipeline_result(msg.request_id, msg.from_number, "fallback", elapsed_ms,
+                            fallback_reason="pipeline_error")
         try:
             _send_fallback(msg, "llm_fail", start)
         except Exception as fallback_err:

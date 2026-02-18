@@ -12,9 +12,9 @@ TEMPLATES = {
         "en": "Listening to your audio... 🎧",
     },
     "fallback_generic": {
-        "es": "Ahora mismo puedo ayudarte con el Ingreso Mínimo Vital, empadronamiento y tarjeta sanitaria. ¿Sobre qué te gustaría saber?",
-        "fr": "Je peux vous aider avec l'Ingreso Mínimo Vital, l'empadronamiento et la tarjeta sanitaria. Quel sujet vous intéresse ?",
-        "en": "I can help you with the Ingreso Mínimo Vital, empadronamiento, and tarjeta sanitaria. What would you like to know about?",
+        "es": "Puedo ayudarte con trámites, ayudas y procesos del gobierno español. ¿Sobre qué necesitas información?",
+        "fr": "Je peux vous aider avec les démarches, aides et procédures du gouvernement espagnol. De quoi avez-vous besoin ?",
+        "en": "I can help you with procedures, benefits, and processes of the Spanish government. What do you need information about?",
     },
     "whisper_fail": {
         "es": "No pude entender tu audio. ¿Podrías escribir tu pregunta?",
@@ -22,9 +22,29 @@ TEMPLATES = {
         "en": "I couldn't understand your audio. Could you type your question?",
     },
     "llm_fail": {
-        "es": "Hubo un problema al procesar tu consulta. Prueba de nuevo en unos segundos, o consulta directamente en:\n- IMV: 900 20 22 22\n- Empadronamiento: 010\n- Tarjeta sanitaria: 900 102 112",
-        "fr": "Un problème est survenu. Réessayez dans quelques secondes, ou appelez directement :\n- IMV : 900 20 22 22\n- Empadronamiento : 010\n- Carte sanitaire : 900 102 112",
-        "en": "There was a problem processing your query. Try again in a few seconds, or call directly:\n- IMV: 900 20 22 22\n- Registration: 010\n- Health card: 900 102 112",
+        "es": "Hubo un problema al procesar tu consulta. Prueba de nuevo en unos segundos, o consulta directamente en administracion.gob.es o llama al 060.",
+        "fr": "Un problème est survenu. Réessayez dans quelques secondes, ou consultez administracion.gob.es ou appelez le 060.",
+        "en": "There was a problem processing your query. Try again in a few seconds, or visit administracion.gob.es or call 060.",
+    },
+    "memory_optin_ask": {
+        "es": "Para ayudarte mejor, puedo recordar tu consulta. ¿Quieres que recuerde tu trámite? (Sí/No)\n\nPuedes decir 'Olvida mis datos' en cualquier momento.",
+        "fr": "Pour mieux vous aider, je peux mémoriser votre consultation. Voulez-vous que je me souvienne ? (Oui/Non)\n\nVous pouvez dire 'Oublie mes données' à tout moment.",
+        "en": "To help you better, I can remember your case. Would you like me to remember? (Yes/No)\n\nYou can say 'Forget my data' at any time.",
+    },
+    "memory_optin_confirmed": {
+        "es": "Perfecto, recordaré tu consulta para ayudarte mejor. Puedes decir 'Olvida mis datos' cuando quieras.",
+        "fr": "Parfait, je me souviendrai de votre consultation. Dites 'Oublie mes données' quand vous voulez.",
+        "en": "Great, I'll remember your case. Say 'Forget my data' whenever you want.",
+    },
+    "memory_optin_declined": {
+        "es": "Entendido, no guardaré datos. Cada mensaje será independiente.",
+        "fr": "Compris, je ne garderai pas de données. Chaque message sera indépendant.",
+        "en": "Got it, I won't store data. Each message will be independent.",
+    },
+    "memory_forgotten": {
+        "es": "Tus datos han sido eliminados. Si necesitas ayuda, empieza de nuevo.",
+        "fr": "Vos données ont été supprimées. Si vous avez besoin d'aide, recommencez.",
+        "en": "Your data has been deleted. If you need help, start over.",
     },
 }
 

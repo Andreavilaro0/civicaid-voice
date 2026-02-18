@@ -87,3 +87,24 @@ def log_observability(ctx) -> None:
     _log_json(logging.INFO, "OBS",
               f"request_id={ctx.request_id} timings={ctx.timings}",
               request_id=ctx.request_id, timings=ctx.timings)
+
+
+def log_pipeline_result(request_id: str, from_number: str, source: str,
+                        total_ms: int, fallback_reason: str = "") -> None:
+    import hashlib
+    user_hash = hashlib.sha256(from_number.encode()).hexdigest()[:12]
+    _log_json(logging.INFO, "PIPELINE_RESULT",
+              f"request_id={request_id} user={user_hash} source={source} total={total_ms}ms",
+              request_id=request_id, user_id_hash=user_hash,
+              provider=source, latency_ms=total_ms,
+              fallback_reason=fallback_reason)
+
+
+def log_memory(request_id: str, user_id_hash: str, backend: str,
+               hit: bool, write: bool, size_bytes: int, latency_ms: int) -> None:
+    _log_json(logging.INFO, "MEMORY",
+              f"request_id={request_id} user={user_id_hash[:12]} backend={backend} hit={hit} write={write}",
+              request_id=request_id, user_id_hash=user_id_hash[:12],
+              memory_backend=backend, memory_hit=hit,
+              memory_write=write, memory_size_bytes=size_bytes,
+              latency_ms=latency_ms)

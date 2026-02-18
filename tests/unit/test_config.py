@@ -29,3 +29,19 @@ def test_config_twilio_sandbox_default():
     from src.core.config import Config
     c = Config()
     assert c.TWILIO_SANDBOX_FROM == "whatsapp:+14155238886"
+
+
+def test_memory_config_defaults():
+    """Memory flags have safe defaults."""
+    from src.core.config import Config
+    import os
+    for key in ["MEMORY_BACKEND", "MEMORY_TTL_DAYS", "MEMORY_SECRET_SALT",
+                "MEMORY_OPTIN_DEFAULT", "MEMORY_ENABLED", "FORGET_TOKEN"]:
+        os.environ.pop(key, None)
+    c = Config()
+    assert c.MEMORY_ENABLED is False
+    assert c.MEMORY_BACKEND == "dev"
+    assert c.MEMORY_TTL_DAYS == 30
+    assert c.MEMORY_SECRET_SALT == ""
+    assert c.MEMORY_OPTIN_DEFAULT is False
+    assert c.FORGET_TOKEN == ""

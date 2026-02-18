@@ -1,0 +1,75 @@
+{
+  "keywords": ["paro", "desempleo", "sepe", "prestacion desempleo", "cobrar paro", "despido", "cotizacion", "demandante empleo", "inem", "subsidio desempleo", "chomage", "allocation chomage"],
+  "tramite": "prestacion_desempleo",
+  "nombre": "Prestación por Desempleo (Paro)",
+  "organismo": "SEPE (Servicio Público de Empleo Estatal)",
+  "descripcion": "Prestación económica para personas que han perdido su empleo de forma involuntaria y han cotizado un mínimo de 360 días en los últimos 6 años. Cubre una parte del salario anterior durante un periodo proporcional al tiempo cotizado.",
+  "requisitos": [
+    "Estar afiliado y en situación de alta (o asimilada) en la Seguridad Social en un régimen que contemple la prestación por desempleo",
+    "Encontrarse en situación legal de desempleo (despido, fin de contrato temporal, ERE, etc.)",
+    "Haber cotizado un mínimo de 360 días dentro de los 6 años anteriores a la situación legal de desempleo",
+    "No haber cumplido la edad ordinaria de jubilación",
+    "Estar inscrito como demandante de empleo en el SEPE y mantener dicha inscripción durante todo el periodo de prestación",
+    "Suscribir el compromiso de actividad (buscar empleo activamente y aceptar colocación adecuada)",
+    "No estar realizando trabajo por cuenta ajena a jornada completa ni por cuenta propia"
+  ],
+  "documentos": [
+    "DNI o NIE en vigor",
+    "Certificado de empresa (lo emite el empleador y suele llegar al SEPE de forma telemática)",
+    "Documento de afiliación a la Seguridad Social (número de afiliación)",
+    "Justificante de inscripción como demandante de empleo (DARDE)",
+    "Documento bancario con el número de cuenta (IBAN) donde cobrar la prestación",
+    "Libro de familia o documento acreditativo de hijos a cargo (si aplica, para incremento de cuantía mínima)"
+  ],
+  "como_solicitar": [
+    {
+      "via": "Online",
+      "detalle": "Sede electrónica del SEPE: sede.sepe.gob.es — Trámite 'Solicitud de prestación contributiva'",
+      "requisito": "Certificado digital, cl@ve permanente o DNI electrónico"
+    },
+    {
+      "via": "Presencial",
+      "detalle": "Oficinas de prestaciones del SEPE — solicitar cita previa en sede.sepe.gob.es o llamando al 919 26 79 70",
+      "requisito": "Cita previa obligatoria"
+    },
+    {
+      "via": "Teléfono",
+      "detalle": "Llamar al 919 26 79 70 para solicitar cita previa. Información general: 901 119 999",
+      "requisito": "Ninguno"
+    }
+  ],
+  "cuantias": {
+    "primeros_180_dias": "70% de la base reguladora (media de las bases de cotización por contingencias profesionales de los últimos 180 días)",
+    "a_partir_dia_181": "50% de la base reguladora",
+    "cuantia_maxima_sin_hijos": "1.225,80 €/mes (175% del IPREM)",
+    "cuantia_maxima_1_hijo": "1.401,23 €/mes (200% del IPREM)",
+    "cuantia_maxima_2_o_mas_hijos": "1.576,66 €/mes (225% del IPREM)",
+    "cuantia_minima_sin_hijos": "560,33 €/mes (80% del IPREM)",
+    "cuantia_minima_con_hijos": "749,02 €/mes (107% del IPREM)",
+    "nota": "Cuantías actualizadas según IPREM 2024. La prestación incluye cotización a la Seguridad Social."
+  },
+  "duracion": {
+    "minimo_cotizado_360_dias": "120 días de prestación",
+    "por_cada_180_dias_adicionales": "60 días más de prestación",
+    "maximo": "720 días de prestación (si has cotizado 2.160 días o más en los últimos 6 años)",
+    "tabla_resumen": "360 días cotizados = 120 días prestación; 720 = 240; 1.080 = 360; 1.440 = 480; 1.800 = 600; 2.160 = 720"
+  },
+  "plazos": {
+    "solicitud": "15 días hábiles desde la situación legal de desempleo (último día de trabajo efectivo)",
+    "resolucion": "15 días desde la solicitud",
+    "inicio_cobro": "Al día siguiente de la situación legal de desempleo (si se solicita en plazo)",
+    "penalizacion_fuera_plazo": "Si se solicita pasados los 15 días hábiles, se pierde un día de prestación por cada día de retraso"
+  },
+  "datos_importantes": [
+    "Si te despiden, tienes exactamente 15 días hábiles para solicitar el paro. No dejes pasar el plazo.",
+    "Debes inscribirte como demandante de empleo ANTES o el mismo día de solicitar la prestación.",
+    "El SEPE puede sancionar con la pérdida de la prestación si rechazas ofertas de empleo adecuadas.",
+    "Durante el cobro del paro, el SEPE cotiza por ti a la Seguridad Social (jubilación).",
+    "Si has cotizado menos de 360 días, podrías tener derecho al subsidio por desempleo (cuantía menor, 480 €/mes).",
+    "Los fijos discontinuos tienen regulación especial para prestación por desempleo."
+  ],
+  "fuente_url": "https://www.sepe.es/HomeSepe/Personas/Distribucion-Prestaciones/he-dejado-de-trabajar.html",
+  "telefono": "901 119 999 / 919 26 79 70",
+  "verificado": true,
+  "fecha_verificacion": "2025-01-15"
+}

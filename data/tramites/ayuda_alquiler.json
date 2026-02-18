@@ -1,0 +1,85 @@
+{
+  "keywords": ["alquiler", "ayuda alquiler", "bono alquiler", "vivienda", "bono joven", "ayuda vivienda", "pagar piso", "renta alquiler", "piso", "loyer", "aide logement", "aide au loyer"],
+  "tramite": "ayuda_alquiler",
+  "nombre": "Ayuda al Alquiler / Bono Alquiler Joven",
+  "organismo": "Ministerio de Vivienda y Agenda Urbana / Comunidades Autónomas",
+  "descripcion": "Programas de ayuda económica para el pago del alquiler de la vivienda habitual. Incluye el Bono Alquiler Joven (250 €/mes para menores de 35 años) y las ayudas generales al alquiler del Plan Estatal de Vivienda, gestionadas por las Comunidades Autónomas.",
+  "programas": {
+    "bono_alquiler_joven": {
+      "descripcion": "Ayuda directa de 250 €/mes durante 2 años para jóvenes",
+      "cuantia": "250 €/mes",
+      "duracion": "24 meses",
+      "edad": "Menores de 35 años en el momento de la solicitud",
+      "renta_maxima_alquiler": "Hasta 600 €/mes (hasta 900 €/mes en zonas tensionadas o municipios de más de 100.000 habitantes, según comunidad autónoma)",
+      "ingresos_maximos": "Ingresos anuales inferiores a 3 veces el IPREM (24.318,84 € anuales en 14 pagas)"
+    },
+    "ayuda_general_alquiler": {
+      "descripcion": "Ayuda para personas con ingresos bajos para el pago del alquiler de vivienda habitual",
+      "cuantia": "Hasta el 40% de la renta mensual (máximo 200-250 €/mes según comunidad autónoma)",
+      "ingresos_maximos": "Ingresos de la unidad de convivencia inferiores a 3 veces el IPREM (con ajustes según miembros, discapacidad, etc.)",
+      "renta_maxima_alquiler": "Variable por comunidad autónoma, generalmente hasta 600-900 €/mes"
+    }
+  },
+  "requisitos": [
+    "Ser titular de un contrato de alquiler de vivienda habitual y permanente",
+    "Estar empadronado en la vivienda objeto del alquiler",
+    "Tener residencia legal en España",
+    "Que los ingresos de la unidad de convivencia no superen 3 veces el IPREM (24.318,84 € anuales en 14 pagas)",
+    "Que la renta del alquiler no supere los límites establecidos (variable por comunidad autónoma y programa)",
+    "No ser propietario o usufructuario de otra vivienda en España (con excepciones: violencia de género, inaccesibilidad por discapacidad, etc.)",
+    "No tener parentesco en primer o segundo grado con el arrendador",
+    "Estar al corriente de las obligaciones tributarias y con la Seguridad Social",
+    "Para Bono Alquiler Joven: tener menos de 35 años"
+  ],
+  "documentos": [
+    "DNI o NIE en vigor de todos los miembros de la unidad de convivencia",
+    "Certificado de empadronamiento colectivo (todos los miembros del domicilio)",
+    "Contrato de alquiler en vigor a nombre del solicitante",
+    "Justificantes de pago del alquiler (recibos bancarios de los últimos 3 meses)",
+    "Declaración de la Renta del último ejercicio (o certificado de no obligación de declarar)",
+    "Certificado de titularidades del Registro de la Propiedad (acreditar no ser propietario)",
+    "Vida laboral actualizada",
+    "Certificado bancario con IBAN para el ingreso de la ayuda",
+    "Para Bono Joven: documento que acredite la edad"
+  ],
+  "como_solicitar": [
+    {
+      "via": "Online (Comunidad de Madrid)",
+      "detalle": "Sede electrónica de la Comunidad de Madrid: sede.comunidad.madrid — buscar 'Programa de ayudas al alquiler' o 'Bono Alquiler Joven'",
+      "requisito": "Certificado digital, cl@ve o DNI electrónico"
+    },
+    {
+      "via": "Online (otras CCAA)",
+      "detalle": "Cada Comunidad Autónoma gestiona las ayudas a través de su propia sede electrónica. Consultar en la web de vivienda de tu comunidad.",
+      "requisito": "Certificado digital, cl@ve o DNI electrónico"
+    },
+    {
+      "via": "Presencial",
+      "detalle": "Oficinas de vivienda de la Comunidad Autónoma correspondiente o en los puntos de registro habilitados",
+      "requisito": "Cita previa (consultar en la web de vivienda de tu comunidad autónoma)"
+    },
+    {
+      "via": "Teléfono información",
+      "detalle": "060 (información general) o 012 (información de la Comunidad de Madrid)",
+      "requisito": "Ninguno"
+    }
+  ],
+  "plazos": {
+    "convocatoria": "Las convocatorias se abren anualmente o cuando se habilitan fondos. Consultar fechas en la web de tu comunidad autónoma.",
+    "resolucion": "3 a 6 meses desde la solicitud (variable según comunidad autónoma y volumen de solicitudes)",
+    "silencio_administrativo": "Desestimatorio en la mayoría de las comunidades",
+    "pago": "La ayuda se abona mensualmente o en un pago único retroactivo desde la resolución favorable"
+  },
+  "datos_importantes": [
+    "Las ayudas al alquiler se solicitan en la Comunidad Autónoma donde está la vivienda, no en el Ministerio directamente.",
+    "El Bono Alquiler Joven y la ayuda general al alquiler son compatibles entre sí (se pueden solicitar ambas).",
+    "Es imprescindible guardar TODOS los justificantes de pago del alquiler (transferencias bancarias, no pagos en efectivo).",
+    "El pago del alquiler debe hacerse por transferencia bancaria, domiciliación o ingreso en cuenta. Los pagos en efectivo no se aceptan como justificante.",
+    "Si compartes piso, solo puede solicitar la ayuda quien figure como titular del contrato de alquiler.",
+    "Las cuantías y requisitos pueden variar según la Comunidad Autónoma. Consulta siempre la convocatoria vigente en tu comunidad."
+  ],
+  "fuente_url": "https://www.mivau.gob.es/vivienda",
+  "telefono": "060 / 012 (Comunidad de Madrid)",
+  "verificado": true,
+  "fecha_verificacion": "2025-01-15"
+}

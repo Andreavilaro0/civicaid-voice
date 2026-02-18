@@ -34,7 +34,7 @@ class TestJSONKBRetriever:
 
     def test_json_kb_retriever_no_match(self):
         r = JSONKBRetriever()
-        result = r.retrieve("El tiempo en Barcelona hoy", "es")
+        result = r.retrieve("Cual es la capital de Francia", "es")
         assert result is None
 
 

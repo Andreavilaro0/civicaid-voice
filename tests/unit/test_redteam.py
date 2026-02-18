@@ -18,7 +18,7 @@ except ImportError:
 def load_redteam_cases():
     path = Path("data/evals/redteam_prompts.json")
     if not path.exists():
-        pytest.skip("redteam_prompts.json not found")
+        pytest.skip("redteam_prompts.json not found", allow_module_level=True)
     with open(path) as f:
         return json.load(f)["cases"]
 

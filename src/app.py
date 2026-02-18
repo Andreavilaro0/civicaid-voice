@@ -37,6 +37,9 @@ def create_app() -> Flask:
     app.register_blueprint(webhook_bp)
     app.register_blueprint(static_bp)
 
+    from src.routes.forget import forget_bp
+    app.register_blueprint(forget_bp)
+
     return app
 
 

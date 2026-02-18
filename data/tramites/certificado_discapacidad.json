@@ -1,0 +1,109 @@
+{
+  "keywords": ["discapacidad", "minusvalia", "certificado discapacidad", "grado discapacidad", "invalidez", "valoracion discapacidad", "reconocimiento discapacidad", "handicap", "certificat handicap", "invalidite"],
+  "tramite": "certificado_discapacidad",
+  "nombre": "Certificado de Discapacidad (Reconocimiento del Grado de Discapacidad)",
+  "organismo": "Comunidades Autónomas — En Madrid: Consejería de Familia, Juventud y Asuntos Sociales (Dirección General de Atención a Personas con Discapacidad)",
+  "descripcion": "Documento oficial que acredita el grado de discapacidad de una persona, expresado en porcentaje. Es la puerta de acceso a beneficios fiscales, laborales, sociales y económicos para personas con discapacidad física, psíquica, intelectual o sensorial.",
+  "grados_y_beneficios": {
+    "grado_33_o_superior": {
+      "descripcion": "Se considera persona con discapacidad a efectos legales",
+      "beneficios": [
+        "Acceso a empleo protegido y cuota de reserva del 2% en empresas de más de 50 trabajadores",
+        "Deducciones fiscales en IRPF (mínimo por discapacidad del contribuyente o familiares)",
+        "Bonificaciones en cotizaciones a la Seguridad Social para empresas que contraten",
+        "Acceso a centros especiales de empleo",
+        "Reducción de jornada laboral por discapacidad propia (si reconocido)",
+        "Familia numerosa de categoría especial (si uno de los hijos tiene discapacidad ≥33%)",
+        "Descuentos en transporte público (abono transporte social en Madrid)",
+        "Exención/reducción en tasas universitarias"
+      ]
+    },
+    "grado_65_o_superior": {
+      "descripcion": "Discapacidad severa. Todos los beneficios anteriores más:",
+      "beneficios": [
+        "Prestación no contributiva de invalidez (si no se trabaja y no se tienen ingresos suficientes): 517,90 €/mes en 2024",
+        "Exención del Impuesto de Matriculación de vehículos",
+        "Exención del Impuesto de Vehículos de Tracción Mecánica (IVTM)",
+        "Tarjeta de estacionamiento para personas con movilidad reducida",
+        "Mayores deducciones fiscales en IRPF",
+        "Acceso a residencias y centros de día públicos con prioridad"
+      ]
+    },
+    "grado_75_o_superior": {
+      "descripcion": "Discapacidad con necesidad de tercera persona. Beneficios adicionales:",
+      "beneficios": [
+        "Complemento del 50% en la prestación no contributiva de invalidez por necesidad de tercera persona",
+        "Acceso prioritario a servicios de asistencia personal y teleasistencia",
+        "Máxima deducción por discapacidad en IRPF"
+      ]
+    }
+  },
+  "requisitos": [
+    "Tener una deficiencia física, psíquica, intelectual o sensorial que limite la actividad de la persona",
+    "Ser residente en la Comunidad Autónoma donde se solicita la valoración",
+    "Estar empadronado en un municipio de la Comunidad Autónoma",
+    "Tener nacionalidad española, ser ciudadano de la UE o ser extranjero residente legal en España",
+    "No es necesario un grado mínimo previo para solicitar la valoración (se puede solicitar con cualquier condición de salud limitante)"
+  ],
+  "documentos": [
+    "Formulario de solicitud oficial de la Comunidad Autónoma (descargable en la web)",
+    "DNI o NIE en vigor (original y copia)",
+    "Certificado de empadronamiento",
+    "Informes médicos actualizados que acrediten las deficiencias alegadas (del médico de cabecera, especialistas, hospitalarios)",
+    "Informe del médico de atención primaria (puede ser necesario según la comunidad autónoma)",
+    "Informes psicológicos o psiquiátricos (si la discapacidad es de tipo psíquico o intelectual)",
+    "Informe social (si existen factores sociales que limiten la actividad — lo puede emitir un trabajador social)",
+    "Certificado de discapacidad anterior (si se solicita revisión por agravamiento)",
+    "Para menores: libro de familia y DNI del representante legal"
+  ],
+  "como_solicitar": [
+    {
+      "via": "Online (Comunidad de Madrid)",
+      "detalle": "Sede electrónica de la Comunidad de Madrid: sede.comunidad.madrid — buscar 'Reconocimiento de grado de discapacidad'. También se puede iniciar en tramita.comunidad.madrid",
+      "requisito": "Certificado digital, cl@ve o DNI electrónico"
+    },
+    {
+      "via": "Presencial (Comunidad de Madrid)",
+      "detalle": "Centros Base de Atención a Personas con Discapacidad de la Comunidad de Madrid. Solicitar cita previa en el 012 o en la web.",
+      "requisito": "Cita previa + documentación completa"
+    },
+    {
+      "via": "Presencial (otras CCAA)",
+      "detalle": "Acudir al organismo de valoración de discapacidad de tu Comunidad Autónoma (generalmente Centros de Valoración y Orientación). Consultar en la web de servicios sociales de tu comunidad.",
+      "requisito": "Cita previa + documentación completa"
+    },
+    {
+      "via": "Teléfono información",
+      "detalle": "012 (Comunidad de Madrid) o 060 (información general de la Administración)",
+      "requisito": "Ninguno"
+    }
+  ],
+  "proceso_valoracion": [
+    "Presentación de la solicitud con toda la documentación médica",
+    "Revisión de la documentación por el equipo de valoración",
+    "Citación para reconocimiento presencial en el Centro Base (médico, psicólogo y trabajador social)",
+    "Valoración por el Equipo de Valoración y Orientación (EVO) compuesto por médico, psicólogo y trabajador social",
+    "Dictamen técnico-facultativo con el grado de discapacidad propuesto",
+    "Resolución administrativa con el grado de discapacidad reconocido",
+    "Expedición del certificado de discapacidad (tarjeta acreditativa)"
+  ],
+  "plazos": {
+    "resolucion": "3 meses desde la solicitud (plazo legal, aunque en la práctica puede tardar 6-12 meses según la comunidad autónoma y la saturación del servicio)",
+    "silencio_administrativo": "Desestimatorio",
+    "recurso": "30 días para reclamación previa ante la propia administración; después, demanda ante la jurisdicción social",
+    "revision_por_agravamiento": "Se puede solicitar revisión en cualquier momento si la condición de salud empeora (con nuevos informes médicos)",
+    "revision_por_mejoria": "La administración puede convocar revisión de oficio si estima que puede haber mejoría"
+  },
+  "datos_importantes": [
+    "El certificado de discapacidad NO es lo mismo que la incapacidad laboral (permanente o temporal). Son procedimientos distintos ante organismos distintos.",
+    "El grado de discapacidad se calcula según un baremo oficial (Real Decreto 888/2022) que valora las deficiencias, las limitaciones en la actividad y los factores sociales.",
+    "No solo las discapacidades físicas dan derecho al certificado: enfermedades crónicas, trastornos mentales, enfermedades raras y condiciones de salud mental pueden alcanzar el 33% o más.",
+    "Si no estás de acuerdo con el grado reconocido, puedes recurrir. Muchas personas obtienen un grado mayor tras recurrir.",
+    "El certificado de discapacidad es válido en todo el territorio nacional, aunque se expida en una sola comunidad autónoma.",
+    "Los Centros Base también ofrecen servicios de orientación laboral y social gratuitos para personas con discapacidad."
+  ],
+  "fuente_url": "https://www.comunidad.madrid/servicios/asuntos-sociales/valoracion-reconocimiento-discapacidad",
+  "telefono": "012 (Comunidad de Madrid) / 060 (información general)",
+  "verificado": true,
+  "fecha_verificacion": "2025-01-15"
+}

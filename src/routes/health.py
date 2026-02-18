@@ -17,7 +17,7 @@ def health():
     ffmpeg_available = shutil.which("ffmpeg") is not None
     whisper_loaded = get_whisper_model() is not None
 
-    return jsonify({
+    health_data = {
         "status": "ok",
         "uptime_s": int(time.time() - _start_time),
         "components": {
@@ -30,4 +30,17 @@ def health():
             "demo_mode": config.DEMO_MODE,
             "llm_live": config.LLM_LIVE,
         },
-    })
+    }
+
+    # Memory status
+    if config.MEMORY_ENABLED:
+        from src.core.memory.store import get_store
+        try:
+            store = get_store(config.MEMORY_BACKEND)
+            health_data["components"]["memory"] = {"status": "ok", "backend": config.MEMORY_BACKEND, "healthy": store.health()}
+        except Exception as e:
+            health_data["components"]["memory"] = {"status": "error", "error": str(e)}
+    else:
+        health_data["components"]["memory"] = {"status": "disabled"}
+
+    return jsonify(health_data)

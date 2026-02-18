@@ -1,0 +1,82 @@
+{
+  "keywords": ["abogado gratis", "abogado gratuito", "turno oficio", "turno de oficio", "justicia gratuita", "asistencia juridica", "abogado de oficio", "defensor", "avocat gratuit", "aide juridique", "aide judiciaire"],
+  "tramite": "justicia_gratuita",
+  "nombre": "Justicia Gratuita / Asistencia Jurídica Gratuita (Turno de Oficio)",
+  "organismo": "Comisión de Asistencia Jurídica Gratuita / Colegios de Abogados",
+  "descripcion": "Derecho a asistencia jurídica gratuita (abogado y procurador de oficio) para personas que carecen de recursos económicos suficientes para litigar. Incluye asesoramiento previo, defensa y representación gratuita en juicio, y exención de tasas judiciales.",
+  "prestaciones_incluidas": [
+    "Asesoramiento y orientación gratuita previa al proceso judicial",
+    "Abogado de oficio gratuito para defensa en juicio",
+    "Procurador de oficio gratuito (cuando sea preceptivo)",
+    "Inserción gratuita de anuncios o edictos en periódicos oficiales",
+    "Exención del pago de tasas judiciales",
+    "Asistencia pericial gratuita (peritos de parte designados judicialmente)",
+    "Obtención gratuita de copias, testimonios, instrumentos y actas notariales",
+    "Reducción del 80% de aranceles notariales y registrales"
+  ],
+  "requisitos": [
+    "Que los recursos e ingresos económicos brutos del solicitante, computados anualmente y por todos los conceptos, no superen 2 veces el IPREM (14 pagas): 16.212,56 € anuales para personas sin familia",
+    "Si la unidad familiar es de 2-3 miembros: el límite sube a 2,5 veces el IPREM (20.265,70 € anuales)",
+    "Si la unidad familiar es de 4 o más miembros: el límite sube a 3 veces el IPREM (24.318,84 € anuales)",
+    "Excepcionalmente se puede reconocer a personas que superen estos límites si tienen circunstancias especiales (familia numerosa, discapacidad, enfermedad grave, etc.)",
+    "No es necesario tener nacionalidad española ni residencia legal: los extranjeros en España tienen derecho a justicia gratuita en procesos penales, de asilo, contencioso-administrativos sobre su derecho de asilo y en procedimientos administrativos de expulsión"
+  ],
+  "quienes_tienen_derecho_automatico": [
+    "Víctimas de violencia de género (sin necesidad de acreditar recursos)",
+    "Víctimas de terrorismo (sin necesidad de acreditar recursos)",
+    "Menores de edad y personas con discapacidad intelectual o enfermedad mental (cuando sean víctimas de abuso o maltrato)",
+    "Víctimas de trata de seres humanos",
+    "Personas que acrediten condición de víctima de accidentes con secuelas permanentes"
+  ],
+  "documentos": [
+    "Formulario de solicitud (modelo oficial del Colegio de Abogados o disponible en la sede judicial)",
+    "DNI, NIE o pasaporte del solicitante y de los miembros de la unidad familiar",
+    "Certificado de empadronamiento",
+    "Declaración de la Renta del último ejercicio fiscal (o certificado de no obligación de declarar)",
+    "Certificado catastral de bienes inmuebles",
+    "Nóminas de los últimos 3 meses o certificado de prestaciones del SEPE",
+    "Certificado de signos externos (si se solicita con carácter excepcional)",
+    "Documentación relativa al asunto para el que se solicita la asistencia (demanda, denuncia, citación, etc.)",
+    "En caso de violencia de género: orden de protección, sentencia, o informe del Ministerio Fiscal"
+  ],
+  "como_solicitar": [
+    {
+      "via": "Presencial en el Colegio de Abogados",
+      "detalle": "Acudir al Servicio de Orientación Jurídica (SOJ) del Colegio de Abogados de tu provincia. En Madrid: Colegio de Abogados de Madrid (ICAM), C/ Serrano 9, o en las sedes judiciales (Plaza de Castilla, Ciudad de la Justicia).",
+      "requisito": "No necesita cita previa en el SOJ (atención por orden de llegada en horario de oficina)"
+    },
+    {
+      "via": "Online",
+      "detalle": "Sede electrónica del Ministerio de Justicia: sede.mjusticia.gob.es — Trámite 'Solicitud de reconocimiento del derecho a la asistencia jurídica gratuita'",
+      "requisito": "Certificado digital, cl@ve o DNI electrónico"
+    },
+    {
+      "via": "En sede judicial",
+      "detalle": "Solicitar en la oficina del Servicio de Orientación Jurídica ubicada en los juzgados",
+      "requisito": "Acudir con documentación"
+    },
+    {
+      "via": "Teléfono información",
+      "detalle": "060 (información general) o contactar con el Colegio de Abogados de tu provincia",
+      "requisito": "Ninguno"
+    }
+  ],
+  "plazos": {
+    "resolucion": "30 días desde la solicitud (la Comisión de Asistencia Jurídica Gratuita debe resolver en este plazo)",
+    "silencio_administrativo": "Positivo (si no hay resolución en 30 días, se entiende reconocido el derecho)",
+    "designa_provisional": "Si hay urgencia (plazos procesales en curso), el Colegio de Abogados puede designar abogado provisional en 3-5 días",
+    "recurso": "Si se deniega, se puede impugnar ante el Juzgado en el plazo de 10 días"
+  },
+  "datos_importantes": [
+    "El derecho a la justicia gratuita es un derecho constitucional (artículo 119 de la Constitución Española).",
+    "Las víctimas de violencia de género tienen derecho AUTOMÁTICO a abogado de oficio, sin importar sus ingresos.",
+    "Los extranjeros sin residencia legal también tienen derecho a justicia gratuita en procesos penales y de extranjería.",
+    "El abogado de oficio es un profesional colegiado con la misma formación que cualquier otro abogado.",
+    "Si no estás satisfecho con tu abogado de oficio, puedes solicitar su sustitución justificándolo ante el Colegio de Abogados.",
+    "El Servicio de Orientación Jurídica (SOJ) en los juzgados puede asesorarte gratuitamente sobre si tienes derecho y cómo solicitarlo."
+  ],
+  "fuente_url": "https://www.mjusticia.gob.es/es/justicia-gratuita",
+  "telefono": "060",
+  "verificado": true,
+  "fecha_verificacion": "2025-01-15"
+}

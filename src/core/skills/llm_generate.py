@@ -9,12 +9,57 @@ from src.core.prompts.templates import get_template
 from src.utils.logger import log_llm, log_error
 from src.utils.timing import timed
 
+# Fields in priority order for KB context building
+_PRIORITY_FIELDS = [
+    # Tier 1: always include
+    ["nombre", "descripcion", "organismo"],
+    # Tier 2: always include
+    ["requisitos"],
+    # Tier 3: always include
+    ["documentos"],
+    # Tier 4: how-to (any that exist)
+    ["como_solicitar", "como_hacerlo_madrid", "como_solicitarla_madrid", "proceso"],
+    # Tier 5: always include
+    ["fuente_url", "telefono"],
+    # Tier 6: include if space
+    ["cuantias_2024", "plazos", "datos_importantes", "quien_tiene_derecho"],
+]
+
+# Metadata fields to never include
+_EXCLUDED_FIELDS = {"keywords", "verificado", "fecha_verificacion", "tramite"}
+
+
+def _build_kb_context(datos: dict, max_chars: int = 3000) -> str:
+    """Build KB context string prioritizing important fields.
+
+    Iterates through field tiers in priority order, including each tier
+    only if it fits within max_chars. Always returns valid JSON.
+    """
+    result: dict = {}
+    for tier in _PRIORITY_FIELDS:
+        tier_data: dict = {}
+        for field in tier:
+            if field in datos and field not in _EXCLUDED_FIELDS:
+                tier_data[field] = datos[field]
+        if not tier_data:
+            continue
+        candidate = {**result, **tier_data}
+        candidate_str = json.dumps(candidate, ensure_ascii=False, indent=2)
+        if len(candidate_str) <= max_chars:
+            result = candidate
+        # else: skip this tier, it doesn't fit
+
+    return json.dumps(result, ensure_ascii=False, indent=2)
+
 
 @timed("llm_generate")
 def llm_generate(
     user_text: str,
     language: str,
     kb_context: KBContext | None,
+    memory_profile: str = "",
+    memory_summary: str = "",
+    memory_case: str = "",
 ) -> LLMResponse:
     """Call Gemini Flash to generate a response. Returns LLMResponse."""
     if not config.LLM_LIVE or not config.GEMINI_API_KEY:
@@ -27,12 +72,17 @@ def llm_generate(
     # Build KB context string
     kb_str = "No hay contexto disponible."
     if kb_context:
-        kb_str = json.dumps(kb_context.datos, ensure_ascii=False, indent=2)[:2000]
+        kb_str = _build_kb_context(kb_context.datos)
 
-    system = build_prompt(kb_context=kb_str, language=language)
+    system = build_prompt(
+        kb_context=kb_str, language=language,
+        memory_profile=memory_profile,
+        memory_summary=memory_summary,
+        memory_case=memory_case,
+    )
 
     # Structured output instruction (opt-in)
-    prompt_text = f"{system}\n\nPregunta del usuario: {user_text}"
+    prompt_text = f"{system}\n\n<user_query>\n{user_text}\n</user_query>"
     if config.STRUCTURED_OUTPUT_ON:
         prompt_text += (
             '\n\nIMPORTANT: Respond ONLY with valid JSON matching this schema: '

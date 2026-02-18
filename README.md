@@ -1,14 +1,15 @@
 # Clara — CivicAid Voice
 
-> **Resumen en una linea:** Asistente conversacional WhatsApp-first que ayuda a personas vulnerables en Espana a navegar tramites de servicios sociales, respondiendo en su idioma con texto y audio.
+> **Resumen en una linea:** Asistente conversacional WhatsApp-first que ayuda a personas vulnerables en Espana a navegar ayudas, definiciones, links y procesos del gobierno espanol, respondiendo en su idioma con texto y audio.
 
 ## Que es
 
-Clara es un **chatbot de WhatsApp** que responde preguntas sobre 3 tramites administrativos esenciales en Espana:
+Clara es un **chatbot de WhatsApp** que orienta sobre el gobierno espanol:
 
-- **Ingreso Minimo Vital (IMV)** — Prestacion economica de la Seguridad Social
-- **Empadronamiento** — Registro municipal, requisito previo para servicios publicos
-- **Tarjeta Sanitaria** — Acceso a la sanidad publica
+- **Ayudas** — Prestaciones, subsidios y programas sociales disponibles
+- **Definiciones** — Explicacion clara de conceptos administrativos y legales
+- **Links** — Enlaces directos a webs oficiales y formularios
+- **Procesos** — Guia paso a paso de tramites y gestiones gubernamentales
 
 Soporta texto, audio (via Gemini/Whisper) e imagenes. Responde en 2 idiomas: espanol y frances.
 

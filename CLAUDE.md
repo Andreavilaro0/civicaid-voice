@@ -2,11 +2,12 @@
 
 ## Proyecto
 
-**Clara** es un asistente conversacional WhatsApp-first que ayuda a personas vulnerables en Espana a navegar tramites de servicios sociales (IMV, Empadronamiento, Tarjeta Sanitaria). Soporta texto, audio (Whisper) e imagenes. Responde en espanol y frances.
+**Clara** es un asistente conversacional WhatsApp-first que ayuda a personas vulnerables en Espana a navegar ayudas, definiciones, links y procesos del gobierno espanol. Soporta texto, audio (Whisper) e imagenes. Responde en espanol y frances.
 
 - **Hackathon:** OdiseIA4Good — UDIT (Feb 2026)
 - **Repo:** /Users/andreaavila/Documents/hakaton/civicaid-voice
 - **Stack:** Python 3.11, Flask, Twilio WhatsApp, Whisper base, Gemini 1.5 Flash, Docker, Render
+- **KB:** Extensible — cualquier .json en data/tramites/ con campo "keywords" se carga automaticamente
 - **Estado:** Fases 0-3 cerradas, Fase 4 en curso
 
 ## Arquitectura

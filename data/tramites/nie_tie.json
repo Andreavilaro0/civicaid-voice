@@ -1,0 +1,77 @@
+{
+  "keywords": ["nie", "tie", "numero identidad extranjero", "tarjeta identidad extranjero", "extranjeria", "papeles", "residencia", "permiso residencia", "certificado registro ue", "carte sejour", "residence", "numero etranger"],
+  "tramite": "nie_tie",
+  "nombre": "NIE (Número de Identidad de Extranjero) / TIE (Tarjeta de Identidad de Extranjero)",
+  "organismo": "Oficina de Extranjería / Dirección General de la Policía",
+  "descripcion": "El NIE es un número personal, único y exclusivo asignado a los extranjeros que tienen relaciones económicas, profesionales o sociales con España. La TIE es el documento físico (tarjeta con foto) que acredita la situación legal de residencia de extranjeros no comunitarios en España.",
+  "tipos": {
+    "nie_simple": "Número de identificación asignado a cualquier extranjero que lo necesite para trámites en España (abrir cuenta, comprar inmueble, etc.)",
+    "certificado_registro_ue": "Documento que acredita la inscripción en el Registro Central de Extranjeros para ciudadanos de la UE/EEE/Suiza que residan en España más de 3 meses",
+    "tie": "Tarjeta física con foto para extranjeros no comunitarios con autorización de estancia o residencia en España"
+  },
+  "requisitos_nie_ciudadanos_ue": [
+    "Ser ciudadano de un país de la UE, EEE o Suiza",
+    "Residir en España más de 3 meses",
+    "Cumplir una de estas condiciones: ser trabajador por cuenta ajena o propia en España; disponer de recursos económicos suficientes y seguro de enfermedad; ser estudiante matriculado con recursos y seguro; ser familiar de ciudadano UE que cumpla las condiciones anteriores",
+    "Solicitar la inscripción en el Registro Central de Extranjeros (Certificado de Registro de Ciudadano de la Unión)"
+  ],
+  "requisitos_tie_no_comunitarios": [
+    "Ser ciudadano de un país no perteneciente a la UE/EEE/Suiza",
+    "Tener una autorización de estancia o residencia en vigor (visado de trabajo, reagrupación familiar, estudiante, arraigo, etc.)",
+    "Solicitar la TIE en el plazo de un mes desde la entrada en España o desde la concesión de la autorización",
+    "Estar empadronado en un municipio español"
+  ],
+  "documentos_certificado_ue": [
+    "Formulario EX-18 (solicitud de Certificado de Registro de Ciudadano de la Unión)",
+    "Pasaporte o documento de identidad en vigor (original y copia)",
+    "Justificante de empadronamiento",
+    "Documentación que acredite la condición: contrato de trabajo, alta en Seguridad Social, matrícula de estudios, o acreditación de medios económicos y seguro médico",
+    "Tasa modelo 790 código 012 (12 €, pago previo en entidad bancaria)"
+  ],
+  "documentos_tie": [
+    "Formulario EX-17 (solicitud de TIE)",
+    "Pasaporte completo en vigor (original y copia de todas las páginas)",
+    "Justificante de empadronamiento",
+    "3 fotografías recientes tamaño carnet en fondo blanco",
+    "Resolución de concesión de la autorización de residencia/estancia",
+    "Tasa modelo 790 código 012 (12 € para NIE) y tasa modelo 790 código 062 (variable según tipo de autorización)",
+    "Justificante del alta en la Seguridad Social o seguro médico (según el tipo de autorización)"
+  ],
+  "como_solicitar": [
+    {
+      "via": "Cita previa (obligatoria)",
+      "detalle": "Solicitar cita en sede.administracionesdelpuerto.gob.es seleccionando 'Policía - Certificado de Registro de Ciudadano de la UE' o 'Policía - Expedición de Tarjeta de Identidad de Extranjero (TIE)'",
+      "requisito": "NIE o pasaporte para solicitar la cita"
+    },
+    {
+      "via": "Presencial",
+      "detalle": "Acudir a la Oficina de Extranjería o Comisaría de Policía Nacional correspondiente a tu domicilio con cita previa y toda la documentación",
+      "requisito": "Cita previa + documentación completa + tasas pagadas"
+    },
+    {
+      "via": "Teléfono información",
+      "detalle": "060 (información general de la Administración) o 902 022 222 (cita previa extranjería en algunas provincias)",
+      "requisito": "Ninguno"
+    }
+  ],
+  "plazos": {
+    "solicitud_certificado_ue": "3 meses desde la entrada en España",
+    "solicitud_tie": "1 mes desde la entrada en España o desde la notificación de la resolución favorable",
+    "resolucion_certificado_ue": "Inmediata (se expide en el acto si la documentación es correcta)",
+    "resolucion_tie": "La tarjeta física tarda entre 30 y 45 días en estar disponible tras la solicitud de expedición",
+    "renovacion_tie": "Solicitar renovación en los 60 días previos a la caducidad"
+  },
+  "datos_importantes": [
+    "El NIE NO es un permiso de residencia. Es solo un número de identificación fiscal.",
+    "Los ciudadanos de la UE NO necesitan TIE, solo el Certificado de Registro (tarjeta verde).",
+    "Las citas de extranjería son muy difíciles de conseguir en ciudades grandes. Intenta a primera hora o usa servicios de aviso de citas.",
+    "Nunca pagues a intermediarios por una cita de extranjería. Las citas son gratuitas.",
+    "Si te caduca la TIE y has solicitado la renovación en plazo, puedes acreditar tu situación con el resguardo de la solicitud.",
+    "En caso de robo o extravío de la TIE, solicita un duplicado con denuncia policial.",
+    "Para trabajar en España siendo extranjero no comunitario necesitas una autorización de residencia y trabajo."
+  ],
+  "fuente_url": "https://www.inclusion.gob.es/web/migraciones/nie",
+  "telefono": "060",
+  "verificado": true,
+  "fecha_verificacion": "2025-01-15"
+}
