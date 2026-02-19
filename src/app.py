@@ -40,6 +40,18 @@ def create_app() -> Flask:
     from src.routes.forget import forget_bp
     app.register_blueprint(forget_bp)
 
+    from src.routes.admin import admin_bp
+    app.register_blueprint(admin_bp)
+
+    from src.routes.api_chat import api_bp
+    app.register_blueprint(api_bp)
+
+    # CORS for web frontend API
+    import os
+    from flask_cors import CORS
+    frontend_origins = os.getenv("FRONTEND_URL", "http://localhost:3000").split(",")
+    CORS(app, resources={r"/api/*": {"origins": frontend_origins}})
+
     return app
 
 
