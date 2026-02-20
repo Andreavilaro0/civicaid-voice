@@ -8,13 +8,16 @@ Clara es un asistente WhatsApp que guia a personas vulnerables (inmigrantes, may
 
 ## Datos Clave
 
-- **517 tests** (493 passed + 19 skipped + 5 xpassed) — `pytest tests/ -v`
+- **568 tests** (568 passed + 19 skipped + 5 xpassed) — `pytest tests/ -v`
 - **26/26 quality gates** PASS (Fase 3 Q4 Production Hardening)
+- **Fase 5 tono Clara**: amiga del ayuntamiento, patron E-V-I (Empatizar-Validar-Informar), sin emoji en ACKs
 - **RAG pipeline** con hybrid BM25 + vector search — P@3 = 86%, 236 eval queries
 - **Fallback chain**: PGVector -> JSON KB -> Directory (resiliente si DB cae)
 - **Response cache** (LRU memory / Redis) para latencia <5ms en queries repetidas
-- 11 skills atomicos en el pipeline — `src/core/skills/`
-- 29 feature flags con defaults seguros — `src/core/config.py`
+- **Gemini TTS** (voz calida Sulafat) con fallback a gTTS
+- **Vision** (Gemini 2.5 Flash) para documentos e imagenes, multilingual ES/FR
+- 13 skills atomicos en el pipeline — `src/core/skills/`
+- 50 feature flags con defaults seguros — `src/core/config.py`
 - 8 tramites: IMV, Empadronamiento, Tarjeta Sanitaria, NIE/TIE, Desempleo, etc.
 - 2 idiomas: Espanol + Frances — `detect_lang.py`
 - Deploy: Render (Docker, free tier) — `curl /health`
@@ -22,7 +25,7 @@ Clara es un asistente WhatsApp que guia a personas vulnerables (inmigrantes, may
 
 ## Donde Verificar
 
-- **Tests:** `pytest tests/ -v --tb=short` → 493 passed, 0 failed
+- **Tests:** `pytest tests/ -v --tb=short` → 568 passed, 0 failed
 - **Lint:** `ruff check src/ tests/ scripts/ --select E,F,W --ignore E501` → 0 errores
 - **Health:** `curl localhost:5000/health` → JSON status: healthy
 - **Docker RAG:** `docker compose up -d && python scripts/init_db.py` → PostgreSQL + pgvector
@@ -36,6 +39,8 @@ Clara es un asistente WhatsApp que guia a personas vulnerables (inmigrantes, may
 **WOW 1 — Texto Espanol:** Enviar 'Necesito ayuda con el IMV' por WhatsApp. Clara responde en <3s con guia paso a paso + audio.
 
 **WOW 2 — Audio Frances:** Enviar nota de voz en frances preguntando por empadronamiento. Clara transcribe, detecta idioma, responde en frances con texto + audio.
+
+**WOW 3 — Foto de Documento:** Enviar foto de una carta administrativa. Clara la analiza con Gemini Vision, identifica el tramite, y explica los pasos en lenguaje sencillo.
 
 ## Equipo
 

@@ -9,7 +9,8 @@
 - **Stack:** Python 3.11, Flask, Twilio WhatsApp, Whisper base, Gemini 2.5 Flash, Docker, Render
 - **KB:** Extensible — cualquier .json en data/tramites/ con campo "keywords" se carga automaticamente
 - **RAG:** PostgreSQL + pgvector, hybrid BM25+vector search, fallback chain, response cache
-- **Estado:** Fases 0-4 completadas, Fase 3 Q1-Q4 RAG completada (FULL PASS)
+- **Tono:** Fase 5 completada — Clara habla como amiga del ayuntamiento (E-V-I pattern, sin emoji en ACKs)
+- **Estado:** Fases 0-5 completadas, Fase 3 Q1-Q4 RAG completada (FULL PASS)
 
 ## Arquitectura
 
@@ -35,9 +36,9 @@ src/
   routes/
     webhook.py              # POST /webhook — Twilio, con signature validation
     health.py               # GET /health — healthcheck
-    static_files.py         # GET /static/cache/* — servir MP3s
+    static_files.py         # GET /static/cache/* — servir MP3/WAV/OGG (dynamic MIME)
   core/
-    config.py               # Feature flags (31 flags: DEMO_MODE, LLM_LIVE, VISION_*, RAG_*, MEMORY_*, etc.)
+    config.py               # Feature flags (50 flags: DEMO_MODE, LLM_LIVE, VISION_*, TTS_*, RAG_*, MEMORY_*, etc.)
     models.py               # 8 dataclasses (IncomingMessage, CacheEntry, FinalResponse, KBContext, etc.)
     cache.py                # Carga demo_cache.json
     pipeline.py             # Orquestador de 12 skills — uses get_retriever().retrieve()
@@ -45,7 +46,7 @@ src/
     guardrails.py           # Capa de seguridad pre/post
     models_structured.py    # Salidas JSON estructuradas
     retriever.py            # Singleton retriever factory (FallbackRetriever, PGVector, JSON, Directory)
-    skills/                 # 12 skills atomicas (incl. tts.py, analyze_image.py)
+    skills/                 # 13 skills atomicas (incl. tts.py, analyze_image.py, whatsapp_format.py)
     prompts/                # system_prompt.py, templates.py
     rag/                    # RAG infrastructure (Q2-Q4)
       store.py              # PGVectorStore (hybrid BM25+vector search)
@@ -84,11 +85,11 @@ scripts/
   run_rag_eval.py           # CLI eval runner
   init_db.py                # PostgreSQL table initialization
 tests/
-  unit/ (~450 tests)        # All modules: cache, config, pipeline, guardrails, RAG store/chunker/embedder/reranker/territory/synonyms/cache/ingestion/drift/boe/admin/metrics
-  integration/ (~35 tests)  # pipeline, webhook, RAG pipeline, fallback chain, admin, ingestion, drift
+  unit/ (~500 tests)        # All modules: cache, config, pipeline, guardrails, RAG, tts, tone, whatsapp_format, vision
+  integration/ (~40 tests)  # pipeline, webhook, RAG pipeline, fallback chain, admin, ingestion, drift
   evals/ (tests)            # rag_precision, rag_precision_q4
   e2e/ (4 tests)            # demo_flows
-  # Total: 532 collected (508 passed, 19 skipped, 5 xpassed)
+  # Total: 568 passed, 19 skipped, 5 xpassed (post Fase 5 + audit)
 ```
 
 ## Feature Flags (config.py)
@@ -145,6 +146,10 @@ tests/
 | UX y Accesibilidad | docs/08-ux/PHASE4-UX-ACCESSIBILITY-ANALYSIS.md |
 | Doc Tecnico Sprint 3 | docs/09-academic/Sprint3_DocTecnico.md |
 | Presentacion Sprint 3 | docs/09-academic/Sprint3_Presentacion.md |
+| Fase 5 — Voz Clara | docs/01-phases/fase5-voz-clara/FASE5-VOZ-CLARA.md |
+| Referencia System Prompt | docs/CLARA-SYSTEM-PROMPT.md |
+| Verificacion Fase 5 | docs/plans/evidence/VERIFY-BACK-FRONT-REPORT.md |
+| Auditoria Post-Q4 | docs/plans/evidence/audit-report-2026-02-20-post-q4.md |
 
 ## Scripts
 
