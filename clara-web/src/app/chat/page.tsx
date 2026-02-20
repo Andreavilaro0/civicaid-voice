@@ -6,18 +6,15 @@ import Header from "@/components/Header";
 import MessageList from "@/components/MessageList";
 import ChatInput from "@/components/ChatInput";
 import VoiceRecorder from "@/components/VoiceRecorder";
+import DocumentUpload from "@/components/DocumentUpload";
 import { useChat } from "@/hooks/useChat";
 import type { Language } from "@/lib/types";
-
-const comingSoon: Record<Language, string> = {
-  es: "Esta funcion estara disponible pronto",
-  fr: "Cette fonction sera bientot disponible",
-};
 
 function ChatContent() {
   const searchParams = useSearchParams();
   const initialLang = (searchParams.get("lang") as Language) || "es";
   const [voiceActive, setVoiceActive] = useState(false);
+  const [documentActive, setDocumentActive] = useState(false);
   const {
     messages,
     isLoading,
@@ -49,10 +46,7 @@ function ChatContent() {
       <ChatInput
         onSendText={(text) => send(text)}
         onStartVoice={() => setVoiceActive(true)}
-        onOpenCamera={() => {
-          // Q9 reemplazara con DocumentUpload
-          alert(comingSoon[language]);
-        }}
+        onOpenCamera={() => setDocumentActive(true)}
         disabled={isLoading}
         language={language}
         activeMode={voiceActive ? "voice" : "text"}
@@ -67,6 +61,17 @@ function ChatContent() {
           send("", audioBase64);
         }}
         onCancel={() => setVoiceActive(false)}
+      />
+
+      {/* DocumentUpload overlay — patron identico a VoiceRecorder */}
+      <DocumentUpload
+        visible={documentActive}
+        language={language}
+        onUpload={(imageBase64) => {
+          setDocumentActive(false);
+          send("", undefined, imageBase64);
+        }}
+        onCancel={() => setDocumentActive(false)}
       />
     </div>
   );

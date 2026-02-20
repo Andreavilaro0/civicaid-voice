@@ -86,3 +86,33 @@ p, li, dd {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.05); }
 }
+
+/* Logo ripple — "ondas concentricas de una voz finalmente escuchada" */
+@keyframes ripple {
+  0% { transform: scale(1); opacity: 0.25; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+
+/* Staggered entrance for page sections */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Subtle float for decorative elements */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* Idle play hint — subtle ring pulse to invite interaction */
+@keyframes playHintPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(46, 125, 79, 0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(46, 125, 79, 0); }
+}
+
+/* Document preview entrance — scale up from center */
+@keyframes previewEnter {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}

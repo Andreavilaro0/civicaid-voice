@@ -124,6 +124,9 @@ export default function AudioPlayer({ src, language }: AudioPlayerProps) {
     return l.play;
   })();
 
+  /* --- Idle state: invitar a Maria a tocar play --- */
+  const isIdle = !isPlaying && !hasEnded && !isLoading && progress === 0;
+
   /* --- Estado de error --- */
 
   if (hasError) {
@@ -155,9 +158,11 @@ export default function AudioPlayer({ src, language }: AudioPlayerProps) {
                    bg-clara-green text-white rounded-full shrink-0
                    hover:bg-[#256B42] active:scale-95
                    transition-[background-color,transform] duration-150
+                   [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]
                    focus-visible:outline focus-visible:outline-[3px]
                    focus-visible:outline-clara-green focus-visible:outline-offset-2
                    disabled:opacity-50 disabled:cursor-not-allowed"
+        style={isIdle ? { animation: "playHintPulse 2s ease-in-out infinite" } : undefined}
       >
         {isLoading && !isPlaying ? (
           /* Spinner de carga — 3 dots animados */
@@ -166,21 +171,29 @@ export default function AudioPlayer({ src, language }: AudioPlayerProps) {
             <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse [animation-delay:150ms]" />
             <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse [animation-delay:300ms]" />
           </div>
-        ) : hasEnded ? (
-          /* Icono replay */
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" />
-          </svg>
-        ) : isPlaying ? (
-          /* Icono pause */
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
-          </svg>
         ) : (
-          /* Icono play */
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M8 5v14l11-7z" />
-          </svg>
+          <span
+            className="inline-flex transition-[transform,opacity] duration-150"
+            style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+            aria-hidden="true"
+          >
+            {hasEnded ? (
+              /* Icono replay */
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" />
+              </svg>
+            ) : isPlaying ? (
+              /* Icono pause */
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+              </svg>
+            ) : (
+              /* Icono play */
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            )}
+          </span>
         )}
       </button>
 
@@ -204,11 +217,19 @@ export default function AudioPlayer({ src, language }: AudioPlayerProps) {
                      rounded"
         >
           {/* Track */}
-          <div className="w-full h-2 bg-clara-border rounded-full overflow-hidden">
+          <div className="relative w-full h-2 bg-clara-border rounded-full overflow-visible">
             {/* Fill */}
             <div
-              className="h-full bg-clara-green rounded-full transition-[width] duration-200 ease-linear"
+              className="h-full bg-clara-green rounded-full transition-[width] duration-250 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]"
               style={{ width: `${progress}%` }}
+            />
+            {/* Thumb indicator — appears on hover/focus */}
+            <div
+              className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-clara-green rounded-full
+                         shadow-sm opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100
+                         transition-opacity duration-200 pointer-events-none"
+              style={{ left: `calc(${progress}% - 8px)` }}
+              aria-hidden="true"
             />
           </div>
         </div>
