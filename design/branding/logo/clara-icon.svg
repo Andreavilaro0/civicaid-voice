@@ -1,12 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
-  <!-- Speech bubble -->
-  <rect x="10" y="10" width="80" height="60" rx="20" fill="#1B5E7B"/>
-  <!-- Bubble tail -->
-  <path d="M25 70 L12 90 L45 70" fill="#1B5E7B"/>
-  <!-- Sound wave bars -->
-  <rect x="25" y="28" width="5" height="22" rx="2.5" fill="#D46A1E"/>
-  <rect x="35" y="20" width="5" height="38" rx="2.5" fill="#D46A1E"/>
-  <rect x="45" y="24" width="5" height="30" rx="2.5" fill="#D46A1E"/>
-  <rect x="55" y="28" width="5" height="22" rx="2.5" fill="#D46A1E"/>
-  <rect x="65" y="32" width="5" height="14" rx="2.5" fill="#D46A1E"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <!-- Wave arc 3 — outermost -->
+  <path
+    d="M 28 14 A 30 30 0 0 1 28 66"
+    stroke="#1B5E7B"
+    stroke-width="4.5"
+    stroke-linecap="round"
+    fill="none"
+    opacity="0.35"
+  />
+  <!-- Wave arc 2 — middle -->
+  <path
+    d="M 28 23 A 20 20 0 0 1 28 57"
+    stroke="#1B5E7B"
+    stroke-width="4.5"
+    stroke-linecap="round"
+    fill="none"
+    opacity="0.65"
+  />
+  <!-- Wave arc 1 — innermost -->
+  <path
+    d="M 28 32 A 10 10 0 0 1 28 48"
+    stroke="#1B5E7B"
+    stroke-width="4.5"
+    stroke-linecap="round"
+    fill="none"
+    opacity="1"
+  />
+  <!-- Central dot -->
+  <circle cx="28" cy="40" r="5.5" fill="#D46A1E" />
 </svg>

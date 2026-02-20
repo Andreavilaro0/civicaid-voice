@@ -155,7 +155,7 @@ def llm_generate(
             model="gemini-2.5-flash",
             contents=prompt_text,
             config=genai.types.GenerateContentConfig(
-                max_output_tokens=500,
+                max_output_tokens=1024,
                 temperature=0.3,
             ),
         )
