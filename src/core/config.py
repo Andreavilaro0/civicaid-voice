@@ -47,6 +47,35 @@ class Config:
     # --- RAG ---
     RAG_ENABLED: bool = field(default_factory=lambda: _bool(os.getenv("RAG_ENABLED", "false")))
 
+    # --- RAG Database ---
+    RAG_DB_URL: str = field(default_factory=lambda: os.getenv("RAG_DB_URL", ""))
+    RAG_EMBEDDING_MODEL: str = field(default_factory=lambda: os.getenv("RAG_EMBEDDING_MODEL", "models/gemini-embedding-001"))
+    RAG_EMBEDDING_DIMS: int = field(default_factory=lambda: int(os.getenv("RAG_EMBEDDING_DIMS", "768")))
+    RAG_CHUNK_SIZE: int = field(default_factory=lambda: int(os.getenv("RAG_CHUNK_SIZE", "400")))
+    RAG_CHUNK_OVERLAP: int = field(default_factory=lambda: int(os.getenv("RAG_CHUNK_OVERLAP", "50")))
+    RAG_SIMILARITY_THRESHOLD: float = field(default_factory=lambda: float(os.getenv("RAG_SIMILARITY_THRESHOLD", "0.35")))
+    RAG_TOP_K: int = field(default_factory=lambda: int(os.getenv("RAG_TOP_K", "5")))
+    RAG_HYBRID_WEIGHT: float = field(default_factory=lambda: float(os.getenv("RAG_HYBRID_WEIGHT", "0.5")))
+
+    # --- RAG Retrieval Quality (Q3) ---
+    RAG_RERANK_STRATEGY: str = field(default_factory=lambda: os.getenv("RAG_RERANK_STRATEGY", "heuristic"))
+    RAG_GROUNDED_PROMPTING: bool = field(default_factory=lambda: _bool(os.getenv("RAG_GROUNDED_PROMPTING", "true")))
+    RAG_MAX_CHUNKS_IN_PROMPT: int = field(default_factory=lambda: int(os.getenv("RAG_MAX_CHUNKS_IN_PROMPT", "4")))
+
+    # --- RAG Production (Q4) ---
+    RAG_FALLBACK_CHAIN: bool = field(default_factory=lambda: _bool(os.getenv("RAG_FALLBACK_CHAIN", "true")))
+    RAG_CACHE_ENABLED: bool = field(default_factory=lambda: _bool(os.getenv("RAG_CACHE_ENABLED", "false")))
+    RAG_CACHE_TTL: int = field(default_factory=lambda: int(os.getenv("RAG_CACHE_TTL", "3600")))
+    RAG_CACHE_BACKEND: str = field(default_factory=lambda: os.getenv("RAG_CACHE_BACKEND", "redis"))
+    RAG_INGESTION_ENABLED: bool = field(default_factory=lambda: _bool(os.getenv("RAG_INGESTION_ENABLED", "false")))
+    RAG_INGESTION_INTERVAL_HOURS: int = field(default_factory=lambda: int(os.getenv("RAG_INGESTION_INTERVAL_HOURS", "168")))
+    RAG_INGESTION_MAX_SOURCES_PER_RUN: int = field(default_factory=lambda: int(os.getenv("RAG_INGESTION_MAX_SOURCES_PER_RUN", "50")))
+    RAG_DRIFT_CHECK_ENABLED: bool = field(default_factory=lambda: _bool(os.getenv("RAG_DRIFT_CHECK_ENABLED", "false")))
+    RAG_DRIFT_WEBHOOK_URL: str = field(default_factory=lambda: os.getenv("RAG_DRIFT_WEBHOOK_URL", ""))
+    RAG_STALENESS_THRESHOLD_DAYS: int = field(default_factory=lambda: int(os.getenv("RAG_STALENESS_THRESHOLD_DAYS", "90")))
+    RAG_BOE_MONITOR_ENABLED: bool = field(default_factory=lambda: _bool(os.getenv("RAG_BOE_MONITOR_ENABLED", "false")))
+    RAG_METRICS_ENABLED: bool = field(default_factory=lambda: _bool(os.getenv("RAG_METRICS_ENABLED", "true")))
+
     # --- Memory / Personalization ---
     MEMORY_ENABLED: bool = field(default_factory=lambda: _bool(os.getenv("MEMORY_ENABLED", "false")))
     MEMORY_BACKEND: str = field(default_factory=lambda: os.getenv("MEMORY_BACKEND", "dev"))

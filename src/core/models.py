@@ -66,6 +66,7 @@ class KBContext:
     datos: dict = field(default_factory=dict)
     fuente_url: str = ""
     verificado: bool = False
+    chunks_used: list = field(default_factory=list)  # list of chunk dicts
 
 
 @dataclass
@@ -87,3 +88,13 @@ class FinalResponse:
     media_url: Optional[str] = None
     source: str = "cache"  # "cache" | "llm" | "fallback"
     total_ms: int = 0
+
+
+@dataclass
+class SatisfactionFeedback:
+    """User satisfaction feedback after a response."""
+    from_number: str
+    response_id: str = ""
+    feedback: str = ""  # "si", "no", raw text
+    positive: bool = False
+    timestamp: float = 0.0
