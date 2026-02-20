@@ -100,14 +100,12 @@ def test_llm_generate_no_api_key_returns_fallback():
 
 def test_prompt_uses_xml_delimiters():
     """Prompt wraps user text in <user_query> XML tags."""
-    import types
     import unittest.mock as um
 
-    mock_google = types.ModuleType("google")
-    mock_genai = um.MagicMock()
-    mock_google.generativeai = mock_genai
-    mock_model = mock_genai.GenerativeModel.return_value
-    mock_response = mock_model.generate_content.return_value
+    mock_genai_module = um.MagicMock()
+    mock_client_instance = um.MagicMock()
+    mock_genai_module.Client.return_value = mock_client_instance
+    mock_response = mock_client_instance.models.generate_content.return_value
     mock_response.text = "test response"
 
     with patch("src.core.skills.llm_generate.config") as mock_config:
@@ -116,13 +114,13 @@ def test_prompt_uses_xml_delimiters():
         mock_config.STRUCTURED_OUTPUT_ON = False
         mock_config.LLM_TIMEOUT = 6
         with patch.dict("sys.modules", {
-            "google": mock_google,
-            "google.generativeai": mock_genai,
+            "google.genai": mock_genai_module,
+            "google": um.MagicMock(genai=mock_genai_module),
         }):
             llm_generate("hola mundo", "es", None)
 
-            call_args = mock_model.generate_content.call_args
-            prompt = call_args[0][0][0]["parts"][0]["text"]
+            call_args = mock_client_instance.models.generate_content.call_args
+            prompt = call_args[1]["contents"]
             assert "<user_query>" in prompt
             assert "</user_query>" in prompt
             assert "hola mundo" in prompt
