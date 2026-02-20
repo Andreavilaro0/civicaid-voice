@@ -31,6 +31,18 @@ def test_config_twilio_sandbox_default():
     assert c.TWILIO_SANDBOX_FROM == "whatsapp:+14155238886"
 
 
+def test_vision_enabled_default_true():
+    from src.core.config import Config
+    c = Config()
+    assert c.VISION_ENABLED is True
+
+
+def test_vision_timeout_default():
+    from src.core.config import Config
+    c = Config()
+    assert c.VISION_TIMEOUT == 10
+
+
 def test_memory_config_defaults():
     """Memory flags have safe defaults."""
     from src.core.config import Config
