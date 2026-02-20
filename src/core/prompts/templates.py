@@ -2,9 +2,9 @@
 
 TEMPLATES = {
     "ack_text": {
-        "es": "Lo miro ahora mismo, dame un momento.",
-        "fr": "Je regarde tout de suite, un instant.",
-        "en": "Let me look into this, one moment.",
+        "es": "Dame un momento, estoy buscando esa informacion.",
+        "fr": "Un instant, je cherche cette information.",
+        "en": "One moment, I'm looking into this.",
     },
     "ack_audio": {
         "es": "Estoy escuchando tu mensaje, un momento.",
@@ -17,9 +17,9 @@ TEMPLATES = {
         "en": "Looking at your image, one moment.",
     },
     "vision_fail": {
-        "es": "No he podido ver bien la imagen. Puedes intentar enviarla de nuevo, o si prefieres, describeme lo que ves.",
+        "es": "No he podido ver bien la imagen. Puedes intentar enviarla de nuevo, o si prefieres, describeme lo que ves y te ayudo.",
         "fr": "Je n'ai pas pu bien voir l'image. Vous pouvez la renvoyer, ou si vous preferez, decrivez-moi ce que vous voyez.",
-        "en": "I couldn't see the image clearly. You can try sending it again, or if you prefer, describe what you see.",
+        "en": "I couldn't see the image clearly. You can try sending it again, or describe what you see and I'll help.",
     },
     "fallback_generic": {
         "es": "Estoy aqui para ayudarte con tramites, ayudas y procesos del gobierno espanol. Sobre que necesitas informacion?",
@@ -37,7 +37,7 @@ TEMPLATES = {
         "en": "There was a problem on my end. You can try again in a few seconds, or visit administracion.gob.es.",
     },
     "closing": {
-        "es": "Si necesitas algo mas, aqui estoy. Mucha suerte con tu tramite.",
+        "es": "Si necesitas algo mas, aqui estoy. Mucho animo con tu tramite.",
         "fr": "Si vous avez besoin de quoi que ce soit, je suis la. Bon courage pour vos demarches.",
         "en": "If you need anything else, I'm here. Good luck with your process.",
     },

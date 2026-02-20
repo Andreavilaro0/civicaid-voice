@@ -60,3 +60,42 @@ def test_webhook_returns_twiml_xml(client):
         })
         assert "application/xml" in resp.content_type
         assert b'<?xml version="1.0"' in resp.data
+
+
+def test_webhook_ack_french_for_french_text(client):
+    """ACK should be in French when user writes in French."""
+    with patch("src.core.pipeline.process"):
+        resp = client.post("/webhook", data={
+            "Body": "Bonjour, j'ai besoin d'aide",
+            "From": "whatsapp:+34612345678",
+            "NumMedia": "0",
+        })
+        assert resp.status_code == 200
+        # Should contain French ACK, not Spanish
+        assert "instant" in resp.data.decode("utf-8")
+
+
+def test_webhook_ack_spanish_for_spanish_text(client):
+    """ACK should remain Spanish for Spanish text."""
+    with patch("src.core.pipeline.process"):
+        resp = client.post("/webhook", data={
+            "Body": "Hola necesito ayuda",
+            "From": "whatsapp:+34612345678",
+            "NumMedia": "0",
+        })
+        assert resp.status_code == 200
+        assert "momento" in resp.data.decode("utf-8")
+
+
+def test_webhook_ack_defaults_spanish_for_audio(client):
+    """Audio ACK defaults to Spanish (can't detect language from audio body)."""
+    with patch("src.core.pipeline.process"):
+        resp = client.post("/webhook", data={
+            "Body": "",
+            "From": "whatsapp:+34612345678",
+            "NumMedia": "1",
+            "MediaUrl0": "https://api.twilio.com/xxx",
+            "MediaContentType0": "audio/ogg",
+        })
+        assert resp.status_code == 200
+        assert "momento" in resp.data.decode("utf-8")

@@ -140,3 +140,24 @@ def test_analyze_image_uses_french_prompt():
     assert "fr" in VISION_PROMPTS
     assert "Clara" in VISION_PROMPTS["fr"]
     assert "francais" in VISION_PROMPTS["fr"].lower()
+
+
+def test_vision_prompt_contains_evi_guidance():
+    """Vision prompt should guide Clara to empathize before informing."""
+    from src.core.skills.analyze_image import VISION_PROMPT_ES, VISION_PROMPT_FR
+    # ES prompt should mention calming/empathy before steps
+    assert "tranquil" in VISION_PROMPT_ES.lower() or "calma" in VISION_PROMPT_ES.lower()
+    # FR prompt should mention calming/empathy
+    assert "calm" in VISION_PROMPT_FR.lower() or "rassur" in VISION_PROMPT_FR.lower()
+
+
+def test_vision_prompt_anti_hallucination():
+    """Vision prompt must have anti-hallucination rule."""
+    from src.core.skills.analyze_image import VISION_PROMPT_ES
+    assert "no inventes" in VISION_PROMPT_ES.lower() or "solo describe" in VISION_PROMPT_ES.lower()
+
+
+def test_vision_prompt_fr_uses_vouvoiement():
+    """French vision prompt should use vouvoiement (vous), not tuteo (tu)."""
+    from src.core.skills.analyze_image import VISION_PROMPT_FR
+    assert "vous" in VISION_PROMPT_FR.lower()

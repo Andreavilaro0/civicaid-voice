@@ -138,3 +138,19 @@ def test_guardrails_flag_can_be_disabled(monkeypatch):
     from src.core.config import Config
     c = Config()
     assert c.GUARDRAILS_ON is False
+
+
+def test_guardrail_responses_offer_help():
+    """Guardrail block responses should always offer a help resource."""
+    from src.core.guardrails import BLOCKED_PATTERNS
+    for _, category, response in BLOCKED_PATTERNS:
+        assert any(word in response.lower() for word in ["llama", "112", "024", "060"]), \
+            f"Category '{category}' guardrail should include a help resource"
+
+
+def test_guardrail_self_harm_is_empathetic():
+    """Self-harm guardrail should be empathetic, not cold."""
+    from src.core.guardrails import BLOCKED_PATTERNS
+    for _, category, response in BLOCKED_PATTERNS:
+        if category == "self_harm":
+            assert "ayuda" in response.lower() or "necesitas" in response.lower()

@@ -70,13 +70,17 @@ def webhook():
 
     log_ack(from_number, input_type.value)
 
+    # Detect ACK language from message body (lightweight keyword check)
+    from src.core.skills.detect_lang import _keyword_hint
+    ack_lang = _keyword_hint(body) or "es"
+
     # ACK template based on input type
     if input_type == InputType.AUDIO:
-        ack_text = get_template("ack_audio", "es")
+        ack_text = get_template("ack_audio", ack_lang)
     elif input_type == InputType.IMAGE:
-        ack_text = get_template("ack_image", "es")
+        ack_text = get_template("ack_image", ack_lang)
     else:
-        ack_text = get_template("ack_text", "es")
+        ack_text = get_template("ack_text", ack_lang)
 
     # Launch background thread for processing
     thread = threading.Thread(target=pipeline.process, args=(msg,), daemon=True)

@@ -260,6 +260,10 @@ def process(msg: IncomingMessage) -> None:
             from src.core.guardrails import post_check
             verified_text = post_check(verified_text)
 
+        # --- WHATSAPP FORMATTING ---
+        from src.core.skills.whatsapp_format import format_for_whatsapp
+        verified_text = format_for_whatsapp(verified_text)
+
         # --- MEMORY UPDATE (post-response) ---
         if config.MEMORY_ENABLED and memory_store and memory and memory.consent_opt_in:
             if kb_context:

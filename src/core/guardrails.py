@@ -16,11 +16,12 @@ class GuardrailResult:
 # --- BLOCKLIST: Topics Clara should not engage with ---
 BLOCKED_PATTERNS = [
     (r'\b(suicid\w*|matarme|hacerme da[nñ]o|autolesion\w*)\b', 'self_harm',
-     'Si necesitas ayuda urgente, llama al 024 (linea de atencion a la conducta suicida) o al 112.'),
+     'Entiendo que estas pasando por un momento muy dificil. No estas solo/a. '
+     'Llama al 024 (linea de atencion a la conducta suicida) o al 112. Hay personas preparadas para ayudarte.'),
     (r'\b(bomba|explosivo|armas?|terroris\w*)\b', 'violence',
      'No puedo ayudar con ese tema. Si hay una emergencia, llama al 112.'),
     (r'\b(hackear|robar identidad|falsificar)\b', 'illegal',
-     'No puedo ayudar con eso. Si necesitas orientacion legal, puedes llamar al 060 o acudir a un abogado de oficio.'),
+     'No puedo ayudar con eso. Si necesitas orientacion legal gratuita, llama al 060 o pide un abogado de oficio en tu juzgado mas cercano.'),
 ]
 
 # --- DISCLAIMER: Always appended for legal/medical topics ---
