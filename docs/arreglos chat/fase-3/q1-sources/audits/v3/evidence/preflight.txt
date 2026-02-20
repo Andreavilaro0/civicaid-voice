@@ -1,0 +1,102 @@
+=== PREFLIGHT — 2026-02-18T16:01:18Z ===
+
+=== Repo Root ===
+/Users/andreaavila/Documents/hakaton/civicaid-voice
+
+=== Python Version ===
+Python 3.11.8
+
+=== Git Status ===
+(not a git repo or git unavailable)
+
+=== Key File Tree: docs/arreglos chat/fase-3/ ===
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/audits-v2/AH-AUDIT-REPORT.md
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/audits-v2/claims.jsonl
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/audits-v2/META-CONSISTENCY-CHECK.md
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/audits-v3/evidence/preflight.txt
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/audits/claims.jsonl
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/audits/PS-SCHEMA-VERIFY-REPORT.md
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/q1-sources/backlog/Q1-backlog.md
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/q1-sources/backlog/Q2Q3Q4-backlog.md
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/q1-sources/evidence/assumptions-gaps.md
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/q1-sources/evidence/gates.md
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/q1-sources/evidence/Q1.1-FORENSIC-AUDIT-REPORT.md
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/q1-sources/evidence/references.md
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/q1-sources/evidence/samples/link_check_output.sample.jsonl
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/q1-sources/evidence/samples/proceduredoc.sample.json
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/q1-sources/evidence/samples/registry.sample.yaml
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/q1-sources/ingestion/extraction-spec.md
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/q1-sources/ingestion/ingestion-playbook.md
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/q1-sources/ingestion/normalization-schema.md
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/q1-sources/link-governance/allowlist.md
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/q1-sources/link-governance/link-checking-spec.md
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/q1-sources/Q1-REPORT.md
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/q1-sources/Q1.1-BIBLIOTECA-OFICIAL-v0-REPORT.md
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/q1-sources/source-registry/age.md
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/q1-sources/source-registry/local.md
+/Users/andreaavila/Documents/hakaton/civicaid-voice/docs/arreglos chat/fase-3/README.md
+
+=== Key File Tree: data/ ===
+/Users/andreaavila/Documents/hakaton/civicaid-voice/data/policy/allowlist.yaml
+/Users/andreaavila/Documents/hakaton/civicaid-voice/data/policy/blocklist.yaml
+/Users/andreaavila/Documents/hakaton/civicaid-voice/data/policy/canonical_rules.yaml
+/Users/andreaavila/Documents/hakaton/civicaid-voice/data/policy/README.md
+/Users/andreaavila/Documents/hakaton/civicaid-voice/data/sources/local_seed.yaml
+/Users/andreaavila/Documents/hakaton/civicaid-voice/data/sources/README.md
+/Users/andreaavila/Documents/hakaton/civicaid-voice/data/sources/registry.yaml
+
+=== Key File Tree: schemas/ ===
+/Users/andreaavila/Documents/hakaton/civicaid-voice/schemas/ProcedureDoc.v1.schema.json
+/Users/andreaavila/Documents/hakaton/civicaid-voice/schemas/README.md
+/Users/andreaavila/Documents/hakaton/civicaid-voice/schemas/SourceRegistry.v1.schema.json
+
+=== Key File Tree: scripts/ ===
+/Users/andreaavila/Documents/hakaton/civicaid-voice/scripts/link_check.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/scripts/run_evals.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/scripts/validate_policy.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/scripts/validate_proceduredoc_schema.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/scripts/validate_source_registry.py
+
+=== Key File Tree: tests/ ===
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/__init__.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/conftest.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/e2e/__init__.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/e2e/test_demo_flows.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/integration/__init__.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/integration/test_memory_isolation.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/integration/test_pipeline.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/integration/test_twilio_stub.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/integration/test_webhook.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/unit/__init__.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/unit/test_cache.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/unit/test_config.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/unit/test_detect_input.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/unit/test_detect_lang.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/unit/test_evals.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/unit/test_forget_endpoint.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/unit/test_guardrails.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/unit/test_kb_lookup.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/unit/test_llm_generate.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/unit/test_memory_commands.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/unit/test_memory_evals.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/unit/test_memory_models.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/unit/test_memory_prompt.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/unit/test_memory_redis.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/unit/test_memory_sanitize.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/unit/test_memory_store.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/unit/test_memory_update.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/unit/test_observability.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/unit/test_redteam.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/unit/test_retriever.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/unit/test_structured_outputs.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/unit/test_transcribe.py
+/Users/andreaavila/Documents/hakaton/civicaid-voice/tests/unit/test_validators.py
+
+=== Skills Detection ===
+Claude Code skills: using built-in Read, Grep, Glob, Write, Edit, Bash, Task tools
+Fallback: Python/Bash for YAML parsing, pytest, ruff, wc
+MCP: Notion MCP available (NOTION_TOKEN configured)
+
+=== END PREFLIGHT ===

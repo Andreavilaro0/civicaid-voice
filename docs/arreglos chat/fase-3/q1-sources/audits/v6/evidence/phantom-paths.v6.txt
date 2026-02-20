@@ -1,0 +1,26 @@
+=== PHANTOM PATH CHECK (v6) ===
+  [EXISTS] data/sources/registry.yaml
+  [EXISTS] data/sources/local_seed.yaml
+  [EXISTS] data/sources/README.md
+  [EXISTS] data/policy/allowlist.yaml
+  [EXISTS] data/policy/blocklist.yaml
+  [EXISTS] data/policy/canonical_rules.yaml
+  [EXISTS] data/policy/README.md
+  [EXISTS] schemas/ProcedureDoc.v1.schema.json
+  [EXISTS] schemas/SourceRegistry.v1.schema.json
+  [EXISTS] scripts/validate_source_registry.py
+  [EXISTS] scripts/validate_policy.py
+  [EXISTS] scripts/validate_proceduredoc_schema.py
+  [EXISTS] scripts/link_check.py
+  [EXISTS] tests/unit/test_validators.py
+  [EXISTS] docs/arreglos chat/fase-3/q1-sources/Q1-REPORT.md
+  [EXISTS] docs/arreglos chat/fase-3/q1-sources/Q1.1-BIBLIOTECA-OFICIAL-v0-REPORT.md
+  [EXISTS] docs/arreglos chat/fase-3/q1-sources/evidence/gates.md
+  [EXISTS] docs/arreglos chat/fase-3/q1-sources/evidence/references.md
+  [EXISTS] docs/arreglos chat/fase-3/q1-sources/evidence/Q1.1-FORENSIC-AUDIT-REPORT.md
+  [EXISTS] docs/arreglos chat/fase-3/q1-sources/evidence/samples/proceduredoc.sample.json
+  [EXISTS] docs/arreglos chat/fase-3/q1-sources/evidence/samples/registry.sample.yaml
+  [EXISTS] docs/arreglos chat/fase-3/q1-sources/evidence/samples/link_check_output.sample.jsonl
+
+Result: 22 found, 0 missing
+PASS: No phantom paths detected

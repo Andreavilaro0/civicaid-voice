@@ -1,0 +1,17 @@
+=== POLICY GROUND TRUTH (computed from data files) ===
+allowlist default_action: reject
+tier_1_age: 22 domains
+tier_2_ccaa: 19 domains
+tier_3_municipal: 19 domains
+allowlist.yaml lines: 355
+
+blocklist categories: 9
+blocklist domains_in_cats: 23
+blocklist top_level_patterns: 4
+blocklist.yaml lines: 72
+
+canonical rules: 10
+canonical pipeline_order: 12
+canonical tracking_params: 17
+canonical session_params: 7
+canonical_rules.yaml lines: 233

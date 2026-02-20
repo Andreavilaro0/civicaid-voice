@@ -1,0 +1,15 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.8, pytest-9.0.2, pluggy-1.6.0 -- /Users/andreaavila/Documents/hakaton/civicaid-voice/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/andreaavila/Documents/hakaton/civicaid-voice
+configfile: pyproject.toml
+collecting ... collected 5 items
+
+Documents/hakaton/civicaid-voice/tests/unit/test_validators.py::TestValidateSourceRegistry::test_validates PASSED [ 20%]
+Documents/hakaton/civicaid-voice/tests/unit/test_validators.py::TestValidatePolicy::test_validates PASSED [ 40%]
+Documents/hakaton/civicaid-voice/tests/unit/test_validators.py::TestValidateProcedureDoc::test_sample_validates PASSED [ 60%]
+Documents/hakaton/civicaid-voice/tests/unit/test_validators.py::TestValidateProcedureDoc::test_invalid_proceduredoc_rejected PASSED [ 80%]
+Documents/hakaton/civicaid-voice/tests/unit/test_validators.py::TestValidateProcedureDoc::test_missing_file_rejected PASSED [100%]
+
+============================== 5 passed in 0.67s ===============================
+exit_code: 0

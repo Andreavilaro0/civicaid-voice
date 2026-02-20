@@ -1,0 +1,24 @@
+=== PREFLIGHT — v6 Evidence ===
+Date (UTC): jueves, 19 de febrero de 2026, 11:35:47 UTC
+
+python3 --version:
+Python 3.11.8
+
+uname -a:
+Darwin AndreaMAC.local 25.0.0 Darwin Kernel Version 25.0.0: Mon Aug 25 21:12:01 PDT 2025; root:xnu-12377.1.9~3/RELEASE_ARM64_T8132 arm64
+
+git rev-parse HEAD:
+deb42a9688cec73c820fbe4265845a370bc72600
+
+pwd / PROJROOT:
+/Users/andreaavila/Documents/hakaton/civicaid-voice
+
+pip list (relevant):
+jsonschema                   4.26.0
+jsonschema-specifications    2025.9.1
+pydantic                     2.12.5
+pydantic_core                2.41.5
+pytest                       9.0.2
+PyYAML                       6.0.3
+requests                     2.32.5
+ruff                         0.15.0

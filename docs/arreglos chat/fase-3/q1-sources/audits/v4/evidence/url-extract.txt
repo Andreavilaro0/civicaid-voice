@@ -1,0 +1,27 @@
+=== URL EXTRACTION & ALLOWLIST CHECK ===
+Total URLs extracted: 157
+Unique domains: 87
+COVERED: 137
+NOT_COVERED: 20
+
+=== NOT_COVERED URLs ===
+  muface.es <- https://muface.es/ (data/sources/registry.yaml)
+  imserso.es <- https://imserso.es/ (data/sources/registry.yaml)
+  ine.es <- https://www.ine.es/ (data/sources/registry.yaml)
+  servicios.ine.es <- https://servicios.ine.es/wstempus/js/ES/ (data/sources/registry.yaml)
+  jccm.es <- https://www.jccm.es/ (data/sources/registry.yaml)
+  jccm.es <- https://www.jccm.es/ (data/sources/registry.yaml)
+  jccm.es <- https://www.jccm.es/tramites/buscador (data/sources/registry.yaml)
+  carm.es <- https://www.carm.es/ (data/sources/registry.yaml)
+  sede.carm.es <- https://sede.carm.es/ (data/sources/registry.yaml)
+  carm.es <- https://www.carm.es/guiadeservicios (data/sources/registry.yaml)
+  juntaex.es <- https://www.juntaex.es/ (data/sources/registry.yaml)
+  tramites.juntaex.es <- https://tramites.juntaex.es/ (data/sources/registry.yaml)
+  tramites.juntaex.es <- https://tramites.juntaex.es/sta/CarpetaPublic/doEvent?APP_CODE=STA&PAGE_CODE=CATALOGO (data/sources/registry.yaml)
+  seuelectronica.palma.cat <- https://seuelectronica.palma.cat/ (data/sources/local_seed.yaml)
+  seuelectronica.l-h.cat <- https://seuelectronica.l-h.cat/ (data/sources/local_seed.yaml)
+  seuelectronica.l-h.cat <- https://seuelectronica.l-h.cat/ (data/sources/local_seed.yaml)
+  seuelectronica.l-h.cat <- https://seuelectronica.l-h.cat/tramits/r/tramits_2.aspx?id=2 (data/sources/local_seed.yaml)
+  sede.coruna.gal <- https://sede.coruna.gal/ (data/sources/local_seed.yaml)
+  sede.coruna.gal <- https://sede.coruna.gal/ (data/sources/local_seed.yaml)
+  sede.coruna.gal <- https://sede.coruna.gal/sede/es/tramites-y-servicios-electronicos (data/sources/local_seed.yaml)

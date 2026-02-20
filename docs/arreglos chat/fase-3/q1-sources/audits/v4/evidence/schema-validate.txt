@@ -1,0 +1,25 @@
+=== G1: Registry Validation ===
+=== Source Registry Validation ===
+
+  registry.yaml: PASS (44 sources — AGE: 25, CCAA: 19, Local: 0)
+  local_seed.yaml: PASS (20 sources — AGE: 0, CCAA: 0, Local: 20)
+
+PASS: All source registry files valid.
+exit_code: 0
+
+=== G2: Policy Validation ===
+=== Policy Validation ===
+
+  allowlist.yaml: PASS
+  blocklist.yaml: PASS
+  canonical_rules.yaml: PASS
+
+PASS: All policy files valid.
+exit_code: 0
+
+=== G3: ProcedureDoc Validation ===
+PASS: proceduredoc.sample.json valid against ProcedureDoc v1
+  id: age-inss-ingreso-minimo-vital
+  nombre: Ingreso Minimo Vital
+  completeness: 0.86
+exit_code: 0

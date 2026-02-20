@@ -1,0 +1,64 @@
+=== link_check.py --dry-run ===
+Command: python3 scripts/link_check.py --dry-run
+Exit code: 0
+
+--- FIRST ATTEMPT (before pip install) ---
+FAILED: ModuleNotFoundError: No module named 'yaml'
+
+--- AFTER pip install pyyaml ---
+Link checker: 46 URLs (smoke=False, limit=50)
+  [age-sia] https://administracion.gob.es/pag_Home/espanaAdmon/SIA.html
+  [age-pag] https://administracion.gob.es/
+  [age-pag] https://sede.administracion.gob.es/
+  [age-carpeta-ciudadana] https://carpetaciudadana.gob.es/
+  [age-clave] https://clave.gob.es/
+  [age-boe-diario] https://www.boe.es/
+  [age-boe-diario] https://boe.es/datosabiertos/api/boe/sumario/
+  [age-boe-legislacion] https://www.boe.es/buscar/legislacion.php
+  [age-boe-legislacion] https://www.boe.es/datosabiertos/api/legislacion-consolidada
+  [age-boe-sumarios] https://www.boe.es/diario_boe/
+  [age-sepe] https://www.sepe.es/
+  [age-sepe] https://sede.sepe.gob.es/
+  [age-seg-social] https://www.seg-social.es/
+  [age-seg-social] https://sede.seg-social.gob.es/
+  [age-aeat] https://www.agenciatributaria.es/
+  [age-aeat] https://sede.agenciatributaria.gob.es/
+  [age-dgt] https://www.dgt.es/
+  [age-dgt] https://sede.dgt.gob.es/
+  [age-extranjeria] https://sede.policia.gob.es/portalCiudadano/_es/tramites_extranjeria.php
+  [age-extranjeria] https://sede.policia.gob.es/
+  [age-muface] https://muface.es/
+  [age-muface] https://sede.muface.gob.es/
+  [age-imserso] https://imserso.es/
+  [age-imserso] https://sede.imserso.gob.es/
+  [age-mivau] https://www.mivau.gob.es/
+  [age-mivau] https://mivau.sede.gob.es/
+  [age-mjusticia] https://www.mjusticia.gob.es/
+  [age-mjusticia] https://sede.mjusticia.gob.es/
+  [age-ine] https://www.ine.es/
+  [age-ine] https://servicios.ine.es/wstempus/js/ES/
+  [age-inclusion-imv] https://www.inclusion.gob.es/web/imv
+  [age-inclusion-imv] https://sede.inclusion.gob.es/
+  [age-catastro] https://www.catastro.hacienda.gob.es/
+  [age-catastro] https://www.sedecatastro.gob.es/
+  [age-transparencia] https://transparencia.gob.es/
+  [age-asilo] https://proteccion-asilo.interior.gob.es/
+  [age-registro-civil] https://sede.mjusticia.gob.es/tramites
+  [age-datos-gob] https://datos.gob.es/
+  [age-datos-gob] https://datos.gob.es/apidata/catalog/dataset
+  [age-importass] https://portal.seg-social.gob.es/wps/portal/importass/importass/inicio
+  [ccaa-madrid] https://www.comunidad.madrid/
+  [ccaa-madrid] https://sede.comunidad.madrid/
+  [ccaa-madrid] https://sede.comunidad.madrid/buscador
+  [ccaa-cataluna] https://web.gencat.cat/
+  [ccaa-cataluna] https://web.gencat.cat/ca/seu-electronica/
+  [ccaa-cataluna] https://web.gencat.cat/ca/seu-electronica/tramits-i-serveis
+
+Dry run complete. 46 URLs would be checked.
+
+GROUND TRUTH:
+  Total URLs found by link checker (limit 50): 46
+  Dry-run completed successfully.
+  NOTE: --limit 50 means only first 50 URLs loaded. registry.yaml + local_seed.yaml
+        together would produce more URLs. The 46 above are de-duplicated.
+  Exit code: 0 (PASS)

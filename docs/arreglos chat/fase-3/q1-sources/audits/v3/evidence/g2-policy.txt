@@ -1,0 +1,8 @@
+=== Policy Validation ===
+
+  allowlist.yaml: PASS
+  blocklist.yaml: PASS
+  canonical_rules.yaml: PASS
+
+PASS: All policy files valid.
+exit_code: 0

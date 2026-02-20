@@ -1,0 +1,32 @@
+=== PHANTOM PATH CHECK ===
+Total unique paths referenced: 20
+FOUND: 16
+PHANTOM: 4
+
+=== PHANTOM FILES ===
+  PHANTOM: data/ingested/procedures/ (referenced in docs/arreglos chat/fase-3/q1-sources/ingestion/normalization-schema.md:517)
+  PHANTOM: data/ingested/procedures/<id>.json (referenced in docs/arreglos chat/fase-3/q1-sources/Q1-REPORT.md:107)
+  PHANTOM: data/ingested/raw/<domain>/<hash> (referenced in docs/arreglos chat/fase-3/q1-sources/Q1-REPORT.md:107)
+  PHANTOM: data/tramites/*.json (referenced in docs/arreglos chat/fase-3/q1-sources/Q1-REPORT.md:116)
+
+=== ALL PATHS ===
+  [PHANTOM] data/ingested/procedures/
+  [PHANTOM] data/ingested/procedures/<id>.json
+  [PHANTOM] data/ingested/raw/<domain>/<hash>
+  [FOUND] data/policy/README.md
+  [FOUND] data/policy/allowlist.yaml
+  [FOUND] data/policy/blocklist.yaml
+  [FOUND] data/policy/canonical_rules.yaml
+  [FOUND] data/sources/README.md
+  [FOUND] data/sources/local_seed.yaml
+  [FOUND] data/sources/registry.yaml
+  [FOUND] data/tramites/
+  [PHANTOM] data/tramites/*.json
+  [FOUND] schemas/ProcedureDoc.v1.schema.json
+  [FOUND] schemas/README.md
+  [FOUND] schemas/SourceRegistry.v1.schema.json
+  [FOUND] scripts/link_check.py
+  [FOUND] scripts/validate_policy.py
+  [FOUND] scripts/validate_proceduredoc_schema.py
+  [FOUND] scripts/validate_source_registry.py
+  [FOUND] tests/unit/test_validators.py

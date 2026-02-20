@@ -1,0 +1,30 @@
+=== GROUND TRUTH — Q1 FINAL (programmatic extraction) ===
+Date: 2026-02-19 12:02:15 UTC
+
+registry.yaml: 44 sources (AGE: 25, CCAA: 19)
+  AGE: P0=10 P1=11 P2=4
+  CCAA: P0=5 P1=8 P2=6
+  lines: 799
+local_seed.yaml: 20 sources, lines: 413
+allowlist.yaml: 362 lines, default_action=reject
+  T1: 22 domains + 10 aliases = 32
+  T2: 19 domains + 25 aliases = 44
+  T3: 20 domains + 13 aliases = 33
+  Total: 109 domains+aliases
+  auto_allow_rules: 5
+blocklist.yaml: 9 categories, 23 domains, 4 patterns
+canonical_rules.yaml: 10 rules, 12 pipeline steps
+ProcedureDoc.v1: 29 props, 13 required, draft=https://json-schema.org/draft/2020-12/schema
+SourceRegistry.v1: 7 required/entry, draft=https://json-schema.org/draft/2020-12/schema
+
+Research doc line counts:
+  age.md: 518
+  ccaa.md: 665
+  local.md: 403
+  allowlist.md: 229
+  canonicalization.md: 322
+  link-checking-spec.md: 545
+  ingestion-playbook.md: 446
+  extraction-spec.md: 739
+  normalization-schema.md: 581
+  TOTAL: 4448

@@ -1,0 +1,36 @@
+=== PREFLIGHT v4 ===
+Date: 2026-02-18T16:39:35Z
+Git toplevel: /Users/andreaavila/Documents/hakaton/civicaid-voice
+
+=== Git status ===
+ M "docs/arreglos chat/README.md"
+ M "docs/arreglos chat/fase-3/README.md"
+?? data/policy/
+?? data/sources/
+?? "docs/arreglos chat/fase-3/audits-v2/"
+?? "docs/arreglos chat/fase-3/audits-v3/"
+?? "docs/arreglos chat/fase-3/audits-v4/"
+?? "docs/arreglos chat/fase-3/audits/"
+?? "docs/arreglos chat/fase-3/q1-sources/"
+?? docs/plans/2026-02-18-q1.1-biblioteca-oficial-v0.md
+?? schemas/
+?? scripts/link_check.py
+?? scripts/validate_policy.py
+?? scripts/validate_proceduredoc_schema.py
+?? scripts/validate_source_registry.py
+?? tests/unit/test_validators.py
+
+=== File count in fase-3 ===
+      41
+
+=== Python version ===
+Python 3.14.3
+
+=== Key dependencies ===
+pyyaml: 6.0.3
+<string>:1: DeprecationWarning: Accessing jsonschema.__version__ is deprecated and will be removed in a future release. Use importlib.metadata directly to query for jsonschema's version.
+jsonschema: 4.26.0
+
+=== Venv check ===
+/Users/andreaavila/Documents/hakaton/civicaid-voice/.venv/bin/python3 -> python
+venv exists

@@ -1,0 +1,46 @@
+==========================================================================================================================================================================
+  GROUND TRUTH COUNTS -- v6 Canonical Evidence    Generated: 2026-02-19 11:43:26 UTC
+==========================================================================================================================================================================
+
+  #  Metric                                         Value                                               Source                                          Method
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  1  registry.yaml: total sources                   44                                                  data/sources/registry.yaml                      len(sources)
+  2  registry.yaml: AGE count                       25                                                  data/sources/registry.yaml                      jurisdiction==age
+  3  registry.yaml: CCAA count                      19                                                  data/sources/registry.yaml                      jurisdiction==ccaa
+  4  registry.yaml: AGE P0                          10                                                  data/sources/registry.yaml                      count(priority==P0)
+  5  registry.yaml: AGE P1                          11                                                  data/sources/registry.yaml                      count(priority==P1)
+  6  registry.yaml: AGE P2                          4                                                   data/sources/registry.yaml                      count(priority==P2)
+  7  registry.yaml: CCAA P0                         5                                                   data/sources/registry.yaml                      count(priority==P0)
+  8  registry.yaml: CCAA P1                         8                                                   data/sources/registry.yaml                      count(priority==P1)
+  9  registry.yaml: CCAA P2                         6                                                   data/sources/registry.yaml                      count(priority==P2)
+ 10  registry.yaml: total URLs                      97                                                  data/sources/registry.yaml                      non-null url fields
+ 11  registry.yaml: line count                      799                                                 data/sources/registry.yaml                      wc -l
+ 12  local_seed.yaml: total entries                 20                                                  data/sources/local_seed.yaml                    len(sources)
+ 13  local_seed.yaml: line count                    413                                                 data/sources/local_seed.yaml                    wc -l
+ 14  allowlist.yaml: default_action                 reject                                              data/policy/allowlist.yaml                      root key
+ 15  allowlist.yaml: tier_1_age domains             22                                                  data/policy/allowlist.yaml                      len(tier_1_age.domains)
+ 16  allowlist.yaml: tier_2_ccaa domains            19                                                  data/policy/allowlist.yaml                      len(tier_2_ccaa.domains)
+ 17  allowlist.yaml: tier_3_municipal domains       20                                                  data/policy/allowlist.yaml                      len(tier_3_municipal.domains)
+ 18  allowlist.yaml: total lines                    362                                                 data/policy/allowlist.yaml                      wc -l
+ 19  blocklist.yaml: categories                     9                                                   data/policy/blocklist.yaml                      len(categories)
+ 20  blocklist.yaml: domains                        23                                                  data/policy/blocklist.yaml                      sum(cat.domains)
+ 21  blocklist.yaml: patterns                       4                                                   data/policy/blocklist.yaml                      len(patterns)
+ 22  blocklist.yaml: lines                          72                                                  data/policy/blocklist.yaml                      wc -l
+ 23  canonical_rules.yaml: rules                    10                                                  data/policy/canonical_rules.yaml                len(rules)
+ 24  canonical_rules.yaml: pipeline steps           12                                                  data/policy/canonical_rules.yaml                len(pipeline_order)
+ 25  canonical_rules.yaml: tracking params          17                                                  data/policy/canonical_rules.yaml                len(tracking_params_strip)
+ 26  canonical_rules.yaml: session params           7                                                   data/policy/canonical_rules.yaml                len(session_params_strip)
+ 27  canonical_rules.yaml: lines                    233                                                 data/policy/canonical_rules.yaml                wc -l
+ 28  ProcedureDoc schema: draft                     https://json-schema.org/draft/2020-12/schema        schemas/ProcedureDoc.v1.schema.json             $schema
+ 29  ProcedureDoc schema: properties                29                                                  schemas/ProcedureDoc.v1.schema.json             len(properties)
+ 30  ProcedureDoc schema: required                  13                                                  schemas/ProcedureDoc.v1.schema.json             len(required)
+ 31  SourceRegistry schema: draft                   https://json-schema.org/draft/2020-12/schema        schemas/SourceRegistry.v1.schema.json           $schema
+ 32  SourceRegistry: root required                  2                                                   schemas/SourceRegistry.v1.schema.json           len(required)
+ 33  SourceRegistry: entry required                 7                                                   schemas/SourceRegistry.v1.schema.json           len(SourceEntry.required)
+ 34  pytest: tests collected                        5                                                   pytest --collect-only -q                        collected 5 items
+ 35  pytest: tests passed                           5                                                   pytest -v                                       5 passed in 0.60s
+ 36  ruff: errors                                   0                                                   ruff check scripts/ tests/                      All checks passed!
+ 37  link_check: dry-run URLs                       8                                                   link_check.py --dry-run --limit 50              8 URLs would be checked
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Total metrics: 37

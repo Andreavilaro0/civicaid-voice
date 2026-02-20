@@ -1,0 +1,55 @@
+=== PHANTOM PATHS CHECK ===
+Method: Python pathlib exists() check
+Date: 2026-02-19
+
+Total paths checked: 36
+EXISTS: 33
+PHANTOM: 0
+PLANNED_FUTURE: 1
+GLOB_PATTERN: 2
+
+| Path | Source Doc | Category | Exists? | Classification |
+|------|-----------|----------|---------|----------------|
+| source-registry/age.md | Q1-REPORT.md | deliverable | YES | EXISTS |
+| source-registry/ccaa.md | Q1-REPORT.md | deliverable | YES | EXISTS |
+| source-registry/local.md | Q1-REPORT.md | deliverable | YES | EXISTS |
+| link-governance/allowlist.md | Q1-REPORT.md | deliverable | YES | EXISTS |
+| link-governance/canonicalization.md | Q1-REPORT.md | deliverable | YES | EXISTS |
+| link-governance/link-checking-spec.md | Q1-REPORT.md | deliverable | YES | EXISTS |
+| ingestion/ingestion-playbook.md | Q1-REPORT.md | deliverable | YES | EXISTS |
+| ingestion/extraction-spec.md | Q1-REPORT.md | deliverable | YES | EXISTS |
+| ingestion/normalization-schema.md | Q1-REPORT.md | deliverable | YES | EXISTS |
+| backlog/Q1-backlog.md | Q1-REPORT.md | deliverable | YES | EXISTS |
+| backlog/Q2Q3Q4-backlog.md | Q1-REPORT.md | deliverable | YES | EXISTS |
+| evidence/references.md | Q1-REPORT.md | deliverable | YES | EXISTS |
+| evidence/assumptions-gaps.md | Q1-REPORT.md | deliverable | YES | EXISTS |
+| evidence/gates.md | Q1-REPORT.md | deliverable | YES | EXISTS |
+| Q1-REPORT.md | Q1-REPORT.md | self-reference | YES | EXISTS |
+| data/sources/registry.yaml | Q1.1-REPORT.md | artifact | YES | EXISTS |
+| data/sources/local_seed.yaml | Q1.1-REPORT.md | artifact | YES | EXISTS |
+| data/sources/README.md | Q1.1-REPORT.md | artifact | YES | EXISTS |
+| data/policy/allowlist.yaml | Q1.1-REPORT.md | artifact | YES | EXISTS |
+| data/policy/blocklist.yaml | Q1.1-REPORT.md | artifact | YES | EXISTS |
+| data/policy/canonical_rules.yaml | Q1.1-REPORT.md | artifact | YES | EXISTS |
+| data/policy/README.md | Q1.1-REPORT.md | artifact | YES | EXISTS |
+| schemas/SourceRegistry.v1.schema.json | Q1.1-REPORT.md | artifact | YES | EXISTS |
+| schemas/ProcedureDoc.v1.schema.json | Q1.1-REPORT.md | artifact | YES | EXISTS |
+| schemas/README.md | Q1.1-REPORT.md | artifact | YES | EXISTS |
+| scripts/validate_source_registry.py | Q1.1-REPORT.md | artifact | YES | EXISTS |
+| scripts/validate_policy.py | Q1.1-REPORT.md | artifact | YES | EXISTS |
+| scripts/validate_proceduredoc_schema.py | Q1.1-REPORT.md | artifact | YES | EXISTS |
+| scripts/link_check.py | Q1.1-REPORT.md | artifact | YES | EXISTS |
+| tests/unit/test_validators.py | Q1.1-REPORT.md | artifact | YES | EXISTS |
+| evidence/samples/registry.sample.yaml | Q1.1-REPORT.md | evidence | YES | EXISTS |
+| evidence/samples/proceduredoc.sample.json | Q1.1-REPORT.md | evidence | YES | EXISTS |
+| evidence/samples/link_check_output.sample.jsonl | Q1.1-REPORT.md | evidence | YES | EXISTS |
+| data/ingested/procedures/<id>.json | Q1-REPORT.md | planned_ingestion | NO | GLOB_PATTERN |
+| data/ingested/raw/<domain>/<hash> | Q1-REPORT.md | planned_ingestion | NO | GLOB_PATTERN |
+| src/core/ingestion/ | Q1.1-REPORT.md | planned_Q2 | NO | PLANNED_FUTURE |
+
+--- PLANNED/FUTURE PATHS ---
+  src/core/ingestion/ (referenced in Q1.1-REPORT.md, labeled as planned_Q2)
+
+--- GLOB PATTERNS ---
+  data/ingested/procedures/<id>.json (referenced in Q1-REPORT.md)
+  data/ingested/raw/<domain>/<hash> (referenced in Q1-REPORT.md)

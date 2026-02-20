@@ -1,0 +1,40 @@
+=== REGISTRY COUNTS ===
+Method: Python yaml.safe_load() parsing
+Date: 2026-02-19
+
+--- data/sources/registry.yaml ---
+Total source entries: 44
+  AGE: 25
+  CCAA: 19
+  Local: 0
+
+AGE by priority:
+  P0: 10
+  P1: 11
+  P2: 4
+  Total AGE: 25
+
+CCAA by priority:
+  P0: 5
+  P1: 8
+  P2: 6
+  Total CCAA: 19
+
+Total URLs in registry (portal_url + sede_url + catalogo_url + api_url): 97
+Total lines in registry.yaml: 799
+
+--- data/sources/local_seed.yaml ---
+Total local entries: 20
+Total URLs in local_seed: 60
+Total lines in local_seed.yaml: 413
+
+--- COMBINED ---
+Total sources (registry + local_seed): 64
+Total URLs (registry + local_seed): 157
+
+--- NOTES ---
+- Q1.1 report claims "25 AGE + 19 CCAA" in registry.yaml: VERIFIED (25 + 19 = 44)
+- Q1.1 report claims "20 municipal sedes" in local_seed.yaml: VERIFIED (20)
+- Q1 report claims "10 P0, 10 P1, 5 P2" for AGE: DOES NOT MATCH (actual: 10 P0, 11 P1, 4 P2)
+- Q1.1 report claims "~800" lines for registry.yaml: VERIFIED (799 lines)
+- Q1.1 report claims "413" lines for local_seed.yaml: VERIFIED (413 lines)

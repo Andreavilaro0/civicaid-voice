@@ -1,0 +1,48 @@
+# Phantom Paths Check — Q2 Storage Layer (v1)
+# Date: 2026-02-19
+# Auditor: doc-auditor (automated)
+#
+# Every file path referenced in backticks in Q2 docs was verified against
+# the filesystem. Results below.
+#
+# Sources checked:
+#   - Q2-CLOSING-REPORT.md (all backtick paths)
+#   - Q2-DESIGN.md (all backtick paths)
+#   - evidence/gates.md (all backtick paths)
+#   - README.md Q2 section (all backtick paths)
+
+== PATHS VERIFIED (all exist) ==
+
+docker-compose.yml                              EXISTS
+src/core/rag/__init__.py                        EXISTS
+src/core/rag/database.py                        EXISTS
+src/core/rag/models.py                          EXISTS
+src/core/rag/chunker.py                         EXISTS
+src/core/rag/embedder.py                        EXISTS
+src/core/rag/store.py                           EXISTS
+src/core/rag/migrator.py                        EXISTS
+scripts/init_db.py                              EXISTS
+src/core/config.py                              EXISTS
+src/core/retriever.py                           EXISTS
+requirements.txt                                EXISTS
+tests/unit/test_rag_models.py                   EXISTS
+tests/unit/test_chunker.py                      EXISTS
+tests/unit/test_embedder.py                     EXISTS
+tests/unit/test_store.py                        EXISTS
+tests/unit/test_migrator.py                     EXISTS
+tests/integration/test_rag_pipeline.py          EXISTS
+tests/integration/test_rag_retriever.py         EXISTS
+docs/arreglos chat/fase-3/q2-storage/Q2-CLOSING-REPORT.md    EXISTS
+docs/arreglos chat/fase-3/q2-storage/Q2-DESIGN.md            EXISTS
+docs/arreglos chat/fase-3/q2-storage/evidence/gates.md       EXISTS
+docs/arreglos chat/fase-3/README.md                           EXISTS
+src/core/pipeline.py                            EXISTS (referenced as "pipeline.py" in reports)
+data/tramites/*.json                            EXISTS (8 files: imv, empadronamiento, tarjeta_sanitaria, nie_tie, prestacion_desempleo, ayuda_alquiler, certificado_discapacidad, justicia_gratuita)
+
+== PHANTOM PATHS ==
+
+(none found)
+
+== VERDICT ==
+
+0 phantom paths. All referenced files exist in the working tree.

@@ -1,0 +1,19 @@
+=== validate_policy.py ===
+Command: python3 scripts/validate_policy.py
+Exit code: 0
+
+--- FIRST ATTEMPT (before pip install) ---
+FAILED: ModuleNotFoundError: No module named 'yaml'
+
+--- AFTER pip install pyyaml ---
+=== Policy Validation ===
+
+  allowlist.yaml: PASS
+  blocklist.yaml: PASS
+  canonical_rules.yaml: PASS
+
+PASS: All policy files valid.
+
+GROUND TRUTH:
+  All 3 policy files pass structural validation.
+  Exit code: 0 (PASS)

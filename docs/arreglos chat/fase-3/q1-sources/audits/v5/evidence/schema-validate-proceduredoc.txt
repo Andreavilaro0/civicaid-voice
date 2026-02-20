@@ -1,0 +1,18 @@
+=== validate_proceduredoc_schema.py ===
+Command: python3 scripts/validate_proceduredoc_schema.py "docs/arreglos chat/fase-3/q1-sources/evidence/samples/proceduredoc.sample.json"
+Exit code: 0
+
+--- FIRST ATTEMPT (before pip install) ---
+FAILED: ModuleNotFoundError: No module named 'jsonschema'
+
+--- AFTER pip install jsonschema ---
+PASS: proceduredoc.sample.json valid against ProcedureDoc v1
+  id: age-inss-ingreso-minimo-vital
+  nombre: Ingreso Minimo Vital
+  completeness: 0.86
+
+GROUND TRUTH:
+  ProcedureDoc sample validates against ProcedureDoc.v1.schema.json
+  id: age-inss-ingreso-minimo-vital
+  completeness_score: 0.86
+  Exit code: 0 (PASS)

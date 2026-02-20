@@ -1,0 +1,36 @@
+=== GROUND TRUTH COUNTS (computed, not claimed) ===
+
+registry.yaml: 44 sources
+  by_jurisdiction: {"age": 25, "ccaa": 19}
+  by_jurisdiction_priority: {"age-P0": 10, "age-P1": 11, "age-P2": 4, "ccaa-P0": 5, "ccaa-P1": 8, "ccaa-P2": 6}
+local_seed.yaml: 20 sources
+allowlist tier_1_age: 22 domains
+allowlist tier_2_ccaa: 19 domains
+allowlist tier_3_municipal: 19 domains
+allowlist default_action: reject
+blocklist: 9 categories, 23 domains (in cats), 4 patterns (top-level)
+canonical: 10 rules, 12 pipeline_order, 17 tracking, 7 session
+
+=== FILE LINE COUNTS ===
+  data/sources/registry.yaml: 799 lines
+  data/sources/local_seed.yaml: 413 lines
+  data/policy/allowlist.yaml: 355 lines
+  data/policy/blocklist.yaml: 72 lines
+  data/policy/canonical_rules.yaml: 233 lines
+  schemas/ProcedureDoc.v1.schema.json: 296 lines
+  schemas/SourceRegistry.v1.schema.json: 191 lines
+
+=== RESEARCH DOC LINE COUNTS ===
+  age.md: 518
+  ccaa.md: 665
+  local.md: 403
+  allowlist.md: 229
+  canonicalization.md: 322
+  link-checking-spec.md: 545
+  extraction-spec.md: 739
+  ingestion-playbook.md: 446
+  normalization-schema.md: 581
+  TOTAL: 4448
+
+=== TEST COUNT ===
+  test_validators.py: 0 tests

@@ -1,0 +1,13 @@
+COVERED: 264
+NOT_COVERED: 15
+NOT_COVERED domains:
+  - SEPE.ES
+  - docs.ckan.org
+  - example.es`
+  - github.com
+  - help.unhcr.org
+  - json-schema.org
+  - ropenspain.github.io
+  - sede.grancanaria.com
+  - trafilatura.readthedocs.io
+  - www.sepe.es`

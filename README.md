@@ -23,19 +23,20 @@ Soporta texto, audio (via Gemini/Whisper) e imagenes. Responde en 2 idiomas: esp
 
 - Pipeline de 11 skills para procesamiento de mensajes.
 - 8 respuestas precalculadas en cache para demo.
-- 9 feature flags configurables.
-- 96 tests automatizados.
+- 26 feature flags configurables (12 nuevos en Q4).
+- RAG con busqueda hibrida (BM25 + vector) sobre PostgreSQL + pgvector.
+- 8 tramites en base de conocimiento (IMV, empadronamiento, tarjeta sanitaria, NIE/TIE, paro, alquiler, discapacidad, justicia gratuita).
+- 469+ tests automatizados (443 unit + 26 integration).
 - Documentacion completa ([ver indice](docs/00-DOCS-INDEX.md)).
 
 ## Que NO incluye
 
 - Interfaz web (solo WhatsApp).
-- Base de datos (los datos se almacenan en JSON).
 - Soporte multiusuario persistente (sin sesiones).
 
 ---
 
-**Hackathon:** OdiseIA4Good — UDIT | **Fecha:** Febrero 2026 | **Estado:** Fase 4 en curso
+**Hackathon:** OdiseIA4Good — UDIT | **Fecha:** Febrero 2026 | **Estado:** Fase 4 completada
 
 ## Arquitectura
 

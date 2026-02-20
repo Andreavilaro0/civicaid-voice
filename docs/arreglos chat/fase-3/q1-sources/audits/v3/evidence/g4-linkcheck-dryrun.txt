@@ -1,0 +1,7 @@
+Link checker: 3 URLs (smoke=True, limit=5)
+  [age-sia] https://administracion.gob.es/pag_Home/espanaAdmon/SIA.html
+  [age-pag] https://administracion.gob.es/
+  [age-pag] https://sede.administracion.gob.es/
+
+Dry run complete. 3 URLs would be checked.
+exit_code: 0

@@ -8,7 +8,7 @@
 - **Repo:** /Users/andreaavila/Documents/hakaton/civicaid-voice
 - **Stack:** Python 3.11, Flask, Twilio WhatsApp, Whisper base, Gemini 1.5 Flash, Docker, Render
 - **KB:** Extensible — cualquier .json en data/tramites/ con campo "keywords" se carga automaticamente
-- **Estado:** Fases 0-3 cerradas, Fase 4 en curso
+- **Estado:** Fases 0-4 completadas
 
 ## Arquitectura
 
@@ -51,10 +51,11 @@ data/
   evals/*.json              # 5 archivos de evaluacion
   tramites/*.json           # 3 KBs (IMV, empadronamiento, tarjeta_sanitaria)
 tests/
-  unit/ (85 tests)          # cache, config, detect_input, detect_lang, kb_lookup, guardrails, evals, redteam, retriever, structured_outputs, observability, transcribe
-  integration/ (7 tests)    # pipeline, twilio_stub, webhook
+  unit/ (443 tests)         # cache, config, detect_input, detect_lang, kb_lookup, guardrails, evals, redteam, retriever, structured_outputs, observability, transcribe, ingestion, drift, boe_monitor, admin, rag_metrics, chunker, store, synonyms, territory, etc.
+  integration/ (26 tests)   # pipeline, twilio_stub, webhook, rag_retriever, rag_pipeline, retriever_rerank, fallback_chain, admin_integration, ingestion_pipeline, drift_pipeline, memory_isolation
+  evals/ (tests)            # rag_precision, rag_precision_q4
   e2e/ (4 tests)            # demo_flows
-  # Total: 96 tests (91 passed + 5 xpassed)
+  # Total: 469+ tests (469 passed + 5 xpassed)
 ```
 
 ## Feature Flags (config.py)

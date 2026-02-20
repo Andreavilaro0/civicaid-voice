@@ -1,0 +1,21 @@
+=== validate_source_registry.py ===
+Command: python3 scripts/validate_source_registry.py
+Exit code: 0
+
+--- FIRST ATTEMPT (before pip install) ---
+FAILED: ModuleNotFoundError: No module named 'yaml'
+Required: pip install pyyaml jsonschema
+
+--- AFTER pip install pyyaml jsonschema ---
+=== Source Registry Validation ===
+
+  registry.yaml: PASS (44 sources -- AGE: 25, CCAA: 19, Local: 0)
+  local_seed.yaml: PASS (20 sources -- AGE: 0, CCAA: 0, Local: 20)
+
+PASS: All source registry files valid.
+
+GROUND TRUTH:
+  registry.yaml: 44 sources (25 AGE, 19 CCAA, 0 Local)
+  local_seed.yaml: 20 sources (0 AGE, 0 CCAA, 20 Local)
+  Combined total: 64 sources
+  Exit code: 0 (PASS)

@@ -1,0 +1,30 @@
+# URL Coverage Summary — DOCS+DATA
+# Generated: 2026-02-19
+# Audit: v6
+
+SCOPE: DOCS+DATA
+
+## Counts
+  Unique URLs extracted:    261
+  Artifact/Template (skip): 6
+  Analyzable URLs:          255
+
+  COVERED:          249
+  NOT_COVERED:      6
+    GOV_NOT_COVERED:     0
+    NON_GOV_NOT_COVERED: 6
+
+## Coverage Rate
+  97.6% of analyzable URLs are COVERED
+
+## Tier Breakdown (COVERED only)
+  tier_1: 102
+  tier_2: 117
+  tier_3: 30
+
+## Category Breakdown
+  GOV_ES: 249
+  NON_GOV_REF: 6
+
+## GOV COVERAGE: PASS
+  All government URLs in this scope are COVERED by the allowlist.

@@ -1,0 +1,18 @@
+Link checker: 8 URLs (smoke=False, limit=10)
+  [age-sia] https://administracion.gob.es/pag_Home/espanaAdmon/SIA.html
+  [age-pag] https://administracion.gob.es/
+  [age-pag] https://sede.administracion.gob.es/
+  [age-carpeta-ciudadana] https://carpetaciudadana.gob.es/
+  [age-clave] https://clave.gob.es/
+  [age-boe-diario] https://www.boe.es/
+  [age-boe-diario] https://boe.es/datosabiertos/api/boe/sumario/
+  [age-boe-legislacion] https://www.boe.es/buscar/legislacion.php
+
+Dry run complete. 8 URLs would be checked.
+
+=== Documentation ===
+--dry-run: Prints all URLs that would be checked without actually making HTTP requests.
+           No network calls are made. Shows [source_id] URL for each entry.
+--limit N: Caps the number of URLs loaded from the registry to at most N (default: 50).
+           Applied BEFORE deduplication. After dedup, the actual count may be lower.
+           In this run: --limit 50 was passed, but only 8 unique URLs were found.

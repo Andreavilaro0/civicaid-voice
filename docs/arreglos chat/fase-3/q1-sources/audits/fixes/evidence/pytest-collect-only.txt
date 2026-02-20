@@ -1,0 +1,24 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.8, pytest-9.0.2, pluggy-1.6.0 -- /Users/andreaavila/Documents/hakaton/civicaid-voice/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/andreaavila/Documents/hakaton/civicaid-voice
+configfile: pyproject.toml
+collecting ... collected 5 items
+
+<Dir civicaid-voice>
+  <Package tests>
+    <Package unit>
+      <Module test_validators.py>
+        Tests for Q1.1 validation scripts.
+        <Class TestValidateSourceRegistry>
+          <Function test_validates>
+        <Class TestValidatePolicy>
+          <Function test_validates>
+        <Class TestValidateProcedureDoc>
+          <Function test_sample_validates>
+          <Function test_invalid_proceduredoc_rejected>
+            A ProcedureDoc missing required fields should fail validation.
+          <Function test_missing_file_rejected>
+            Passing a nonexistent file should fail.
+
+========================== 5 tests collected in 0.01s ==========================

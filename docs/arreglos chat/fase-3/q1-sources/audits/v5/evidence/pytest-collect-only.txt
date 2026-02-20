@@ -1,0 +1,27 @@
+=== pytest tests/unit/test_validators.py --collect-only ===
+Command: python3 -m pytest tests/unit/test_validators.py --collect-only
+Exit code: 0
+
+============================= test session starts ==============================
+platform darwin -- Python 3.11.8, pytest-9.0.2, pluggy-1.6.0
+
+<Dir civicaid-voice>
+  <Package tests>
+    <Package unit>
+      <Module test_validators.py>
+        Tests for Q1.1 validation scripts.
+        <Class TestValidateSourceRegistry>
+          <Function test_validates>
+        <Class TestValidatePolicy>
+          <Function test_validates>
+        <Class TestValidateProcedureDoc>
+          <Function test_sample_validates>
+          <Function test_invalid_proceduredoc_rejected>
+            A ProcedureDoc missing required fields should fail validation.
+          <Function test_missing_file_rejected>
+            Passing a nonexistent file should fail.
+
+========================== 5 tests collected in 0.01s ==========================
+
+GROUND TRUTH:
+  5 tests collected across 3 test classes in 1 module

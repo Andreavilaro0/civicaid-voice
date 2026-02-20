@@ -1,0 +1,49 @@
+version: "1.0"
+generated_at: "2026-02-18"
+sources:
+  - id: age-sia-pag
+    name: "SIA / Punto de Acceso General"
+    name_abbrev: "SIA/PAG"
+    jurisdiction: age
+    tier: 1
+    priority: P0
+    portal_url: "https://administracion.gob.es/"
+    sede_url: "https://sede.administracion.gob.es/"
+    access_method: crawl
+    content_formats: [html]
+    languages: [es]
+    rate_limit_rps: 1.0
+    update_frequency: continuous
+    coverage: "Master catalog of all AGE administrative procedures"
+
+  - id: ccaa-madrid
+    name: "Comunidad de Madrid"
+    jurisdiction: ccaa
+    ccaa_code: madrid
+    tier: 2
+    priority: P0
+    portal_url: "https://www.comunidad.madrid/"
+    sede_url: "https://sede.comunidad.madrid/"
+    access_method: crawl
+    content_formats: [html, pdf]
+    languages: [es]
+    rate_limit_rps: 1.0
+    update_frequency: monthly
+    coverage: "Regional procedures: healthcare, education, social services"
+
+  - id: local-madrid
+    name: "Ayuntamiento de Madrid"
+    jurisdiction: local
+    municipality: Madrid
+    province: Madrid
+    tier: 3
+    priority: P0
+    portal_url: "https://sede.madrid.es/"
+    sede_url: "https://sede.madrid.es/"
+    catalogo_url: "https://sede.madrid.es/portal/site/tramites"
+    access_method: crawl
+    content_formats: [html, pdf]
+    languages: [es]
+    rate_limit_rps: 1.0
+    update_frequency: monthly
+    coverage: "Municipal procedures: empadronamiento, IBI, licencias"

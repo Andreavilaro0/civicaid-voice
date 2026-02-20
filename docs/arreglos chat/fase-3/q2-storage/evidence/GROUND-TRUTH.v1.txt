@@ -1,0 +1,163 @@
+================================================================================
+Q2 STORAGE LAYER AUDIT — GROUND TRUTH v1
+Extracted: 2026-02-19T13:26Z - 2026-02-19T13:29Z
+Method: Programmatic extraction from files and live database
+Source: Files on disk + PostgreSQL queries (NOT from reports)
+================================================================================
+
+## TEST COUNTS
+
+Total tests collected: 277
+Test result: 264 passed, 8 skipped, 5 xpassed, 1 warning
+Test time: 3.14s (normal run), 4.03s (RAG_ENABLED=false run)
+
+## NEW RAG TEST FILES (7 files)
+
+File                                    | test_count
+----------------------------------------|----------
+tests/unit/test_rag_models.py           | 9
+tests/unit/test_chunker.py              | 16
+tests/unit/test_embedder.py             | 6
+tests/unit/test_store.py                | 11
+tests/unit/test_migrator.py             | 30
+tests/integration/test_rag_pipeline.py  | 4
+tests/integration/test_rag_retriever.py | 4
+----------------------------------------|----------
+TOTAL new RAG tests                     | 80
+
+Additional new test file (Q1-related, also new):
+tests/unit/test_validators.py           | 5
+
+## NEW SRC FILES — src/core/rag/ (7 files)
+
+src/core/rag/__init__.py
+src/core/rag/chunker.py
+src/core/rag/database.py
+src/core/rag/embedder.py
+src/core/rag/migrator.py
+src/core/rag/models.py
+src/core/rag/store.py
+
+## NEW DEPENDENCIES (requirements.txt)
+
+sqlalchemy>=2.0,<3.0
+psycopg2-binary>=2.9,<3.0
+pgvector>=0.3,<1.0
+
+## CONFIG FLAGS (RAG-specific in src/core/config.py)
+
+Count: 9 RAG_ flags with field() definitions
+
+RAG_ENABLED: bool = false (default)
+RAG_DB_URL: str = "" (default)
+RAG_EMBEDDING_MODEL: str = "models/gemini-embedding-001"
+RAG_EMBEDDING_DIMS: int = 768
+RAG_CHUNK_SIZE: int = 400
+RAG_CHUNK_OVERLAP: int = 50
+RAG_SIMILARITY_THRESHOLD: float = 0.7
+RAG_TOP_K: int = 5
+RAG_HYBRID_WEIGHT: float = 0.5
+
+## DATA FILES
+
+Tramites JSON files: 8
+  ayuda_alquiler.json
+  certificado_discapacidad.json
+  empadronamiento.json
+  imv.json
+  justicia_gratuita.json
+  nie_tie.json
+  prestacion_desempleo.json
+  tarjeta_sanitaria.json
+
+## DATABASE SCHEMA (from live PostgreSQL)
+
+Docker container: clara-db (pgvector/pgvector:pg16)
+Database: clara_rag
+User: clara
+pgvector version: 0.8.1
+
+### Tables (4)
+  chunks
+  ingestion_log
+  procedure_docs
+  sources
+
+### procedure_docs columns (29):
+  id, nombre, descripcion, organismo, organismo_abrev, source_url, source_type,
+  territorio_nivel, territorio_ccaa, territorio_municipio, canal, idioma,
+  requisitos, documentos_necesarios, plazos, como_solicitar, donde_solicitar,
+  tasas, base_legal, keywords, tags, content_hash, word_count,
+  completeness_score, extracted_at, verified_at, verified_by, created_at,
+  updated_at
+
+### chunks columns (10):
+  id, procedure_id, section_name, heading_path, content, token_count,
+  embedding, chunk_index, metadata, created_at
+
+### sources columns (11):
+  id, name, url, source_type, gov_tier, priority, status, last_checked_at,
+  last_fetched_at, metadata, created_at
+
+### ingestion_log columns (8):
+  id, procedure_id, source_id, action, chunks_created, chunks_updated,
+  duration_ms, created_at
+
+### Indexes (6 total):
+  chunks:         chunks_pkey, ix_chunks_content_fts, ix_chunks_embedding_hnsw
+  ingestion_log:  ingestion_log_pkey
+  procedure_docs: procedure_docs_pkey
+  sources:        sources_pkey
+
+## MIGRATED DATA (from live DB, NOT from migration output)
+
+Procedures in DB: 8
+Chunks in DB: 20
+
+### Chunks per procedure:
+  age-aytomad-empadronamiento-alta-en-el-padron-municipal                         | 2
+  age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad   | 3
+  age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio         | 3
+  age-cdms-tarjeta-sanitaria-individual-tsi                                       | 1
+  age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de | 2
+  age-mdvy-ayuda-al-alquiler-bono-alquiler-joven                                  | 3
+  age-segsocial-ingreso-minimo-vital                                              | 3
+  age-sepe-prestacion-por-desempleo-paro                                          | 3
+
+## EMBEDDINGS
+
+Embedding dimensions: 768 (verified via vector_dims() function)
+Embedding storage size: 3076 bytes per vector (via pg_column_size)
+
+## GIT HISTORY (pipeline.py)
+
+pipeline.py last modified commits (no Q2-specific changes detected in git):
+  deb42a9 feat: Fase 1 polish + Fase 2 memory system (MEM-01 to MEM-15)
+  ec05382 feat: replace Whisper with Gemini transcription + add gTTS audio responses
+  5c3d378 feat: Phase 2 toolkit integration
+  237465f feat: MVP phase 1
+
+## MODIFIED FILES (from git status)
+
+Modified existing files (5):
+  docs/arreglos chat/README.md
+  docs/arreglos chat/fase-3/README.md
+  requirements.txt
+  src/core/config.py
+  src/core/retriever.py
+
+New untracked files/dirs (18):
+  data/policy/
+  data/sources/
+  docker-compose.yml
+  docs/arreglos chat/fase-3/q1-sources/
+  docs/arreglos chat/fase-3/q2-storage/
+  docs/plans/ (4 files)
+  schemas/
+  scripts/ (5 new scripts)
+  src/core/rag/ (7 files)
+  tests/ (8 new test files)
+
+================================================================================
+END OF GROUND TRUTH
+================================================================================

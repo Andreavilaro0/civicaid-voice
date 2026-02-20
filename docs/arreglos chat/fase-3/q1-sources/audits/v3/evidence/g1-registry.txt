@@ -1,0 +1,7 @@
+=== Source Registry Validation ===
+
+  registry.yaml: PASS (44 sources — AGE: 25, CCAA: 19, Local: 0)
+  local_seed.yaml: PASS (20 sources — AGE: 0, CCAA: 0, Local: 20)
+
+PASS: All source registry files valid.
+exit_code: 0

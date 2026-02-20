@@ -1,0 +1,83 @@
+=== GROUND TRUTH TABLE ===
+Agent: A2 (Evidence Verifier)
+Date: 2026-02-19T10:23:01Z
+Git: deb42a9688cec73c820fbe4265845a370bc72600
+Python: 3.11.8
+Platform: Darwin 25.0.0 arm64
+
+| # | Metric | Value | Source | Method |
+|---|--------|-------|--------|--------|
+| 1 | registry.yaml total sources | 44 | data/sources/registry.yaml | yaml.safe_load + len(sources) |
+| 2 | registry.yaml AGE sources | 25 | data/sources/registry.yaml | filter jurisdiction=='age' |
+| 3 | registry.yaml CCAA sources | 19 | data/sources/registry.yaml | filter jurisdiction=='ccaa' |
+| 4 | registry.yaml Local sources | 0 | data/sources/registry.yaml | filter jurisdiction=='local' |
+| 5 | local_seed.yaml total sources | 20 | data/sources/local_seed.yaml | yaml.safe_load + len(sources) |
+| 6 | Combined total sources | 64 | registry + local_seed | 44 + 20 |
+| 7 | AGE P0 count | 10 | data/sources/registry.yaml | filter AGE + priority=='P0' |
+| 8 | AGE P1 count | 11 | data/sources/registry.yaml | filter AGE + priority=='P1' |
+| 9 | AGE P2 count | 4 | data/sources/registry.yaml | filter AGE + priority=='P2' |
+| 10 | CCAA P0 count | 5 | data/sources/registry.yaml | filter CCAA + priority=='P0' |
+| 11 | CCAA P1 count | 8 | data/sources/registry.yaml | filter CCAA + priority=='P1' |
+| 12 | CCAA P2 count | 6 | data/sources/registry.yaml | filter CCAA + priority=='P2' |
+| 13 | Total P0 (AGE+CCAA) | 15 | data/sources/registry.yaml | 10 + 5 |
+| 14 | Total URLs in registry.yaml | 97 | data/sources/registry.yaml | count portal/sede/catalogo/api URLs |
+| 15 | Total URLs in local_seed.yaml | 60 | data/sources/local_seed.yaml | count portal/sede/catalogo/api URLs |
+| 16 | Combined total URLs (data) | 157 | registry + local_seed | 97 + 60 |
+| 17 | registry.yaml line count | 799 | data/sources/registry.yaml | len(readlines()) |
+| 18 | local_seed.yaml line count | 413 | data/sources/local_seed.yaml | len(readlines()) |
+| 19 | allowlist default_action | reject | data/policy/allowlist.yaml | yaml key |
+| 20 | allowlist tier_1_age domains | 22 | data/policy/allowlist.yaml | len(tier_1_age.domains) |
+| 21 | allowlist tier_2_ccaa domains | 19 | data/policy/allowlist.yaml | len(tier_2_ccaa.domains) |
+| 22 | allowlist tier_3_municipal domains | 19 | data/policy/allowlist.yaml | len(tier_3_municipal.domains) |
+| 23 | allowlist auto_allow_rules | 5 | data/policy/allowlist.yaml | len(auto_allow_rules) |
+| 24 | allowlist.yaml line count | 355 | data/policy/allowlist.yaml | len(readlines()) |
+| 25 | blocklist category count | 9 | data/policy/blocklist.yaml | len(categories) |
+| 26 | blocklist total domains | 23 | data/policy/blocklist.yaml | sum(len(c.domains)) |
+| 27 | blocklist pattern count | 4 | data/policy/blocklist.yaml | len(patterns) |
+| 28 | blocklist.yaml line count | 72 | data/policy/blocklist.yaml | len(readlines()) |
+| 29 | canonical rule count | 10 | data/policy/canonical_rules.yaml | len(rules) |
+| 30 | canonical pipeline step count | 12 | data/policy/canonical_rules.yaml | len(pipeline_order) |
+| 31 | tracking_params_strip count | 17 | data/policy/canonical_rules.yaml | len(tracking_params_strip) |
+| 32 | session_params_strip count | 7 | data/policy/canonical_rules.yaml | len(session_params_strip) |
+| 33 | content_params_preserve count | 12 | data/policy/canonical_rules.yaml | len(content_params_preserve) |
+| 34 | www_mappings count | 5 | data/policy/canonical_rules.yaml | len(www_mappings) |
+| 35 | canonical_rules.yaml line count | 233 | data/policy/canonical_rules.yaml | len(readlines()) |
+| 36 | ProcedureDoc.v1 schema validates | PASS | schemas/ProcedureDoc.v1.schema.json | jsonschema.validate exit 0 |
+| 37 | ProcedureDoc sample completeness | 0.86 | proceduredoc.sample.json | validate_proceduredoc_schema.py |
+| 38 | SourceRegistry.v1 schema validates (registry) | PASS | validate_source_registry.py | exit code 0 |
+| 39 | SourceRegistry.v1 schema validates (local) | PASS | validate_source_registry.py | exit code 0 |
+| 40 | Policy validation | PASS | validate_policy.py | exit code 0 |
+| 41 | pytest test count | 5 | tests/unit/test_validators.py | --collect-only |
+| 42 | pytest tests passed | 5 | tests/unit/test_validators.py | -v result |
+| 43 | pytest tests failed | 0 | tests/unit/test_validators.py | -v result |
+| 44 | ruff lint errors | 0 | scripts/ + tests/ | ruff check --select E,F,W --ignore E501 |
+| 45 | Link checker dry-run URL count | 46 | link_check.py --dry-run | de-duplicated from registry+local (limit 50) |
+| 46 | Total URL occurrences (docs+data) | 541 | .md + .yaml files | regex extraction |
+| 47 | Unique URLs (docs+data) | 284 | .md + .yaml files | set() dedup |
+| 48 | Unique domains (docs+data) | 134 | .md + .yaml files | urlparse + set() (incl ~7 templates) |
+| 49 | URL coverage COVERED | 264 | url-coverage.jsonl | allowlist domain match |
+| 50 | URL coverage NOT_COVERED | 15 | url-coverage.jsonl | allowlist domain miss |
+| 51 | Phantom paths: EXISTS | 33 | Q1/Q1.1 docs | pathlib exists() |
+| 52 | Phantom paths: PHANTOM | 0 | Q1/Q1.1 docs | pathlib exists() |
+| 53 | Phantom paths: PLANNED_FUTURE | 1 | Q1.1-REPORT.md | src/core/ingestion/ (Q2) |
+| 54 | Phantom paths: GLOB_PATTERN | 2 | Q1-REPORT.md | data/ingested/... templates |
+| 55 | Negative test cases exist | YES (2) | test_validators.py | test_invalid + test_missing |
+
+=== DISCREPANCY LOG ===
+
+| # | Claim | Claimed | Actual | Source | Verdict |
+|---|-------|---------|--------|--------|---------|
+| D1 | Q1 report AGE priority split | 10 P0, 10 P1, 5 P2 | 10 P0, 11 P1, 4 P2 | Q1-REPORT.md:14 | MISMATCH (P1/P2 shifted by 1) |
+| D2 | Q1.1 report allowlist lines | 319 | 355 | Q1.1-REPORT.md:48 | MISMATCH (grew after audit fixes) |
+| D3 | Q1.1 report tier_3 domains | 12 | 19 | Q1.1-REPORT.md:17 | MISMATCH (grew after AUDIT-03 fix) |
+| D4 | Q1.1 forensic report tier_3 | 12 | 19 | FORENSIC-AUDIT.md:84 | MISMATCH (not updated after fix) |
+| D5 | NOT_COVERED URLs in allowlist | 0 expected | 15 | url-coverage.jsonl | 15 NOT_COVERED, but most are non-gov reference links (github, readthedocs, json-schema.org, etc.) -- only sede.grancanaria.com is a potentially missing gov domain |
+
+=== CRITICAL DEPENDENCY NOTE ===
+
+pyyaml and jsonschema were NOT installed in the active Python environment.
+They had to be installed (pip install pyyaml jsonschema) before any validator
+scripts could execute. This means anyone cloning the repo and running
+scripts without first installing dependencies will see failures.
+The project has requirements.txt and requirements-dev.txt but these
+packages may not be in the default Python path.

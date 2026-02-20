@@ -1,0 +1,38 @@
+=== PREFLIGHT LOG ===
+Date: 2026-02-19 10:23:01 UTC
+
+--- python3 --version ---
+Python 3.11.8
+
+--- Relevant packages ---
+pytest 9.0.2
+pydantic 2.12.5
+jsonschema: NOT INSTALLED (ModuleNotFoundError)
+pyyaml: NOT INSTALLED (ModuleNotFoundError)
+ruff: installed (binary at /Users/andreaavila/.pyenv/shims/ruff)
+
+--- git rev-parse HEAD ---
+deb42a9688cec73c820fbe4265845a370bc72600
+
+--- pwd ---
+/Users/andreaavila/Documents/hakaton/civicaid-voice
+
+--- uname -a ---
+Darwin AndreaMAC.local 25.0.0 Darwin Kernel Version 25.0.0: Mon Aug 25 21:12:01 PDT 2025; root:xnu-12377.1.9~3/RELEASE_ARM64_T8132 arm64
+
+--- NOTES ---
+jsonschema and pyyaml were NOT installed in the current Python environment at preflight time.
+This means scripts/validate_source_registry.py, validate_policy.py, validate_proceduredoc_schema.py,
+and link_check.py all fail with ImportError without manual install.
+
+--- REMEDIATION ---
+Ran: python3 -m pip install pyyaml jsonschema
+Result: Successfully installed jsonschema-4.26.0, pyyaml-6.0.3, referencing-0.37.0, rpds-py-0.30.0
+After install, all 4 validator scripts execute successfully.
+
+--- POST-INSTALL PACKAGES ---
+pytest 9.0.2
+pydantic 2.12.5
+jsonschema 4.26.0 (installed during audit)
+pyyaml 6.0.3 (installed during audit)
+ruff: installed (binary at /Users/andreaavila/.pyenv/shims/ruff)

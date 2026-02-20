@@ -1,0 +1,27 @@
+=== URL EXTRACTION ===
+Method: Python regex r'https?://[^\s\)\]>"\'<,]+' across .md files, registry.yaml, local_seed.yaml
+Date: 2026-02-19
+
+Total URL occurrences: 541
+Unique URLs: 284
+Unique domains: 134
+
+NOTE: Some "domains" are template/example patterns (e.g., {sede}.gob.es,
+www.{municipio}.es, example.gob.es, SEPE.ES) -- not real domains. Subtracting
+approximately 7 template/backtick artifacts gives ~127 real unique domains.
+
+--- Source file breakdown ---
+  data/sources/local_seed.yaml: 60 URLs
+  data/sources/registry.yaml: 97 URLs
+  docs/.../q1-sources/evidence/references.md: 22 URLs
+  docs/.../q1-sources/ingestion/extraction-spec.md: 5 URLs
+  docs/.../q1-sources/ingestion/ingestion-playbook.md: 9 URLs
+  docs/.../q1-sources/ingestion/normalization-schema.md: 11 URLs
+  docs/.../q1-sources/link-governance/canonicalization.md: 41 URLs
+  docs/.../q1-sources/link-governance/link-checking-spec.md: 2 URLs
+  docs/.../q1-sources/source-registry/age.md: 122 URLs
+  docs/.../q1-sources/source-registry/ccaa.md: 121 URLs
+  docs/.../q1-sources/source-registry/local.md: 51 URLs
+
+--- Unique domains (134 total, includes ~7 template/artifacts) ---
+See full list in extraction script output.

@@ -1,0 +1,536 @@
+# URL Extract — DOCS+DATA
+# Generated: 2026-02-19
+# Audit: v6
+
+Total unique URLs found: 261
+  Artifact/Template (skipped): 6
+  Analyzable URLs: 255
+
+## By Category
+  GOV_ES: 249
+  NON_GOV_REF: 6
+
+## All URLs (deduplicated)
+
+  [ARTIFACT_TEMPLATE] http://example.es [SKIP]
+    domain: example.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:99
+  [ARTIFACT_TEMPLATE] https://example.gob.es/tramite [SKIP]
+    domain: example.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:321
+  [ARTIFACT_TEMPLATE] https://example.gob.es/tramite%20con%20espacios [SKIP]
+    domain: example.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:321
+  [ARTIFACT_TEMPLATE] https://sede.example.gob.es/tramite [SKIP]
+    domain: sede.example.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:139
+  [ARTIFACT_TEMPLATE] https://sede.example.gob.es/tramite?id=456 [SKIP]
+    domain: sede.example.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:140
+  [ARTIFACT_TEMPLATE] https://www [SKIP]
+    domain: www  |  source: docs/arreglos chat/fase-3/q1-sources/ingestion/ingestion-playbook.md:40
+  [GOV_ES] http://www.boe.es/buscar/
+    domain: www.boe.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:26
+  [GOV_ES] http://www.sepe.es/HomeSepe/Personas/
+    domain: www.sepe.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:12
+  [GOV_ES] https://SEPE.ES/HomeSepe/Personas
+    domain: sepe.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:107
+  [GOV_ES] https://administraciodigital.gencat.cat/ca/dades/dades-obertes/inici/
+    domain: administraciodigital.gencat.cat  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:88
+  [GOV_ES] https://administracion.gob.es/
+    domain: administracion.gob.es  |  source: data/sources/registry.yaml:26
+  [GOV_ES] https://administracion.gob.es/pag_Home/atencionCiudadana/SedesElectronicas-y-Webs-Publicas/websPublicas/WP_EELL/WP_Ayuntamientos.html
+    domain: administracion.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/local.md:70
+  [GOV_ES] https://administracion.gob.es/pag_Home/atencionCiudadana/SedesElectronicas-y-Webs-Publicas/websPublicas/WP_EELL/WP_Diputaciones.html
+    domain: administracion.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/local.md:180
+  [GOV_ES] https://administracion.gob.es/pag_Home/atencionCiudadana/SedesElectronicas-y-Webs-Publicas/websPublicas/WP_EELL/WP_Federaciones.html
+    domain: administracion.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/local.md:181
+  [GOV_ES] https://administracion.gob.es/pag_Home/espanaAdmon/SIA.html
+    domain: administracion.gob.es  |  source: data/sources/registry.yaml:10
+  [GOV_ES] https://administracion.gob.es/sitemap.xml
+    domain: administracion.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:64
+  [GOV_ES] https://administracionelectronica.gob.es/ctt/dir3
+    domain: administracionelectronica.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/local.md:160
+  [GOV_ES] https://administracionelectronica.gob.es/ctt/sia
+    domain: administracionelectronica.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:45
+  [GOV_ES] https://agenciatributaria.carm.es/web/guest/guiaprocedimiento
+    domain: agenciatributaria.carm.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:224
+  [GOV_ES] https://analisi.transparenciacatalunya.cat/
+    domain: analisi.transparenciacatalunya.cat  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:87
+  [GOV_ES] https://boe.es
+    domain: boe.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:37
+  [GOV_ES] https://boe.es/
+    domain: boe.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:37
+  [GOV_ES] https://boe.es/buscar?id=BOE-A-2023-12345
+    domain: boe.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:73
+  [GOV_ES] https://boe.es/buscar?tipo=leyes
+    domain: boe.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:148
+  [GOV_ES] https://boe.es/datosabiertos/
+    domain: boe.es  |  source: docs/arreglos chat/fase-3/q1-sources/ingestion/extraction-spec.md:257
+  [GOV_ES] https://boe.es/datosabiertos/api/boe/sumario/
+    domain: boe.es  |  source: data/sources/registry.yaml:94
+  [GOV_ES] https://boe.es/datosabiertos/api/boe/sumario/YYYYMMDD
+    domain: boe.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:481
+  [GOV_ES] https://caib.es/webgoib/es/quieres-hacer-tus-tramites-de-forma-telematica
+    domain: caib.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:254
+  [GOV_ES] https://carpetaciudadana.gob.es/
+    domain: carpetaciudadana.gob.es  |  source: data/sources/registry.yaml:45
+  [GOV_ES] https://clave.gob.es/
+    domain: clave.gob.es  |  source: data/sources/registry.yaml:61
+  [GOV_ES] https://consejodetransparencia.es/
+    domain: consejodetransparencia.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:368
+  [GOV_ES] https://datos.gob.es/
+    domain: datos.gob.es  |  source: data/sources/registry.yaml:408
+  [GOV_ES] https://datos.gob.es/apidata/catalog/dataset
+    domain: datos.gob.es  |  source: data/sources/registry.yaml:409
+  [GOV_ES] https://datos.gob.es/en/catalogo/a09002970-tramites-de-la-generalitat-de-catalunya
+    domain: datos.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:86
+  [GOV_ES] https://datos.gob.es/en/catalogo/e05188501-directorio-comun-de-unidades-organicas-y-oficinas-dir3
+    domain: datos.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/local.md:161
+  [GOV_ES] https://datos.gob.es/en/catalogo/ea0010587-relacion-de-municipios-y-sus-codigos-por-provincias
+    domain: datos.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/local.md:171
+  [GOV_ES] https://datos.madrid.es/
+    domain: datos.madrid.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:72
+  [GOV_ES] https://euskadi.eus/tramite/es/12345
+    domain: euskadi.eus  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:168
+  [GOV_ES] https://euskadi.eus/tramite/eu/12345
+    domain: euskadi.eus  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:170
+  [GOV_ES] https://expinterweb.inclusion.gob.es/
+    domain: expinterweb.inclusion.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:229
+  [GOV_ES] https://governobert.gencat.cat/es/transparencia/Organitzacio-i-normativa/cataleg-de-serveis/cataleg-de-procediments/
+    domain: governobert.gencat.cat  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:89
+  [GOV_ES] https://gvaoberta.gva.es/es/tramites
+    domain: gvaoberta.gva.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:121
+  [GOV_ES] https://icp.administracionelectronica.gob.es/icpplus/index.html
+    domain: icp.administracionelectronica.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:228
+  [GOV_ES] https://imserso.es/
+    domain: imserso.es  |  source: data/sources/registry.yaml:254
+  [GOV_ES] https://imv.seg-social.es/
+    domain: imv.seg-social.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:325
+  [GOV_ES] https://inclusion.gob.es/extranjeria
+    domain: inclusion.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:83
+  [GOV_ES] https://inclusion.gob.es/extranjeria#requisitos
+    domain: inclusion.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:83
+  [GOV_ES] https://masinformacioncarpeta.carpetaciudadana.gob.es/
+    domain: masinformacioncarpeta.carpetaciudadana.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:75
+  [GOV_ES] https://miprincipado.asturias.es/
+    domain: miprincipado.asturias.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:289
+  [GOV_ES] https://miprincipado.asturias.es/consultar-tramites
+    domain: miprincipado.asturias.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:291
+  [GOV_ES] https://mivau.sede.gob.es/
+    domain: mivau.sede.gob.es  |  source: data/sources/registry.yaml:273
+  [GOV_ES] https://muface.es/
+    domain: muface.es  |  source: data/sources/registry.yaml:236
+  [GOV_ES] https://muface.sede.gob.es/
+    domain: muface.sede.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:246
+  [GOV_ES] https://muface.sede.gob.es/procedimientos
+    domain: muface.sede.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:252
+  [GOV_ES] https://oficinavirtual.cordoba.es/catalogo-de-tramites-y-servicios
+    domain: oficinavirtual.cordoba.es  |  source: data/sources/local_seed.yaml:254
+  [GOV_ES] https://ovt.gencat.cat/carpetaciutadana360
+    domain: ovt.gencat.cat  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:83
+  [GOV_ES] https://portal.seg-social.gob.es/wps/portal/importass/
+    domain: portal.seg-social.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:504
+  [GOV_ES] https://portal.seg-social.gob.es/wps/portal/importass/importass/inicio
+    domain: portal.seg-social.gob.es  |  source: data/sources/registry.yaml:427
+  [GOV_ES] https://prestaciones.seg-social.es/
+    domain: prestaciones.seg-social.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:182
+  [GOV_ES] https://proteccion-asilo.interior.gob.es/
+    domain: proteccion-asilo.interior.gob.es  |  source: data/sources/registry.yaml:375
+  [GOV_ES] https://sede.administracion.gob.es/
+    domain: sede.administracion.gob.es  |  source: data/sources/registry.yaml:27
+  [GOV_ES] https://sede.agenciatributaria.gob.es/
+    domain: sede.agenciatributaria.gob.es  |  source: data/sources/registry.yaml:184
+  [GOV_ES] https://sede.agenciatributaria.gob.es/Sede/iva/suministro-inmediato-informacion/informacion-tecnica/wsdl-servicios-web.html
+    domain: sede.agenciatributaria.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:205
+  [GOV_ES] https://sede.asturias.es/
+    domain: sede.asturias.es  |  source: data/sources/registry.yaml:693
+  [GOV_ES] https://sede.asturias.es/todos-los-servicios-y-tramites
+    domain: sede.asturias.es  |  source: data/sources/registry.yaml:694
+  [GOV_ES] https://sede.cantabria.es/sede/
+    domain: sede.cantabria.es  |  source: data/sources/registry.yaml:732
+  [GOV_ES] https://sede.cantabria.es/sede/catalogo-de-tramites
+    domain: sede.cantabria.es  |  source: data/sources/registry.yaml:733
+  [GOV_ES] https://sede.cantabria.es/sede/tablon-electronico-de-anuncios
+    domain: sede.cantabria.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:328
+  [GOV_ES] https://sede.carm.es/
+    domain: sede.carm.es  |  source: data/sources/registry.yaml:617
+  [GOV_ES] https://sede.carm.es/web/pagina?IDCONTENIDO=40288&IDTIPO=100&RASTRO=c$m
+    domain: sede.carm.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:223
+  [GOV_ES] https://sede.ceuta.es/
+    domain: sede.ceuta.es  |  source: data/sources/registry.yaml:770
+  [GOV_ES] https://sede.comunidad.madrid/
+    domain: sede.comunidad.madrid  |  source: data/sources/registry.yaml:444
+  [GOV_ES] https://sede.comunidad.madrid/buscador
+    domain: sede.comunidad.madrid  |  source: data/sources/registry.yaml:445
+  [GOV_ES] https://sede.comunidad.madrid/guia-tramitacion-electronica
+    domain: sede.comunidad.madrid  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:66
+  [GOV_ES] https://sede.cordoba.es/
+    domain: sede.cordoba.es  |  source: data/sources/local_seed.yaml:252
+  [GOV_ES] https://sede.coruna.gal/
+    domain: sede.coruna.gal  |  source: data/sources/local_seed.yaml:366
+  [GOV_ES] https://sede.coruna.gal/sede/es/tramites-y-servicios-electronicos
+    domain: sede.coruna.gal  |  source: data/sources/local_seed.yaml:368
+  [GOV_ES] https://sede.dgt.gob.es/
+    domain: sede.dgt.gob.es  |  source: data/sources/registry.yaml:202
+  [GOV_ES] https://sede.elche.es/
+    domain: sede.elche.es  |  source: data/sources/local_seed.yaml:404
+  [GOV_ES] https://sede.elche.es/sta/CarpetaPublic/doEvent?APP_CODE=STA&PAGE_CODE=CATALOGO
+    domain: sede.elche.es  |  source: data/sources/local_seed.yaml:406
+  [GOV_ES] https://sede.gobiernodecanarias.org/sede/
+    domain: sede.gobiernodecanarias.org  |  source: data/sources/registry.yaml:522
+  [GOV_ES] https://sede.granada.org/
+    domain: sede.granada.org  |  source: data/sources/local_seed.yaml:385
+  [GOV_ES] https://sede.grancanaria.com/
+    domain: sede.grancanaria.com  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:145
+  [GOV_ES] https://sede.gva.es/es/
+    domain: sede.gva.es  |  source: data/sources/registry.yaml:502
+  [GOV_ES] https://sede.imserso.gob.es/
+    domain: sede.imserso.gob.es  |  source: data/sources/registry.yaml:255
+  [GOV_ES] https://sede.inclusion.gob.es/
+    domain: sede.inclusion.gob.es  |  source: data/sources/registry.yaml:325
+  [GOV_ES] https://sede.inclusion.gob.es/w/solicitud-imv
+    domain: sede.inclusion.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:324
+  [GOV_ES] https://sede.madrid.es/
+    domain: sede.madrid.es  |  source: data/sources/local_seed.yaml:43
+  [GOV_ES] https://sede.madrid.es/portal/site/tramites
+    domain: sede.madrid.es  |  source: data/sources/local_seed.yaml:45
+  [GOV_ES] https://sede.malaga.eu/
+    domain: sede.malaga.eu  |  source: data/sources/local_seed.yaml:138
+  [GOV_ES] https://sede.melilla.es/
+    domain: sede.melilla.es  |  source: data/sources/registry.yaml:788
+  [GOV_ES] https://sede.melilla.es/sta/CarpetaPublic/doEvent?APP_CODE=STA&PAGE_CODE=CATALOGO
+    domain: sede.melilla.es  |  source: data/sources/registry.yaml:789
+  [GOV_ES] https://sede.melilla.es/sta/CarpetaPublic/doEvent?APP_CODE=STA&PAGE_CODE=PTS2_MICARPETACIUDADANA
+    domain: sede.melilla.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:370
+  [GOV_ES] https://sede.melilla.es/sta/CarpetaPublic/doEvent?APP_CODE=STA&PAGE_CODE=PTS2_TRAMDESTACADOS
+    domain: sede.melilla.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:369
+  [GOV_ES] https://sede.mir.gob.es/
+    domain: sede.mir.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:374
+  [GOV_ES] https://sede.mjusticia.gob.es/
+    domain: sede.mjusticia.gob.es  |  source: data/sources/registry.yaml:290
+  [GOV_ES] https://sede.mjusticia.gob.es/informacion-ayuda/faq-registro-civil
+    domain: sede.mjusticia.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:403
+  [GOV_ES] https://sede.mjusticia.gob.es/tramites
+    domain: sede.mjusticia.gob.es  |  source: data/sources/registry.yaml:391
+  [GOV_ES] https://sede.mjusticia.gob.es/tramites/certificado-matrimonio
+    domain: sede.mjusticia.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:392
+  [GOV_ES] https://sede.mjusticia.gob.es/tramites/certificado-nacimiento
+    domain: sede.mjusticia.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:391
+  [GOV_ES] https://sede.muface.gob.es/
+    domain: sede.muface.gob.es  |  source: data/sources/registry.yaml:237
+  [GOV_ES] https://sede.murcia.es/
+    domain: sede.murcia.es  |  source: data/sources/local_seed.yaml:157
+  [GOV_ES] https://sede.policia.gob.es/
+    domain: sede.policia.gob.es  |  source: data/sources/registry.yaml:219
+  [GOV_ES] https://sede.policia.gob.es/portalCiudadano/
+    domain: sede.policia.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:489
+  [GOV_ES] https://sede.policia.gob.es/portalCiudadano/_es/tramites_extranjeria.php
+    domain: sede.policia.gob.es  |  source: data/sources/registry.yaml:218
+  [GOV_ES] https://sede.seg-social.gob.es/
+    domain: sede.seg-social.gob.es  |  source: data/sources/registry.yaml:166
+  [GOV_ES] https://sede.seg-social.gob.es/page?lang=es
+    domain: sede.seg-social.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:13
+  [GOV_ES] https://sede.seg-social.gob.es/page?lang=es&utm_source=google
+    domain: sede.seg-social.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:13
+  [GOV_ES] https://sede.seg-social.gob.es/wps/portal/wss/internet/Trabajadores/PrestacionesPensionesTrabajadores/65850d68-
+    domain: sede.seg-social.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:306
+  [GOV_ES] https://sede.sepe.gob.es/
+    domain: sede.sepe.gob.es  |  source: data/sources/registry.yaml:148
+  [GOV_ES] https://sede.sepe.gob.es/portalSede/flows/tramiteCitaPrevia
+    domain: sede.sepe.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/ingestion/normalization-schema.md:61
+  [GOV_ES] https://sede.sepe.gob.es/portalSede/flows/tramiteSolicitud
+    domain: sede.sepe.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/ingestion/normalization-schema.md:29
+  [GOV_ES] https://sede.sevilla.org/
+    domain: sede.sevilla.org  |  source: data/sources/local_seed.yaml:100
+  [GOV_ES] https://sede.valencia.es/sede/
+    domain: sede.valencia.es  |  source: data/sources/local_seed.yaml:81
+  [GOV_ES] https://sede.valencia.es/sede/menuContent.xhtml/PROCEDIMIENTOS?lang=1
+    domain: sede.valencia.es  |  source: data/sources/local_seed.yaml:83
+  [GOV_ES] https://sede.valladolid.es/
+    domain: sede.valladolid.es  |  source: data/sources/local_seed.yaml:271
+  [GOV_ES] https://sede.vigo.org/
+    domain: sede.vigo.org  |  source: data/sources/local_seed.yaml:290
+  [GOV_ES] https://sede.xunta.gal/es/portada
+    domain: sede.xunta.gal  |  source: data/sources/registry.yaml:597
+  [GOV_ES] https://sede.xunta.gal/es/tramites-e-servizos/modelos-xenericos
+    domain: sede.xunta.gal  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:213
+  [GOV_ES] https://sede.xunta.gal/guia-de-procedementos-e-servizos
+    domain: sede.xunta.gal  |  source: data/sources/registry.yaml:598
+  [GOV_ES] https://sedeelectronica.alicante.es/
+    domain: sedeelectronica.alicante.es  |  source: data/sources/local_seed.yaml:233
+  [GOV_ES] https://sedeelectronica.alicante.es/servicios.php
+    domain: sedeelectronica.alicante.es  |  source: data/sources/local_seed.yaml:235
+  [GOV_ES] https://sedeelectronica.gijon.es/
+    domain: sedeelectronica.gijon.es  |  source: data/sources/local_seed.yaml:309
+  [GOV_ES] https://sedeelectronica.laspalmasgc.es/
+    domain: sedeelectronica.laspalmasgc.es  |  source: data/sources/local_seed.yaml:196
+  [GOV_ES] https://sedeelectronica.vitoria-gasteiz.org/
+    domain: sedeelectronica.vitoria-gasteiz.org  |  source: data/sources/local_seed.yaml:347
+  [GOV_ES] https://sedeelectronica.vitoria-gasteiz.org/portal/es/tramites
+    domain: sedeelectronica.vitoria-gasteiz.org  |  source: data/sources/local_seed.yaml:349
+  [GOV_ES] https://seg-social.es/imv
+    domain: seg-social.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:115
+  [GOV_ES] https://sepe.es/HomeSepe/Personas
+    domain: sepe.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:12
+  [GOV_ES] https://sepe.es/HomeSepe/Personas/
+    domain: sepe.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:36
+  [GOV_ES] https://sepe.es/page?lang=es
+    domain: sepe.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:70
+  [GOV_ES] https://sepe.es/page?utm_source=twitter&lang=es
+    domain: sepe.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:70
+  [GOV_ES] https://servicios.ine.es/wstempus/js/ES/
+    domain: servicios.ine.es  |  source: data/sources/registry.yaml:308
+  [GOV_ES] https://servicios.ine.es/wstempus/js/ES/OPERACIONES_DISPONIBLES
+    domain: servicios.ine.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:314
+  [GOV_ES] https://seuelectronica.ajuntament.barcelona.cat/es
+    domain: seuelectronica.ajuntament.barcelona.cat  |  source: data/sources/local_seed.yaml:62
+  [GOV_ES] https://seuelectronica.ajuntament.barcelona.cat/es/tramites-telematicos
+    domain: seuelectronica.ajuntament.barcelona.cat  |  source: data/sources/local_seed.yaml:64
+  [GOV_ES] https://seuelectronica.caib.es/
+    domain: seuelectronica.caib.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:252
+  [GOV_ES] https://seuelectronica.l-h.cat/
+    domain: seuelectronica.l-h.cat  |  source: data/sources/local_seed.yaml:328
+  [GOV_ES] https://seuelectronica.l-h.cat/tramits/r/tramits_2.aspx?id=2
+    domain: seuelectronica.l-h.cat  |  source: data/sources/local_seed.yaml:330
+  [GOV_ES] https://seuelectronica.palma.cat/
+    domain: seuelectronica.palma.cat  |  source: data/sources/local_seed.yaml:177
+  [GOV_ES] https://tramites.juntaex.es/
+    domain: tramites.juntaex.es  |  source: data/sources/registry.yaml:674
+  [GOV_ES] https://tramites.juntaex.es/sta/CarpetaPublic/doEvent?APP_CODE=STA&PAGE_CODE=CATALOGO
+    domain: tramites.juntaex.es  |  source: data/sources/registry.yaml:675
+  [GOV_ES] https://tramits.gencat.cat/
+    domain: tramits.gencat.cat  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:82
+  [GOV_ES] https://transparencia.gob.es/
+    domain: transparencia.gob.es  |  source: data/sources/registry.yaml:359
+  [GOV_ES] https://web.gencat.cat/
+    domain: web.gencat.cat  |  source: data/sources/registry.yaml:462
+  [GOV_ES] https://web.gencat.cat/ca/seu-electronica/
+    domain: web.gencat.cat  |  source: data/sources/registry.yaml:463
+  [GOV_ES] https://web.gencat.cat/ca/seu-electronica/tramits-i-serveis
+    domain: web.gencat.cat  |  source: data/sources/registry.yaml:464
+  [GOV_ES] https://web.gencat.cat/ca/tramits/tramit-12345
+    domain: web.gencat.cat  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:165
+  [GOV_ES] https://web.gencat.cat/en/tramits/tramit-12345
+    domain: web.gencat.cat  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:166
+  [GOV_ES] https://web.gencat.cat/es/tramits/tramit-12345
+    domain: web.gencat.cat  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:163
+  [GOV_ES] https://web.larioja.org/oficina-electronica/
+    domain: web.larioja.org  |  source: data/sources/registry.yaml:752
+  [GOV_ES] https://web.larioja.org/oficina-electronica/ultimos-dias
+    domain: web.larioja.org  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:339
+  [GOV_ES] https://web.larioja.org/oficinaelectronica
+    domain: web.larioja.org  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:337
+  [GOV_ES] https://web.larioja.org/sede-electronica
+    domain: web.larioja.org  |  source: data/sources/registry.yaml:751
+  [GOV_ES] https://www.administraciondejusticia.gob.es/carpeta-justicia
+    domain: www.administraciondejusticia.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:293
+  [GOV_ES] https://www.agenciatributaria.es/
+    domain: www.agenciatributaria.es  |  source: data/sources/registry.yaml:183
+  [GOV_ES] https://www.aoc.cat/
+    domain: www.aoc.cat  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:93
+  [GOV_ES] https://www.aragon.es/
+    domain: www.aragon.es  |  source: data/sources/registry.yaml:635
+  [GOV_ES] https://www.aragon.es/es/w/herramientas-digitales-catalogo-de-servicios-y-procedimientos
+    domain: www.aragon.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:238
+  [GOV_ES] https://www.aragon.es/tramites
+    domain: www.aragon.es  |  source: data/sources/registry.yaml:637
+  [GOV_ES] https://www.aragon.es/tramites/guia-rapida-de-ayuda-al-ciudadano
+    domain: www.aragon.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:239
+  [GOV_ES] https://www.aragon.es/tramites/servicios-de-la-sede-electronica
+    domain: www.aragon.es  |  source: data/sources/registry.yaml:636
+  [GOV_ES] https://www.asturias.es/
+    domain: www.asturias.es  |  source: data/sources/registry.yaml:692
+  [GOV_ES] https://www.bilbao.eus/eudala
+    domain: www.bilbao.eus  |  source: data/sources/local_seed.yaml:214
+  [GOV_ES] https://www.boe.es/
+    domain: www.boe.es  |  source: data/sources/registry.yaml:93
+  [GOV_ES] https://www.boe.es/boe/dias/2024/01/20/pdfs/BOE-A-2024-12345.pdf
+    domain: www.boe.es  |  source: docs/arreglos chat/fase-3/q1-sources/ingestion/extraction-spec.md:272
+  [GOV_ES] https://www.boe.es/buscar/
+    domain: www.boe.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:26
+  [GOV_ES] https://www.boe.es/buscar/act.php?id=BOE-A-2023-12345
+    domain: www.boe.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:297
+  [GOV_ES] https://www.boe.es/buscar/legislacion.php
+    domain: www.boe.es  |  source: data/sources/registry.yaml:112
+  [GOV_ES] https://www.boe.es/datosabiertos/api/api.php
+    domain: www.boe.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:115
+  [GOV_ES] https://www.boe.es/datosabiertos/api/legislacion-consolidada
+    domain: www.boe.es  |  source: data/sources/registry.yaml:113
+  [GOV_ES] https://www.boe.es/datosabiertos/documentos/APIconsolidada.pdf
+    domain: www.boe.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:141
+  [GOV_ES] https://www.boe.es/datosabiertos/documentos/APIsumarioBOE.pdf
+    domain: www.boe.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:124
+  [GOV_ES] https://www.boe.es/datosabiertos/faq/consolidada.php
+    domain: www.boe.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:144
+  [GOV_ES] https://www.boe.es/diario_boe/
+    domain: www.boe.es  |  source: data/sources/registry.yaml:130
+  [GOV_ES] https://www.boe.es/diario_boe/txt.php?id=BOE-A-2023-12345
+    domain: www.boe.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:298
+  [GOV_ES] https://www.boe.es/diario_boe/txt.php?id=BOE-A-2024-12345
+    domain: www.boe.es  |  source: docs/arreglos chat/fase-3/q1-sources/ingestion/extraction-spec.md:273
+  [GOV_ES] https://www.boe.es/rss/
+    domain: www.boe.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:122
+  [GOV_ES] https://www.boe.es/sitemap.xml
+    domain: www.boe.es  |  source: docs/arreglos chat/fase-3/q1-sources/ingestion/ingestion-playbook.md:41
+  [GOV_ES] https://www.caib.es/
+    domain: www.caib.es  |  source: data/sources/registry.yaml:654
+  [GOV_ES] https://www.caib.es/seucaib/es/
+    domain: www.caib.es  |  source: data/sources/registry.yaml:655
+  [GOV_ES] https://www.cantabria.es/
+    domain: www.cantabria.es  |  source: data/sources/registry.yaml:731
+  [GOV_ES] https://www.cantabria.es/sede-electronica
+    domain: www.cantabria.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:321
+  [GOV_ES] https://www.carm.es/
+    domain: www.carm.es  |  source: data/sources/registry.yaml:616
+  [GOV_ES] https://www.carm.es/guiadeservicios
+    domain: www.carm.es  |  source: data/sources/registry.yaml:618
+  [GOV_ES] https://www.catastro.hacienda.gob.es/
+    domain: www.catastro.hacienda.gob.es  |  source: data/sources/registry.yaml:341
+  [GOV_ES] https://www.catastro.meh.es/ws/webservices_libres.pdf
+    domain: www.catastro.meh.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:348
+  [GOV_ES] https://www.ceuta.es/
+    domain: www.ceuta.es  |  source: data/sources/registry.yaml:769
+  [GOV_ES] https://www.comunidad.madrid/
+    domain: www.comunidad.madrid  |  source: data/sources/registry.yaml:443
+  [GOV_ES] https://www.comunidad.madrid/sitemap
+    domain: www.comunidad.madrid  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:68
+  [GOV_ES] https://www.dgt.es/
+    domain: www.dgt.es  |  source: data/sources/registry.yaml:201
+  [GOV_ES] https://www.euskadi.eus/
+    domain: www.euskadi.eus  |  source: data/sources/registry.yaml:539
+  [GOV_ES] https://www.euskadi.eus/inicio/
+    domain: www.euskadi.eus  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:158
+  [GOV_ES] https://www.euskadi.eus/mi-carpeta/web01-sede/es/
+    domain: www.euskadi.eus  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:159
+  [GOV_ES] https://www.euskadi.eus/sede-electronica/
+    domain: www.euskadi.eus  |  source: data/sources/registry.yaml:540
+  [GOV_ES] https://www.femp.es/
+    domain: www.femp.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/local.md:187
+  [GOV_ES] https://www.gobiernodecanarias.org/
+    domain: www.gobiernodecanarias.org  |  source: data/sources/registry.yaml:521
+  [GOV_ES] https://www.granada.org/inicio.nsf/mn/s03
+    domain: www.granada.org  |  source: data/sources/local_seed.yaml:387
+  [GOV_ES] https://www.gva.es/
+    domain: www.gva.es  |  source: data/sources/registry.yaml:501
+  [GOV_ES] https://www.gva.es/es/inicio/atencion_ciudadano/buscadores
+    domain: www.gva.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:119
+  [GOV_ES] https://www.gva.es/es/inicio/atencion_ciudadano/buscadores/tramites_servicios
+    domain: www.gva.es  |  source: data/sources/registry.yaml:503
+  [GOV_ES] https://www.gva.es/es/inicio/procedimientos?id_proc=XXXXX
+    domain: www.gva.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:128
+  [GOV_ES] https://www.gva.es/es/web/atencio_ciutadania/inicio/atencion_ciudadano/novedades/nov_tram_serv
+    domain: www.gva.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:120
+  [GOV_ES] https://www.illesbalears.cat/sites/suporttecnic/es/introduccio-17235/
+    domain: www.illesbalears.cat  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:259
+  [GOV_ES] https://www.inclusion.gob.es/web/imv
+    domain: www.inclusion.gob.es  |  source: data/sources/registry.yaml:324
+  [GOV_ES] https://www.ine.es/
+    domain: www.ine.es  |  source: data/sources/registry.yaml:307
+  [GOV_ES] https://www.ine.es/daco/daco42/codmun/codmun00i.htm
+    domain: www.ine.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/local.md:170
+  [GOV_ES] https://www.ine.es/dyngs/DataLab/manual.html?cid=45
+    domain: www.ine.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:308
+  [GOV_ES] https://www.ine.es/dyngs/DataLab/manual.html?cid=47
+    domain: www.ine.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:314
+  [GOV_ES] https://www.ine.es/dyngs/INEbase/es/operacion.htm?c=Estadistica_C&cid=1254736177031&menu=ultiDatos&idp=1254734710990
+    domain: www.ine.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/local.md:169
+  [GOV_ES] https://www.ine.es/dyngs/Prensa/ECP4T24.htm
+    domain: www.ine.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:657
+  [GOV_ES] https://www.ine.es/dyngs/Prensa/EMCR2024.htm
+    domain: www.ine.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:658
+  [GOV_ES] https://www.interior.gob.es/opencms/es/servicios-al-ciudadano/tramites-y-gestiones/oficina-de-asilo-y-refugio/
+    domain: www.interior.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:375
+  [GOV_ES] https://www.jccm.es/
+    domain: www.jccm.es  |  source: data/sources/registry.yaml:577
+  [GOV_ES] https://www.jccm.es/index.php/tu-carpeta
+    domain: www.jccm.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:192
+  [GOV_ES] https://www.jccm.es/servicios/registro-electronico
+    domain: www.jccm.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:197
+  [GOV_ES] https://www.jccm.es/tramites
+    domain: www.jccm.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:191
+  [GOV_ES] https://www.jccm.es/tramites/buscador
+    domain: www.jccm.es  |  source: data/sources/registry.yaml:579
+  [GOV_ES] https://www.jcyl.es/
+    domain: www.jcyl.es  |  source: data/sources/registry.yaml:558
+  [GOV_ES] https://www.juntadeandalucia.es/
+    domain: www.juntadeandalucia.es  |  source: data/sources/registry.yaml:482
+  [GOV_ES] https://www.juntadeandalucia.es/servicios.html
+    domain: www.juntadeandalucia.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:104
+  [GOV_ES] https://www.juntadeandalucia.es/servicios/sede.html
+    domain: www.juntadeandalucia.es  |  source: data/sources/registry.yaml:483
+  [GOV_ES] https://www.juntadeandalucia.es/servicios/sede/tramites.html
+    domain: www.juntadeandalucia.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:102
+  [GOV_ES] https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos.html
+    domain: www.juntadeandalucia.es  |  source: data/sources/registry.yaml:484
+  [GOV_ES] https://www.juntadeandalucia.es/servicios/tramites/presentacion-documentos/peg.html
+    domain: www.juntadeandalucia.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:110
+  [GOV_ES] https://www.juntaex.es/
+    domain: www.juntaex.es  |  source: data/sources/registry.yaml:673
+  [GOV_ES] https://www.juntaex.es/tramites
+    domain: www.juntaex.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:269
+  [GOV_ES] https://www.juntaex.es/tramites/ayuda
+    domain: www.juntaex.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:270
+  [GOV_ES] https://www.larioja.org/
+    domain: www.larioja.org  |  source: data/sources/registry.yaml:750
+  [GOV_ES] https://www.laspalmasgc.es/es/online/sede-electronica/catalogo-de-tramites/
+    domain: www.laspalmasgc.es  |  source: data/sources/local_seed.yaml:195
+  [GOV_ES] https://www.melilla.es/
+    domain: www.melilla.es  |  source: data/sources/registry.yaml:787
+  [GOV_ES] https://www.mivau.gob.es/
+    domain: www.mivau.gob.es  |  source: data/sources/registry.yaml:272
+  [GOV_ES] https://www.mivau.gob.es/vivienda/bono-alquiler-joven
+    domain: www.mivau.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:277
+  [GOV_ES] https://www.mjusticia.gob.es/
+    domain: www.mjusticia.gob.es  |  source: data/sources/registry.yaml:289
+  [GOV_ES] https://www.mjusticia.gob.es/es/ciudadania/estado-civil/registro-civil
+    domain: www.mjusticia.gob.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:393
+  [GOV_ES] https://www.navarra.es/
+    domain: www.navarra.es  |  source: data/sources/registry.yaml:711
+  [GOV_ES] https://www.navarra.es/es/tramites
+    domain: www.navarra.es  |  source: data/sources/registry.yaml:712
+  [GOV_ES] https://www.navarra.es/es/tramites/buscador
+    domain: www.navarra.es  |  source: data/sources/registry.yaml:713
+  [GOV_ES] https://www.navarra.es/es/tramites/on/-/line/registro-general-electronico
+    domain: www.navarra.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:306
+  [GOV_ES] https://www.palma.es/es/gestiones-y-tramites
+    domain: www.palma.es  |  source: data/sources/local_seed.yaml:176
+  [GOV_ES] https://www.sedecatastro.gob.es/
+    domain: www.sedecatastro.gob.es  |  source: data/sources/registry.yaml:342
+  [GOV_ES] https://www.seg-social.es/
+    domain: www.seg-social.es  |  source: data/sources/registry.yaml:165
+  [GOV_ES] https://www.seg-social.es/imv
+    domain: www.seg-social.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:116
+  [GOV_ES] https://www.seg-social.es/wps/portal/wss/internet/Trabajadores/
+    domain: www.seg-social.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:117
+  [GOV_ES] https://www.sepe.es
+    domain: www.sepe.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:186
+  [GOV_ES] https://www.sepe.es/
+    domain: www.sepe.es  |  source: data/sources/registry.yaml:147
+  [GOV_ES] https://www.sepe.es/HomeSepe/Personas
+    domain: www.sepe.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:187
+  [GOV_ES] https://www.sepe.es/HomeSepe/Personas/
+    domain: www.sepe.es  |  source: docs/arreglos chat/fase-3/q1-sources/ingestion/extraction-spec.md:682
+  [GOV_ES] https://www.sepe.es/HomeSepe/Personas/Distribucion-Prestaciones/he-dejado-de-trabajar.html
+    domain: www.sepe.es  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/canonicalization.md:185
+  [GOV_ES] https://www.tramitacastillayleon.jcyl.es/web/es/sede-electronica.html
+    domain: www.tramitacastillayleon.jcyl.es  |  source: data/sources/registry.yaml:559
+  [GOV_ES] https://www.tramitacastillayleon.jcyl.es/web/es/tramites-servicios.html
+    domain: www.tramitacastillayleon.jcyl.es  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:176
+  [GOV_ES] https://www.tramitacastillayleon.jcyl.es/web/es/tramites-servicios/buscador-tramites-servicios.html
+    domain: www.tramitacastillayleon.jcyl.es  |  source: data/sources/registry.yaml:560
+  [GOV_ES] https://www.xunta.gal/
+    domain: www.xunta.gal  |  source: data/sources/registry.yaml:596
+  [GOV_ES] https://www.xunta.gal/es/catalogo-sistemas-dixitais
+    domain: www.xunta.gal  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/ccaa.md:207
+  [GOV_ES] https://www.zaragoza.es/sede/
+    domain: www.zaragoza.es  |  source: data/sources/local_seed.yaml:119
+  [GOV_ES] https://www.zaragoza.es/sede/portal/tramites-servicios/
+    domain: www.zaragoza.es  |  source: data/sources/local_seed.yaml:121
+  [NON_GOV_REF] https://github.com/civicaid
+    domain: github.com  |  source: docs/arreglos chat/fase-3/q1-sources/ingestion/ingestion-playbook.md:100
+  [NON_GOV_REF] https://github.com/civicaid-voice
+    domain: github.com  |  source: docs/arreglos chat/fase-3/q1-sources/link-governance/link-checking-spec.md:34
+  [NON_GOV_REF] https://github.com/datosgobes
+    domain: github.com  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:409
+  [NON_GOV_REF] https://help.unhcr.org/spain/
+    domain: help.unhcr.org  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:387
+  [NON_GOV_REF] https://json-schema.org/draft/2020-12/schema
+    domain: json-schema.org  |  source: docs/arreglos chat/fase-3/q1-sources/ingestion/normalization-schema.md:526
+  [NON_GOV_REF] https://ropenspain.github.io/CatastRo/
+    domain: ropenspain.github.io  |  source: docs/arreglos chat/fase-3/q1-sources/source-registry/age.md:351

@@ -1,0 +1,29 @@
+# URL Coverage Summary — ENFORCEMENT
+# Generated: 2026-02-19
+# Audit: v6
+
+SCOPE: ENFORCEMENT
+
+## Counts
+  Unique URLs extracted:    125
+  Artifact/Template (skip): 0
+  Analyzable URLs:          125
+
+  COVERED:          125
+  NOT_COVERED:      0
+    GOV_NOT_COVERED:     0
+    NON_GOV_NOT_COVERED: 0
+
+## Coverage Rate
+  100.0% of analyzable URLs are COVERED
+
+## Tier Breakdown (COVERED only)
+  tier_1: 36
+  tier_2: 61
+  tier_3: 28
+
+## Category Breakdown
+  GOV_ES: 125
+
+## GOV COVERAGE: PASS
+  All government URLs in this scope are COVERED by the allowlist.

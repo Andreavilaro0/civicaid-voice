@@ -1,0 +1,10 @@
+=== ruff check scripts/ tests/ --select E,F,W --ignore E501 ===
+Command: python3 -m ruff check scripts/ tests/ --select E,F,W --ignore E501
+Exit code: 0
+
+All checks passed!
+
+GROUND TRUTH:
+  0 lint errors found in scripts/ and tests/
+  Rules checked: E (pycodestyle errors), F (pyflakes), W (pycodestyle warnings)
+  Ignored: E501 (line too long)

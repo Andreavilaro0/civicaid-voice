@@ -1,0 +1,263 @@
+# URL Extract — ENFORCEMENT
+# Generated: 2026-02-19
+# Audit: v6
+
+Total unique URLs found: 125
+  Artifact/Template (skipped): 0
+  Analyzable URLs: 125
+
+## By Category
+  GOV_ES: 125
+
+## All URLs (deduplicated)
+
+  [GOV_ES] https://administracion.gob.es/
+    domain: administracion.gob.es  |  source: data/sources/registry.yaml:26
+  [GOV_ES] https://administracion.gob.es/pag_Home/espanaAdmon/SIA.html
+    domain: administracion.gob.es  |  source: data/sources/registry.yaml:10
+  [GOV_ES] https://boe.es/datosabiertos/api/boe/sumario/
+    domain: boe.es  |  source: data/sources/registry.yaml:94
+  [GOV_ES] https://carpetaciudadana.gob.es/
+    domain: carpetaciudadana.gob.es  |  source: data/sources/registry.yaml:45
+  [GOV_ES] https://clave.gob.es/
+    domain: clave.gob.es  |  source: data/sources/registry.yaml:61
+  [GOV_ES] https://datos.gob.es/
+    domain: datos.gob.es  |  source: data/sources/registry.yaml:408
+  [GOV_ES] https://datos.gob.es/apidata/catalog/dataset
+    domain: datos.gob.es  |  source: data/sources/registry.yaml:409
+  [GOV_ES] https://imserso.es/
+    domain: imserso.es  |  source: data/sources/registry.yaml:254
+  [GOV_ES] https://mivau.sede.gob.es/
+    domain: mivau.sede.gob.es  |  source: data/sources/registry.yaml:273
+  [GOV_ES] https://muface.es/
+    domain: muface.es  |  source: data/sources/registry.yaml:236
+  [GOV_ES] https://oficinavirtual.cordoba.es/catalogo-de-tramites-y-servicios
+    domain: oficinavirtual.cordoba.es  |  source: data/sources/local_seed.yaml:254
+  [GOV_ES] https://portal.seg-social.gob.es/wps/portal/importass/importass/inicio
+    domain: portal.seg-social.gob.es  |  source: data/sources/registry.yaml:427
+  [GOV_ES] https://proteccion-asilo.interior.gob.es/
+    domain: proteccion-asilo.interior.gob.es  |  source: data/sources/registry.yaml:375
+  [GOV_ES] https://sede.administracion.gob.es/
+    domain: sede.administracion.gob.es  |  source: data/sources/registry.yaml:27
+  [GOV_ES] https://sede.agenciatributaria.gob.es/
+    domain: sede.agenciatributaria.gob.es  |  source: data/sources/registry.yaml:184
+  [GOV_ES] https://sede.asturias.es/
+    domain: sede.asturias.es  |  source: data/sources/registry.yaml:693
+  [GOV_ES] https://sede.asturias.es/todos-los-servicios-y-tramites
+    domain: sede.asturias.es  |  source: data/sources/registry.yaml:694
+  [GOV_ES] https://sede.cantabria.es/sede/
+    domain: sede.cantabria.es  |  source: data/sources/registry.yaml:732
+  [GOV_ES] https://sede.cantabria.es/sede/catalogo-de-tramites
+    domain: sede.cantabria.es  |  source: data/sources/registry.yaml:733
+  [GOV_ES] https://sede.carm.es/
+    domain: sede.carm.es  |  source: data/sources/registry.yaml:617
+  [GOV_ES] https://sede.ceuta.es/
+    domain: sede.ceuta.es  |  source: data/sources/registry.yaml:770
+  [GOV_ES] https://sede.comunidad.madrid/
+    domain: sede.comunidad.madrid  |  source: data/sources/registry.yaml:444
+  [GOV_ES] https://sede.comunidad.madrid/buscador
+    domain: sede.comunidad.madrid  |  source: data/sources/registry.yaml:445
+  [GOV_ES] https://sede.cordoba.es/
+    domain: sede.cordoba.es  |  source: data/sources/local_seed.yaml:252
+  [GOV_ES] https://sede.coruna.gal/
+    domain: sede.coruna.gal  |  source: data/sources/local_seed.yaml:366
+  [GOV_ES] https://sede.coruna.gal/sede/es/tramites-y-servicios-electronicos
+    domain: sede.coruna.gal  |  source: data/sources/local_seed.yaml:368
+  [GOV_ES] https://sede.dgt.gob.es/
+    domain: sede.dgt.gob.es  |  source: data/sources/registry.yaml:202
+  [GOV_ES] https://sede.elche.es/
+    domain: sede.elche.es  |  source: data/sources/local_seed.yaml:404
+  [GOV_ES] https://sede.elche.es/sta/CarpetaPublic/doEvent?APP_CODE=STA&PAGE_CODE=CATALOGO
+    domain: sede.elche.es  |  source: data/sources/local_seed.yaml:406
+  [GOV_ES] https://sede.gobiernodecanarias.org/sede/
+    domain: sede.gobiernodecanarias.org  |  source: data/sources/registry.yaml:522
+  [GOV_ES] https://sede.granada.org/
+    domain: sede.granada.org  |  source: data/sources/local_seed.yaml:385
+  [GOV_ES] https://sede.gva.es/es/
+    domain: sede.gva.es  |  source: data/sources/registry.yaml:502
+  [GOV_ES] https://sede.imserso.gob.es/
+    domain: sede.imserso.gob.es  |  source: data/sources/registry.yaml:255
+  [GOV_ES] https://sede.inclusion.gob.es/
+    domain: sede.inclusion.gob.es  |  source: data/sources/registry.yaml:325
+  [GOV_ES] https://sede.madrid.es/
+    domain: sede.madrid.es  |  source: data/sources/local_seed.yaml:43
+  [GOV_ES] https://sede.madrid.es/portal/site/tramites
+    domain: sede.madrid.es  |  source: data/sources/local_seed.yaml:45
+  [GOV_ES] https://sede.malaga.eu/
+    domain: sede.malaga.eu  |  source: data/sources/local_seed.yaml:138
+  [GOV_ES] https://sede.melilla.es/
+    domain: sede.melilla.es  |  source: data/sources/registry.yaml:788
+  [GOV_ES] https://sede.melilla.es/sta/CarpetaPublic/doEvent?APP_CODE=STA&PAGE_CODE=CATALOGO
+    domain: sede.melilla.es  |  source: data/sources/registry.yaml:789
+  [GOV_ES] https://sede.mjusticia.gob.es/
+    domain: sede.mjusticia.gob.es  |  source: data/sources/registry.yaml:290
+  [GOV_ES] https://sede.mjusticia.gob.es/tramites
+    domain: sede.mjusticia.gob.es  |  source: data/sources/registry.yaml:391
+  [GOV_ES] https://sede.muface.gob.es/
+    domain: sede.muface.gob.es  |  source: data/sources/registry.yaml:237
+  [GOV_ES] https://sede.murcia.es/
+    domain: sede.murcia.es  |  source: data/sources/local_seed.yaml:157
+  [GOV_ES] https://sede.policia.gob.es/
+    domain: sede.policia.gob.es  |  source: data/sources/registry.yaml:219
+  [GOV_ES] https://sede.policia.gob.es/portalCiudadano/_es/tramites_extranjeria.php
+    domain: sede.policia.gob.es  |  source: data/sources/registry.yaml:218
+  [GOV_ES] https://sede.seg-social.gob.es/
+    domain: sede.seg-social.gob.es  |  source: data/sources/registry.yaml:166
+  [GOV_ES] https://sede.sepe.gob.es/
+    domain: sede.sepe.gob.es  |  source: data/sources/registry.yaml:148
+  [GOV_ES] https://sede.sevilla.org/
+    domain: sede.sevilla.org  |  source: data/sources/local_seed.yaml:100
+  [GOV_ES] https://sede.valencia.es/sede/
+    domain: sede.valencia.es  |  source: data/sources/local_seed.yaml:81
+  [GOV_ES] https://sede.valencia.es/sede/menuContent.xhtml/PROCEDIMIENTOS?lang=1
+    domain: sede.valencia.es  |  source: data/sources/local_seed.yaml:83
+  [GOV_ES] https://sede.valladolid.es/
+    domain: sede.valladolid.es  |  source: data/sources/local_seed.yaml:271
+  [GOV_ES] https://sede.vigo.org/
+    domain: sede.vigo.org  |  source: data/sources/local_seed.yaml:290
+  [GOV_ES] https://sede.xunta.gal/es/portada
+    domain: sede.xunta.gal  |  source: data/sources/registry.yaml:597
+  [GOV_ES] https://sede.xunta.gal/guia-de-procedementos-e-servizos
+    domain: sede.xunta.gal  |  source: data/sources/registry.yaml:598
+  [GOV_ES] https://sedeelectronica.alicante.es/
+    domain: sedeelectronica.alicante.es  |  source: data/sources/local_seed.yaml:233
+  [GOV_ES] https://sedeelectronica.alicante.es/servicios.php
+    domain: sedeelectronica.alicante.es  |  source: data/sources/local_seed.yaml:235
+  [GOV_ES] https://sedeelectronica.gijon.es/
+    domain: sedeelectronica.gijon.es  |  source: data/sources/local_seed.yaml:309
+  [GOV_ES] https://sedeelectronica.laspalmasgc.es/
+    domain: sedeelectronica.laspalmasgc.es  |  source: data/sources/local_seed.yaml:196
+  [GOV_ES] https://sedeelectronica.vitoria-gasteiz.org/
+    domain: sedeelectronica.vitoria-gasteiz.org  |  source: data/sources/local_seed.yaml:347
+  [GOV_ES] https://sedeelectronica.vitoria-gasteiz.org/portal/es/tramites
+    domain: sedeelectronica.vitoria-gasteiz.org  |  source: data/sources/local_seed.yaml:349
+  [GOV_ES] https://servicios.ine.es/wstempus/js/ES/
+    domain: servicios.ine.es  |  source: data/sources/registry.yaml:308
+  [GOV_ES] https://seuelectronica.ajuntament.barcelona.cat/es
+    domain: seuelectronica.ajuntament.barcelona.cat  |  source: data/sources/local_seed.yaml:62
+  [GOV_ES] https://seuelectronica.ajuntament.barcelona.cat/es/tramites-telematicos
+    domain: seuelectronica.ajuntament.barcelona.cat  |  source: data/sources/local_seed.yaml:64
+  [GOV_ES] https://seuelectronica.l-h.cat/
+    domain: seuelectronica.l-h.cat  |  source: data/sources/local_seed.yaml:328
+  [GOV_ES] https://seuelectronica.l-h.cat/tramits/r/tramits_2.aspx?id=2
+    domain: seuelectronica.l-h.cat  |  source: data/sources/local_seed.yaml:330
+  [GOV_ES] https://seuelectronica.palma.cat/
+    domain: seuelectronica.palma.cat  |  source: data/sources/local_seed.yaml:177
+  [GOV_ES] https://tramites.juntaex.es/
+    domain: tramites.juntaex.es  |  source: data/sources/registry.yaml:674
+  [GOV_ES] https://tramites.juntaex.es/sta/CarpetaPublic/doEvent?APP_CODE=STA&PAGE_CODE=CATALOGO
+    domain: tramites.juntaex.es  |  source: data/sources/registry.yaml:675
+  [GOV_ES] https://transparencia.gob.es/
+    domain: transparencia.gob.es  |  source: data/sources/registry.yaml:359
+  [GOV_ES] https://web.gencat.cat/
+    domain: web.gencat.cat  |  source: data/sources/registry.yaml:462
+  [GOV_ES] https://web.gencat.cat/ca/seu-electronica/
+    domain: web.gencat.cat  |  source: data/sources/registry.yaml:463
+  [GOV_ES] https://web.gencat.cat/ca/seu-electronica/tramits-i-serveis
+    domain: web.gencat.cat  |  source: data/sources/registry.yaml:464
+  [GOV_ES] https://web.larioja.org/oficina-electronica/
+    domain: web.larioja.org  |  source: data/sources/registry.yaml:752
+  [GOV_ES] https://web.larioja.org/sede-electronica
+    domain: web.larioja.org  |  source: data/sources/registry.yaml:751
+  [GOV_ES] https://www.agenciatributaria.es/
+    domain: www.agenciatributaria.es  |  source: data/sources/registry.yaml:183
+  [GOV_ES] https://www.aragon.es/
+    domain: www.aragon.es  |  source: data/sources/registry.yaml:635
+  [GOV_ES] https://www.aragon.es/tramites
+    domain: www.aragon.es  |  source: data/sources/registry.yaml:637
+  [GOV_ES] https://www.aragon.es/tramites/servicios-de-la-sede-electronica
+    domain: www.aragon.es  |  source: data/sources/registry.yaml:636
+  [GOV_ES] https://www.asturias.es/
+    domain: www.asturias.es  |  source: data/sources/registry.yaml:692
+  [GOV_ES] https://www.bilbao.eus/eudala
+    domain: www.bilbao.eus  |  source: data/sources/local_seed.yaml:214
+  [GOV_ES] https://www.boe.es/
+    domain: www.boe.es  |  source: data/sources/registry.yaml:93
+  [GOV_ES] https://www.boe.es/buscar/legislacion.php
+    domain: www.boe.es  |  source: data/sources/registry.yaml:112
+  [GOV_ES] https://www.boe.es/datosabiertos/api/legislacion-consolidada
+    domain: www.boe.es  |  source: data/sources/registry.yaml:113
+  [GOV_ES] https://www.boe.es/diario_boe/
+    domain: www.boe.es  |  source: data/sources/registry.yaml:130
+  [GOV_ES] https://www.caib.es/
+    domain: www.caib.es  |  source: data/sources/registry.yaml:654
+  [GOV_ES] https://www.caib.es/seucaib/es/
+    domain: www.caib.es  |  source: data/sources/registry.yaml:655
+  [GOV_ES] https://www.cantabria.es/
+    domain: www.cantabria.es  |  source: data/sources/registry.yaml:731
+  [GOV_ES] https://www.carm.es/
+    domain: www.carm.es  |  source: data/sources/registry.yaml:616
+  [GOV_ES] https://www.carm.es/guiadeservicios
+    domain: www.carm.es  |  source: data/sources/registry.yaml:618
+  [GOV_ES] https://www.catastro.hacienda.gob.es/
+    domain: www.catastro.hacienda.gob.es  |  source: data/sources/registry.yaml:341
+  [GOV_ES] https://www.ceuta.es/
+    domain: www.ceuta.es  |  source: data/sources/registry.yaml:769
+  [GOV_ES] https://www.comunidad.madrid/
+    domain: www.comunidad.madrid  |  source: data/sources/registry.yaml:443
+  [GOV_ES] https://www.dgt.es/
+    domain: www.dgt.es  |  source: data/sources/registry.yaml:201
+  [GOV_ES] https://www.euskadi.eus/
+    domain: www.euskadi.eus  |  source: data/sources/registry.yaml:539
+  [GOV_ES] https://www.euskadi.eus/sede-electronica/
+    domain: www.euskadi.eus  |  source: data/sources/registry.yaml:540
+  [GOV_ES] https://www.gobiernodecanarias.org/
+    domain: www.gobiernodecanarias.org  |  source: data/sources/registry.yaml:521
+  [GOV_ES] https://www.granada.org/inicio.nsf/mn/s03
+    domain: www.granada.org  |  source: data/sources/local_seed.yaml:387
+  [GOV_ES] https://www.gva.es/
+    domain: www.gva.es  |  source: data/sources/registry.yaml:501
+  [GOV_ES] https://www.gva.es/es/inicio/atencion_ciudadano/buscadores/tramites_servicios
+    domain: www.gva.es  |  source: data/sources/registry.yaml:503
+  [GOV_ES] https://www.inclusion.gob.es/web/imv
+    domain: www.inclusion.gob.es  |  source: data/sources/registry.yaml:324
+  [GOV_ES] https://www.ine.es/
+    domain: www.ine.es  |  source: data/sources/registry.yaml:307
+  [GOV_ES] https://www.jccm.es/
+    domain: www.jccm.es  |  source: data/sources/registry.yaml:577
+  [GOV_ES] https://www.jccm.es/tramites/buscador
+    domain: www.jccm.es  |  source: data/sources/registry.yaml:579
+  [GOV_ES] https://www.jcyl.es/
+    domain: www.jcyl.es  |  source: data/sources/registry.yaml:558
+  [GOV_ES] https://www.juntadeandalucia.es/
+    domain: www.juntadeandalucia.es  |  source: data/sources/registry.yaml:482
+  [GOV_ES] https://www.juntadeandalucia.es/servicios/sede.html
+    domain: www.juntadeandalucia.es  |  source: data/sources/registry.yaml:483
+  [GOV_ES] https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos.html
+    domain: www.juntadeandalucia.es  |  source: data/sources/registry.yaml:484
+  [GOV_ES] https://www.juntaex.es/
+    domain: www.juntaex.es  |  source: data/sources/registry.yaml:673
+  [GOV_ES] https://www.larioja.org/
+    domain: www.larioja.org  |  source: data/sources/registry.yaml:750
+  [GOV_ES] https://www.laspalmasgc.es/es/online/sede-electronica/catalogo-de-tramites/
+    domain: www.laspalmasgc.es  |  source: data/sources/local_seed.yaml:195
+  [GOV_ES] https://www.melilla.es/
+    domain: www.melilla.es  |  source: data/sources/registry.yaml:787
+  [GOV_ES] https://www.mivau.gob.es/
+    domain: www.mivau.gob.es  |  source: data/sources/registry.yaml:272
+  [GOV_ES] https://www.mjusticia.gob.es/
+    domain: www.mjusticia.gob.es  |  source: data/sources/registry.yaml:289
+  [GOV_ES] https://www.navarra.es/
+    domain: www.navarra.es  |  source: data/sources/registry.yaml:711
+  [GOV_ES] https://www.navarra.es/es/tramites
+    domain: www.navarra.es  |  source: data/sources/registry.yaml:712
+  [GOV_ES] https://www.navarra.es/es/tramites/buscador
+    domain: www.navarra.es  |  source: data/sources/registry.yaml:713
+  [GOV_ES] https://www.palma.es/es/gestiones-y-tramites
+    domain: www.palma.es  |  source: data/sources/local_seed.yaml:176
+  [GOV_ES] https://www.sedecatastro.gob.es/
+    domain: www.sedecatastro.gob.es  |  source: data/sources/registry.yaml:342
+  [GOV_ES] https://www.seg-social.es/
+    domain: www.seg-social.es  |  source: data/sources/registry.yaml:165
+  [GOV_ES] https://www.sepe.es/
+    domain: www.sepe.es  |  source: data/sources/registry.yaml:147
+  [GOV_ES] https://www.tramitacastillayleon.jcyl.es/web/es/sede-electronica.html
+    domain: www.tramitacastillayleon.jcyl.es  |  source: data/sources/registry.yaml:559
+  [GOV_ES] https://www.tramitacastillayleon.jcyl.es/web/es/tramites-servicios/buscador-tramites-servicios.html
+    domain: www.tramitacastillayleon.jcyl.es  |  source: data/sources/registry.yaml:560
+  [GOV_ES] https://www.xunta.gal/
+    domain: www.xunta.gal  |  source: data/sources/registry.yaml:596
+  [GOV_ES] https://www.zaragoza.es/sede/
+    domain: www.zaragoza.es  |  source: data/sources/local_seed.yaml:119
+  [GOV_ES] https://www.zaragoza.es/sede/portal/tramites-servicios/
+    domain: www.zaragoza.es  |  source: data/sources/local_seed.yaml:121

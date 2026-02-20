@@ -1,0 +1,43 @@
+=== POLICY COUNTS ===
+Method: Python yaml.safe_load() parsing
+Date: 2026-02-19
+
+--- data/policy/allowlist.yaml ---
+default_action: reject
+tier_1_age domain count: 22
+tier_2_ccaa domain count: 19
+tier_3_municipal domain count: 19
+auto_allow_rules count: 5
+Total lines: 355
+
+NOTES:
+- Q1.1 report claims "22 AGE + 19 CCAA + 12 municipal domains": PARTIALLY MATCHES
+  - tier_1_age: 22 VERIFIED
+  - tier_2_ccaa: 19 VERIFIED
+  - tier_3_municipal: 19 (report says 12 -- DISCREPANCY, likely audit added 7 more per AUDIT-03)
+- Q1.1 report claims "319" lines for allowlist.yaml: DOES NOT MATCH (actual: 355)
+  - Likely increased after AUDIT-03 fix added 7 new municipal domains + 4 CCAA aliases
+
+--- data/policy/blocklist.yaml ---
+Category count: 9
+Domain count (across all categories): 23
+Pattern count: 4
+Total lines: 72
+
+NOTES:
+- Q1.1 forensic audit claims "9 categories, 23 domains, 4 patterns": ALL VERIFIED
+- Q1.1 report claims "72" lines: VERIFIED (72)
+
+--- data/policy/canonical_rules.yaml ---
+Rule count: 10
+Pipeline step count: 12
+Tracking fields (tracking_params_strip): 17
+Session fields (session_params_strip): 7
+Content fields (content_params_preserve): 12
+www_mappings count: 5
+Total lines: 233
+
+NOTES:
+- Q1.1 report claims "12-step URL canonicalization pipeline (applying 10 named rules)": VERIFIED
+- Q1.1 forensic audit claims "17 tracking params, 7 session params": VERIFIED
+- Q1.1 report claims "233" lines: VERIFIED (233)

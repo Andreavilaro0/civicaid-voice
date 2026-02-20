@@ -1,0 +1,4 @@
+PASS: proceduredoc.sample.json valid against ProcedureDoc v1
+  id: age-inss-ingreso-minimo-vital
+  nombre: Ingreso Minimo Vital
+  completeness: 0.86

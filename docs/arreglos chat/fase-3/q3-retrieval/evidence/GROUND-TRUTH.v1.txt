@@ -1,0 +1,193 @@
+=== AUDIT GROUND TRUTH ===
+Date: 2026-02-20 00:05:18 UTC
+Branch: fix/fase3-full-pass
+Commit: ec5c679858db0342cc14b800face9bfe94ebd744
+Python: Python 3.11.8
+
+=== TESTS ===
+Metodo: grep -c 'def test_' (definiciones en codigo)
+
+--- ALL test files (def test_ count) ---
+  tests/e2e/test_demo_flows.py: 4
+  tests/evals/test_rag_precision_q4.py: 6
+  tests/evals/test_rag_precision.py: 3
+  tests/integration/test_admin_integration.py: 7
+  tests/integration/test_drift_pipeline.py: 4
+  tests/integration/test_fallback_chain.py: 5
+  tests/integration/test_ingestion_pipeline.py: 4
+  tests/integration/test_memory_isolation.py: 3
+  tests/integration/test_pipeline.py: 2
+  tests/integration/test_rag_eval.py: 11
+  tests/integration/test_rag_pipeline.py: 4
+  tests/integration/test_rag_retriever.py: 4
+  tests/integration/test_retriever_rerank.py: 7
+  tests/integration/test_twilio_stub.py: 2
+  tests/integration/test_webhook.py: 3
+  tests/unit/test_admin.py: 13
+  tests/unit/test_api_chat.py: 12
+  tests/unit/test_boe_monitor.py: 17
+  tests/unit/test_cache.py: 6
+  tests/unit/test_chunker.py: 16
+  tests/unit/test_config.py: 4
+  tests/unit/test_detect_input.py: 4
+  tests/unit/test_detect_lang.py: 4
+  tests/unit/test_directory.py: 11
+  tests/unit/test_drift.py: 14
+  tests/unit/test_embedder.py: 6
+  tests/unit/test_evals.py: 9
+  tests/unit/test_fallback_retriever.py: 10
+  tests/unit/test_forget_endpoint.py: 4
+  tests/unit/test_grounded_prompt.py: 13
+  tests/unit/test_kb_lookup.py: 21
+  tests/unit/test_guardrails.py: 19
+  tests/unit/test_ingestion.py: 11
+  tests/unit/test_llm_generate.py: 8
+  tests/unit/test_memory_commands.py: 8
+  tests/unit/test_memory_evals.py: 21
+  tests/unit/test_memory_models.py: 7
+  tests/unit/test_memory_prompt.py: 3
+  tests/unit/test_memory_redis.py: 6
+  tests/unit/test_memory_sanitize.py: 6
+  tests/unit/test_memory_store.py: 7
+  tests/unit/test_memory_update.py: 5
+  tests/unit/test_migrator.py: 30
+  tests/unit/test_observability.py: 6
+  tests/unit/test_rag_metrics.py: 25
+  tests/unit/test_rag_models.py: 9
+  tests/unit/test_redteam.py: 6
+  tests/unit/test_reranker.py: 12
+  tests/unit/test_response_cache.py: 15
+  tests/unit/test_retriever.py: 7
+  tests/unit/test_store_bm25.py: 9
+  tests/unit/test_store.py: 11
+  tests/unit/test_structured_outputs.py: 10
+  tests/unit/test_synonyms.py: 15
+  tests/unit/test_territory.py: 16
+  tests/unit/test_transcribe.py: 3
+  tests/unit/test_validators.py: 5
+
+--- PYTEST COLLECTED ---
+517 tests collected in 2.06s
+
+--- PYTEST RUN ---
+493 passed, 19 skipped, 5 xpassed in 3.78s
+
+=== FILES ===
+Metodo: wc -l (lineas de archivo)
+--- src/core/rag/ ---
+  src/core/rag/__init__.py: 0 lines
+  src/core/rag/boe_monitor.py: 199 lines
+  src/core/rag/chunker.py: 258 lines
+  src/core/rag/database.py: 30 lines
+  src/core/rag/directory.py: 97 lines
+  src/core/rag/drift.py: 214 lines
+  src/core/rag/embedder.py: 127 lines
+  src/core/rag/ingestion.py: 266 lines
+  src/core/rag/migrator.py: 268 lines
+  src/core/rag/models.py: 156 lines
+  src/core/rag/reranker.py: 197 lines
+  src/core/rag/response_cache.py: 215 lines
+  src/core/rag/store.py: 442 lines
+  src/core/rag/synonyms.py: 86 lines
+  src/core/rag/territory.py: 226 lines
+--- src/utils/ ---
+  src/utils/__init__.py: 0 lines
+  src/utils/eval_runner.py: 141 lines
+  src/utils/logger.py: 142 lines
+  src/utils/observability.py: 82 lines
+  src/utils/rag_eval.py: 116 lines
+  src/utils/rag_metrics.py: 183 lines
+  src/utils/timing.py: 39 lines
+--- scripts/ ---
+  scripts/check_boe.py: 123 lines
+  scripts/check_drift.py: 164 lines
+  scripts/init_db.py: 40 lines
+  scripts/link_check.py: 124 lines
+  scripts/run_evals.py: 47 lines
+  scripts/run_ingestion.py: 138 lines
+  scripts/run_rag_eval.py: 188 lines
+  scripts/validate_policy.py: 103 lines
+  scripts/validate_proceduredoc_schema.py: 44 lines
+  scripts/validate_source_registry.py: 60 lines
+  scripts/run-local.sh: 80 lines
+
+=== CONFIG FLAGS ===
+48:    RAG_ENABLED: bool = field(default_factory=lambda: _bool(os.getenv("RAG_ENABLED", "false")))
+51:    RAG_DB_URL: str = field(default_factory=lambda: os.getenv("RAG_DB_URL", ""))
+52:    RAG_EMBEDDING_MODEL: str = field(default_factory=lambda: os.getenv("RAG_EMBEDDING_MODEL", "models/gemini-embedding-001"))
+53:    RAG_EMBEDDING_DIMS: int = field(default_factory=lambda: int(os.getenv("RAG_EMBEDDING_DIMS", "768")))
+54:    RAG_CHUNK_SIZE: int = field(default_factory=lambda: int(os.getenv("RAG_CHUNK_SIZE", "400")))
+55:    RAG_CHUNK_OVERLAP: int = field(default_factory=lambda: int(os.getenv("RAG_CHUNK_OVERLAP", "50")))
+56:    RAG_SIMILARITY_THRESHOLD: float = field(default_factory=lambda: float(os.getenv("RAG_SIMILARITY_THRESHOLD", "0.35")))
+57:    RAG_TOP_K: int = field(default_factory=lambda: int(os.getenv("RAG_TOP_K", "5")))
+58:    RAG_HYBRID_WEIGHT: float = field(default_factory=lambda: float(os.getenv("RAG_HYBRID_WEIGHT", "0.5")))
+61:    RAG_RERANK_STRATEGY: str = field(default_factory=lambda: os.getenv("RAG_RERANK_STRATEGY", "heuristic"))
+62:    RAG_GROUNDED_PROMPTING: bool = field(default_factory=lambda: _bool(os.getenv("RAG_GROUNDED_PROMPTING", "true")))
+63:    RAG_MAX_CHUNKS_IN_PROMPT: int = field(default_factory=lambda: int(os.getenv("RAG_MAX_CHUNKS_IN_PROMPT", "4")))
+66:    RAG_FALLBACK_CHAIN: bool = field(default_factory=lambda: _bool(os.getenv("RAG_FALLBACK_CHAIN", "true")))
+67:    RAG_CACHE_ENABLED: bool = field(default_factory=lambda: _bool(os.getenv("RAG_CACHE_ENABLED", "false")))
+68:    RAG_CACHE_TTL: int = field(default_factory=lambda: int(os.getenv("RAG_CACHE_TTL", "3600")))
+69:    RAG_CACHE_BACKEND: str = field(default_factory=lambda: os.getenv("RAG_CACHE_BACKEND", "redis"))
+70:    RAG_INGESTION_ENABLED: bool = field(default_factory=lambda: _bool(os.getenv("RAG_INGESTION_ENABLED", "false")))
+71:    RAG_INGESTION_INTERVAL_HOURS: int = field(default_factory=lambda: int(os.getenv("RAG_INGESTION_INTERVAL_HOURS", "168")))
+72:    RAG_INGESTION_MAX_SOURCES_PER_RUN: int = field(default_factory=lambda: int(os.getenv("RAG_INGESTION_MAX_SOURCES_PER_RUN", "50")))
+73:    RAG_DRIFT_CHECK_ENABLED: bool = field(default_factory=lambda: _bool(os.getenv("RAG_DRIFT_CHECK_ENABLED", "false")))
+74:    RAG_DRIFT_WEBHOOK_URL: str = field(default_factory=lambda: os.getenv("RAG_DRIFT_WEBHOOK_URL", ""))
+75:    RAG_STALENESS_THRESHOLD_DAYS: int = field(default_factory=lambda: int(os.getenv("RAG_STALENESS_THRESHOLD_DAYS", "90")))
+76:    RAG_BOE_MONITOR_ENABLED: bool = field(default_factory=lambda: _bool(os.getenv("RAG_BOE_MONITOR_ENABLED", "false")))
+77:    RAG_METRICS_ENABLED: bool = field(default_factory=lambda: _bool(os.getenv("RAG_METRICS_ENABLED", "true")))
+80:    MEMORY_ENABLED: bool = field(default_factory=lambda: _bool(os.getenv("MEMORY_ENABLED", "false")))
+81:    MEMORY_BACKEND: str = field(default_factory=lambda: os.getenv("MEMORY_BACKEND", "dev"))
+82:    MEMORY_TTL_DAYS: int = field(default_factory=lambda: int(os.getenv("MEMORY_TTL_DAYS", "30")))
+83:    MEMORY_SECRET_SALT: str = field(default_factory=lambda: os.getenv("MEMORY_SECRET_SALT", ""))
+84:    MEMORY_OPTIN_DEFAULT: bool = field(default_factory=lambda: _bool(os.getenv("MEMORY_OPTIN_DEFAULT", "false")))
+
+=== DATA ===
+  data/evals/empadronamiento_evals.json: 10 lines
+  data/evals/eval_report_q3_gates.json: 824 lines
+  data/evals/imv_evals.json: 10 lines
+  data/evals/multiturn_evals.json: 207 lines
+  data/evals/rag_eval_set.json: 2019 lines
+  data/evals/redteam_prompts.json: 15 lines
+  data/evals/safety_evals.json: 8 lines
+  data/evals/tarjeta_evals.json: 8 lines
+  data/tramites/ayuda_alquiler.json: 84 lines
+  data/tramites/certificado_discapacidad.json: 108 lines
+  data/tramites/empadronamiento.json: 59 lines
+  data/tramites/imv.json: 57 lines
+  data/tramites/justicia_gratuita.json: 81 lines
+  data/tramites/nie_tie.json: 76 lines
+  data/tramites/prestacion_desempleo.json: 74 lines
+  data/tramites/tarjeta_sanitaria.json: 57 lines
+
+=== GIT STATUS ===
+ M CLAUDE.md
+ M README.md
+ M "docs/arreglos chat/README.md"
+ M "docs/arreglos chat/fase-3/README.md"
+ M src/core/config.py
+ M src/core/models.py
+ M src/core/prompts/system_prompt.py
+ M src/core/retriever.py
+ M src/core/skills/llm_generate.py
+ M src/core/skills/transcribe.py
+ M src/utils/logger.py
+ M src/utils/observability.py
+ M tests/unit/test_llm_generate.py
+ M tests/unit/test_retriever.py
+?? data/evals/eval_report_q3_gates.json
+?? data/evals/rag_eval_set.json
+?? data/policy/
+?? data/sources/
+?? design/
+?? docker-compose.yml
+?? docs/07-design/
+?? "docs/arreglos chat/fase-3/q1-sources/"
+?? "docs/arreglos chat/fase-3/q2-storage/"
+?? "docs/arreglos chat/fase-3/q3-retrieval/"
+?? docs/plans/2026-02-18-q1.1-biblioteca-oficial-v0.md
+?? docs/plans/2026-02-19-fase1-webapp-frontend.md
+?? docs/plans/2026-02-20-fase1-webapp-frontend-completo.md
+?? docs/plans/AUDIT-FIX-PROMPT.md
+?? docs/plans/AUDIT-PROMPT-UNIVERSAL-v2.md
+?? docs/plans/AUDITOR-MULTIAGENTE.md

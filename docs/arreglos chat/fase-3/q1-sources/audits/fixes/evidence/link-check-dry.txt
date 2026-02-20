@@ -1,0 +1,11 @@
+Link checker: 8 URLs (smoke=False, limit=10)
+  [age-sia] https://administracion.gob.es/pag_Home/espanaAdmon/SIA.html
+  [age-pag] https://administracion.gob.es/
+  [age-pag] https://sede.administracion.gob.es/
+  [age-carpeta-ciudadana] https://carpetaciudadana.gob.es/
+  [age-clave] https://clave.gob.es/
+  [age-boe-diario] https://www.boe.es/
+  [age-boe-diario] https://boe.es/datosabiertos/api/boe/sumario/
+  [age-boe-legislacion] https://www.boe.es/buscar/legislacion.php
+
+Dry run complete. 8 URLs would be checked.

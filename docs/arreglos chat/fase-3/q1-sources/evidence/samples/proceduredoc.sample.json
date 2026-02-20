@@ -1,0 +1,131 @@
+{
+  "version": 1,
+
+  "id": "age-inss-ingreso-minimo-vital",
+  "nombre": "Ingreso Minimo Vital",
+  "nombre_alternativo": [
+    "IMV",
+    "Ingreso minimo",
+    "Renta minima",
+    "Ayuda economica IMV"
+  ],
+
+  "source_url": "https://www.seg-social.es/wps/portal/wss/internet/Trabajadores/PrestacionesPensionesTrabajadores/65850d68-8d06-4645-bde7-05374ee42ac7",
+  "source_urls": [
+    "https://www.seg-social.es/wps/portal/wss/internet/Trabajadores/PrestacionesPensionesTrabajadores/65850d68-8d06-4645-bde7-05374ee42ac7"
+  ],
+  "source_type": "age",
+
+  "organismo": "Seguridad Social",
+  "organismo_abrev": "INSS",
+
+  "territorio": {
+    "nivel": "estatal",
+    "ccaa": null,
+    "municipio": null,
+    "provincia": null
+  },
+
+  "canal": "mixto",
+
+  "descripcion": "Prestacion economica dirigida a prevenir el riesgo de pobreza y exclusion social de personas que vivan solas o integradas en una unidad de convivencia y carezcan de recursos economicos basicos.",
+
+  "requisitos": [
+    "Tener entre 23 y 65 anos (excepciones: menores con hijos, mayores de 65 sin pension)",
+    "Residencia legal y efectiva en Espana durante al menos 1 ano continuado e inmediatamente anterior a la solicitud",
+    "Estar en situacion de vulnerabilidad economica (ingresos y patrimonio por debajo del umbral)",
+    "Haber solicitado las pensiones y prestaciones a las que pudiera tener derecho",
+    "Estar inscrito como demandante de empleo (si esta en edad laboral)",
+    "No ser administrador de una sociedad mercantil"
+  ],
+
+  "documentos_necesarios": [
+    "DNI/NIE de todos los miembros de la unidad de convivencia",
+    "Certificado de empadronamiento",
+    "Libro de familia o certificado de nacimiento",
+    "Declaracion de la renta (o certificado de no obligacion)",
+    "Certificado bancario de cuentas",
+    "Certificado de demandante de empleo"
+  ],
+
+  "plazos": {
+    "resolucion": "6 meses desde la solicitud",
+    "silencio_administrativo": "Desestimatorio (si no responden en 6 meses, se considera denegado)",
+    "recurso": "30 dias desde la notificacion de denegacion"
+  },
+
+  "tasas": null,
+
+  "base_legal": [
+    "Real Decreto-ley 20/2020, de 29 de mayo, por el que se establece el ingreso minimo vital",
+    "Real Decreto 789/2022, de 27 de septiembre, por el que se regula la compatibilidad del IMV con los ingresos del trabajo"
+  ],
+
+  "como_solicitar": [
+    {
+      "via": "Online",
+      "detalle": "Sede electronica de la Seguridad Social: sede.seg-social.gob.es",
+      "requisito": "Certificado digital, cl@ve o DNI electronico"
+    },
+    {
+      "via": "Presencial",
+      "detalle": "Oficinas de la Seguridad Social (CAISS)",
+      "requisito": "Cita previa por telefono o web"
+    },
+    {
+      "via": "Telefono",
+      "detalle": "900 20 22 22 (gratuito) — linea IMV",
+      "requisito": "Ninguno"
+    }
+  ],
+
+  "donde_solicitar": {
+    "urls": [
+      "https://www.seg-social.es/wps/portal/wss/internet/Trabajadores/PrestacionesPensionesTrabajadores/65850d68-8d06-4645-bde7-05374ee42ac7"
+    ],
+    "direcciones": [
+      "Oficinas de la Seguridad Social (CAISS)"
+    ],
+    "cita_previa_url": null
+  },
+
+  "keywords": [
+    "imv",
+    "ingreso minimo",
+    "ingreso minimo vital",
+    "renta minima",
+    "ayuda economica",
+    "prestacion",
+    "604"
+  ],
+  "tags": [
+    "prestacion-no-contributiva",
+    "seguridad-social",
+    "pobreza",
+    "exclusion-social",
+    "vulnerabilidad"
+  ],
+
+  "idioma": "es",
+  "idiomas_disponibles": ["es"],
+
+  "extracted_at": "2026-02-18T10:00:00Z",
+  "verified_at": "2024-12-01T00:00:00Z",
+  "verified_by": "manual",
+
+  "content_hash": "418aab6cabe101ea95f8d0902d1e4a493c8a87f6e7c3284028c3ae8926cb646e",
+  "word_count": 218,
+  "completeness_score": 0.86,
+
+  "cuantias_2024": {
+    "adulto_solo": "604,21\u20ac/mes",
+    "adulto_con_1_menor": "785,47\u20ac/mes",
+    "adulto_con_2_menores": "966,74\u20ac/mes",
+    "adulto_con_3_menores": "1.147,99\u20ac/mes",
+    "pareja_sin_menores": "785,47\u20ac/mes",
+    "complemento_monoparental": "100\u20ac/mes adicionales"
+  },
+  "telefono": "900 20 22 22",
+  "tramite": "imv",
+  "fuente_url": "https://www.seg-social.es/wps/portal/wss/internet/Trabajadores/PrestacionesPensionesTrabajadores/65850d68-8d06-4645-bde7-05374ee42ac7"
+}

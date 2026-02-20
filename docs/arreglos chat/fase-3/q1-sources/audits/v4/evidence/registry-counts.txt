@@ -1,0 +1,7 @@
+=== REGISTRY GROUND TRUTH (computed from data files) ===
+registry.yaml total sources: 44
+by_jurisdiction: {"age": 25, "ccaa": 19}
+by_jurisdiction_priority: {"age-P0": 10, "age-P1": 11, "age-P2": 4, "ccaa-P0": 5, "ccaa-P1": 8, "ccaa-P2": 6}
+local_seed.yaml sources: 20
+registry.yaml lines: 799
+local_seed.yaml lines: 413
