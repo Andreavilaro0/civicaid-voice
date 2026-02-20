@@ -37,15 +37,15 @@ src/
     health.py               # GET /health — healthcheck
     static_files.py         # GET /static/cache/* — servir MP3s
   core/
-    config.py               # Feature flags (29 flags: DEMO_MODE, LLM_LIVE, RAG_*, MEMORY_*, etc.)
+    config.py               # Feature flags (31 flags: DEMO_MODE, LLM_LIVE, VISION_*, RAG_*, MEMORY_*, etc.)
     models.py               # 8 dataclasses (IncomingMessage, CacheEntry, FinalResponse, KBContext, etc.)
     cache.py                # Carga demo_cache.json
-    pipeline.py             # Orquestador de 11 skills — uses get_retriever().retrieve()
+    pipeline.py             # Orquestador de 12 skills — uses get_retriever().retrieve()
     twilio_client.py        # Wrapper Twilio REST
     guardrails.py           # Capa de seguridad pre/post
     models_structured.py    # Salidas JSON estructuradas
     retriever.py            # Singleton retriever factory (FallbackRetriever, PGVector, JSON, Directory)
-    skills/                 # 11 skills atomicas (incl. tts.py)
+    skills/                 # 12 skills atomicas (incl. tts.py, analyze_image.py)
     prompts/                # system_prompt.py, templates.py
     rag/                    # RAG infrastructure (Q2-Q4)
       store.py              # PGVectorStore (hybrid BM25+vector search)
@@ -88,7 +88,7 @@ tests/
   integration/ (~35 tests)  # pipeline, webhook, RAG pipeline, fallback chain, admin, ingestion, drift
   evals/ (tests)            # rag_precision, rag_precision_q4
   e2e/ (4 tests)            # demo_flows
-  # Total: 517 collected (493 passed, 19 skipped, 5 xpassed)
+  # Total: 532 collected (508 passed, 19 skipped, 5 xpassed)
 ```
 
 ## Feature Flags (config.py)
@@ -101,6 +101,8 @@ tests/
 | LLM_TIMEOUT | 6 | Segundos max Gemini |
 | WHISPER_TIMEOUT | 12 | Segundos max Whisper |
 | GUARDRAILS_ON | true | Habilita guardrails de contenido |
+| VISION_ENABLED | true | Habilita analisis de imagenes via Gemini Vision |
+| VISION_TIMEOUT | 10 | Segundos max Gemini Vision |
 | STRUCTURED_OUTPUT_ON | false | Habilita salida estructurada JSON |
 | OBSERVABILITY_ON | true | Habilita metricas y trazas |
 | RAG_ENABLED | false | Habilita RAG pipeline (PGVector hybrid search) |

@@ -1,6 +1,6 @@
 """Tests for analyze_image skill."""
 
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 from src.core.skills.analyze_image import analyze_image, ImageAnalysisResult
 
 
