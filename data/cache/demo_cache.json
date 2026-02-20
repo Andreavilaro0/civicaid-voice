@@ -4,7 +4,7 @@
     "patterns": ["imv", "ingreso minimo", "ingreso mínimo", "renta minima", "ayuda economica"],
     "match_mode": "any_keyword",
     "idioma": "es",
-    "respuesta": "El Ingreso Mínimo Vital (IMV) es una prestación de la Seguridad Social que garantiza un nivel mínimo de ingresos a quienes se encuentran en situación de vulnerabilidad económica.\n\n**Requisitos principales:**\n1. Tener entre 23 y 65 años (o ser menor con hijos a cargo)\n2. Residir legalmente en España desde hace al menos 1 año\n3. Estar en situación de vulnerabilidad económica\n4. Estar inscrito como demandante de empleo\n\n**Cuantía 2024:** Desde 604,21€/mes para un adulto solo.\n\n**Cómo solicitarlo:**\n- Online en sede.seg-social.gob.es\n- Presencial en oficinas de la Seguridad Social (pedir cita previa)\n- Por teléfono: 900 20 22 22 (gratuito)\n\nMás información: https://www.seg-social.es/wps/portal/wss/internet/Trabajadores/PrestacionesPensionesTrabajadores/65850d68-8d06-4645-bde7-05374ee42ac7",
+    "respuesta": "Es muy bueno que preguntes por el IMV — es una ayuda importante y tienes derecho a pedirla.\n\nEl Ingreso Mínimo Vital (IMV) es una prestación de la Seguridad Social que garantiza un nivel mínimo de ingresos a quienes se encuentran en situación de vulnerabilidad económica.\n\n**Requisitos principales:**\n1. Tener entre 23 y 65 años (o ser menor con hijos a cargo)\n2. Residir legalmente en España desde hace al menos 1 año\n3. Estar en situación de vulnerabilidad económica\n4. Estar inscrito como demandante de empleo\n\n**Cuantía 2024:** Desde 604,21€/mes para un adulto solo.\n\n**Cómo solicitarlo:**\n- Online en sede.seg-social.gob.es\n- Presencial en oficinas de la Seguridad Social (pedir cita previa)\n- Por teléfono: 900 20 22 22 (gratuito)\n\nMás información: https://www.seg-social.es/wps/portal/wss/internet/Trabajadores/PrestacionesPensionesTrabajadores/65850d68-8d06-4645-bde7-05374ee42ac7",
     "audio_file": "imv_es.mp3"
   },
   {
@@ -12,7 +12,7 @@
     "patterns": ["empadron", "empadronamiento", "padron", "padrón", "registrar domicilio", "certificado padron"],
     "match_mode": "any_keyword",
     "idioma": "es",
-    "respuesta": "El empadronamiento es el registro obligatorio en el municipio donde vives. Es fundamental porque te da acceso a sanidad, educación y servicios sociales.\n\n**Documentos necesarios:**\n1. DNI, NIE o pasaporte en vigor\n2. Contrato de alquiler o escritura de la vivienda\n3. Si no tienes contrato: declaración responsable del titular + su DNI\n\n**Cómo hacerlo (Madrid):**\n1. Pedir cita en madrid.es/padron\n2. Ir a la Oficina de Atención a la Ciudadanía (OAC) más cercana\n3. Llevar los documentos originales\n4. El certificado se emite en el acto\n\n**Importante:** El empadronamiento es un DERECHO, incluso sin contrato de alquiler. Los ayuntamientos NO pueden negarlo.\n\nTeléfono: 010 (desde Madrid) o 915 298 210\n\nMás información: https://www.madrid.es/portales/munimadrid/es/Inicio/El-Ayuntamiento/Empadronamiento",
+    "respuesta": "El empadronamiento es uno de los primeros pasos cuando llegas a una ciudad — y es mas sencillo de lo que parece.\n\nEl empadronamiento (registrarte en el municipio donde vives) es fundamental porque te da acceso a sanidad, educacion y ayudas sociales.\n\n**Documentos necesarios:**\n1. DNI, NIE o pasaporte en vigor\n2. Contrato de alquiler o escritura de la vivienda\n3. Si no tienes contrato: declaración responsable del titular + su DNI\n\n**Cómo hacerlo (Madrid):**\n1. Pedir cita en madrid.es/padron\n2. Ir a la Oficina de Atención a la Ciudadanía (OAC) más cercana\n3. Llevar los documentos originales\n4. El certificado se emite en el acto\n\n**Importante:** El empadronamiento es tu DERECHO, incluso si no tienes contrato de alquiler. Los ayuntamientos NO pueden negarlo.\n\nTeléfono: 010 (desde Madrid) o 915 298 210\n\nMás información: https://www.madrid.es/portales/munimadrid/es/Inicio/El-Ayuntamiento/Empadronamiento",
     "audio_file": "empadronamiento_es.mp3"
   },
   {
@@ -44,7 +44,7 @@
     "patterns": ["hola", "buenos dias", "buenas tardes", "buenas noches", "que tal", "hey"],
     "match_mode": "any_keyword",
     "idioma": "es",
-    "respuesta": "¡Hola! Soy Clara, tu asistente para trámites de servicios sociales en España. 😊\n\nPuedo ayudarte con:\n1. **Ingreso Mínimo Vital (IMV)** — ayuda económica\n2. **Empadronamiento** — registro en tu municipio\n3. **Tarjeta Sanitaria** — acceso a la sanidad pública\n\n¿Sobre qué te gustaría saber?",
+    "respuesta": "Hola, soy Clara. Estoy aqui para ayudarte con tramites y ayudas del gobierno espanol.\n\nPuedo ayudarte con:\n1. **Ingreso Minimo Vital (IMV)** — ayuda economica\n2. **Empadronamiento** — registro en tu municipio\n3. **Tarjeta Sanitaria** — acceso a la sanidad publica\n\nSobre que te gustaria saber?",
     "audio_file": null
   },
   {
@@ -52,7 +52,7 @@
     "patterns": ["bonjour", "salut", "bonsoir", "allo", "coucou"],
     "match_mode": "any_keyword",
     "idioma": "fr",
-    "respuesta": "Bonjour ! Je suis Clara, votre assistante pour les démarches administratives en Espagne. 😊\n\nJe peux vous aider avec :\n1. **Ingreso Mínimo Vital (IMV)** — aide financière\n2. **Empadronamiento** — inscription à la mairie\n3. **Tarjeta Sanitaria** — accès aux soins de santé publics\n\nSur quel sujet souhaitez-vous en savoir plus ?",
+    "respuesta": "Bonjour, je suis Clara. Je suis la pour vous aider avec les demarches et aides du gouvernement espagnol.\n\nJe peux vous aider avec :\n1. **Ingreso Minimo Vital (IMV)** — aide financiere\n2. **Empadronamiento** — inscription a la mairie\n3. **Tarjeta Sanitaria** — acces aux soins publics\n\nSur quel sujet souhaitez-vous en savoir plus ?",
     "audio_file": null
   },
   {
@@ -60,7 +60,7 @@
     "patterns": [],
     "match_mode": "image_demo",
     "idioma": "any",
-    "respuesta": "Veo que me has enviado una imagen. Parece ser un documento oficial.\n\nPor lo que puedo ver, se trata de una carta relacionada con un trámite administrativo. Te recomiendo:\n\n1. **Si es una carta de la Seguridad Social** sobre el IMV: responde dentro del plazo indicado en la carta (normalmente 10-15 días hábiles)\n2. **Si es una notificación del Ayuntamiento**: lleva la carta a tu oficina de atención al ciudadano más cercana\n3. **Si no entiendes la carta**: acude a un servicio de orientación social gratuito\n\n**Teléfono de ayuda:** 012 (información general de la Comunidad de Madrid)\n\n¿Quieres que te ayude con algún trámite específico mencionado en la carta?",
+    "respuesta": "Veo que me has enviado una imagen. Entiendo que puede ser preocupante recibir documentos oficiales — vamos a mirarlo juntos.\n\nPor lo que puedo ver, se trata de una carta relacionada con un tramite administrativo. Te recomiendo:\n\n1. **Si es una carta de la Seguridad Social** sobre el IMV: responde dentro del plazo indicado en la carta (normalmente 10-15 días hábiles)\n2. **Si es una notificación del Ayuntamiento**: lleva la carta a tu oficina de atención al ciudadano más cercana\n3. **Si no entiendes la carta**: acude a un servicio de orientación social gratuito\n\n**Teléfono de ayuda:** 012 (información general de la Comunidad de Madrid)\n\n¿Quieres que te ayude con algún trámite específico mencionado en la carta?",
     "audio_file": "maria_es.mp3"
   }
 ]

@@ -21,3 +21,11 @@ def test_vision_fail_template_exists():
 def test_vision_fail_template_french():
     result = get_template("vision_fail", "fr")
     assert len(result) > 0
+
+
+def test_closing_template_exists():
+    from src.core.prompts.templates import get_template
+    for lang in ("es", "fr", "en"):
+        result = get_template("closing", lang)
+        assert result, f"closing template missing for {lang}"
+        assert "emoji" not in result.lower()
