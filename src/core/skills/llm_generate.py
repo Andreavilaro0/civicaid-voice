@@ -88,6 +88,7 @@ def llm_generate(
     memory_profile: str = "",
     memory_summary: str = "",
     memory_case: str = "",
+    office_info: dict | None = None,
 ) -> LLMResponse:
     """Call Gemini Flash to generate a response. Returns LLMResponse."""
     if not config.LLM_LIVE or not config.GEMINI_API_KEY:
@@ -101,6 +102,23 @@ def llm_generate(
     kb_str = "No hay contexto disponible."
     if kb_context:
         kb_str = _build_kb_context(kb_context.datos)
+
+    # Append office info to KB context if available
+    if office_info:
+        office_block = "\n\nOFICINA CERCANA:"
+        if office_info.get("oficina"):
+            office_block += f"\n- Oficina: {office_info['oficina']}"
+        if office_info.get("direccion"):
+            office_block += f"\n- Direccion: {office_info['direccion']}"
+        if office_info.get("telefono"):
+            office_block += f"\n- Telefono: {office_info['telefono']}"
+        if office_info.get("horario"):
+            office_block += f"\n- Horario: {office_info['horario']}"
+        if office_info.get("cita_previa_url"):
+            office_block += f"\n- Pedir cita: {office_info['cita_previa_url']}"
+        if office_info.get("sede_url"):
+            office_block += f"\n- Sede electronica: {office_info['sede_url']}"
+        kb_str += office_block
 
     # Build grounded context if available
     chunks_block = ""

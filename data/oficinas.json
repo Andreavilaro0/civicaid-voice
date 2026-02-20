@@ -1,0 +1,292 @@
+{
+  "madrid": {
+    "empadronamiento": {
+      "oficina": "Oficina de Atencion a la Ciudadania (OAC)",
+      "direccion": "Calle Gran Via 3, 28013 Madrid",
+      "telefono": "010 / 915 298 210",
+      "horario": "Lunes a viernes 8:30 a 14:30",
+      "cita_previa_url": "https://sede.madrid.es/portal/site/tramites/menuitem.62876cb64654a55e2dbd7003a8a409a0/?vgnextoid=ba1ff31c4c5e9410VgnVCM2000000c205a0aRCRD",
+      "sede_url": "https://sede.madrid.es",
+      "google_maps": "https://maps.google.com/?q=OAC+Gran+Via+Madrid"
+    },
+    "tarjeta_sanitaria": {
+      "oficina": "Centro de Salud / Oficina CASER",
+      "direccion": "Consulta tu centro en saludmadrid.org",
+      "telefono": "012 / 900 102 112",
+      "horario": "Lunes a viernes 9:00 a 14:00",
+      "cita_previa_url": "https://gestiona7.madrid.org/CITA_TARJETA_SANITARIA_INTERNET/",
+      "sede_url": "https://www.comunidad.madrid/servicios/salud/tarjeta-sanitaria",
+      "google_maps": "https://maps.google.com/?q=Centro+de+Salud+Madrid"
+    },
+    "imv": {
+      "oficina": "Oficina de la Seguridad Social (INSS)",
+      "direccion": "Calle Padre Damian 4, 28036 Madrid",
+      "telefono": "900 20 22 22 (linea IMV)",
+      "horario": "Lunes a viernes 9:00 a 14:00",
+      "cita_previa_url": "https://sede.seg-social.gob.es/wps/portal/sede/sede/Ciudadanos/CiudadanoDetalle/?WCM_GLOBAL_CONTEXT=/wps/wcm/connect/sede/sede/contenidos/ciudadano/prestaciones+702/prestacion+0044",
+      "sede_url": "https://sede.seg-social.gob.es",
+      "google_maps": "https://maps.google.com/?q=INSS+Padre+Damian+Madrid"
+    }
+  },
+  "barcelona": {
+    "empadronamiento": {
+      "oficina": "Oficina de Atencion Ciudadana (OAC)",
+      "direccion": "Placa de Sant Miquel 4, 08002 Barcelona",
+      "telefono": "010 / 932 850 700",
+      "horario": "Lunes a viernes 8:30 a 14:30",
+      "cita_previa_url": "https://seuelectronica.ajuntament.barcelona.cat/oficinavirtual/ca/tramit/20100001",
+      "sede_url": "https://ajuntament.barcelona.cat",
+      "google_maps": "https://maps.google.com/?q=OAC+Placa+Sant+Miquel+Barcelona"
+    },
+    "tarjeta_sanitaria": {
+      "oficina": "Centre d'Atencio Primaria (CAP)",
+      "direccion": "Consulta tu CAP en catsalut.gencat.cat",
+      "telefono": "061 / 900 111 000",
+      "horario": "Lunes a viernes 8:00 a 20:00",
+      "cita_previa_url": "https://catsalut.gencat.cat/ca/serveis-sanitaris/la-targeta-sanitaria/",
+      "sede_url": "https://catsalut.gencat.cat",
+      "google_maps": "https://maps.google.com/?q=CAP+Barcelona"
+    },
+    "imv": {
+      "oficina": "Oficina de la Seguridad Social (INSS)",
+      "direccion": "Passeig de Sant Joan 189, 08037 Barcelona",
+      "telefono": "900 20 22 22 (linea IMV)",
+      "horario": "Lunes a viernes 9:00 a 14:00",
+      "cita_previa_url": "https://sede.seg-social.gob.es/wps/portal/sede/sede/Ciudadanos/CiudadanoDetalle/?WCM_GLOBAL_CONTEXT=/wps/wcm/connect/sede/sede/contenidos/ciudadano/prestaciones+702/prestacion+0044",
+      "sede_url": "https://sede.seg-social.gob.es",
+      "google_maps": "https://maps.google.com/?q=INSS+Passeig+Sant+Joan+Barcelona"
+    }
+  },
+  "valencia": {
+    "empadronamiento": {
+      "oficina": "Oficina de Estadistica - Padron Municipal",
+      "direccion": "Placa del Ayuntamiento 1, 46002 Valencia",
+      "telefono": "010 / 963 525 478",
+      "horario": "Lunes a viernes 9:00 a 14:00",
+      "cita_previa_url": "https://sede.valencia.es/sede/registro/citaPrevia.xhtml",
+      "sede_url": "https://sede.valencia.es",
+      "google_maps": "https://maps.google.com/?q=Ayuntamiento+Valencia"
+    },
+    "tarjeta_sanitaria": {
+      "oficina": "Centro de Salud",
+      "direccion": "Consulta tu centro en san.gva.es",
+      "telefono": "900 161 161",
+      "horario": "Lunes a viernes 9:00 a 14:00",
+      "cita_previa_url": "https://san.gva.es/web/dgoeicap/solicitud-de-tarjeta-sanitaria-sip",
+      "sede_url": "https://san.gva.es",
+      "google_maps": "https://maps.google.com/?q=Centro+Salud+Valencia"
+    },
+    "imv": {
+      "oficina": "Oficina de la Seguridad Social (INSS)",
+      "direccion": "Calle Bailén 46, 46007 Valencia",
+      "telefono": "900 20 22 22 (linea IMV)",
+      "horario": "Lunes a viernes 9:00 a 14:00",
+      "cita_previa_url": "https://sede.seg-social.gob.es/wps/portal/sede/sede/Ciudadanos/CiudadanoDetalle/?WCM_GLOBAL_CONTEXT=/wps/wcm/connect/sede/sede/contenidos/ciudadano/prestaciones+702/prestacion+0044",
+      "sede_url": "https://sede.seg-social.gob.es",
+      "google_maps": "https://maps.google.com/?q=INSS+Bailen+Valencia"
+    }
+  },
+  "sevilla": {
+    "empadronamiento": {
+      "oficina": "Registro General del Ayuntamiento",
+      "direccion": "Plaza Nueva 1, 41001 Sevilla",
+      "telefono": "010 / 955 470 000",
+      "horario": "Lunes a viernes 9:00 a 14:00",
+      "cita_previa_url": "https://www.sevilla.org/sevilla.org/ayuntamiento/cita-previa",
+      "sede_url": "https://www.sevilla.org/sede",
+      "google_maps": "https://maps.google.com/?q=Ayuntamiento+Sevilla+Plaza+Nueva"
+    },
+    "tarjeta_sanitaria": {
+      "oficina": "Centro de Salud del SAS",
+      "direccion": "Consulta tu centro en sspa.juntadeandalucia.es",
+      "telefono": "955 545 060 / Salud Responde",
+      "horario": "Lunes a viernes 9:00 a 14:00",
+      "cita_previa_url": "https://www.sspa.juntadeandalucia.es/servicioandaluzdesalud/ciudadania/derechos-y-garantias/tarjeta-sanitaria",
+      "sede_url": "https://www.sspa.juntadeandalucia.es",
+      "google_maps": "https://maps.google.com/?q=Centro+Salud+Sevilla"
+    },
+    "imv": {
+      "oficina": "Oficina de la Seguridad Social (INSS)",
+      "direccion": "Avenida de la Constitucion 2, 41001 Sevilla",
+      "telefono": "900 20 22 22 (linea IMV)",
+      "horario": "Lunes a viernes 9:00 a 14:00",
+      "cita_previa_url": "https://sede.seg-social.gob.es/wps/portal/sede/sede/Ciudadanos/CiudadanoDetalle/?WCM_GLOBAL_CONTEXT=/wps/wcm/connect/sede/sede/contenidos/ciudadano/prestaciones+702/prestacion+0044",
+      "sede_url": "https://sede.seg-social.gob.es",
+      "google_maps": "https://maps.google.com/?q=INSS+Sevilla"
+    }
+  },
+  "bilbao": {
+    "empadronamiento": {
+      "oficina": "Servicio de Atencion Ciudadana",
+      "direccion": "Plaza Ernesto Erkoreka 1, 48007 Bilbao",
+      "telefono": "010 / 944 204 200",
+      "horario": "Lunes a viernes 8:30 a 14:30",
+      "cita_previa_url": "https://www.bilbao.eus/cs/Satellite/cita-previa/es/inicio",
+      "sede_url": "https://www.bilbao.eus",
+      "google_maps": "https://maps.google.com/?q=Ayuntamiento+Bilbao"
+    },
+    "tarjeta_sanitaria": {
+      "oficina": "Osakidetza - Ambulatorio",
+      "direccion": "Consulta tu ambulatorio en osakidetza.euskadi.eus",
+      "telefono": "900 203 050",
+      "horario": "Lunes a viernes 8:00 a 15:00",
+      "cita_previa_url": "https://www.osakidetza.euskadi.eus/tarjeta-sanitaria/",
+      "sede_url": "https://www.osakidetza.euskadi.eus",
+      "google_maps": "https://maps.google.com/?q=Osakidetza+Bilbao"
+    },
+    "imv": {
+      "oficina": "Oficina de la Seguridad Social (INSS)",
+      "direccion": "Gran Via Don Diego Lopez de Haro 18, 48001 Bilbao",
+      "telefono": "900 20 22 22 (linea IMV)",
+      "horario": "Lunes a viernes 9:00 a 14:00",
+      "cita_previa_url": "https://sede.seg-social.gob.es/wps/portal/sede/sede/Ciudadanos/CiudadanoDetalle/?WCM_GLOBAL_CONTEXT=/wps/wcm/connect/sede/sede/contenidos/ciudadano/prestaciones+702/prestacion+0044",
+      "sede_url": "https://sede.seg-social.gob.es",
+      "google_maps": "https://maps.google.com/?q=INSS+Gran+Via+Bilbao"
+    }
+  },
+  "zaragoza": {
+    "empadronamiento": {
+      "oficina": "Oficina de Registro y Atencion Ciudadana",
+      "direccion": "Plaza del Pilar 18, 50003 Zaragoza",
+      "telefono": "010 / 976 721 100",
+      "horario": "Lunes a viernes 8:30 a 14:30",
+      "cita_previa_url": "https://www.zaragoza.es/sede/portal/tramites/cita-previa",
+      "sede_url": "https://www.zaragoza.es/sede",
+      "google_maps": "https://maps.google.com/?q=Ayuntamiento+Zaragoza+Plaza+Pilar"
+    },
+    "tarjeta_sanitaria": {
+      "oficina": "Centro de Salud del SALUD",
+      "direccion": "Consulta tu centro en saludinforma.es",
+      "telefono": "976 714 000",
+      "horario": "Lunes a viernes 9:00 a 14:00",
+      "cita_previa_url": "https://www.saludinforma.es/portalsi/web/salud/solicitar-tarjeta-sanitaria",
+      "sede_url": "https://www.saludinforma.es",
+      "google_maps": "https://maps.google.com/?q=Centro+Salud+Zaragoza"
+    },
+    "imv": {
+      "oficina": "Oficina de la Seguridad Social (INSS)",
+      "direccion": "Calle Doctor Fleming 2, 50009 Zaragoza",
+      "telefono": "900 20 22 22 (linea IMV)",
+      "horario": "Lunes a viernes 9:00 a 14:00",
+      "cita_previa_url": "https://sede.seg-social.gob.es/wps/portal/sede/sede/Ciudadanos/CiudadanoDetalle/?WCM_GLOBAL_CONTEXT=/wps/wcm/connect/sede/sede/contenidos/ciudadano/prestaciones+702/prestacion+0044",
+      "sede_url": "https://sede.seg-social.gob.es",
+      "google_maps": "https://maps.google.com/?q=INSS+Zaragoza"
+    }
+  },
+  "malaga": {
+    "empadronamiento": {
+      "oficina": "Oficina de Atencion al Ciudadano",
+      "direccion": "Avenida de Cervantes 4, 29016 Malaga",
+      "telefono": "010 / 951 926 010",
+      "horario": "Lunes a viernes 9:00 a 14:00",
+      "cita_previa_url": "https://sede.malaga.eu/es/tramitacion/cita-previa/",
+      "sede_url": "https://sede.malaga.eu",
+      "google_maps": "https://maps.google.com/?q=Ayuntamiento+Malaga+Cervantes"
+    },
+    "tarjeta_sanitaria": {
+      "oficina": "Centro de Salud del SAS",
+      "direccion": "Consulta tu centro en sspa.juntadeandalucia.es",
+      "telefono": "955 545 060 / Salud Responde",
+      "horario": "Lunes a viernes 9:00 a 14:00",
+      "cita_previa_url": "https://www.sspa.juntadeandalucia.es/servicioandaluzdesalud/ciudadania/derechos-y-garantias/tarjeta-sanitaria",
+      "sede_url": "https://www.sspa.juntadeandalucia.es",
+      "google_maps": "https://maps.google.com/?q=Centro+Salud+Malaga"
+    },
+    "imv": {
+      "oficina": "Oficina de la Seguridad Social (INSS)",
+      "direccion": "Calle Hilera 4, 29007 Malaga",
+      "telefono": "900 20 22 22 (linea IMV)",
+      "horario": "Lunes a viernes 9:00 a 14:00",
+      "cita_previa_url": "https://sede.seg-social.gob.es/wps/portal/sede/sede/Ciudadanos/CiudadanoDetalle/?WCM_GLOBAL_CONTEXT=/wps/wcm/connect/sede/sede/contenidos/ciudadano/prestaciones+702/prestacion+0044",
+      "sede_url": "https://sede.seg-social.gob.es",
+      "google_maps": "https://maps.google.com/?q=INSS+Malaga"
+    }
+  },
+  "alicante": {
+    "empadronamiento": {
+      "oficina": "Oficina de Atencion al Ciudadano (OIAC)",
+      "direccion": "Calle Jorge Juan 1, 03002 Alicante",
+      "telefono": "010 / 965 149 100",
+      "horario": "Lunes a viernes 9:00 a 14:00",
+      "cita_previa_url": "https://sedeelectronica.alicante.es/sede/cita-previa",
+      "sede_url": "https://sedeelectronica.alicante.es",
+      "google_maps": "https://maps.google.com/?q=Ayuntamiento+Alicante"
+    },
+    "tarjeta_sanitaria": {
+      "oficina": "Centro de Salud",
+      "direccion": "Consulta tu centro en san.gva.es",
+      "telefono": "900 161 161",
+      "horario": "Lunes a viernes 9:00 a 14:00",
+      "cita_previa_url": "https://san.gva.es/web/dgoeicap/solicitud-de-tarjeta-sanitaria-sip",
+      "sede_url": "https://san.gva.es",
+      "google_maps": "https://maps.google.com/?q=Centro+Salud+Alicante"
+    },
+    "imv": {
+      "oficina": "Oficina de la Seguridad Social (INSS)",
+      "direccion": "Avenida Aguilera 53, 03007 Alicante",
+      "telefono": "900 20 22 22 (linea IMV)",
+      "horario": "Lunes a viernes 9:00 a 14:00",
+      "cita_previa_url": "https://sede.seg-social.gob.es/wps/portal/sede/sede/Ciudadanos/CiudadanoDetalle/?WCM_GLOBAL_CONTEXT=/wps/wcm/connect/sede/sede/contenidos/ciudadano/prestaciones+702/prestacion+0044",
+      "sede_url": "https://sede.seg-social.gob.es",
+      "google_maps": "https://maps.google.com/?q=INSS+Alicante"
+    }
+  },
+  "murcia": {
+    "empadronamiento": {
+      "oficina": "Oficina de Atencion al Ciudadano",
+      "direccion": "Plaza Cardenal Belluga 1, 30004 Murcia",
+      "telefono": "010 / 968 358 600",
+      "horario": "Lunes a viernes 9:00 a 14:00",
+      "cita_previa_url": "https://sede.murcia.es/cita-previa",
+      "sede_url": "https://sede.murcia.es",
+      "google_maps": "https://maps.google.com/?q=Ayuntamiento+Murcia+Belluga"
+    },
+    "tarjeta_sanitaria": {
+      "oficina": "Centro de Salud del SMS",
+      "direccion": "Consulta tu centro en murciasalud.es",
+      "telefono": "968 365 656",
+      "horario": "Lunes a viernes 9:00 a 14:00",
+      "cita_previa_url": "https://www.murciasalud.es/pagina.php?id=180741",
+      "sede_url": "https://www.murciasalud.es",
+      "google_maps": "https://maps.google.com/?q=Centro+Salud+Murcia"
+    },
+    "imv": {
+      "oficina": "Oficina de la Seguridad Social (INSS)",
+      "direccion": "Calle Enrique Villar 1, 30008 Murcia",
+      "telefono": "900 20 22 22 (linea IMV)",
+      "horario": "Lunes a viernes 9:00 a 14:00",
+      "cita_previa_url": "https://sede.seg-social.gob.es/wps/portal/sede/sede/Ciudadanos/CiudadanoDetalle/?WCM_GLOBAL_CONTEXT=/wps/wcm/connect/sede/sede/contenidos/ciudadano/prestaciones+702/prestacion+0044",
+      "sede_url": "https://sede.seg-social.gob.es",
+      "google_maps": "https://maps.google.com/?q=INSS+Murcia"
+    }
+  },
+  "palma de mallorca": {
+    "empadronamiento": {
+      "oficina": "Oficina de Atencion Ciudadana (OAC)",
+      "direccion": "Plaza de Cort 1, 07001 Palma",
+      "telefono": "010 / 971 225 900",
+      "horario": "Lunes a viernes 9:00 a 14:00",
+      "cita_previa_url": "https://seuelectronica.palma.cat/portal/PALMA/sede/se_contenedor1.jsp?seccion=s_ftra_d4_v1.jsp&contenido=30430&tipo=5&nivel=1400&layout=se_contenedor1.jsp",
+      "sede_url": "https://seuelectronica.palma.cat",
+      "google_maps": "https://maps.google.com/?q=Ayuntamiento+Palma+Plaza+Cort"
+    },
+    "tarjeta_sanitaria": {
+      "oficina": "Centro de Salud del IB-SALUT",
+      "direccion": "Consulta tu centro en ibsalut.es",
+      "telefono": "971 211 313",
+      "horario": "Lunes a viernes 9:00 a 14:00",
+      "cita_previa_url": "https://www.ibsalut.es/es/ciudadania/tarjeta-sanitaria",
+      "sede_url": "https://www.ibsalut.es",
+      "google_maps": "https://maps.google.com/?q=Centro+Salud+Palma+Mallorca"
+    },
+    "imv": {
+      "oficina": "Oficina de la Seguridad Social (INSS)",
+      "direccion": "Calle Pere Dezcallar i Net 3, 07003 Palma",
+      "telefono": "900 20 22 22 (linea IMV)",
+      "horario": "Lunes a viernes 9:00 a 14:00",
+      "cita_previa_url": "https://sede.seg-social.gob.es/wps/portal/sede/sede/Ciudadanos/CiudadanoDetalle/?WCM_GLOBAL_CONTEXT=/wps/wcm/connect/sede/sede/contenidos/ciudadano/prestaciones+702/prestacion+0044",
+      "sede_url": "https://sede.seg-social.gob.es",
+      "google_maps": "https://maps.google.com/?q=INSS+Palma+Mallorca"
+    }
+  }
+}

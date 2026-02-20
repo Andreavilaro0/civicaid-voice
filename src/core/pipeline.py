@@ -218,6 +218,15 @@ def process(msg: IncomingMessage) -> None:
         # --- KB LOOKUP (via retriever chain) ---
         kb_context: KBContext | None = get_retriever().retrieve(text, language)
 
+        # --- OFFICE LOOKUP (location-specific info) ---
+        from src.core.rag.territory import detect_territory
+        from src.core.skills.office_lookup import office_lookup
+
+        territory = detect_territory(text)
+        office_info = None
+        if territory and territory.get("municipio") and kb_context:
+            office_info = office_lookup(territory["municipio"], kb_context.tramite)
+
         # --- BUILD MEMORY CONTEXT ---
         memory_profile_str = ""
         memory_summary_str = ""
@@ -243,6 +252,7 @@ def process(msg: IncomingMessage) -> None:
             memory_profile=memory_profile_str,
             memory_summary=memory_summary_str,
             memory_case=memory_case_str,
+            office_info=office_info,
         )
 
         # --- VERIFY ---
