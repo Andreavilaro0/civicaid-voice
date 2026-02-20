@@ -79,6 +79,51 @@ def test_analyze_image_handles_api_exception():
             assert "API error" in result.error
 
 
+def test_analyze_image_empty_response_returns_failure():
+    """When Gemini returns empty text, returns failure (not success with empty body)."""
+    import unittest.mock as um
+
+    mock_genai = um.MagicMock()
+    mock_client = um.MagicMock()
+    mock_genai.Client.return_value = mock_client
+    mock_response = mock_client.models.generate_content.return_value
+    mock_response.text = ""
+
+    with patch("src.core.skills.analyze_image.config") as mock_cfg:
+        mock_cfg.VISION_ENABLED = True
+        mock_cfg.GEMINI_API_KEY = "test-key"
+        mock_cfg.VISION_TIMEOUT = 10
+        with patch.dict("sys.modules", {
+            "google.genai": mock_genai,
+            "google": um.MagicMock(genai=mock_genai),
+        }):
+            result = analyze_image(b"\x89PNG\r\n", "image/png")
+            assert result.success is False
+            assert "empty" in result.error.lower()
+
+
+def test_analyze_image_none_response_returns_failure():
+    """When Gemini returns None text (safety block), returns failure gracefully."""
+    import unittest.mock as um
+
+    mock_genai = um.MagicMock()
+    mock_client = um.MagicMock()
+    mock_genai.Client.return_value = mock_client
+    mock_response = mock_client.models.generate_content.return_value
+    mock_response.text = None
+
+    with patch("src.core.skills.analyze_image.config") as mock_cfg:
+        mock_cfg.VISION_ENABLED = True
+        mock_cfg.GEMINI_API_KEY = "test-key"
+        mock_cfg.VISION_TIMEOUT = 10
+        with patch.dict("sys.modules", {
+            "google.genai": mock_genai,
+            "google": um.MagicMock(genai=mock_genai),
+        }):
+            result = analyze_image(b"\x89PNG\r\n", "image/png")
+            assert result.success is False
+
+
 def test_analyze_image_result_has_duration():
     """Result includes duration_ms."""
     with patch("src.core.skills.analyze_image.config") as mock_cfg:

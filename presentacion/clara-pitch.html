@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Clara — Tu voz tiene poder</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --trust:#1B5E7B;
+  --hope:#2E7D4F;
+  --warmth:#D46A1E;
+  --alert:#C62828;
+  --bg-dark:#0a0a0a;
+  --bg-warm:#fafaf9;
+  --text-light:#fafaf9;
+  --text-muted:#757575;
+}
+
+html{font-size:16px}
+body{
+  margin:0;
+  font-family:'Space Grotesk',system-ui,sans-serif;
+  background:var(--bg-dark);
+  color:var(--text-light);
+  overflow:hidden;
+  height:100vh;width:100vw;
+}
+
+.deck{position:relative;width:100vw;height:100vh}
+.slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:5vh 6vw;
+  opacity:0;visibility:hidden;
+  transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1);
+  transform:translateY(30px);overflow:hidden;
+}
+.slide.active{opacity:1;visibility:visible;transform:translateY(0)}
+.slide.exit-up{opacity:0;visibility:hidden;transform:translateY(-30px)}
+
+.nav{
+  position:fixed;bottom:2vh;left:50%;transform:translateX(-50%);
+  display:flex;gap:8px;z-index:100;
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  padding:8px 16px;border-radius:40px;
+  border:1px solid rgba(255,255,255,.1);
+}
+.nav-dot{
+  width:10px;height:10px;border-radius:50%;
+  background:rgba(255,255,255,.2);border:none;cursor:pointer;
+  transition:all .3s cubic-bezier(.16,1,.3,1);
+}
+.nav-dot.active{background:var(--warmth);width:28px;border-radius:5px}
+.slide-counter{
+  position:fixed;top:2vh;right:3vw;z-index:100;
+  font-size:.75rem;color:rgba(255,255,255,.35);
+  font-variant-numeric:tabular-nums;letter-spacing:.05em;
+}
+
+.display{
+  font-family:'Instrument Serif',Georgia,serif;
+  font-size:clamp(2.5rem,7vw,6rem);
+  line-height:1.05;letter-spacing:-.02em;font-weight:400;
+}
+.display-sm{
+  font-family:'Instrument Serif',Georgia,serif;
+  font-size:clamp(1.8rem,4.5vw,3.5rem);
+  line-height:1.15;letter-spacing:-.01em;
+}
+.headline{font-size:clamp(1.2rem,2.5vw,2rem);font-weight:300;line-height:1.4}
+.label-light{font-size:.75rem;font-weight:500;text-transform:uppercase;letter-spacing:.15em;color:rgba(255,255,255,.4)}
+.accent{color:var(--warmth)}
+.trust{color:var(--trust)}
+.hope{color:var(--hope)}
+
+.row{display:flex;gap:3vw;align-items:center;width:100%;max-width:1200px}
+.col{flex:1;display:flex;flex-direction:column}
+.center{text-align:center;align-items:center}
+.gap-md{gap:2rem}
+.mb-2{margin-bottom:1rem}
+
+.stat{text-align:center}
+.stat-number{
+  font-family:'Instrument Serif',Georgia,serif;
+  font-size:clamp(2.5rem,5vw,5rem);line-height:1;font-weight:400;
+}
+.stat-label{font-size:.85rem;color:rgba(255,255,255,.5);margin-top:.5rem}
+
+.persona{
+  flex:1;padding:2rem;border-radius:16px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  display:flex;flex-direction:column;gap:1rem;
+}
+.persona h3{font-size:1.1rem;font-weight:600}
+.persona p{font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.5}
+.persona-tag{
+  display:inline-block;font-size:.7rem;font-weight:600;
+  padding:4px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.08em;
+}
+
+.pill{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 20px;border-radius:40px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  font-size:.85rem;color:rgba(255,255,255,.8);
+}
+
+.phone{
+  width:280px;flex-shrink:0;
+  background:#1c1c1e;border-radius:36px;padding:10px;
+  box-shadow:0 32px 64px rgba(0,0,0,.5),inset 0 0 0 1.5px #3a3a3c;
+}
+.phone-screen{
+  background:#fafafa;border-radius:28px;overflow:hidden;height:500px;
+  display:flex;flex-direction:column;
+}
+.phone-header{
+  background:var(--trust);color:#fff;
+  padding:40px 16px 12px;display:flex;align-items:center;gap:10px;
+  font-size:.85rem;font-weight:600;
+}
+.phone-chat{flex:1;padding:12px;overflow-y:auto;display:flex;flex-direction:column;gap:8px}
+.bubble{max-width:82%;padding:10px 14px;font-size:.78rem;line-height:1.45;border-radius:14px}
+.bubble-clara{background:#E3F2FD;color:#1a1a1a;border-bottom-left-radius:4px;align-self:flex-start}
+.bubble-user{background:var(--trust);color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+.bubble-audio{
+  display:flex;align-items:center;gap:8px;margin-top:6px;padding:6px 10px;
+  background:rgba(46,125,79,.1);border-radius:20px;
+}
+.play-btn{
+  width:28px;height:28px;border-radius:50%;background:var(--hope);border:none;
+  display:flex;align-items:center;justify-content:center;
+}
+.play-btn svg{width:12px;height:12px;fill:#fff;margin-left:2px}
+.audio-bar{flex:1;height:3px;background:#ddd;border-radius:2px;position:relative}
+.audio-bar-fill{position:absolute;left:0;top:0;height:100%;width:35%;background:var(--hope);border-radius:2px}
+.audio-time{font-size:.65rem;color:#888}
+.phone-input{
+  padding:10px 16px;border-top:1px solid #e5e5e5;
+  display:flex;align-items:center;gap:8px;background:#fff;
+}
+.phone-input-field{
+  flex:1;background:#f5f5f5;border:none;border-radius:20px;
+  padding:8px 14px;font-size:.75rem;color:#999;
+}
+
+.arch-flow{display:flex;align-items:center;gap:0;flex-wrap:nowrap;width:100%;max-width:1100px;justify-content:center}
+.arch-node{display:flex;flex-direction:column;align-items:center;gap:8px;flex-shrink:0}
+.arch-box{
+  width:120px;height:80px;border-radius:16px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:4px;font-size:.75rem;font-weight:500;
+  border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.04);
+}
+.arch-box svg{width:28px;height:28px;opacity:.8}
+.arch-arrow{width:40px;height:2px;background:rgba(255,255,255,.15);position:relative;flex-shrink:0}
+.arch-arrow::after{content:'';position:absolute;right:-1px;top:-4px;border:5px solid transparent;border-left:6px solid rgba(255,255,255,.25)}
+.arch-label{font-size:.6rem;color:rgba(255,255,255,.35);text-align:center}
+
+.impact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;width:100%;max-width:900px}
+.impact-card{padding:2rem;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);text-align:center}
+
+.journey{display:flex;align-items:flex-start;gap:0;width:100%;max-width:1000px;position:relative}
+.journey::before{content:'';position:absolute;top:28px;left:28px;right:28px;height:2px;background:rgba(255,255,255,.1)}
+.journey-step{flex:1;display:flex;flex-direction:column;align-items:center;gap:12px;position:relative;z-index:1;text-align:center;padding:0 8px}
+.journey-dot{
+  width:56px;height:56px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:1.3rem;
+  border:2px solid rgba(255,255,255,.15);background:var(--bg-dark);
+}
+.journey-dot.on{border-color:var(--hope);background:rgba(46,125,79,.15)}
+.journey-text{font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.4}
+.journey-label{font-size:.7rem;font-weight:600;color:var(--text-light)}
+
+.tech-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:700px}
+.tech-pill{padding:8px 16px;border-radius:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);font-size:.78rem;color:rgba(255,255,255,.7);display:flex;align-items:center;gap:6px}
+
+.big-quote{
+  font-family:'Instrument Serif',Georgia,serif;
+  font-size:clamp(2rem,5vw,4.5rem);line-height:1.15;text-align:center;max-width:900px;font-style:italic;
+}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+.anim{animation:fadeUp .8s cubic-bezier(.16,1,.3,1) both}
+.d1{animation-delay:.1s}.d2{animation-delay:.2s}.d3{animation-delay:.3s}.d4{animation-delay:.4s}.d5{animation-delay:.5s}
+
+.glow{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(27,94,123,.15) 0%,transparent 70%);pointer-events:none}
+.glow-o{background:radial-gradient(circle,rgba(212,106,30,.1) 0%,transparent 70%)}
+
+@media(max-width:768px){
+  .row{flex-direction:column}
+  .phone{width:220px}.phone-screen{height:400px}
+  .arch-flow{flex-wrap:wrap;gap:12px}.arch-arrow{display:none}
+  .impact-grid{grid-template-columns:1fr}
+  .journey{flex-direction:column;align-items:flex-start;gap:1.5rem}
+  .journey::before{display:none}
+}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- ═══ SLIDE 1: COVER ═══ -->
+<div class="slide active" data-slide="0">
+  <div class="glow" style="top:-10%;left:-10%"></div>
+  <div class="glow glow-o" style="bottom:-15%;right:-5%"></div>
+  <p class="label-light anim" style="margin-bottom:.5rem">Andrea Avila</p>
+  <div class="anim d1">
+    <svg width="80" height="80" viewBox="0 0 80 80" fill="none" style="margin-bottom:1.5rem">
+      <path d="M 28 14 A 30 30 0 0 1 28 66" stroke="#1B5E7B" stroke-width="4.5" stroke-linecap="round" opacity="0.35"/>
+      <path d="M 28 23 A 20 20 0 0 1 28 57" stroke="#1B5E7B" stroke-width="4.5" stroke-linecap="round" opacity="0.65"/>
+      <path d="M 28 32 A 10 10 0 0 1 28 48" stroke="#1B5E7B" stroke-width="4.5" stroke-linecap="round" opacity="1"/>
+      <circle cx="28" cy="40" r="5.5" fill="#D46A1E"/>
+    </svg>
+  </div>
+  <h1 class="display anim d2" style="color:#fff">Clara</h1>
+  <p class="headline anim d3" style="color:rgba(255,255,255,.5);margin-top:1rem;max-width:600px;text-align:center">
+    Asistente conversacional que ayuda a personas vulnerables a navegar ayudas del gobierno
+  </p>
+  <div class="anim d4" style="margin-top:2.5rem;display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+    <span class="pill">WhatsApp-first</span>
+    <span class="pill">Voz + Texto + Foto</span>
+    <span class="pill">ES / FR</span>
+  </div>
+  <p class="label-light anim d5" style="margin-top:3rem">OdiseIA4Good · UDIT · Febrero 2026</p>
+</div>
+
+<!-- ═══ SLIDE 2: PROBLEMA ═══ -->
+<div class="slide" data-slide="1">
+  <div class="glow" style="top:20%;left:50%;transform:translateX(-50%)"></div>
+  <p class="label-light anim mb-2">El problema</p>
+  <div class="stat anim d1">
+    <div class="stat-number" style="color:var(--warmth)">11.4M</div>
+    <div class="stat-label" style="font-size:1.1rem;color:rgba(255,255,255,.6);margin-top:.5rem">personas en riesgo de exclusion social en Espana</div>
+  </div>
+  <div style="display:flex;gap:2rem;margin-top:3rem;flex-wrap:wrap;justify-content:center" class="anim d2">
+    <div class="stat"><div class="stat-number" style="font-size:2.5rem;color:var(--alert)">73%</div><div class="stat-label">no completa tramites<br/>por barreras digitales</div></div>
+    <div class="stat"><div class="stat-number" style="font-size:2.5rem;color:var(--trust)">40%</div><div class="stat-label">no habla espanol<br/>como lengua materna</div></div>
+    <div class="stat"><div class="stat-number" style="font-size:2.5rem;color:var(--hope)">87%</div><div class="stat-label">usa WhatsApp<br/>a diario</div></div>
+  </div>
+  <p class="anim d3" style="margin-top:3rem;color:rgba(255,255,255,.4);max-width:700px;text-align:center;font-size:1.1rem">
+    Las ayudas existen. Entre el papel y la persona hay un muro.
+  </p>
+</div>
+
+<!-- ═══ SLIDE 3: PERSONAS ═══ -->
+<div class="slide" data-slide="2">
+  <p class="label-light anim mb-2" style="width:100%;text-align:center">Para quien es Clara</p>
+  <div class="row anim d1" style="max-width:1100px">
+    <div class="persona">
+      <div style="width:56px;height:56px;border-radius:50%;background:rgba(212,106,30,.15);display:flex;align-items:center;justify-content:center">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D46A1E" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 12 0v1"/></svg>
+      </div>
+      <h3>Maria, 74 anos</h3>
+      <p>Le tiemblan las manos. No puede teclear. Quiere saber si tiene derecho al IMV.</p>
+      <span class="persona-tag" style="background:rgba(212,106,30,.15);color:var(--warmth)">Nota de voz</span>
+    </div>
+    <div class="persona">
+      <div style="width:56px;height:56px;border-radius:50%;background:rgba(27,94,123,.15);display:flex;align-items:center;justify-content:center">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1B5E7B" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 12 0v1"/></svg>
+      </div>
+      <h3>Ahmed, 28 anos</h3>
+      <p>Habla frances. Necesita empadronarse pero todo esta en espanol.</p>
+      <span class="persona-tag" style="background:rgba(27,94,123,.15);color:var(--trust)">Bilingue ES/FR</span>
+    </div>
+    <div class="persona">
+      <div style="width:56px;height:56px;border-radius:50%;background:rgba(46,125,79,.15);display:flex;align-items:center;justify-content:center">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2E7D4F" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 12 0v1"/></svg>
+      </div>
+      <h3>Fatima, 45 anos</h3>
+      <p>Habla pero no lee en espanol. Necesita tarjeta sanitaria para su hijo.</p>
+      <span class="persona-tag" style="background:rgba(46,125,79,.15);color:var(--hope)">Audio respuesta</span>
+    </div>
+  </div>
+  <p class="anim d2" style="text-align:center;margin-top:2rem;color:rgba(255,255,255,.4);font-size:.9rem">
+    Clara no pide que las personas se adapten. <span style="color:var(--warmth)">Clara se adapta a las personas.</span>
+  </p>
+</div>
+
+<!-- ═══ SLIDE 4: JOURNEY / USO ═══ -->
+<div class="slide center" data-slide="3">
+  <p class="label-light anim mb-2">Ejemplo: Maria quiere solicitar el IMV</p>
+  <div class="journey anim d1" style="margin-top:2rem">
+    <div class="journey-step">
+      <div class="journey-dot" style="border-color:var(--warmth)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D46A1E" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12" y2="18.01" stroke-width="2"/></svg>
+      </div>
+      <div class="journey-label">1. Abre WhatsApp</div>
+      <div class="journey-text">Lo que ya tiene</div>
+    </div>
+    <div class="journey-step">
+      <div class="journey-dot on">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2E7D4F" stroke-width="1.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+      </div>
+      <div class="journey-label">2. Nota de voz</div>
+      <div class="journey-text">"Quiero saber del IMV"</div>
+    </div>
+    <div class="journey-step">
+      <div class="journey-dot" style="border-color:var(--trust)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B5E7B" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2"/></svg>
+      </div>
+      <div class="journey-label">3. Whisper + Gemini</div>
+      <div class="journey-text">Transcribe y entiende</div>
+    </div>
+    <div class="journey-step">
+      <div class="journey-dot on">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2E7D4F" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <div class="journey-label">4. Respuesta + audio</div>
+      <div class="journey-text">Texto claro + voz</div>
+    </div>
+    <div class="journey-step">
+      <div class="journey-dot" style="border-color:var(--hope)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2E7D4F" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <div class="journey-label">5. Maria sabe que hacer</div>
+      <div class="journey-text">Paso concreto</div>
+    </div>
+  </div>
+  <p class="anim d3" style="text-align:center;margin-top:2.5rem;font-size:.85rem;color:rgba(255,255,255,.3)">
+    Todo en &lt; 30 segundos. Sin apps. Sin formularios. Sin esperas.
+  </p>
+</div>
+
+<!-- ═══ SLIDE 5: DEMO WHATSAPP ═══ -->
+<div class="slide" data-slide="4">
+  <div class="row" style="max-width:1100px">
+    <div class="col gap-md" style="max-width:480px">
+      <p class="label-light anim">Demo</p>
+      <h2 class="display-sm anim d1" style="color:#fff">Clara en<br/><span class="accent">WhatsApp</span></h2>
+      <div class="anim d2" style="display:flex;flex-direction:column;gap:12px;margin-top:1rem">
+        <div style="display:flex;align-items:center;gap:12px">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--hope)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <span style="color:rgba(255,255,255,.7);font-size:.9rem">Texto, voz o foto de documento</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--hope)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <span style="color:rgba(255,255,255,.7);font-size:.9rem">Espanol y frances automatico</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--hope)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <span style="color:rgba(255,255,255,.7);font-size:.9rem">Audio para quienes no leen</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--hope)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <span style="color:rgba(255,255,255,.7);font-size:.9rem">Guardrails de seguridad</span>
+        </div>
+      </div>
+    </div>
+    <div class="phone anim d2">
+      <div class="phone-screen">
+        <div class="phone-header">
+          <svg width="10" height="16" viewBox="0 0 10 16" fill="none"><path d="M8.5 1 1.5 8l7 7" stroke="#fff" stroke-width="1.5"/></svg>
+          <span>Clara</span>
+          <span style="margin-left:auto;font-size:.7rem;opacity:.6">ES | FR</span>
+        </div>
+        <div class="phone-chat">
+          <div class="bubble bubble-clara">Hola, soy Clara. Estoy aqui para ayudarte con tramites y ayudas. Puedes escribirme o enviar una nota de voz.</div>
+          <div class="bubble bubble-user">Quiero saber que es el IMV</div>
+          <div class="bubble bubble-clara">
+            El Ingreso Minimo Vital (IMV) es una ayuda economica para personas con pocos recursos. Puede ser entre 604-1.200€/mes.
+            <div class="bubble-audio">
+              <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg></div>
+              <div class="audio-bar"><div class="audio-bar-fill"></div></div>
+              <span class="audio-time">0:34</span>
+            </div>
+          </div>
+          <div class="bubble bubble-user" style="display:flex;align-items:center;gap:6px">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+            <span style="font-size:.7rem">Nota de voz 0:05</span>
+          </div>
+          <div class="bubble bubble-clara">Para solicitarlo necesitas:<br/>1. DNI/NIE<br/>2. Empadronamiento<br/>3. Declaracion renta<br/><span style="font-size:.65rem;color:#888;margin-top:4px;display:block">seg-social.es/imv</span></div>
+        </div>
+        <div class="phone-input">
+          <div class="phone-input-field">Escribe un mensaje...</div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--trust)"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 6: DEMO WEB APP ═══ -->
+<div class="slide" data-slide="5">
+  <div class="row" style="max-width:1100px;flex-direction:row-reverse">
+    <div class="phone anim d1" style="flex-shrink:0">
+      <div class="phone-screen" style="background:#f8f9fa">
+        <div class="phone-header" style="padding-top:44px">
+          <svg width="20" height="20" viewBox="0 0 80 80" fill="none"><path d="M 28 23 A 20 20 0 0 1 28 57" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.65"/><path d="M 28 32 A 10 10 0 0 1 28 48" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="28" cy="40" r="4" fill="#D46A1E"/></svg>
+          <span>Clara Web</span>
+          <span style="margin-left:auto;font-size:.65rem;padding:3px 8px;border:1px solid rgba(255,255,255,.3);border-radius:12px">ES</span>
+        </div>
+        <div class="phone-chat">
+          <div class="bubble bubble-clara">Bienvenido/a. Soy Clara, tu asistente para tramites y ayudas sociales.</div>
+          <div class="bubble bubble-user">Como pido la tarjeta sanitaria?</div>
+          <div class="bubble bubble-clara">
+            Para la tarjeta sanitaria necesitas:<br/><br/>
+            ✅ Empadronamiento<br/>✅ Pasaporte o NIE<br/>✅ Ir al centro de salud<br/><br/>
+            <span style="font-size:.65rem;color:#888">Fuente: Ministerio de Sanidad</span>
+            <div class="bubble-audio" style="margin-top:8px">
+              <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg></div>
+              <div class="audio-bar"><div class="audio-bar-fill" style="width:60%"></div></div>
+              <span class="audio-time">0:28</span>
+            </div>
+          </div>
+        </div>
+        <div class="phone-input" style="gap:6px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+          <div class="phone-input-field">Escribe o habla...</div>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+        </div>
+      </div>
+    </div>
+    <div class="col gap-md" style="max-width:480px">
+      <p class="label-light anim">Interfaz accesible</p>
+      <h2 class="display-sm anim d1" style="color:#fff">Clara <span class="trust">Web</span></h2>
+      <p class="anim d2" style="color:rgba(255,255,255,.5);font-size:.95rem;line-height:1.6">
+        Para trabajadoras sociales, ONGs y mediadores comunitarios.
+      </p>
+      <div class="anim d3" style="display:flex;flex-direction:column;gap:10px;margin-top:.5rem">
+        <div style="display:flex;align-items:center;gap:10px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--hope)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span style="color:rgba(255,255,255,.7);font-size:.85rem">WCAG AA accesible</span></div>
+        <div style="display:flex;align-items:center;gap:10px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--hope)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span style="color:rgba(255,255,255,.7);font-size:.85rem">Grabacion de voz integrada</span></div>
+        <div style="display:flex;align-items:center;gap:10px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--hope)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span style="color:rgba(255,255,255,.7);font-size:.85rem">Mobile-first</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 7: ARQUITECTURA ═══ -->
+<div class="slide center" data-slide="6">
+  <p class="label-light anim mb-2">Como funciona</p>
+  <h2 class="display-sm anim d1" style="color:#fff;margin-bottom:2.5rem">Arquitectura</h2>
+  <div class="arch-flow anim d2">
+    <div class="arch-node">
+      <div class="arch-box" style="border-color:rgba(46,125,79,.3)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--hope)" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span>WhatsApp</span>
+      </div>
+      <span class="arch-label">Texto / Voz / Foto</span>
+    </div>
+    <div class="arch-arrow"></div>
+    <div class="arch-node">
+      <div class="arch-box" style="border-color:rgba(27,94,123,.3)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--trust)" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span>Twilio</span>
+      </div>
+      <span class="arch-label">Mensajeria</span>
+    </div>
+    <div class="arch-arrow"></div>
+    <div class="arch-node">
+      <div class="arch-box" style="border-color:rgba(212,106,30,.3)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--warmth)" stroke-width="1.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+        <span>Whisper</span>
+      </div>
+      <span class="arch-label">Voz → Texto</span>
+    </div>
+    <div class="arch-arrow"></div>
+    <div class="arch-node">
+      <div class="arch-box" style="border-color:rgba(27,94,123,.5);background:rgba(27,94,123,.08)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--trust)" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2"/></svg>
+        <span style="font-weight:600">Gemini</span>
+      </div>
+      <span class="arch-label">IA 1.5 Flash</span>
+    </div>
+    <div class="arch-arrow"></div>
+    <div class="arch-node">
+      <div class="arch-box" style="border-color:rgba(46,125,79,.3)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--hope)" stroke-width="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        <span>KB + RAG</span>
+      </div>
+      <span class="arch-label">8 bases</span>
+    </div>
+    <div class="arch-arrow"></div>
+    <div class="arch-node">
+      <div class="arch-box" style="border-color:rgba(46,125,79,.5);background:rgba(46,125,79,.08)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--hope)" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <span style="font-weight:600">Respuesta</span>
+      </div>
+      <span class="arch-label">Texto + Audio</span>
+    </div>
+  </div>
+  <div class="tech-grid anim d3" style="margin-top:2.5rem">
+    <div class="tech-pill">Python + Flask</div>
+    <div class="tech-pill">Docker</div>
+    <div class="tech-pill">Render</div>
+    <div class="tech-pill">PostgreSQL + pgvector</div>
+    <div class="tech-pill">React + TypeScript</div>
+    <div class="tech-pill">508+ tests</div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 8: IMPACTO ═══ -->
+<div class="slide center" data-slide="7">
+  <p class="label-light anim mb-2">Impacto</p>
+  <div class="impact-grid anim d1">
+    <div class="impact-card">
+      <div class="stat-number" style="color:var(--hope)">2B</div>
+      <div class="stat-label" style="margin-top:.5rem">usuarios WhatsApp en el mundo</div>
+    </div>
+    <div class="impact-card">
+      <div class="stat-number" style="color:var(--trust)">0€</div>
+      <div class="stat-label" style="margin-top:.5rem">coste para el usuario</div>
+    </div>
+    <div class="impact-card">
+      <div class="stat-number" style="color:var(--warmth)">&lt;30s</div>
+      <div class="stat-label" style="margin-top:.5rem">respuesta con fuentes</div>
+    </div>
+  </div>
+  <div class="anim d2" style="display:flex;gap:1.5rem;margin-top:2.5rem;flex-wrap:wrap;justify-content:center">
+    <div style="text-align:center;padding:1rem 1.5rem;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)">
+      <div style="font-size:1.1rem;font-weight:600;color:var(--hope)">Hoy</div>
+      <div style="font-size:.8rem;color:rgba(255,255,255,.5);margin-top:4px">IMV, empadronamiento,<br/>sanitaria, NIE/TIE</div>
+    </div>
+    <div style="display:flex;align-items:center;color:rgba(255,255,255,.2);font-size:1.5rem">→</div>
+    <div style="text-align:center;padding:1rem 1.5rem;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)">
+      <div style="font-size:1.1rem;font-weight:600;color:var(--trust)">Manana</div>
+      <div style="font-size:.8rem;color:rgba(255,255,255,.5);margin-top:4px">Todas las CCAA<br/>de Espana</div>
+    </div>
+    <div style="display:flex;align-items:center;color:rgba(255,255,255,.2);font-size:1.5rem">→</div>
+    <div style="text-align:center;padding:1rem 1.5rem;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)">
+      <div style="font-size:1.1rem;font-weight:600;color:var(--warmth)">Futuro</div>
+      <div style="font-size:.8rem;color:rgba(255,255,255,.5);margin-top:4px">LATAM, refugiados,<br/>cualquier idioma</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 9: USOS VULNERABILIDAD ═══ -->
+<div class="slide center" data-slide="8">
+  <p class="label-light anim mb-2">Clara para cada situacion</p>
+  <h2 class="display-sm anim d1" style="color:#fff;margin-bottom:2rem">6 realidades. <span class="accent">Una solucion.</span></h2>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;width:100%;max-width:1050px" class="anim d2">
+    <div style="padding:1.5rem;border-radius:16px;background:rgba(212,106,30,.06);border:1px solid rgba(212,106,30,.15)">
+      <div style="font-size:1.5rem;margin-bottom:8px">👵</div>
+      <div style="font-size:.95rem;font-weight:600;color:var(--warmth);margin-bottom:6px">Mayores solos</div>
+      <div style="font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.5">Nota de voz para pedir cita medica o preguntar sobre pensiones</div>
+    </div>
+    <div style="padding:1.5rem;border-radius:16px;background:rgba(27,94,123,.06);border:1px solid rgba(27,94,123,.15)">
+      <div style="font-size:1.5rem;margin-bottom:8px">🌍</div>
+      <div style="font-size:.95rem;font-weight:600;color:var(--trust);margin-bottom:6px">Inmigrantes sin idioma</div>
+      <div style="font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.5">Hablan en frances o arabe, Clara responde en su idioma</div>
+    </div>
+    <div style="padding:1.5rem;border-radius:16px;background:rgba(198,40,40,.06);border:1px solid rgba(198,40,40,.15)">
+      <div style="font-size:1.5rem;margin-bottom:8px">🛡️</div>
+      <div style="font-size:.95rem;font-weight:600;color:var(--alert);margin-bottom:6px">Violencia de genero</div>
+      <div style="font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.5">Informacion segura sobre ordenes de proteccion y recursos</div>
+    </div>
+    <div style="padding:1.5rem;border-radius:16px;background:rgba(46,125,79,.06);border:1px solid rgba(46,125,79,.15)">
+      <div style="font-size:1.5rem;margin-bottom:8px">🏠</div>
+      <div style="font-size:.95rem;font-weight:600;color:var(--hope);margin-bottom:6px">Sin hogar</div>
+      <div style="font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.5">Guia para acceder a albergues, comedores y ayudas de emergencia</div>
+    </div>
+    <div style="padding:1.5rem;border-radius:16px;background:rgba(27,94,123,.06);border:1px solid rgba(27,94,123,.15)">
+      <div style="font-size:1.5rem;margin-bottom:8px">♿</div>
+      <div style="font-size:.95rem;font-weight:600;color:var(--trust);margin-bottom:6px">Discapacidad</div>
+      <div style="font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.5">Interfaz por voz, sin necesidad de teclear ni leer pantalla</div>
+    </div>
+    <div style="padding:1.5rem;border-radius:16px;background:rgba(212,106,30,.06);border:1px solid rgba(212,106,30,.15)">
+      <div style="font-size:1.5rem;margin-bottom:8px">📖</div>
+      <div style="font-size:.95rem;font-weight:600;color:var(--warmth);margin-bottom:6px">Analfabetismo funcional</div>
+      <div style="font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.5">Todo por voz: pregunta hablando, recibe respuesta en audio</div>
+    </div>
+  </div>
+  <p class="anim d3" style="margin-top:1.5rem;font-size:.85rem;color:rgba(255,255,255,.35);max-width:600px;text-align:center">
+    Clara crea una nueva categoria: <span style="color:var(--warmth);font-weight:500">Civic Tenderness</span> — calidez institucional por diseno
+  </p>
+</div>
+
+<!-- ═══ SLIDE 10: CIERRE ═══ -->
+<div class="slide" data-slide="9">
+  <div class="glow" style="top:30%;left:50%;transform:translateX(-50%)"></div>
+  <div class="glow glow-o" style="bottom:10%;right:20%"></div>
+  <p class="label-light anim mb-2">Andrea Avila</p>
+  <div class="big-quote anim d2">Tu voz tiene <span class="accent">poder</span>.</div>
+  <div class="anim d3" style="margin-top:2.5rem">
+    <svg width="60" height="60" viewBox="0 0 80 80" fill="none">
+      <path d="M 28 14 A 30 30 0 0 1 28 66" stroke="#fff" stroke-width="4.5" stroke-linecap="round" opacity="0.2"/>
+      <path d="M 28 23 A 20 20 0 0 1 28 57" stroke="#fff" stroke-width="4.5" stroke-linecap="round" opacity="0.4"/>
+      <path d="M 28 32 A 10 10 0 0 1 28 48" stroke="#fff" stroke-width="4.5" stroke-linecap="round" opacity="0.7"/>
+      <circle cx="28" cy="40" r="5.5" fill="#D46A1E"/>
+    </svg>
+  </div>
+  <p class="label-light anim d4" style="margin-top:2rem">OdiseIA4Good · UDIT · Febrero 2026</p>
+</div>
+
+</div>
+
+<div class="nav" id="nav"></div>
+<div class="slide-counter" id="counter"></div>
+
+<script>
+const slides=document.querySelectorAll('.slide'),nav=document.getElementById('nav'),counter=document.getElementById('counter');
+let current=0;const total=slides.length;
+for(let i=0;i<total;i++){const d=document.createElement('button');d.className='nav-dot'+(i===0?' active':'');d.setAttribute('aria-label','Slide '+(i+1));d.onclick=()=>goTo(i);nav.appendChild(d)}
+function goTo(n){if(n<0||n>=total||n===current)return;slides.forEach(s=>{s.classList.remove('active','exit-up')});if(n>current)slides[current].classList.add('exit-up');slides[n].classList.add('active');slides[n].querySelectorAll('.anim').forEach(el=>{el.style.animation='none';el.offsetHeight;el.style.animation=''});nav.querySelectorAll('.nav-dot').forEach((d,i)=>{d.classList.toggle('active',i===n)});current=n;counter.textContent=(n+1)+' / '+total}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '){e.preventDefault();goTo(current+1)}if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();goTo(current-1)}const num=parseInt(e.key);if(num>=1&&num<=total)goTo(num-1)});
+let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50)goTo(current+(d>0?1:-1))});
+document.addEventListener('click',e=>{if(e.target.closest('.nav')||e.target.closest('button'))return;const x=e.clientX/window.innerWidth;if(x>.7)goTo(current+1);else if(x<.3)goTo(current-1)});
+counter.textContent='1 / '+total;
+</script>
+</body>
+</html>

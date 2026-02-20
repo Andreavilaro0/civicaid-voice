@@ -18,6 +18,8 @@ VISION_PROMPT = (
     "4. Si necesita ayuda profesional\n\n"
     "Si NO es un documento administrativo, describe brevemente lo que ves y pregunta "
     "c\u00f3mo puedes ayudar con tr\u00e1mites del gobierno espa\u00f1ol.\n\n"
+    "IMPORTANTE: Solo describe lo que ves en la imagen. No inventes datos, plazos, cantidades ni URLs "
+    "que no est\u00e9n visibles. Si no puedes leer algo, dilo.\n\n"
     "Responde en espa\u00f1ol, lenguaje simple (nivel de comprensi\u00f3n: 12 a\u00f1os). M\u00e1ximo 200 palabras."
 )
 
@@ -76,9 +78,14 @@ def analyze_image(
         )
 
         elapsed = int((time.time() - start) * 1000)
-        text = response.text.strip()
+        raw_text = getattr(response, "text", None)
+        if not raw_text:
+            return ImageAnalysisResult(
+                text="", duration_ms=elapsed, success=False,
+                error="Empty response from Gemini"
+            )
         return ImageAnalysisResult(
-            text=text, duration_ms=elapsed, success=True
+            text=raw_text.strip(), duration_ms=elapsed, success=True
         )
 
     except Exception as e:
