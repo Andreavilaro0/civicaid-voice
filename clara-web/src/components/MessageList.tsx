@@ -3,6 +3,8 @@
 import { useEffect, useRef, useCallback } from "react";
 import ChatBubble from "@/components/ui/ChatBubble";
 import LoadingState from "@/components/ui/LoadingState";
+import AudioPlayer from "@/components/ui/AudioPlayer";
+import { resolveAudioUrl } from "@/lib/api";
 import type { Message, Language, LoadingContext } from "@/lib/types";
 
 interface MessageListProps {
@@ -90,25 +92,12 @@ export default function MessageList({
               </button>
             )}
 
-            {/* Audio stub — Q8 reemplazara con AudioPlayer */}
-            {msg.audio && (
-              <button
-                className="flex items-center gap-2 mt-2 px-3 py-2
-                           bg-white/60 rounded-lg text-clara-blue
-                           min-h-touch-sm hover:bg-white/80 transition-colors duration-150"
-                aria-label={l.listen}
-              >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-                <span className="text-[16px] font-medium">{l.listen}</span>
-              </button>
+            {/* Audio player — reproduccion de respuesta de Clara */}
+            {msg.audio && msg.audio.url && (
+              <AudioPlayer
+                src={resolveAudioUrl(msg.audio.url) || msg.audio.url}
+                language={language}
+              />
             )}
 
             {/* Fuentes citadas */}
