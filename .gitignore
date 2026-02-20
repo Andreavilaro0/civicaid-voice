@@ -48,5 +48,8 @@ htmlcov/
 *.wav
 !data/demo/*.ogg
 
+# TTS-generated cache files (runtime artifacts)
+data/cache/tts_*.mp3
+
 # Logs
 *.log
