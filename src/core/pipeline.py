@@ -194,7 +194,7 @@ def process(msg: IncomingMessage) -> None:
                 _send_fallback(msg, "vision_fail", start)
                 return
 
-            vision_result = analyze_image(media_bytes, msg.media_type or "image/jpeg")
+            vision_result = analyze_image(media_bytes, msg.media_type or "image/jpeg", language=language)
 
             if vision_result.success and vision_result.text:
                 elapsed_ms = int((time.time() - start) * 1000)

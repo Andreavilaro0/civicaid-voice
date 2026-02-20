@@ -1,7 +1,7 @@
 """Tests for analyze_image skill."""
 
 from unittest.mock import patch
-from src.core.skills.analyze_image import analyze_image, ImageAnalysisResult
+from src.core.skills.analyze_image import analyze_image, ImageAnalysisResult, VISION_PROMPTS
 
 
 def test_analyze_image_returns_result_dataclass():
@@ -132,3 +132,11 @@ def test_analyze_image_result_has_duration():
         result = analyze_image(b"fake", "image/jpeg")
         assert hasattr(result, "duration_ms")
         assert isinstance(result.duration_ms, int)
+
+
+def test_analyze_image_uses_french_prompt():
+    """When language='fr', uses VISION_PROMPT_FR."""
+    from src.core.skills.analyze_image import VISION_PROMPTS
+    assert "fr" in VISION_PROMPTS
+    assert "Clara" in VISION_PROMPTS["fr"]
+    assert "francais" in VISION_PROMPTS["fr"].lower()
