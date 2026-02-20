@@ -1,0 +1,413 @@
+version: "1.0"
+generated_at: "2026-02-18"
+
+tier_strategy:
+  tier_1:
+    description: "Top 20 cities by population, manually curated"
+    count: 20
+    coverage_pct: "~30% of Spain's population"
+    method: manual_curation
+  tier_2:
+    description: "Provincial capitals + cities 21-50"
+    count_estimate: 50
+    method: semi_automated_dir3_pag
+  tier_3:
+    description: "Cities >50,000 inhabitants"
+    count_estimate: 100
+    method: automated_with_validation
+  tier_4:
+    description: "Remaining ~7,900 municipalities"
+    method: directory_fallback
+
+core_procedures:
+  - empadronamiento
+  - certificado_empadronamiento
+  - ibi
+  - tasa_basuras
+  - licencias_actividad
+
+sources:
+  # ──────────────────────────────────────────────────────────
+  # Tier 1: Top 20 Cities (P0) — Manual Curation
+  # URLs verified from local.md Tier 1 table
+  # ──────────────────────────────────────────────────────────
+
+  - id: local-madrid
+    name: "Ayuntamiento de Madrid"
+    jurisdiction: local
+    tier: 1
+    priority: P0
+    municipality: "Madrid"
+    province: "Madrid"
+    population: 3300000
+    portal_url: "https://sede.madrid.es/"
+    sede_url: "https://sede.madrid.es/"
+    catalogo_url: "https://sede.madrid.es/portal/site/tramites"
+    access_method: crawl
+    content_formats: [html, pdf]
+    languages: [es]
+    rate_limit_rps: 1.0
+    update_frequency: monthly
+    coverage: "Municipal procedures"
+    notes: "Largest city in Spain. Sede and portal share the same domain."
+
+  - id: local-barcelona
+    name: "Ayuntamiento de Barcelona"
+    jurisdiction: local
+    tier: 1
+    priority: P0
+    municipality: "Barcelona"
+    province: "Barcelona"
+    population: 1660000
+    portal_url: "https://seuelectronica.ajuntament.barcelona.cat/es"
+    sede_url: "https://seuelectronica.ajuntament.barcelona.cat/es"
+    catalogo_url: "https://seuelectronica.ajuntament.barcelona.cat/es/tramites-telematicos"
+    access_method: crawl
+    content_formats: [html, pdf]
+    languages: [es, ca]
+    rate_limit_rps: 1.0
+    update_frequency: monthly
+    coverage: "Municipal procedures"
+    notes: "Bilingual city (Catalan/Spanish). Seu electronica uses .cat domain."
+
+  - id: local-valencia
+    name: "Ayuntamiento de Valencia"
+    jurisdiction: local
+    tier: 1
+    priority: P0
+    municipality: "Valencia"
+    province: "Valencia"
+    population: 800000
+    portal_url: "https://sede.valencia.es/sede/"
+    sede_url: "https://sede.valencia.es/sede/"
+    catalogo_url: "https://sede.valencia.es/sede/menuContent.xhtml/PROCEDIMIENTOS?lang=1"
+    access_method: crawl
+    content_formats: [html, pdf]
+    languages: [es]
+    rate_limit_rps: 1.0
+    update_frequency: monthly
+    coverage: "Municipal procedures"
+    notes: "Third largest city. Catalogo URL includes lang=1 for Spanish."
+
+  - id: local-sevilla
+    name: "Ayuntamiento de Sevilla"
+    jurisdiction: local
+    tier: 1
+    priority: P0
+    municipality: "Sevilla"
+    province: "Sevilla"
+    population: 685000
+    portal_url: "https://sede.sevilla.org/"
+    sede_url: "https://sede.sevilla.org/"
+    catalogo_url: "https://sede.sevilla.org/"
+    access_method: crawl
+    content_formats: [html, pdf]
+    languages: [es]
+    rate_limit_rps: 1.0
+    update_frequency: monthly
+    coverage: "Municipal procedures"
+    notes: "Catalogo de tramites is integrated into the main sede portal."
+
+  - id: local-zaragoza
+    name: "Ayuntamiento de Zaragoza"
+    jurisdiction: local
+    tier: 1
+    priority: P0
+    municipality: "Zaragoza"
+    province: "Zaragoza"
+    population: 680000
+    portal_url: "https://www.zaragoza.es/sede/"
+    sede_url: "https://www.zaragoza.es/sede/"
+    catalogo_url: "https://www.zaragoza.es/sede/portal/tramites-servicios/"
+    access_method: crawl
+    content_formats: [html, pdf]
+    languages: [es]
+    rate_limit_rps: 1.0
+    update_frequency: monthly
+    coverage: "Municipal procedures"
+    notes: "Sede hosted under the main zaragoza.es domain."
+
+  - id: local-malaga
+    name: "Ayuntamiento de Malaga"
+    jurisdiction: local
+    tier: 1
+    priority: P0
+    municipality: "Malaga"
+    province: "Malaga"
+    population: 580000
+    portal_url: "https://sede.malaga.eu/"
+    sede_url: "https://sede.malaga.eu/"
+    catalogo_url: "https://sede.malaga.eu/"
+    access_method: crawl
+    content_formats: [html, pdf]
+    languages: [es]
+    rate_limit_rps: 1.0
+    update_frequency: monthly
+    coverage: "Municipal procedures"
+    notes: "Uses .eu domain. Catalogo is integrated into the main sede."
+
+  - id: local-murcia
+    name: "Ayuntamiento de Murcia"
+    jurisdiction: local
+    tier: 1
+    priority: P0
+    municipality: "Murcia"
+    province: "Murcia"
+    population: 460000
+    portal_url: "https://sede.murcia.es/"
+    sede_url: "https://sede.murcia.es/"
+    catalogo_url: "https://sede.murcia.es/"
+    access_method: crawl
+    content_formats: [html, pdf]
+    languages: [es]
+    rate_limit_rps: 1.0
+    update_frequency: monthly
+    coverage: "Municipal procedures"
+    notes: "Catalogo is integrated into the main sede portal."
+
+  - id: local-palma
+    name: "Ayuntamiento de Palma"
+    jurisdiction: local
+    tier: 1
+    priority: P0
+    municipality: "Palma"
+    province: "Illes Balears"
+    population: 420000
+    portal_url: "https://www.palma.es/es/gestiones-y-tramites"
+    sede_url: "https://seuelectronica.palma.cat/"
+    catalogo_url: "https://www.palma.es/es/gestiones-y-tramites"
+    access_method: crawl
+    content_formats: [html, pdf]
+    languages: [es, ca]
+    rate_limit_rps: 1.0
+    update_frequency: monthly
+    coverage: "Municipal procedures"
+    notes: "Bilingual (Catalan/Spanish). Seu electronica on .cat, catalogo on palma.es."
+
+  - id: local-las-palmas
+    name: "Ayuntamiento de Las Palmas de Gran Canaria"
+    jurisdiction: local
+    tier: 1
+    priority: P0
+    municipality: "Las Palmas de Gran Canaria"
+    province: "Las Palmas"
+    population: 380000
+    portal_url: "https://www.laspalmasgc.es/es/online/sede-electronica/catalogo-de-tramites/"
+    sede_url: "https://sedeelectronica.laspalmasgc.es/"
+    catalogo_url: "https://www.laspalmasgc.es/es/online/sede-electronica/catalogo-de-tramites/"
+    access_method: crawl
+    content_formats: [html, pdf]
+    languages: [es]
+    rate_limit_rps: 1.0
+    update_frequency: monthly
+    coverage: "Municipal procedures"
+    notes: "Sede and catalogo on separate domains."
+
+  - id: local-bilbao
+    name: "Ayuntamiento de Bilbao"
+    jurisdiction: local
+    tier: 1
+    priority: P0
+    municipality: "Bilbao"
+    province: "Bizkaia"
+    population: 350000
+    portal_url: "https://www.bilbao.eus/eudala"
+    sede_url: "https://www.bilbao.eus/eudala"
+    catalogo_url: "https://www.bilbao.eus/eudala"
+    access_method: crawl
+    content_formats: [html, pdf]
+    languages: [es, eu]
+    rate_limit_rps: 1.0
+    update_frequency: monthly
+    coverage: "Municipal procedures"
+    notes: "Bilingual (Basque/Spanish). e-Udala platform with integrated catalogo."
+
+  - id: local-alicante
+    name: "Ayuntamiento de Alicante"
+    jurisdiction: local
+    tier: 1
+    priority: P0
+    municipality: "Alicante"
+    province: "Alicante"
+    population: 340000
+    portal_url: "https://sedeelectronica.alicante.es/"
+    sede_url: "https://sedeelectronica.alicante.es/"
+    catalogo_url: "https://sedeelectronica.alicante.es/servicios.php"
+    access_method: crawl
+    content_formats: [html, pdf]
+    languages: [es]
+    rate_limit_rps: 1.0
+    update_frequency: monthly
+    coverage: "Municipal procedures"
+    notes: "Catalogo accessible via servicios.php endpoint."
+
+  - id: local-cordoba
+    name: "Ayuntamiento de Cordoba"
+    jurisdiction: local
+    tier: 1
+    priority: P0
+    municipality: "Cordoba"
+    province: "Cordoba"
+    population: 325000
+    portal_url: "https://sede.cordoba.es/"
+    sede_url: "https://sede.cordoba.es/"
+    catalogo_url: "https://oficinavirtual.cordoba.es/catalogo-de-tramites-y-servicios"
+    access_method: crawl
+    content_formats: [html, pdf]
+    languages: [es]
+    rate_limit_rps: 1.0
+    update_frequency: monthly
+    coverage: "Municipal procedures"
+    notes: "Catalogo hosted on oficinavirtual.cordoba.es, separate from sede."
+
+  - id: local-valladolid
+    name: "Ayuntamiento de Valladolid"
+    jurisdiction: local
+    tier: 1
+    priority: P0
+    municipality: "Valladolid"
+    province: "Valladolid"
+    population: 300000
+    portal_url: "https://sede.valladolid.es/"
+    sede_url: "https://sede.valladolid.es/"
+    catalogo_url: "https://sede.valladolid.es/"
+    access_method: crawl
+    content_formats: [html, pdf]
+    languages: [es]
+    rate_limit_rps: 1.0
+    update_frequency: monthly
+    coverage: "Municipal procedures"
+    notes: "Catalogo is integrated into the main sede portal."
+
+  - id: local-vigo
+    name: "Ayuntamiento de Vigo"
+    jurisdiction: local
+    tier: 1
+    priority: P0
+    municipality: "Vigo"
+    province: "Pontevedra"
+    population: 295000
+    portal_url: "https://sede.vigo.org/"
+    sede_url: "https://sede.vigo.org/"
+    catalogo_url: "https://sede.vigo.org/"
+    access_method: crawl
+    content_formats: [html, pdf]
+    languages: [es, gl]
+    rate_limit_rps: 1.0
+    update_frequency: monthly
+    coverage: "Municipal procedures"
+    notes: "Bilingual (Galician/Spanish). Catalogo integrated into sede."
+
+  - id: local-gijon
+    name: "Ayuntamiento de Gijon"
+    jurisdiction: local
+    tier: 1
+    priority: P0
+    municipality: "Gijon"
+    province: "Asturias"
+    population: 270000
+    portal_url: "https://sedeelectronica.gijon.es/"
+    sede_url: "https://sedeelectronica.gijon.es/"
+    catalogo_url: "https://sedeelectronica.gijon.es/"
+    access_method: crawl
+    content_formats: [html, pdf]
+    languages: [es]
+    rate_limit_rps: 1.0
+    update_frequency: monthly
+    coverage: "Municipal procedures"
+    notes: "Catalogo is integrated into the sede electronica."
+
+  - id: local-lhospitalet
+    name: "Ayuntamiento de L'Hospitalet de Llobregat"
+    jurisdiction: local
+    tier: 1
+    priority: P0
+    municipality: "L'Hospitalet de Llobregat"
+    province: "Barcelona"
+    population: 265000
+    portal_url: "https://seuelectronica.l-h.cat/"
+    sede_url: "https://seuelectronica.l-h.cat/"
+    catalogo_url: "https://seuelectronica.l-h.cat/tramits/r/tramits_2.aspx?id=2"
+    access_method: crawl
+    content_formats: [html, pdf]
+    languages: [es, ca]
+    rate_limit_rps: 1.0
+    update_frequency: monthly
+    coverage: "Municipal procedures"
+    notes: "Bilingual (Catalan/Spanish). Seu electronica on .cat domain."
+
+  - id: local-vitoria-gasteiz
+    name: "Ayuntamiento de Vitoria-Gasteiz"
+    jurisdiction: local
+    tier: 1
+    priority: P0
+    municipality: "Vitoria-Gasteiz"
+    province: "Araba/Alava"
+    population: 255000
+    portal_url: "https://sedeelectronica.vitoria-gasteiz.org/"
+    sede_url: "https://sedeelectronica.vitoria-gasteiz.org/"
+    catalogo_url: "https://sedeelectronica.vitoria-gasteiz.org/portal/es/tramites"
+    access_method: crawl
+    content_formats: [html, pdf]
+    languages: [es, eu]
+    rate_limit_rps: 1.0
+    update_frequency: monthly
+    coverage: "Municipal procedures"
+    notes: "Bilingual (Basque/Spanish). Capital of Basque Country."
+
+  - id: local-a-coruna
+    name: "Ayuntamiento de A Coruna"
+    jurisdiction: local
+    tier: 1
+    priority: P0
+    municipality: "A Coruna"
+    province: "A Coruna"
+    population: 245000
+    portal_url: "https://sede.coruna.gal/"
+    sede_url: "https://sede.coruna.gal/"
+    catalogo_url: "https://sede.coruna.gal/sede/es/tramites-y-servicios-electronicos"
+    access_method: crawl
+    content_formats: [html, pdf]
+    languages: [es, gl]
+    rate_limit_rps: 1.0
+    update_frequency: monthly
+    coverage: "Municipal procedures"
+    notes: "Bilingual (Galician/Spanish). Uses .gal domain."
+
+  - id: local-granada
+    name: "Ayuntamiento de Granada"
+    jurisdiction: local
+    tier: 1
+    priority: P0
+    municipality: "Granada"
+    province: "Granada"
+    population: 230000
+    portal_url: "https://sede.granada.org/"
+    sede_url: "https://sede.granada.org/"
+    catalogo_url: "https://www.granada.org/inicio.nsf/mn/s03"
+    access_method: crawl
+    content_formats: [html, pdf]
+    languages: [es]
+    rate_limit_rps: 1.0
+    update_frequency: monthly
+    coverage: "Municipal procedures"
+    notes: "Catalogo on granada.org main site, separate from sede.granada.org."
+
+  - id: local-elche
+    name: "Ayuntamiento de Elche"
+    jurisdiction: local
+    tier: 1
+    priority: P0
+    municipality: "Elche"
+    province: "Alicante"
+    population: 230000
+    portal_url: "https://sede.elche.es/"
+    sede_url: "https://sede.elche.es/"
+    catalogo_url: "https://sede.elche.es/sta/CarpetaPublic/doEvent?APP_CODE=STA&PAGE_CODE=CATALOGO"
+    access_method: crawl
+    content_formats: [html, pdf]
+    languages: [es]
+    rate_limit_rps: 1.0
+    update_frequency: monthly
+    coverage: "Municipal procedures"
+    notes: "Catalogo accessed via STA application endpoint."

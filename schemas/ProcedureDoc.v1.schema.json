@@ -1,0 +1,296 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://civicaid-voice.local/schemas/ProcedureDoc.v1.schema.json",
+  "title": "ProcedureDoc v1",
+  "description": "Canonical schema for normalized government procedure documents in Clara's knowledge base. Every ingested procedure is stored as a ProcedureDoc regardless of original source format.",
+  "type": "object",
+  "required": [
+    "id",
+    "nombre",
+    "source_url",
+    "source_type",
+    "organismo",
+    "descripcion",
+    "keywords",
+    "idioma",
+    "extracted_at",
+    "content_hash",
+    "word_count",
+    "completeness_score",
+    "version"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "version": {
+      "type": "integer",
+      "const": 1,
+      "description": "Schema version. Always 1 for this spec."
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]{2,80}$",
+      "description": "Globally unique slug: {source_type}-{organismo_abrev}-{nombre_slug}."
+    },
+    "nombre": {
+      "type": "string",
+      "minLength": 5,
+      "description": "Full procedure name as displayed to the user."
+    },
+    "nombre_alternativo": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Colloquial or alternative names for the procedure."
+    },
+    "source_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Primary canonical URL of the source."
+    },
+    "source_urls": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uri"
+      },
+      "description": "All URLs contributing to this document."
+    },
+    "source_type": {
+      "type": "string",
+      "enum": ["age", "ccaa", "local", "boe"],
+      "description": "Administrative level of the source: age (national), ccaa (regional), local (municipal), boe (official gazette)."
+    },
+    "organismo": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Full name of the responsible government body."
+    },
+    "organismo_abrev": {
+      "type": "string",
+      "pattern": "^[A-Z]{2,10}$",
+      "description": "Uppercase abbreviation of the organismo (e.g. SEPE, INSS)."
+    },
+    "territorio": {
+      "type": "object",
+      "description": "Geographic scope of the procedure.",
+      "required": ["nivel"],
+      "additionalProperties": false,
+      "properties": {
+        "nivel": {
+          "type": "string",
+          "enum": ["estatal", "autonomico", "local"],
+          "description": "Administrative level: estatal (national), autonomico (regional), local (municipal)."
+        },
+        "ccaa": {
+          "type": ["string", "null"],
+          "description": "Lowercase slug of the Comunidad Autonoma, if applicable."
+        },
+        "municipio": {
+          "type": ["string", "null"],
+          "description": "Lowercase slug of the municipality, if applicable."
+        },
+        "provincia": {
+          "type": ["string", "null"],
+          "description": "Lowercase slug of the province, if applicable."
+        }
+      }
+    },
+    "canal": {
+      "type": "string",
+      "enum": ["electronico", "presencial", "mixto"],
+      "description": "How the procedure can be accessed: electronico (online-only), presencial (in-person only), mixto (both)."
+    },
+    "descripcion": {
+      "type": "string",
+      "minLength": 20,
+      "description": "1-3 sentence summary of what the procedure does."
+    },
+    "requisitos": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      ],
+      "description": "Eligibility requirements. Can be a single string or array of strings."
+    },
+    "documentos_necesarios": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Documents the user must provide."
+    },
+    "plazos": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Structured deadlines (e.g. resolucion, silencio_administrativo, recurso)."
+        }
+      ],
+      "description": "Deadlines and timeframes. Can be a summary string or structured object."
+    },
+    "tasas": {
+      "type": ["string", "null"],
+      "description": "Fees or costs associated with the procedure, or null if free."
+    },
+    "base_legal": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Legal references (BOE IDs, law names, royal decrees)."
+    },
+    "como_solicitar": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "online": { "type": "string" },
+            "presencial": { "type": "string" },
+            "telefono": { "type": "string" }
+          },
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "How to apply, keyed by channel."
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "via": { "type": "string" },
+              "detalle": { "type": "string" },
+              "requisito": { "type": "string" }
+            },
+            "required": ["via", "detalle"],
+            "additionalProperties": true
+          },
+          "description": "How to apply, as an array of channel objects."
+        }
+      ],
+      "description": "Instructions on how to apply. Accepts either an object with online/presencial/telefono keys or an array of via/detalle objects."
+    },
+    "donde_solicitar": {
+      "type": "object",
+      "description": "Where to submit the application.",
+      "additionalProperties": false,
+      "properties": {
+        "urls": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          },
+          "description": "URLs to start the procedure online."
+        },
+        "direcciones": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Physical addresses where the procedure can be submitted."
+        },
+        "cita_previa_url": {
+          "type": ["string", "null"],
+          "format": "uri",
+          "description": "URL to book an appointment, or null."
+        }
+      }
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 3,
+      "description": "Search keywords for kb_lookup.py matching. Minimum 3 required."
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9-]+$"
+      },
+      "description": "Classification tags for filtering. Lowercase slugs only."
+    },
+    "idioma": {
+      "type": "string",
+      "enum": ["es", "ca", "eu", "gl", "en"],
+      "description": "Primary language of the document."
+    },
+    "idiomas_disponibles": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["es", "ca", "eu", "gl", "en"]
+      },
+      "description": "All languages in which this procedure information is available."
+    },
+    "extracted_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 datetime when the content was extracted from the source."
+    },
+    "verified_at": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "ISO 8601 datetime when the content was last verified, or null."
+    },
+    "verified_by": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": ["manual", "auto"]
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Who verified the content: 'manual' (human), 'auto' (pipeline), or null."
+    },
+    "content_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "SHA-256 hash of the normalized text body (64 hex characters)."
+    },
+    "word_count": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Total word count across all text fields."
+    },
+    "completeness_score": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "description": "Score from 0.0 to 1.0 indicating how many expected fields are filled, weighted by importance."
+    }
+  }
+}

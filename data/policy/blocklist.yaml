@@ -1,0 +1,72 @@
+version: "1.0"
+generated_at: "2026-02-18"
+
+# Any domain not on the allowlist is rejected by default.
+default_action: reject
+
+categories:
+  - category: "commercial_gestoria"
+    reason: "Commercial advisory, may have outdated/biased info"
+    domains:
+      - "loentiendo.com"
+      - "tramitalia.com"
+      - "emigralia.es"
+      - "parainmigrantes.info"
+
+  - category: "seo_content_farms"
+    reason: "SEO-optimized, not authoritative"
+    domains:
+      - "rankia.com"
+      - "asesorias.com"
+      - "supercontable.com"
+
+  - category: "forums_qa"
+    reason: "User-generated, unverified"
+    domains:
+      - "forocoches.com"
+      - "burbuja.info"
+      - "reddit.com"
+      - "quora.com"
+
+  - category: "social_media"
+    reason: "Not authoritative sources"
+    domains:
+      - "twitter.com"
+      - "facebook.com"
+      - "instagram.com"
+      - "tiktok.com"
+
+  - category: "wikipedia"
+    reason: "Useful reference but not a primary source"
+    domains:
+      - "es.wikipedia.org"
+
+  - category: "news"
+    reason: "Journalism, not primary source"
+    domains:
+      - "elpais.com"
+      - "elmundo.es"
+      - "20minutos.es"
+
+  - category: "unofficial_aggregators"
+    reason: "Appear official but are not"
+    domains:
+      - "tramitesygestiones.com"
+      - "extranjeria.info"
+
+  - category: "legal_commercial"
+    reason: "Commercial interpretation of law"
+    domains:
+      - "noticias.juridicas.com"
+      - "vlex.es"
+
+  - category: "ai_generated"
+    reason: "Cannot verify accuracy"
+    domains: []
+    notes: "Various sites; block on discovery"
+
+patterns:
+  - "*.wordpress.com"
+  - "*.blogspot.com"
+  - "*.medium.com"
+  - "*.notion.site"

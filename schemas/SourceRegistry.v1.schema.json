@@ -1,0 +1,191 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://civicaid-voice.local/schemas/SourceRegistry.v1.schema.json",
+  "title": "SourceRegistry v1",
+  "description": "Schema for registry.yaml — catalog of government data sources ingested by the CivicAid pipeline.",
+  "type": "object",
+  "required": ["version", "sources"],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "1.0",
+      "description": "Schema version for this registry file."
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO 8601 date when this registry was generated."
+    },
+    "tier_strategy": {
+      "type": "object",
+      "description": "Optional tier strategy metadata (used in local_seed.yaml).",
+      "additionalProperties": true
+    },
+    "core_procedures": {
+      "type": "array",
+      "description": "Optional list of core procedure slugs tracked by this registry.",
+      "items": { "type": "string" }
+    },
+    "sources": {
+      "type": "array",
+      "description": "List of government data sources.",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/SourceEntry"
+      }
+    }
+  },
+  "$defs": {
+    "SourceEntry": {
+      "type": "object",
+      "description": "A single government data source entry.",
+      "required": [
+        "id",
+        "name",
+        "jurisdiction",
+        "tier",
+        "priority",
+        "portal_url",
+        "access_method"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]{2,60}$",
+          "description": "Unique lowercase identifier for this source (3-61 chars, starts with letter)."
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Human-readable name of the source."
+        },
+        "name_abbrev": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Short abbreviation of the source name (e.g. SEPE, INSS)."
+        },
+        "jurisdiction": {
+          "type": "string",
+          "enum": ["age", "ccaa", "local"],
+          "description": "Administrative level: age (Administracion General del Estado), ccaa (Comunidad Autonoma), local (Ayuntamiento)."
+        },
+        "tier": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3,
+          "description": "Priority tier: 1 = critical national sources, 2 = important regional, 3 = supplementary."
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["P0", "P1", "P2"],
+          "description": "Ingestion priority: P0 = immediate, P1 = next sprint, P2 = backlog."
+        },
+        "portal_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Primary public-facing URL of the source portal."
+        },
+        "sede_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of the sede electronica (e-government portal)."
+        },
+        "catalogo_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of the procedure catalog or tramites listing."
+        },
+        "api_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of the API endpoint, if available."
+        },
+        "access_method": {
+          "type": "string",
+          "enum": ["crawl", "api", "rss", "auth_only", "informational"],
+          "description": "How the pipeline accesses this source: crawl (HTML scraping), api (structured API), rss (feed), auth_only (requires auth, manual), informational (reference only)."
+        },
+        "ccaa_code": {
+          "type": "string",
+          "pattern": "^[a-z][a-z_]{1,29}$",
+          "description": "Lowercase slug for the Comunidad Autonoma (letters and underscores). Required when jurisdiction=ccaa."
+        },
+        "municipality": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Municipality name. Required when jurisdiction=local."
+        },
+        "province": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Province name."
+        },
+        "population": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Approximate population of the jurisdiction."
+        },
+        "content_formats": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["html", "pdf", "xml", "json", "csv", "rss"]
+          },
+          "description": "Content formats available from this source."
+        },
+        "languages": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["es", "ca", "eu", "gl", "en", "fr", "ar"]
+          },
+          "description": "Languages the source content is available in."
+        },
+        "rate_limit_rps": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "Maximum requests per second allowed by the source."
+        },
+        "update_frequency": {
+          "type": "string",
+          "enum": ["realtime", "daily", "weekly", "monthly", "quarterly", "annual", "irregular"],
+          "description": "How often the source content is typically updated."
+        },
+        "coverage": {
+          "type": "string",
+          "description": "Free-text description of what procedures/topics this source covers."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Free-text notes for the ingestion team."
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "jurisdiction": { "const": "ccaa" }
+            },
+            "required": ["jurisdiction"]
+          },
+          "then": {
+            "required": ["ccaa_code"]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "jurisdiction": { "const": "local" }
+            },
+            "required": ["jurisdiction"]
+          },
+          "then": {
+            "required": ["municipality"]
+          }
+        }
+      ]
+    }
+  }
+}

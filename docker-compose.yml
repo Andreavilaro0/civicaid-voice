@@ -1,0 +1,14 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: clara-db
+    environment:
+      POSTGRES_USER: clara
+      POSTGRES_PASSWORD: clara_dev
+      POSTGRES_DB: clara_rag
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:

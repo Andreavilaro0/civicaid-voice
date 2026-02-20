@@ -1,0 +1,362 @@
+version: "1.0"
+generated_at: "2026-02-18"
+default_action: reject
+
+# Design Principles:
+#   1. Government-only sources
+#   2. Tier-based trust (tiers 1-3)
+#   3. Allowlist-first (reject by default)
+#   4. Subdomain inheritance
+
+auto_allow_rules:
+  - pattern: "*.gob.es"
+    tier: 1
+    description: "All AGE subdomains auto-allowed"
+    exceptions: "Can be overridden by explicit blocklist entries"
+
+  - pattern: "*.cat"
+    tier: 2
+    description: "Catalan regional TLD"
+    condition: "Only if root domain is in the CCAA list"
+
+  - pattern: "*.eus"
+    tier: 2
+    description: "Basque regional TLD"
+    condition: "Only if root domain is in the CCAA list"
+
+  - pattern: "*.gal"
+    tier: 2
+    description: "Galician regional TLD"
+    condition: "Only if root domain is in the CCAA list"
+
+  - pattern: "*.es"
+    tier: 2
+    description: "Other .es CCAA subdomains"
+    condition: "Only if root domain is explicitly listed in CCAA list"
+
+tier_1_age:
+  description: "Administracion General del Estado - Always trusted. Highest crawl priority (P0/P1)."
+  domains:
+    - domain: "administracion.gob.es"
+      entity: "Portal de la Administracion"
+      notes: "Central procedures catalogue"
+
+    - domain: "sede.administracion.gob.es"
+      entity: "Sede electronica AGE"
+      notes: "Electronic office, online filings"
+
+    - domain: "boe.es"
+      entity: "Boletin Oficial del Estado"
+      notes: "Legislation, public domain content"
+      aliases:
+        - "www.boe.es"
+
+    - domain: "seg-social.es"
+      entity: "Seguridad Social"
+      notes: "IMV, pensions, affiliation"
+      aliases:
+        - "sede.seg-social.gob.es"
+
+    - domain: "sepe.es"
+      entity: "Servicio Publico de Empleo"
+      notes: "Unemployment, job search"
+      aliases:
+        - "www.sepe.es"
+        - "sede.sepe.gob.es"
+
+    - domain: "agenciatributaria.es"
+      entity: "Agencia Tributaria"
+      notes: "Taxes, IRPF, NIF"
+      aliases:
+        - "agenciatributaria.gob.es"
+
+    - domain: "dgt.es"
+      entity: "Direccion General de Trafico"
+      notes: "Driving, vehicle procedures"
+      aliases:
+        - "sede.dgt.gob.es"
+
+    - domain: "inclusion.gob.es"
+      entity: "Ministerio de Inclusion"
+      notes: "Migration, asylum, social services"
+
+    - domain: "mites.gob.es"
+      entity: "Ministerio de Trabajo"
+      notes: "Labor law, inspections"
+
+    - domain: "mjusticia.gob.es"
+      entity: "Ministerio de Justicia"
+      notes: "Criminal records, nationality, legal aid"
+      aliases:
+        - "sede.mjusticia.gob.es"
+
+    - domain: "exteriores.gob.es"
+      entity: "Ministerio de Asuntos Exteriores"
+      notes: "Consular, legalization"
+
+    - domain: "mdsocialesa2030.gob.es"
+      entity: "Ministerio de Derechos Sociales"
+      notes: "Social rights, dependency"
+
+    - domain: "mivau.gob.es"
+      entity: "Ministerio de Vivienda y Agenda Urbana"
+      notes: "Housing aid (ayuda alquiler). Formerly mitma.gob.es"
+      aliases:
+        - "mitma.gob.es"
+
+    - domain: "educacionyfp.gob.es"
+      entity: "Ministerio de Educacion"
+      notes: "Scholarships, foreign title recognition"
+
+    - domain: "mscbs.gob.es"
+      entity: "Ministerio de Sanidad"
+      notes: "Health card, healthcare"
+      aliases:
+        - "sanidad.gob.es"
+
+    - domain: "interior.gob.es"
+      entity: "Ministerio del Interior"
+      notes: "NIE/TIE, asylum office"
+
+    - domain: "policia.es"
+      entity: "Policia Nacional"
+      notes: "NIE appointments, documentation"
+      aliases:
+        - "sede.policia.gob.es"
+
+    - domain: "map.gob.es"
+      entity: "Ministerio de Administraciones Publicas"
+      notes: "Admin reform portal"
+
+    - domain: "060.es"
+      entity: "Punto de Acceso General"
+      notes: "Citizen services portal"
+
+    - domain: "carpetaciudadana.gob.es"
+      entity: "Carpeta Ciudadana"
+      notes: "Personal admin dossier"
+
+    - domain: "clave.gob.es"
+      entity: "Sistema Cl@ve"
+      notes: "Digital identity"
+
+    - domain: "iprem.es"
+      entity: "IPREM reference"
+      notes: "Only if official"
+
+tier_2_ccaa:
+  description: "Comunidades Autonomas - Trusted for regional procedures. Crawl priority P1."
+  domains:
+    - domain: "comunidad.madrid"
+      ccaa: "Madrid"
+      aliases:
+        - "sede.comunidad.madrid"
+        - "www.comunidad.madrid"
+
+    - domain: "web.gencat.cat"
+      ccaa: "Cataluna"
+      notes: "Prefer Spanish-language pages"
+      aliases:
+        - "tramits.gencat.cat"
+
+    - domain: "juntadeandalucia.es"
+      ccaa: "Andalucia"
+      aliases:
+        - "ws089.juntadeandalucia.es"
+
+    - domain: "gva.es"
+      ccaa: "Comunitat Valenciana"
+      aliases:
+        - "sede.gva.es"
+
+    - domain: "gobiernodecanarias.org"
+      ccaa: "Canarias"
+      aliases:
+        - "sede.gobiernodecanarias.org"
+        - "www.gobiernodecanarias.org"
+
+    - domain: "euskadi.eus"
+      ccaa: "Pais Vasco"
+      aliases:
+        - "sede.euskadi.eus"
+
+    - domain: "xunta.gal"
+      ccaa: "Galicia"
+      aliases:
+        - "sede.xunta.gal"
+
+    - domain: "navarra.es"
+      ccaa: "Navarra"
+      aliases:
+        - "sede.navarra.es"
+
+    - domain: "aragon.es"
+      ccaa: "Aragon"
+      aliases:
+        - "sede.aragon.es"
+
+    - domain: "castillalamancha.es"
+      ccaa: "Castilla-La Mancha"
+      aliases:
+        - "sede.castillalamancha.es"
+        - "jccm.es"
+        - "www.jccm.es"
+
+    - domain: "jcyl.es"
+      ccaa: "Castilla y Leon"
+      aliases:
+        - "sede.jcyl.es"
+
+    - domain: "murciaregion.es"
+      ccaa: "Murcia"
+      notes: "Also carm.es"
+      aliases:
+        - "sede.carm.es"
+        - "carm.es"
+
+    - domain: "larioja.org"
+      ccaa: "La Rioja"
+      aliases:
+        - "sede.larioja.org"
+        - "www.larioja.org"
+        - "web.larioja.org"
+
+    - domain: "asturias.es"
+      ccaa: "Asturias"
+      aliases:
+        - "sede.asturias.es"
+
+    - domain: "cantabria.es"
+      ccaa: "Cantabria"
+      aliases:
+        - "sede.cantabria.es"
+
+    - domain: "caib.es"
+      ccaa: "Illes Balears"
+      aliases:
+        - "sede.caib.es"
+
+    - domain: "extremadura.es"
+      ccaa: "Extremadura"
+      aliases:
+        - "sede.juntaex.es"
+        - "juntaex.es"
+
+    - domain: "ceuta.es"
+      ccaa: "Ceuta"
+
+    - domain: "melilla.es"
+      ccaa: "Melilla"
+
+tier_3_municipal:
+  description: "Municipal - Trusted only for local procedures. Crawl priority P2. Each domain individually validated."
+  expansion_rules:
+    - "New municipalities added only when a specific tramite in the KB references that municipality"
+    - "Each new domain must be verified manually (WHOIS, resolves to actual ayuntamiento)"
+    - "Do not bulk-add all 8,000+ Spanish municipalities. Add on-demand."
+  domains:
+    - domain: "madrid.es"
+      municipality: "Madrid"
+      notes: "Empadronamiento, social services"
+      aliases:
+        - "sede.madrid.es"
+
+    - domain: "barcelona.cat"
+      municipality: "Barcelona"
+      aliases:
+        - "ajuntament.barcelona.cat"
+        - "sede.barcelona.cat"
+
+    - domain: "sevilla.org"
+      municipality: "Sevilla"
+      aliases:
+        - "sede.sevilla.org"
+
+    - domain: "valencia.es"
+      municipality: "Valencia"
+      aliases:
+        - "sede.valencia.es"
+
+    - domain: "zaragoza.es"
+      municipality: "Zaragoza"
+      aliases:
+        - "sede.zaragoza.es"
+
+    - domain: "malaga.eu"
+      municipality: "Malaga"
+      aliases:
+        - "sede.malaga.eu"
+
+    - domain: "bilbao.eus"
+      municipality: "Bilbao"
+      aliases:
+        - "sede.bilbao.eus"
+
+    - domain: "alicante.es"
+      municipality: "Alicante"
+
+    - domain: "cordoba.es"
+      municipality: "Cordoba"
+
+    - domain: "valladolid.es"
+      municipality: "Valladolid"
+
+    - domain: "laspalmasgc.es"
+      municipality: "Las Palmas"
+
+    - domain: "santacruzdetenerife.es"
+      municipality: "Santa Cruz"
+
+    - domain: "vigo.org"
+      municipality: "Vigo"
+      aliases:
+        - "sede.vigo.org"
+
+    - domain: "vitoria-gasteiz.org"
+      municipality: "Vitoria-Gasteiz"
+      aliases:
+        - "sedeelectronica.vitoria-gasteiz.org"
+
+    - domain: "granada.org"
+      municipality: "Granada"
+      aliases:
+        - "sede.granada.org"
+        - "www.granada.org"
+
+    - domain: "murcia.es"
+      municipality: "Murcia"
+      aliases:
+        - "sede.murcia.es"
+
+    - domain: "palma.es"
+      municipality: "Palma"
+
+    - domain: "gijon.es"
+      municipality: "Gijon"
+
+    - domain: "elche.es"
+      municipality: "Elche"
+
+    - domain: "sede.grancanaria.com"
+      municipality: "Gran Canaria (Cabildo)"
+      notes: "Cabildo de Gran Canaria - island government sede electronica"
+
+domain_review_process:
+  adding:
+    steps:
+      - "Request via backlog by any team member"
+      - "Validation checklist"
+      - "Approval by at least one other team member"
+      - "Document in allowlist with tier, notes, and date"
+    validation_checklist:
+      - "Domain resolves to an official government entity"
+      - "WHOIS registrant is a government body (or .gob.es)"
+      - "Site contains specific procedure information (not just homepage)"
+      - "SSL certificate is valid"
+      - "robots.txt allows crawling"
+      - "Content is in Spanish (or has Spanish version)"
+  removing:
+    reasons:
+      - "Domain consistently returns errors (dead for 30+ days)"
+      - "Domain serves non-authoritative content"
+      - "Domain merges with another (update to point to new domain)"

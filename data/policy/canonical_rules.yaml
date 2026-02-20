@@ -1,0 +1,233 @@
+version: "1.0"
+generated_at: "2026-02-18"
+
+# Order of operations for URL canonicalization.
+# When a URL enters the system, apply rules in this sequence.
+pipeline_order:
+  - parse                    # 1. Parse URL into components (scheme, domain, path, query, fragment)
+  - normalize_protocol       # 2. Normalize protocol to HTTPS (Rule 1)
+  - lowercase_domain         # 3. Lowercase domain (Rule 6)
+  - strip_session_params     # 4. Strip session parameters from path and query (Rule 8)
+  - strip_tracking_params    # 5. Strip tracking parameters from query (Rule 3)
+  - strip_fragment           # 6. Strip fragment (Rule 4, log it)
+  - remove_trailing_slash    # 7. Remove trailing slash (Rule 2)
+  - follow_redirects         # 8. Follow redirects to get final URL (Rule 7)
+  - normalize_www            # 9. Apply www normalization using cached domain mappings (Rule 5)
+  - detect_language_variant  # 10. Determine language variant preference (Rule 10)
+  - annotate_pagination      # 11. Annotate pagination metadata (Rule 9)
+  - classify_link_type       # 12. Classify as informative link vs home page
+
+rules:
+  - id: 1
+    name: "protocol_https"
+    description: "Normalize to HTTPS"
+    action: "Replace http:// with https://"
+    example:
+      input: "http://www.boe.es/buscar/"
+      output: "https://www.boe.es/buscar/"
+    exception: "If a government site genuinely does not support HTTPS (rare), store as HTTP and flag for manual review"
+
+  - id: 2
+    name: "trailing_slashes"
+    description: "Remove trailing slashes for consistency"
+    action: "Strip trailing slash from path"
+    examples:
+      - input: "https://sepe.es/HomeSepe/Personas/"
+        output: "https://sepe.es/HomeSepe/Personas"
+      - input: "https://boe.es/"
+        output: "https://boe.es"
+    exception: "If removing the trailing slash causes a redirect to a different page, keep it and note it"
+
+  - id: 3
+    name: "query_params_strip_tracking"
+    description: "Strip tracking and analytics parameters; preserve content-affecting parameters"
+    action: "Remove known tracking params from query string; keep content params"
+    example:
+      input: "https://sepe.es/page?utm_source=twitter&lang=es"
+      output: "https://sepe.es/page?lang=es"
+    fallback: "When uncertain, preserve the parameter and log it for manual review"
+
+  - id: 4
+    name: "strip_fragments"
+    description: "Strip fragment/anchor from stored URL"
+    action: "Remove #fragment from canonical URL; log fragment separately for reference"
+    example:
+      input: "https://inclusion.gob.es/extranjeria#requisitos"
+      output: "https://inclusion.gob.es/extranjeria"
+      logged_fragment: "#requisitos"
+
+  - id: 5
+    name: "www_normalization"
+    description: "Normalize www vs non-www to each domain's canonical form"
+    action: "Follow redirects to determine canonical form; cache mapping per domain"
+    discovery_method: "Issue HEAD request to http://example.es and follow all redirects. Final domain is canonical form."
+
+  - id: 6
+    name: "lowercase_domain"
+    description: "Lowercase domain, preserve path case"
+    action: "Domain always lowercase; path preserves original case (many gov CMS use case-sensitive paths)"
+    example:
+      input: "https://SEPE.ES/HomeSepe/Personas"
+      output: "https://sepe.es/HomeSepe/Personas"
+
+  - id: 7
+    name: "follow_redirects"
+    description: "Store final URL after following redirect chain"
+    action: "Follow 301, 302, 303, 307, 308 redirects; store final destination as canonical URL; store redirect chain for debugging"
+    example:
+      original: "https://seg-social.es/imv"
+      chain:
+        - "301 -> https://www.seg-social.es/imv"
+        - "302 -> https://www.seg-social.es/wps/portal/wss/internet/Trabajadores/..."
+      canonical: "https://www.seg-social.es/wps/portal/wss/internet/Trabajadores/..."
+    limits:
+      max_redirect_depth: 5
+      on_exceed: "Store original URL and flag for manual review"
+      on_leave_allowlist: "Reject the URL"
+
+  - id: 8
+    name: "strip_session_params"
+    description: "Strip server-side session identifiers"
+    action: "Remove session IDs from path (e.g., ;jsessionid=...) and query parameters"
+    example:
+      input: "https://sede.example.gob.es/tramite;jsessionid=ABC123?id=456"
+      output: "https://sede.example.gob.es/tramite?id=456"
+
+  - id: 9
+    name: "pagination_annotation"
+    description: "Store base URL for paginated content, annotate pagination metadata"
+    action: "Store page-1 / no-page-param URL as canonical; record pagination metadata separately"
+    example:
+      canonical: "https://boe.es/buscar?tipo=leyes"
+      metadata:
+        paginated: true
+        total_pages: 12
+        page_param: "p"
+    rationale: "Clara should cite the starting point of a paginated list, not page 7 of 12"
+
+  - id: 10
+    name: "language_variants"
+    description: "Prefer Spanish version, note other language variants"
+    action: "Prefer es/cas/castellano version as canonical; record other language versions in metadata"
+    applies_to: "Bilingual/multilingual sites (Cataluna, Pais Vasco, Galicia, Comunitat Valenciana)"
+    examples:
+      - canonical: "https://web.gencat.cat/es/tramits/tramit-12345"
+        alternates:
+          ca: "https://web.gencat.cat/ca/tramits/tramit-12345"
+          en: "https://web.gencat.cat/en/tramits/tramit-12345"
+      - canonical: "https://euskadi.eus/tramite/es/12345"
+        alternates:
+          eu: "https://euskadi.eus/tramite/eu/12345"
+    fallback: "If no Spanish version exists, store available version and flag for manual translation/review"
+    french_note: "If French is available (relevant for Clara's French-speaking users), record French URL as alternate"
+
+# Tracking parameters to always strip (Rule 3)
+tracking_params_strip:
+  # Google Analytics
+  - "utm_source"
+  - "utm_medium"
+  - "utm_campaign"
+  - "utm_term"
+  - "utm_content"
+  # Facebook
+  - "fbclid"
+  # Google Ads
+  - "gclid"
+  - "gad_source"
+  # Generic referral
+  - "ref"
+  - "source"
+  - "origin"
+  # Mailchimp
+  - "mc_cid"
+  - "mc_eid"
+  # Google Analytics cross-domain
+  - "_ga"
+  - "_gl"
+  # HubSpot
+  - "hsCtaTracking"
+  # Marketo
+  - "mkt_tok"
+
+# Session parameters to always strip (Rule 8)
+session_params_strip:
+  - "JSESSIONID"
+  - "PHPSESSID"
+  - "sid"
+  - "session_id"
+  - "ASPSESSIONID*"
+  - "cfid"
+  - "cftoken"
+  # Also match any parameter matching pattern: ^[A-Za-z]*session[A-Za-z]*$ (case-insensitive)
+session_params_regex: "^[A-Za-z]*session[A-Za-z]*$"
+
+# Content parameters to always preserve (Rule 3)
+content_params_preserve:
+  # Language selection (content changes)
+  - "lang"
+  - "idioma"
+  - "locale"
+  # Resource identifier
+  - "id"
+  - "codigo"
+  - "expediente"
+  # Pagination (see Rule 9)
+  - "page"
+  - "pagina"
+  - "p"
+  # Content filtering
+  - "tipo"
+  - "category"
+  - "seccion"
+
+# www vs non-www canonical mappings (Rule 5)
+www_mappings:
+  "boe.es": "www.boe.es"
+  "sepe.es": "www.sepe.es"
+  "seg-social.es": "www.seg-social.es"
+  "agenciatributaria.es": "sede.agenciatributaria.gob.es"
+  "comunidad.madrid": "www.comunidad.madrid"
+
+# Link type classification heuristics
+link_type_classification:
+  homepage_indicators:
+    - "Path is / or empty"
+    - "Path is a single segment (e.g., /inicio, /home, /es)"
+    - "Path depth < 2 segments"
+  informative_link_indicators:
+    - "Path depth >= 2 segments"
+    - "URL contains identifiers (numeric IDs, slugs like prestacion-desempleo)"
+    - "URL points to a PDF or specific document"
+    - "Page title contains a procedure name"
+  types:
+    - "informative"
+    - "homepage"
+    - "section"
+
+# Edge cases
+edge_cases:
+  boe_urls:
+    description: "BOE has specific URL structure; id parameter is always content-critical"
+    examples:
+      - "https://www.boe.es/buscar/act.php?id=BOE-A-2023-12345"
+      - "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2023-12345"
+    rule: "Never strip the id parameter"
+
+  sede_electronica:
+    description: "sede.*.gob.es sites use Java-based CMS with complex path structures"
+    example: "https://sede.seg-social.gob.es/wps/portal/wss/internet/Trabajadores/PrestacionesPensionesTrabajadores/65850d68-..."
+    rule: "UUID-like path segments are content identifiers; preserve them exactly"
+
+  url_shorteners:
+    description: "Government agencies sometimes use bit.ly, goo.gl, or custom shorteners"
+    rules:
+      - "Resolve shortener to final URL"
+      - "If final URL is on allowlist, store resolved URL (never shortened form)"
+      - "If final URL is not on allowlist, reject it"
+
+  broken_encoding:
+    description: "Some government sites serve URLs with incorrect encoding"
+    example:
+      input: "https://example.gob.es/tramite con espacios"
+      output: "https://example.gob.es/tramite%20con%20espacios"
+    rule: "Normalize to proper percent-encoding"

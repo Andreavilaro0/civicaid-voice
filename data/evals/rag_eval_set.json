@@ -1,0 +1,2020 @@
+{
+  "version": "2.0",
+  "description": "Q4 RAG evaluation set for Clara — 8 tramites AGE, 200+ queries",
+  "queries": [
+    {
+      "id": "q001",
+      "query": "que es el ingreso minimo vital",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "expected_section": "descripcion",
+      "expected_keywords": [
+        "prestacion",
+        "pobreza",
+        "exclusion"
+      ],
+      "territory": null,
+      "category": "basic_info"
+    },
+    {
+      "id": "q002",
+      "query": "requisitos para el ingreso minimo vital",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "expected_section": "requisitos",
+      "expected_keywords": [
+        "residencia",
+        "vulnerabilidad",
+        "demandante"
+      ],
+      "territory": null,
+      "category": "requisitos"
+    },
+    {
+      "id": "q003",
+      "query": "que documentos necesito para el IMV",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "expected_section": "documentos",
+      "expected_keywords": [
+        "empadronamiento",
+        "renta",
+        "bancario"
+      ],
+      "territory": null,
+      "category": "documentos"
+    },
+    {
+      "id": "q004",
+      "query": "como solicitar el ingreso minimo vital",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "expected_section": "como_solicitar",
+      "expected_keywords": [
+        "sede",
+        "electronica",
+        "cita"
+      ],
+      "territory": null,
+      "category": "como_solicitar"
+    },
+    {
+      "id": "q005",
+      "query": "cuanto tardan en resolver el IMV",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "expected_section": "plazos",
+      "expected_keywords": [
+        "meses",
+        "resolucion",
+        "denegado"
+      ],
+      "territory": null,
+      "category": "plazos"
+    },
+    {
+      "id": "q006",
+      "query": "IMV",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "expected_section": "descripcion",
+      "expected_keywords": [
+        "prestacion",
+        "recursos"
+      ],
+      "territory": null,
+      "category": "acronyms"
+    },
+    {
+      "id": "q007",
+      "query": "cuanto se cobra con el ingreso minimo vital",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "expected_section": "cuantias_2024",
+      "expected_keywords": [
+        "604",
+        "mes",
+        "menor"
+      ],
+      "territory": null,
+      "category": "basic_info"
+    },
+    {
+      "id": "q008",
+      "query": "que es el empadronamiento",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "expected_section": "descripcion",
+      "expected_keywords": [
+        "registro",
+        "municipio",
+        "sanidad"
+      ],
+      "territory": null,
+      "category": "basic_info"
+    },
+    {
+      "id": "q009",
+      "query": "que necesito para empadronarme",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "expected_section": "requisitos",
+      "expected_keywords": [
+        "municipio",
+        "identidad",
+        "vivienda"
+      ],
+      "territory": null,
+      "category": "requisitos"
+    },
+    {
+      "id": "q010",
+      "query": "papeles para el empadronamiento",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "expected_section": "documentos",
+      "expected_keywords": [
+        "DNI",
+        "contrato",
+        "alquiler"
+      ],
+      "territory": null,
+      "category": "documentos"
+    },
+    {
+      "id": "q011",
+      "query": "como me empadrono en madrid",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "expected_section": "como_hacerlo_madrid",
+      "expected_keywords": [
+        "cita",
+        "OAC",
+        "oficina"
+      ],
+      "territory": null,
+      "category": "como_solicitar"
+    },
+    {
+      "id": "q012",
+      "query": "que hago para empadronarme",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "expected_section": "como_hacerlo_madrid",
+      "expected_keywords": [
+        "cita",
+        "previa",
+        "documentos"
+      ],
+      "territory": null,
+      "category": "colloquial"
+    },
+    {
+      "id": "q013",
+      "query": "pueden negarme el empadronamiento",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "expected_section": "datos_importantes",
+      "expected_keywords": [
+        "derecho",
+        "ayuntamientos",
+        "negarlo"
+      ],
+      "territory": null,
+      "category": "basic_info"
+    },
+    {
+      "id": "q014",
+      "query": "puedo empadronarme sin papeles",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "expected_section": "datos_importantes",
+      "expected_keywords": [
+        "residencia",
+        "derecho",
+        "empadronarse"
+      ],
+      "territory": null,
+      "category": "colloquial"
+    },
+    {
+      "id": "q015",
+      "query": "que es la tarjeta sanitaria",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "expected_section": "descripcion",
+      "expected_keywords": [
+        "asistencia",
+        "sanitaria",
+        "medico"
+      ],
+      "territory": null,
+      "category": "basic_info"
+    },
+    {
+      "id": "q016",
+      "query": "quien tiene derecho a la tarjeta sanitaria",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "expected_section": "quien_tiene_derecho",
+      "expected_keywords": [
+        "trabajadores",
+        "pensionistas",
+        "empadronadas"
+      ],
+      "territory": null,
+      "category": "requisitos"
+    },
+    {
+      "id": "q017",
+      "query": "documentos para la tarjeta sanitaria",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "expected_section": "documentos",
+      "expected_keywords": [
+        "empadronamiento",
+        "DNI",
+        "afiliacion"
+      ],
+      "territory": null,
+      "category": "documentos"
+    },
+    {
+      "id": "q018",
+      "query": "como pido la tarjeta sanitaria en madrid",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "expected_section": "como_solicitarla_madrid",
+      "expected_keywords": [
+        "centro",
+        "salud",
+        "admision"
+      ],
+      "territory": null,
+      "category": "como_solicitar"
+    },
+    {
+      "id": "q019",
+      "query": "TSI",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "expected_section": "descripcion",
+      "expected_keywords": [
+        "sanitaria",
+        "asistencia"
+      ],
+      "territory": null,
+      "category": "acronyms"
+    },
+    {
+      "id": "q020",
+      "query": "necesito ir al medico y no tengo tarjeta sanitaria",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "expected_section": "datos_importantes",
+      "expected_keywords": [
+        "urgencias",
+        "derecho",
+        "todos"
+      ],
+      "territory": null,
+      "category": "colloquial"
+    },
+    {
+      "id": "q021",
+      "query": "que es el NIE",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "expected_section": "descripcion",
+      "expected_keywords": [
+        "numero",
+        "extranjero",
+        "identificacion"
+      ],
+      "territory": null,
+      "category": "basic_info"
+    },
+    {
+      "id": "q022",
+      "query": "requisitos para el NIE siendo europeo",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "expected_section": "requisitos_nie_ciudadanos_ue",
+      "expected_keywords": [
+        "UE",
+        "residir",
+        "trabajador"
+      ],
+      "territory": null,
+      "category": "requisitos"
+    },
+    {
+      "id": "q023",
+      "query": "documentos para la TIE",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "expected_section": "documentos_tie",
+      "expected_keywords": [
+        "EX-17",
+        "pasaporte",
+        "fotografias"
+      ],
+      "territory": null,
+      "category": "documentos"
+    },
+    {
+      "id": "q024",
+      "query": "como pido cita para el NIE",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "expected_section": "como_solicitar",
+      "expected_keywords": [
+        "cita",
+        "previa",
+        "policia"
+      ],
+      "territory": null,
+      "category": "como_solicitar"
+    },
+    {
+      "id": "q025",
+      "query": "plazo para solicitar la TIE",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "expected_section": "plazos",
+      "expected_keywords": [
+        "mes",
+        "entrada",
+        "renovacion"
+      ],
+      "territory": null,
+      "category": "plazos"
+    },
+    {
+      "id": "q026",
+      "query": "NIE",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "expected_section": "descripcion",
+      "expected_keywords": [
+        "numero",
+        "extranjero"
+      ],
+      "territory": null,
+      "category": "acronyms"
+    },
+    {
+      "id": "q027",
+      "query": "TIE",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "expected_section": "descripcion",
+      "expected_keywords": [
+        "tarjeta",
+        "extranjero",
+        "residencia"
+      ],
+      "territory": null,
+      "category": "acronyms"
+    },
+    {
+      "id": "q028",
+      "query": "diferencia entre NIE y TIE",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "expected_section": "tipos",
+      "expected_keywords": [
+        "numero",
+        "tarjeta",
+        "documento"
+      ],
+      "territory": null,
+      "category": "basic_info"
+    },
+    {
+      "id": "q029",
+      "query": "que es el paro",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "expected_section": "descripcion",
+      "expected_keywords": [
+        "prestacion",
+        "empleo",
+        "cotizado"
+      ],
+      "territory": null,
+      "category": "basic_info"
+    },
+    {
+      "id": "q030",
+      "query": "requisitos para cobrar el paro",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "expected_section": "requisitos",
+      "expected_keywords": [
+        "cotizado",
+        "360",
+        "desempleo"
+      ],
+      "territory": null,
+      "category": "requisitos"
+    },
+    {
+      "id": "q031",
+      "query": "que documentos necesito para pedir el paro",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "expected_section": "documentos",
+      "expected_keywords": [
+        "certificado",
+        "empresa",
+        "DARDE"
+      ],
+      "territory": null,
+      "category": "documentos"
+    },
+    {
+      "id": "q032",
+      "query": "como solicitar la prestacion por desempleo",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "expected_section": "como_solicitar",
+      "expected_keywords": [
+        "sede",
+        "SEPE",
+        "cita"
+      ],
+      "territory": null,
+      "category": "como_solicitar"
+    },
+    {
+      "id": "q033",
+      "query": "plazo para pedir el paro despues de un despido",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "expected_section": "plazos",
+      "expected_keywords": [
+        "15",
+        "habiles",
+        "retraso"
+      ],
+      "territory": null,
+      "category": "plazos"
+    },
+    {
+      "id": "q034",
+      "query": "SEPE",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "expected_section": "descripcion",
+      "expected_keywords": [
+        "empleo",
+        "prestacion"
+      ],
+      "territory": null,
+      "category": "acronyms"
+    },
+    {
+      "id": "q035",
+      "query": "como pido el paro",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "expected_section": "como_solicitar",
+      "expected_keywords": [
+        "SEPE",
+        "cita",
+        "previa"
+      ],
+      "territory": null,
+      "category": "colloquial"
+    },
+    {
+      "id": "q036",
+      "query": "cuanto se cobra de paro",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "expected_section": "cuantias",
+      "expected_keywords": [
+        "base",
+        "reguladora",
+        "IPREM"
+      ],
+      "territory": null,
+      "category": "basic_info"
+    },
+    {
+      "id": "q037",
+      "query": "que es la ayuda al alquiler",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "expected_section": "descripcion",
+      "expected_keywords": [
+        "alquiler",
+        "vivienda",
+        "bono"
+      ],
+      "territory": null,
+      "category": "basic_info"
+    },
+    {
+      "id": "q038",
+      "query": "requisitos para la ayuda al alquiler",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "expected_section": "requisitos",
+      "expected_keywords": [
+        "contrato",
+        "empadronado",
+        "IPREM"
+      ],
+      "territory": null,
+      "category": "requisitos"
+    },
+    {
+      "id": "q039",
+      "query": "documentos para pedir ayuda al alquiler",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "expected_section": "documentos",
+      "expected_keywords": [
+        "contrato",
+        "justificantes",
+        "renta"
+      ],
+      "territory": null,
+      "category": "documentos"
+    },
+    {
+      "id": "q040",
+      "query": "como solicitar el bono alquiler joven",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "expected_section": "como_solicitar",
+      "expected_keywords": [
+        "sede",
+        "electronica",
+        "comunidad"
+      ],
+      "territory": null,
+      "category": "como_solicitar"
+    },
+    {
+      "id": "q041",
+      "query": "cuanto dan de ayuda al alquiler",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "expected_section": "programas",
+      "expected_keywords": [
+        "250",
+        "mes",
+        "joven"
+      ],
+      "territory": null,
+      "category": "basic_info"
+    },
+    {
+      "id": "q042",
+      "query": "necesito ayuda para pagar el piso",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "expected_section": "descripcion",
+      "expected_keywords": [
+        "alquiler",
+        "ayuda",
+        "vivienda"
+      ],
+      "territory": null,
+      "category": "colloquial"
+    },
+    {
+      "id": "q043",
+      "query": "que es el certificado de discapacidad",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "expected_section": "descripcion",
+      "expected_keywords": [
+        "grado",
+        "discapacidad",
+        "porcentaje"
+      ],
+      "territory": null,
+      "category": "basic_info"
+    },
+    {
+      "id": "q044",
+      "query": "requisitos para pedir certificado de discapacidad",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "expected_section": "requisitos",
+      "expected_keywords": [
+        "deficiencia",
+        "residente",
+        "empadronado"
+      ],
+      "territory": null,
+      "category": "requisitos"
+    },
+    {
+      "id": "q045",
+      "query": "documentos para el certificado de discapacidad",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "expected_section": "documentos",
+      "expected_keywords": [
+        "informes",
+        "medicos",
+        "empadronamiento"
+      ],
+      "territory": null,
+      "category": "documentos"
+    },
+    {
+      "id": "q046",
+      "query": "como solicitar el reconocimiento de discapacidad",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "expected_section": "como_solicitar",
+      "expected_keywords": [
+        "centro",
+        "base",
+        "cita"
+      ],
+      "territory": null,
+      "category": "como_solicitar"
+    },
+    {
+      "id": "q047",
+      "query": "cuanto tardan en dar el certificado de discapacidad",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "expected_section": "plazos",
+      "expected_keywords": [
+        "meses",
+        "resolucion",
+        "agravamiento"
+      ],
+      "territory": null,
+      "category": "plazos"
+    },
+    {
+      "id": "q048",
+      "query": "beneficios del 33 por ciento de discapacidad",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "expected_section": "grados_y_beneficios",
+      "expected_keywords": [
+        "empleo",
+        "fiscales",
+        "transporte"
+      ],
+      "territory": null,
+      "category": "basic_info"
+    },
+    {
+      "id": "q049",
+      "query": "que es la justicia gratuita",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "expected_section": "descripcion",
+      "expected_keywords": [
+        "abogado",
+        "recursos",
+        "gratuita"
+      ],
+      "territory": null,
+      "category": "basic_info"
+    },
+    {
+      "id": "q050",
+      "query": "requisitos para justicia gratuita",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "expected_section": "requisitos",
+      "expected_keywords": [
+        "IPREM",
+        "ingresos",
+        "recursos"
+      ],
+      "territory": null,
+      "category": "requisitos"
+    },
+    {
+      "id": "q051",
+      "query": "documentos para pedir abogado de oficio",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "expected_section": "documentos",
+      "expected_keywords": [
+        "formulario",
+        "renta",
+        "catastral"
+      ],
+      "territory": null,
+      "category": "documentos"
+    },
+    {
+      "id": "q052",
+      "query": "como pedir justicia gratuita",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "expected_section": "como_solicitar",
+      "expected_keywords": [
+        "colegio",
+        "abogados",
+        "SOJ"
+      ],
+      "territory": null,
+      "category": "como_solicitar"
+    },
+    {
+      "id": "q053",
+      "query": "cuanto tardan en darte abogado de oficio",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "expected_section": "plazos",
+      "expected_keywords": [
+        "30",
+        "dias",
+        "provisional"
+      ],
+      "territory": null,
+      "category": "plazos"
+    },
+    {
+      "id": "q054",
+      "query": "necesito abogado gratis",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "expected_section": "descripcion",
+      "expected_keywords": [
+        "abogado",
+        "gratuita",
+        "juicio"
+      ],
+      "territory": null,
+      "category": "colloquial"
+    },
+    {
+      "id": "q055",
+      "query": "turno de oficio para extranjeros",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "expected_section": "requisitos",
+      "expected_keywords": [
+        "extranjeros",
+        "penales",
+        "residencia"
+      ],
+      "territory": null,
+      "category": "colloquial"
+    },
+    {
+      "id": "q056",
+      "query": "ayuda alquiler en Madrid",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "expected_section": "como_solicitar",
+      "expected_keywords": [
+        "comunidad",
+        "madrid",
+        "sede"
+      ],
+      "territory": "madrid",
+      "category": "territorial"
+    },
+    {
+      "id": "q057",
+      "query": "empadronamiento en Barcelona",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "expected_section": "descripcion",
+      "expected_keywords": [
+        "registro",
+        "municipio"
+      ],
+      "territory": "barcelona",
+      "category": "territorial"
+    },
+    {
+      "id": "q058",
+      "query": "tarjeta sanitaria en Andalucia",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "expected_section": "descripcion",
+      "expected_keywords": [
+        "sanitaria",
+        "asistencia"
+      ],
+      "territory": "andalucia",
+      "category": "territorial"
+    },
+    {
+      "id": "q059",
+      "query": "certificado de discapacidad en Valencia",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "expected_section": "descripcion",
+      "expected_keywords": [
+        "discapacidad",
+        "grado"
+      ],
+      "territory": "valencia",
+      "category": "territorial"
+    },
+    {
+      "id": "q060",
+      "query": "pedir el paro en Sevilla",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "expected_section": "como_solicitar",
+      "expected_keywords": [
+        "SEPE",
+        "oficinas"
+      ],
+      "territory": "sevilla",
+      "category": "territorial"
+    },
+    {
+      "id": "q061",
+      "query": "como conseguir la nacionalidad espanola",
+      "expected_procedure": null,
+      "expected_section": null,
+      "expected_keywords": [],
+      "territory": null,
+      "category": "negative"
+    },
+    {
+      "id": "q062",
+      "query": "beca para estudiar en la universidad",
+      "expected_procedure": null,
+      "expected_section": null,
+      "expected_keywords": [],
+      "territory": null,
+      "category": "negative"
+    },
+    {
+      "id": "q063",
+      "query": "como renovar el pasaporte",
+      "expected_procedure": null,
+      "expected_section": null,
+      "expected_keywords": [],
+      "territory": null,
+      "category": "negative"
+    },
+    {
+      "id": "q064",
+      "query": "prestacion por maternidad",
+      "expected_procedure": null,
+      "expected_section": null,
+      "expected_keywords": [],
+      "territory": null,
+      "category": "negative"
+    },
+    {
+      "id": "q065",
+      "query": "hola buenos dias",
+      "expected_procedure": null,
+      "expected_section": null,
+      "expected_keywords": [],
+      "territory": null,
+      "category": "negative"
+    },
+    {
+      "id": "q066",
+      "query": "para que sirve el ingreso minimo vital",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q067",
+      "query": "quien puede pedir el IMV",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q068",
+      "query": "el IMV es compatible con trabajar",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q069",
+      "query": "cuantas personas cobran el IMV en espana",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q070",
+      "query": "que pasa si me deniegan el IMV",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q071",
+      "query": "pueden quitarme el ingreso minimo vital",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q072",
+      "query": "el IMV se pide cada ano",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q073",
+      "query": "para que sirve el empadronamiento",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q074",
+      "query": "quien puede empadronarse",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q075",
+      "query": "el empadronamiento caduca",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q076",
+      "query": "que pasa si no estoy empadronado",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q077",
+      "query": "empadronamiento para extranjeros",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q078",
+      "query": "puedo empadronarme en dos sitios",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q079",
+      "query": "cuanto tarda el empadronamiento",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q080",
+      "query": "para que sirve la tarjeta sanitaria",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q081",
+      "query": "la tarjeta sanitaria es gratuita",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q082",
+      "query": "puedo ir al medico sin tarjeta sanitaria",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q083",
+      "query": "la tarjeta sanitaria caduca",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q084",
+      "query": "como renovar la tarjeta sanitaria",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q085",
+      "query": "tarjeta sanitaria para bebes",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q086",
+      "query": "tarjeta sanitaria europea",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q087",
+      "query": "que cubre la tarjeta sanitaria",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q088",
+      "query": "para que sirve el NIE",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q089",
+      "query": "quien necesita el NIE",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q090",
+      "query": "el NIE caduca",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q091",
+      "query": "como renovar el NIE",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q092",
+      "query": "NIE para ciudadanos europeos",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q093",
+      "query": "que es la TIE tarjeta de identidad de extranjero",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q094",
+      "query": "puedo trabajar con NIE",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q095",
+      "query": "cuanto cuesta el NIE",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q096",
+      "query": "para que sirve la prestacion por desempleo",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q097",
+      "query": "quien puede cobrar el paro",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q098",
+      "query": "cuanto tiempo se cobra el paro",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q099",
+      "query": "que pasa cuando se acaba el paro",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q100",
+      "query": "el paro se puede prorrogar",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q101",
+      "query": "puedo cobrar el paro y trabajar a media jornada",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q102",
+      "query": "que es el subsidio por desempleo",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q103",
+      "query": "diferencia entre paro y subsidio",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q104",
+      "query": "para que sirve el bono alquiler joven",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q105",
+      "query": "quien puede pedir la ayuda al alquiler",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q106",
+      "query": "que edad hay que tener para el bono alquiler joven",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q107",
+      "query": "cuanto dura la ayuda al alquiler",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q108",
+      "query": "la ayuda al alquiler es compatible con otras ayudas",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q109",
+      "query": "que pasa si cambio de piso con la ayuda al alquiler",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q110",
+      "query": "puedo pedir ayuda al alquiler si comparto piso",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q111",
+      "query": "ayuda alquiler para mayores de 35",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q112",
+      "query": "para que sirve el certificado de discapacidad",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q113",
+      "query": "quien puede pedir el certificado de discapacidad",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q114",
+      "query": "que grados de discapacidad hay",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q115",
+      "query": "que beneficios tiene el 65 por ciento de discapacidad",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q116",
+      "query": "se puede revisar el grado de discapacidad",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q117",
+      "query": "certificado de discapacidad para ninos",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q118",
+      "query": "discapacidad temporal certificado",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q119",
+      "query": "que enfermedades dan discapacidad",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q120",
+      "query": "para que sirve la justicia gratuita",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q121",
+      "query": "quien tiene derecho a justicia gratuita",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q122",
+      "query": "que cubre la justicia gratuita",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q123",
+      "query": "justicia gratuita para victimas de violencia de genero",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q124",
+      "query": "puedo elegir abogado con justicia gratuita",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q125",
+      "query": "justicia gratuita para menores",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q126",
+      "query": "que pasa si me deniegan la justicia gratuita",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q127",
+      "query": "justicia gratuita en asuntos civiles",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q128",
+      "query": "DARDE",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "category": "acronyms",
+      "territory": null
+    },
+    {
+      "id": "q129",
+      "query": "OAC",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "category": "acronyms",
+      "territory": null
+    },
+    {
+      "id": "q130",
+      "query": "MIVAU",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "category": "acronyms",
+      "territory": null
+    },
+    {
+      "id": "q131",
+      "query": "AEAT",
+      "expected_procedure": null,
+      "category": "acronyms",
+      "territory": null
+    },
+    {
+      "id": "q132",
+      "query": "DGT",
+      "expected_procedure": null,
+      "category": "acronyms",
+      "territory": null
+    },
+    {
+      "id": "q133",
+      "query": "IPREM",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "category": "acronyms",
+      "territory": null
+    },
+    {
+      "id": "q134",
+      "query": "BOE",
+      "expected_procedure": null,
+      "category": "acronyms",
+      "territory": null
+    },
+    {
+      "id": "q135",
+      "query": "AGE",
+      "expected_procedure": null,
+      "category": "acronyms",
+      "territory": null
+    },
+    {
+      "id": "q136",
+      "query": "CCAA",
+      "expected_procedure": null,
+      "category": "acronyms",
+      "territory": null
+    },
+    {
+      "id": "q137",
+      "query": "DNI",
+      "expected_procedure": null,
+      "category": "acronyms",
+      "territory": null
+    },
+    {
+      "id": "q138",
+      "query": "como consigo el paro rapido",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "category": "colloquial",
+      "territory": null
+    },
+    {
+      "id": "q139",
+      "query": "me han echado del curro que hago",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "category": "colloquial",
+      "territory": null
+    },
+    {
+      "id": "q140",
+      "query": "necesito la tarjeta del medico",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "category": "colloquial",
+      "territory": null
+    },
+    {
+      "id": "q141",
+      "query": "me pueden echar si no tengo papeles",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "category": "colloquial",
+      "territory": null
+    },
+    {
+      "id": "q142",
+      "query": "quiero empadronarme pero no tengo contrato",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "category": "colloquial",
+      "territory": null
+    },
+    {
+      "id": "q143",
+      "query": "no tengo pasta para el alquiler ayuda",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "category": "colloquial",
+      "territory": null
+    },
+    {
+      "id": "q144",
+      "query": "mi hijo tiene discapacidad que hago",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "category": "colloquial",
+      "territory": null
+    },
+    {
+      "id": "q145",
+      "query": "necesito un abogado y no tengo dinero",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "category": "colloquial",
+      "territory": null
+    },
+    {
+      "id": "q146",
+      "query": "kiero pedir el imv como ago",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "category": "colloquial",
+      "territory": null
+    },
+    {
+      "id": "q147",
+      "query": "onde pido la tarjeta sanitaria",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "category": "colloquial",
+      "territory": null
+    },
+    {
+      "id": "q148",
+      "query": "tengo ke renovar el nie k necesito",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "category": "colloquial",
+      "territory": null
+    },
+    {
+      "id": "q149",
+      "query": "se me acaba el paro y no encuentro trabajo",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "category": "colloquial",
+      "territory": null
+    },
+    {
+      "id": "q150",
+      "query": "estoy sin curro y sin un duro",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "category": "colloquial",
+      "territory": null
+    },
+    {
+      "id": "q151",
+      "query": "me quiero apuntar al padron",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "category": "colloquial",
+      "territory": null
+    },
+    {
+      "id": "q152",
+      "query": "cuanto me dan de paro si cobro 1200",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "category": "colloquial",
+      "territory": null
+    },
+    {
+      "id": "q153",
+      "query": "mi madre necesita certificado discapacidad",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "category": "colloquial",
+      "territory": null
+    },
+    {
+      "id": "q154",
+      "query": "abogado gratis para desahucio",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "category": "colloquial",
+      "territory": null
+    },
+    {
+      "id": "q155",
+      "query": "no me llega pa pagar el piso",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "category": "colloquial",
+      "territory": null
+    },
+    {
+      "id": "q156",
+      "query": "tengo que ir al SEPE presencialmente",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "category": "colloquial",
+      "territory": null
+    },
+    {
+      "id": "q157",
+      "query": "la seguridad social me puede ayudar",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "category": "colloquial",
+      "territory": null
+    },
+    {
+      "id": "q158",
+      "query": "estoy en situacion irregular puedo empadronarme",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "category": "colloquial",
+      "territory": null
+    },
+    {
+      "id": "q159",
+      "query": "necesito papeles para vivir en espana",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "category": "colloquial",
+      "territory": null
+    },
+    {
+      "id": "q160",
+      "query": "como pido cita en extranjeria",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "category": "colloquial",
+      "territory": null
+    },
+    {
+      "id": "q161",
+      "query": "ke es eso del bono joven",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "category": "colloquial",
+      "territory": null
+    },
+    {
+      "id": "q162",
+      "query": "puedo pedir abogado gratis si no tengo papeles",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "category": "colloquial",
+      "territory": null
+    },
+    {
+      "id": "q163",
+      "query": "empadronamiento en Madrid",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "category": "territorial",
+      "territory": "madrid"
+    },
+    {
+      "id": "q164",
+      "query": "ayuda alquiler en Barcelona",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "category": "territorial",
+      "territory": "barcelona"
+    },
+    {
+      "id": "q165",
+      "query": "NIE en Valencia",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "category": "territorial",
+      "territory": "valencia"
+    },
+    {
+      "id": "q166",
+      "query": "paro en Bilbao",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "category": "territorial",
+      "territory": "bilbao"
+    },
+    {
+      "id": "q167",
+      "query": "tarjeta sanitaria en Cataluna",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "category": "territorial",
+      "territory": "cataluna"
+    },
+    {
+      "id": "q168",
+      "query": "certificado discapacidad en Galicia",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "category": "territorial",
+      "territory": "galicia"
+    },
+    {
+      "id": "q169",
+      "query": "justicia gratuita en Malaga",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "category": "territorial",
+      "territory": "malaga"
+    },
+    {
+      "id": "q170",
+      "query": "IMV en Canarias",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "category": "territorial",
+      "territory": "canarias"
+    },
+    {
+      "id": "q171",
+      "query": "empadronamiento en Zaragoza",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "category": "territorial",
+      "territory": "zaragoza"
+    },
+    {
+      "id": "q172",
+      "query": "bono alquiler joven en Comunidad Valenciana",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "category": "territorial",
+      "territory": "comunidad_valenciana"
+    },
+    {
+      "id": "q173",
+      "query": "NIE en Murcia",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "category": "territorial",
+      "territory": "murcia"
+    },
+    {
+      "id": "q174",
+      "query": "paro en Asturias",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "category": "territorial",
+      "territory": "asturias"
+    },
+    {
+      "id": "q175",
+      "query": "tarjeta sanitaria en Pais Vasco",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "category": "territorial",
+      "territory": "pais_vasco"
+    },
+    {
+      "id": "q176",
+      "query": "certificado discapacidad en Castilla y Leon",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "category": "territorial",
+      "territory": "castilla_y_leon"
+    },
+    {
+      "id": "q177",
+      "query": "justicia gratuita en Extremadura",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "category": "territorial",
+      "territory": "extremadura"
+    },
+    {
+      "id": "q178",
+      "query": "becas universidad erasmus",
+      "expected_procedure": null,
+      "category": "negative",
+      "territory": null
+    },
+    {
+      "id": "q179",
+      "query": "como sacar el pasaporte espanol",
+      "expected_procedure": null,
+      "category": "negative",
+      "territory": null
+    },
+    {
+      "id": "q180",
+      "query": "prestacion por maternidad requisitos",
+      "expected_procedure": null,
+      "category": "negative",
+      "territory": null
+    },
+    {
+      "id": "q181",
+      "query": "como pedir una hipoteca",
+      "expected_procedure": null,
+      "category": "negative",
+      "territory": null
+    },
+    {
+      "id": "q182",
+      "query": "tramites para herencia",
+      "expected_procedure": null,
+      "category": "negative",
+      "territory": null
+    },
+    {
+      "id": "q183",
+      "query": "divorcio mutuo acuerdo",
+      "expected_procedure": null,
+      "category": "negative",
+      "territory": null
+    },
+    {
+      "id": "q184",
+      "query": "permiso de conducir renovacion",
+      "expected_procedure": null,
+      "category": "negative",
+      "territory": null
+    },
+    {
+      "id": "q185",
+      "query": "declaracion de la renta plazos",
+      "expected_procedure": null,
+      "category": "negative",
+      "territory": null
+    },
+    {
+      "id": "q186",
+      "query": "pension de jubilacion",
+      "expected_procedure": null,
+      "category": "negative",
+      "territory": null
+    },
+    {
+      "id": "q187",
+      "query": "alta autonomos seguridad social",
+      "expected_procedure": null,
+      "category": "negative",
+      "territory": null
+    },
+    {
+      "id": "q188",
+      "query": "matriculacion vehiculo DGT",
+      "expected_procedure": null,
+      "category": "negative",
+      "territory": null
+    },
+    {
+      "id": "q189",
+      "query": "certificado de antecedentes penales",
+      "expected_procedure": null,
+      "category": "negative",
+      "territory": null
+    },
+    {
+      "id": "q190",
+      "query": "visado de turista para espana",
+      "expected_procedure": null,
+      "category": "negative",
+      "territory": null
+    },
+    {
+      "id": "q191",
+      "query": "ayuda dependencia ley",
+      "expected_procedure": null,
+      "category": "negative",
+      "territory": null
+    },
+    {
+      "id": "q192",
+      "query": "pension alimenticia hijos",
+      "expected_procedure": null,
+      "category": "negative",
+      "territory": null
+    },
+    {
+      "id": "q193",
+      "query": "necesito NIE para pedir el IMV",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "category": "multi_tramite",
+      "territory": null
+    },
+    {
+      "id": "q194",
+      "query": "puedo pedir paro y alquiler joven a la vez",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "category": "multi_tramite",
+      "territory": null
+    },
+    {
+      "id": "q195",
+      "query": "necesito empadronamiento para la tarjeta sanitaria",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "category": "multi_tramite",
+      "territory": null
+    },
+    {
+      "id": "q196",
+      "query": "con el certificado de discapacidad puedo pedir justicia gratuita",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "category": "multi_tramite",
+      "territory": null
+    },
+    {
+      "id": "q197",
+      "query": "necesito empadronarme para pedir el paro",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "category": "multi_tramite",
+      "territory": null
+    },
+    {
+      "id": "q198",
+      "query": "el IMV es compatible con el bono alquiler joven",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "category": "multi_tramite",
+      "territory": null
+    },
+    {
+      "id": "q199",
+      "query": "necesito tarjeta sanitaria para pedir el certificado de discapacidad",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "category": "multi_tramite",
+      "territory": null
+    },
+    {
+      "id": "q200",
+      "query": "puedo pedir justicia gratuita si cobro el IMV",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "category": "multi_tramite",
+      "territory": null
+    },
+    {
+      "id": "q201",
+      "query": "necesito NIE para empadronarme",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "category": "multi_tramite",
+      "territory": null
+    },
+    {
+      "id": "q202",
+      "query": "hay que estar empadronado para pedir ayuda al alquiler",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "category": "multi_tramite",
+      "territory": null
+    },
+    {
+      "id": "q203",
+      "query": "el paro cuenta como ingreso para el IMV",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "category": "multi_tramite",
+      "territory": null
+    },
+    {
+      "id": "q204",
+      "query": "necesito abogado para recurrir denegacion del IMV",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "category": "multi_tramite",
+      "territory": null
+    },
+    {
+      "id": "q205",
+      "query": "puedo pedir la tarjeta sanitaria con el NIE",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "category": "multi_tramite",
+      "territory": null
+    },
+    {
+      "id": "q206",
+      "query": "si tengo discapacidad me dan mas paro",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "category": "multi_tramite",
+      "territory": null
+    },
+    {
+      "id": "q207",
+      "query": "necesito empadronamiento para el certificado de discapacidad",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "category": "multi_tramite",
+      "territory": null
+    },
+    {
+      "id": "q208",
+      "query": "justicia gratuita para recurrir desempleo",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "category": "multi_tramite",
+      "territory": null
+    },
+    {
+      "id": "q209",
+      "query": "con TIE puedo pedir ayuda al alquiler",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "category": "multi_tramite",
+      "territory": null
+    },
+    {
+      "id": "q210",
+      "query": "el bono alquiler joven requiere estar empadronado",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "category": "multi_tramite",
+      "territory": null
+    },
+    {
+      "id": "q211",
+      "query": "certificado discapacidad para pedir IMV complemento",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "category": "multi_tramite",
+      "territory": null
+    },
+    {
+      "id": "q212",
+      "query": "NIE necesario para abogado de oficio",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "category": "multi_tramite",
+      "territory": null
+    },
+    {
+      "id": "q213",
+      "query": "imv",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "category": "edge_case",
+      "territory": null
+    },
+    {
+      "id": "q214",
+      "query": "?",
+      "expected_procedure": null,
+      "category": "edge_case",
+      "territory": null
+    },
+    {
+      "id": "q215",
+      "query": "...",
+      "expected_procedure": null,
+      "category": "edge_case",
+      "territory": null
+    },
+    {
+      "id": "q216",
+      "query": "a",
+      "expected_procedure": null,
+      "category": "edge_case",
+      "territory": null
+    },
+    {
+      "id": "q217",
+      "query": "12345",
+      "expected_procedure": null,
+      "category": "edge_case",
+      "territory": null
+    },
+    {
+      "id": "q218",
+      "query": "hola que tal como va todo espero que bien porque necesito informacion sobre el ingreso minimo vital y tambien sobre el empadronamiento y la tarjeta sanitaria todo junto por favor gracias",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "category": "edge_case",
+      "territory": null
+    },
+    {
+      "id": "q219",
+      "query": "je voudrais savoir comment demander le revenu minimum vital en espagne",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "category": "edge_case",
+      "territory": null
+    },
+    {
+      "id": "q220",
+      "query": "comment obtenir la carte sanitaire",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "category": "edge_case",
+      "territory": null
+    },
+    {
+      "id": "q221",
+      "query": "NIE NIE NIE",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "category": "edge_case",
+      "territory": null
+    },
+    {
+      "id": "q222",
+      "query": "AYUDA ALQUILER POR FAVOR URGENTE",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "category": "edge_case",
+      "territory": null
+    },
+    {
+      "id": "q223",
+      "query": "paro paro paro necesito paro ya",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "category": "edge_case",
+      "territory": null
+    },
+    {
+      "id": "q224",
+      "query": "q es el imv???!!!",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "category": "edge_case",
+      "territory": null
+    },
+    {
+      "id": "q225",
+      "query": "😭 necesito ayuda con el paro",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "category": "edge_case",
+      "territory": null
+    },
+    {
+      "id": "q226",
+      "query": "como pido el certificado de discapacidad 33%",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "category": "edge_case",
+      "territory": null
+    },
+    {
+      "id": "q227",
+      "query": "ingreso minimo vital 2024 2025 cuantia actualizada",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "category": "edge_case",
+      "territory": null
+    },
+    {
+      "id": "q228",
+      "query": "    empadronamiento    ",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "category": "edge_case",
+      "territory": null
+    },
+    {
+      "id": "q229",
+      "query": "JUSTICIA GRATUITA",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "category": "edge_case",
+      "territory": null
+    },
+    {
+      "id": "q230",
+      "query": "tarjeta sanitaria perdida que hago",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "category": "edge_case",
+      "territory": null
+    },
+    {
+      "id": "q231",
+      "query": "nie+tie+extranjeria",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "category": "edge_case",
+      "territory": null
+    },
+    {
+      "id": "q232",
+      "query": "bono alquiler joven 250 euros mes requisitos edad",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "category": "edge_case",
+      "territory": null
+    },
+    {
+      "id": "q233",
+      "query": "que ventajas tiene el certificado de discapacidad",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q234",
+      "query": "donde se solicita la justicia gratuita",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q235",
+      "query": "cuanto dinero dan de ayuda al alquiler",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "category": "basic_info",
+      "territory": null
+    },
+    {
+      "id": "q236",
+      "query": "requisitos basicos del ingreso minimo vital",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "category": "basic_info",
+      "territory": null
+    }
+  ]
+}

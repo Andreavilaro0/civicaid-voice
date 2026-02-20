@@ -1,0 +1,799 @@
+version: '1.0'
+generated_at: '2026-02-18'
+sources:
+- id: age-sia
+  name: SIA (Sistema de Informacion Administrativa)
+  name_abbrev: SIA
+  jurisdiction: age
+  tier: 1
+  priority: P0
+  portal_url: https://administracion.gob.es/pag_Home/espanaAdmon/SIA.html
+  access_method: informational
+  content_formats:
+  - html
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: realtime
+  coverage: Master catalog of all public procedures
+  notes: Feeds the PAG portal. SIA code useful for deduplication.
+- id: age-pag
+  name: PAG (Punto de Acceso General)
+  name_abbrev: PAG
+  jurisdiction: age
+  tier: 1
+  priority: P0
+  portal_url: https://administracion.gob.es/
+  sede_url: https://sede.administracion.gob.es/
+  access_method: crawl
+  content_formats:
+  - html
+  languages:
+  - es
+  - ca
+  - eu
+  - gl
+  rate_limit_rps: 1.0
+  update_frequency: realtime
+  coverage: Citizen-facing portal, all procedures by topic
+  notes: 'Managed by Dir. General de Gobernanza Publica. Phone: 060.'
+- id: age-carpeta-ciudadana
+  name: Carpeta Ciudadana
+  jurisdiction: age
+  tier: 1
+  priority: P1
+  portal_url: https://carpetaciudadana.gob.es/
+  access_method: auth_only
+  content_formats:
+  - html
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: realtime
+  coverage: Personal citizen folder (docs, appointments, notifications)
+  notes: Requires Clave auth. Crawl help pages only.
+- id: age-clave
+  name: Sistema Clave
+  name_abbrev: Clave
+  jurisdiction: age
+  tier: 1
+  priority: P1
+  portal_url: https://clave.gob.es/
+  access_method: informational
+  content_formats:
+  - html
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: realtime
+  coverage: Digital identity system (PIN, permanente, certificado)
+  notes: Nearly every sede requires Clave. Critical for user guidance.
+- id: age-sede-pag
+  name: Sede Electronica del PAG
+  jurisdiction: age
+  tier: 1
+  priority: P0
+  portal_url: https://sede.administracion.gob.es/
+  sede_url: https://sede.administracion.gob.es/
+  access_method: crawl
+  content_formats:
+  - html
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: realtime
+  coverage: Main government e-office, electronic registry (REG-AGE)
+  notes: Central registry for submitting docs to any AGE body.
+- id: age-boe-diario
+  name: BOE - Boletin Oficial del Estado (Diario)
+  name_abbrev: BOE
+  jurisdiction: age
+  tier: 1
+  priority: P0
+  portal_url: https://www.boe.es/
+  api_url: https://boe.es/datosabiertos/api/boe/sumario/
+  access_method: api
+  content_formats:
+  - xml
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: daily
+  coverage: 'Official state gazette: laws, royal decrees, aid announcements'
+  notes: REST API, no auth. Best-documented gov API in Spain. API URL is a base path; append date param (e.g. /20260218) for specific day sumario.
+- id: age-boe-legislacion
+  name: BOE - Legislacion Consolidada
+  name_abbrev: BOE-LC
+  jurisdiction: age
+  tier: 1
+  priority: P0
+  portal_url: https://www.boe.es/buscar/legislacion.php
+  api_url: https://www.boe.es/datosabiertos/api/legislacion-consolidada
+  access_method: api
+  content_formats:
+  - xml
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: realtime
+  coverage: Consolidated (up-to-date) Spanish legislation
+  notes: Always cite consolidated version, not original publication. API URL is a base path; requires query params (e.g. ?id=BOE-A-2023-12345) to return specific legislation.
+- id: age-boe-sumarios
+  name: BOE - Sumarios Diarios
+  jurisdiction: age
+  tier: 1
+  priority: P1
+  portal_url: https://www.boe.es/diario_boe/
+  access_method: rss
+  content_formats:
+  - xml
+  - html
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: daily
+  coverage: Daily summaries of published acts
+  notes: RSS feeds at boe.es/rss/. Section III has aid/scholarship announcements.
+- id: age-sepe
+  name: SEPE (Servicio Publico de Empleo Estatal)
+  name_abbrev: SEPE
+  jurisdiction: age
+  tier: 1
+  priority: P0
+  portal_url: https://www.sepe.es/
+  sede_url: https://sede.sepe.gob.es/
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: monthly
+  coverage: Unemployment, job search, training
+  notes: High impact for vulnerable populations. Pre-solicitud online.
+- id: age-seg-social
+  name: Seguridad Social (TGSS/INSS)
+  name_abbrev: TGSS/INSS
+  jurisdiction: age
+  tier: 1
+  priority: P0
+  portal_url: https://www.seg-social.es/
+  sede_url: https://sede.seg-social.gob.es/
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: realtime
+  coverage: Pensions, SS numbers, benefits, IMV
+  notes: INSS manages benefits; TGSS manages contributions.
+- id: age-aeat
+  name: AEAT (Agencia Tributaria)
+  name_abbrev: AEAT
+  jurisdiction: age
+  tier: 1
+  priority: P0
+  portal_url: https://www.agenciatributaria.es/
+  sede_url: https://sede.agenciatributaria.gob.es/
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: realtime
+  coverage: Taxes, fiscal procedures, certificates
+  notes: WSDL/SOAP web services for businesses. Focus on info pages for RAG.
+- id: age-dgt
+  name: DGT (Direccion General de Trafico)
+  name_abbrev: DGT
+  jurisdiction: age
+  tier: 1
+  priority: P1
+  portal_url: https://www.dgt.es/
+  sede_url: https://sede.dgt.gob.es/
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: monthly
+  coverage: Driving licenses, vehicles, fines
+  notes: Useful for foreign driving license exchange.
+- id: age-extranjeria
+  name: Extranjeria (Policia Nacional)
+  jurisdiction: age
+  tier: 1
+  priority: P0
+  portal_url: https://sede.policia.gob.es/portalCiudadano/_es/tramites_extranjeria.php
+  sede_url: https://sede.policia.gob.es/
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: monthly
+  coverage: NIE, TIE, residency, work permits
+  notes: Critical for immigrants. Cita previa via ICP Plus.
+- id: age-muface
+  name: MUFACE
+  name_abbrev: MUFACE
+  jurisdiction: age
+  tier: 1
+  priority: P2
+  portal_url: https://muface.es/
+  sede_url: https://sede.muface.gob.es/
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: annual
+  coverage: Civil servant healthcare mutual
+  notes: Relevant only for civil servants and their families.
+- id: age-imserso
+  name: IMSERSO
+  name_abbrev: IMSERSO
+  jurisdiction: age
+  tier: 1
+  priority: P1
+  portal_url: https://imserso.es/
+  sede_url: https://sede.imserso.gob.es/
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: annual
+  coverage: Elderly services, disability, dependency
+  notes: Manages Ceuta/Melilla directly. Disability >=33% unlocks benefits.
+- id: age-mivau
+  name: MIVAU (Min. Vivienda y Agenda Urbana)
+  name_abbrev: MIVAU
+  jurisdiction: age
+  tier: 1
+  priority: P1
+  portal_url: https://www.mivau.gob.es/
+  sede_url: https://mivau.sede.gob.es/
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: quarterly
+  coverage: Housing aid, bono alquiler joven, urban agenda
+  notes: Bono Alquiler managed by CCAA. MIVAU sets framework.
+- id: age-mjusticia
+  name: Ministerio de Justicia
+  jurisdiction: age
+  tier: 1
+  priority: P1
+  portal_url: https://www.mjusticia.gob.es/
+  sede_url: https://sede.mjusticia.gob.es/
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: monthly
+  coverage: Criminal records, nationality, legal aid, civil registry
+  notes: Antecedentes penales required for immigration. Nationality 2+ years.
+- id: age-ine
+  name: INE (Instituto Nacional de Estadistica)
+  name_abbrev: INE
+  jurisdiction: age
+  tier: 1
+  priority: P2
+  portal_url: https://www.ine.es/
+  api_url: https://servicios.ine.es/wstempus/js/ES/
+  access_method: api
+  content_formats:
+  - json
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: monthly
+  coverage: National statistics, reference data (IPREM, SMI)
+  notes: JSON REST API, no auth. Essential for threshold values.
+- id: age-inclusion-imv
+  name: Min. Inclusion - Ingreso Minimo Vital
+  name_abbrev: IMV
+  jurisdiction: age
+  tier: 1
+  priority: P0
+  portal_url: https://www.inclusion.gob.es/web/imv
+  sede_url: https://sede.inclusion.gob.es/
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: annual
+  coverage: Ingreso Minimo Vital (minimum income)
+  notes: THE most relevant benefit for vulnerable populations.
+- id: age-catastro
+  name: Catastro (Direccion General del Catastro)
+  jurisdiction: age
+  tier: 1
+  priority: P2
+  portal_url: https://www.catastro.hacienda.gob.es/
+  sede_url: https://www.sedecatastro.gob.es/
+  api_url: https://www.sedecatastro.gob.es/
+  access_method: api
+  content_formats:
+  - xml
+  - html
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: realtime
+  coverage: Property registry, cadastral data
+  notes: SOAP + WMS/WFS services. Non-protected data freely available.
+- id: age-transparencia
+  name: Portal de la Transparencia
+  jurisdiction: age
+  tier: 1
+  priority: P2
+  portal_url: https://transparencia.gob.es/
+  access_method: crawl
+  content_formats:
+  - html
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: realtime
+  coverage: Public info access, institutional transparency
+  notes: Ley 19/2013. Right of access to public information.
+- id: age-asilo
+  name: Oficina de Asilo y Refugio (OAR)
+  name_abbrev: OAR
+  jurisdiction: age
+  tier: 1
+  priority: P1
+  portal_url: https://proteccion-asilo.interior.gob.es/
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: quarterly
+  coverage: Asylum, international protection procedures
+  notes: Under Min. Interior. Application is in-person only.
+- id: age-registro-civil
+  name: Registro Civil
+  jurisdiction: age
+  tier: 1
+  priority: P1
+  portal_url: https://sede.mjusticia.gob.es/tramites
+  sede_url: https://sede.mjusticia.gob.es/
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: realtime
+  coverage: Birth, marriage, death certificates
+  notes: Part of Min. Justicia sede. Digital records from 1996+.
+- id: age-datos-gob
+  name: datos.gob.es (Portal Nacional de Datos Abiertos)
+  jurisdiction: age
+  tier: 1
+  priority: P1
+  portal_url: https://datos.gob.es/
+  api_url: https://datos.gob.es/apidata/catalog/dataset
+  access_method: api
+  content_formats:
+  - json
+  - xml
+  - csv
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: realtime
+  coverage: National open data catalog (CKAN-based)
+  notes: No auth required. Useful for DIR3, INE datasets.
+- id: age-importass
+  name: Import@ss (Portal Digital Seguridad Social)
+  name_abbrev: Import@ss
+  jurisdiction: age
+  tier: 1
+  priority: P1
+  portal_url: https://portal.seg-social.gob.es/wps/portal/importass/importass/inicio
+  access_method: auth_only
+  content_formats:
+  - html
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: realtime
+  coverage: 'TGSS digital portal: vida laboral, SS number, benefits'
+  notes: SMS-based auth (no certificate needed). 1.2M+ installs.
+- id: ccaa-madrid
+  name: Comunidad de Madrid
+  jurisdiction: ccaa
+  ccaa_code: madrid
+  tier: 2
+  priority: P0
+  portal_url: https://www.comunidad.madrid/
+  sede_url: https://sede.comunidad.madrid/
+  catalogo_url: https://sede.comunidad.madrid/buscador
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: monthly
+  coverage: Healthcare, education, social services, housing
+  notes: Sitemap XML available. High immigrant population.
+- id: ccaa-cataluna
+  name: Generalitat de Catalunya
+  jurisdiction: ccaa
+  ccaa_code: cataluna
+  tier: 2
+  priority: P0
+  portal_url: https://web.gencat.cat/
+  sede_url: https://web.gencat.cat/ca/seu-electronica/
+  catalogo_url: https://web.gencat.cat/ca/seu-electronica/tramits-i-serveis
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - ca
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: monthly
+  coverage: Healthcare (CatSalut), education, social services
+  notes: Only CCAA with Socrata API via datos.gob.es. Prefer Spanish pages.
+- id: ccaa-andalucia
+  name: Junta de Andalucia
+  jurisdiction: ccaa
+  ccaa_code: andalucia
+  tier: 2
+  priority: P0
+  portal_url: https://www.juntadeandalucia.es/
+  sede_url: https://www.juntadeandalucia.es/servicios/sede.html
+  catalogo_url: https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos.html
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: monthly
+  coverage: Healthcare (SAS), education, social services
+  notes: Sitemap available. Large population.
+- id: ccaa-valencia
+  name: Generalitat Valenciana
+  jurisdiction: ccaa
+  ccaa_code: valencia
+  tier: 2
+  priority: P0
+  portal_url: https://www.gva.es/
+  sede_url: https://sede.gva.es/es/
+  catalogo_url: https://www.gva.es/es/inicio/atencion_ciudadano/buscadores/tramites_servicios
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  - ca
+  rate_limit_rps: 1.0
+  update_frequency: monthly
+  coverage: Healthcare, education, LABORA employment, housing
+  notes: Guia PROP for novedades. High immigrant population.
+- id: ccaa-canarias
+  name: Gobierno de Canarias
+  jurisdiction: ccaa
+  ccaa_code: canarias
+  tier: 2
+  priority: P0
+  portal_url: https://www.gobiernodecanarias.org/
+  sede_url: https://sede.gobiernodecanarias.org/sede/
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: monthly
+  coverage: Healthcare, education, social services (934 procedures)
+  notes: Catalog integrated in sede.
+- id: ccaa-pais-vasco
+  name: Gobierno Vasco (Euskadi)
+  jurisdiction: ccaa
+  ccaa_code: pais_vasco
+  tier: 2
+  priority: P1
+  portal_url: https://www.euskadi.eus/
+  sede_url: https://www.euskadi.eus/sede-electronica/
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  - eu
+  rate_limit_rps: 1.0
+  update_frequency: monthly
+  coverage: Healthcare (Osakidetza), Lanbide employment, RGI income
+  notes: Catalogo integrado en sede. datos.gob.es datasets.
+- id: ccaa-castilla-leon
+  name: Junta de Castilla y Leon
+  jurisdiction: ccaa
+  ccaa_code: castilla_leon
+  tier: 2
+  priority: P1
+  portal_url: https://www.jcyl.es/
+  sede_url: https://www.tramitacastillayleon.jcyl.es/web/es/sede-electronica.html
+  catalogo_url: https://www.tramitacastillayleon.jcyl.es/web/es/tramites-servicios/buscador-tramites-servicios.html
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: monthly
+  coverage: Healthcare (Sacyl), education, social services
+  notes: Sitemap available.
+- id: ccaa-castilla-la-mancha
+  name: Junta de Comunidades de Castilla-La Mancha
+  jurisdiction: ccaa
+  ccaa_code: castilla_la_mancha
+  tier: 2
+  priority: P1
+  portal_url: https://www.jccm.es/
+  sede_url: https://www.jccm.es/
+  catalogo_url: https://www.jccm.es/tramites/buscador
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: monthly
+  coverage: Healthcare (SESCAM), education, social services
+  notes: Manual discovery.
+- id: ccaa-galicia
+  name: Xunta de Galicia
+  jurisdiction: ccaa
+  ccaa_code: galicia
+  tier: 2
+  priority: P1
+  portal_url: https://www.xunta.gal/
+  sede_url: https://sede.xunta.gal/es/portada
+  catalogo_url: https://sede.xunta.gal/guia-de-procedementos-e-servizos
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - gl
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: monthly
+  coverage: Healthcare (SERGAS), education, social services
+  notes: Sitemap available. Galician co-official.
+- id: ccaa-murcia
+  name: Region de Murcia
+  jurisdiction: ccaa
+  ccaa_code: murcia
+  tier: 2
+  priority: P1
+  portal_url: https://www.carm.es/
+  sede_url: https://sede.carm.es/
+  catalogo_url: https://www.carm.es/guiadeservicios
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: monthly
+  coverage: Healthcare (SMS), education, social services
+  notes: Manual discovery.
+- id: ccaa-aragon
+  name: Gobierno de Aragon
+  jurisdiction: ccaa
+  ccaa_code: aragon
+  tier: 2
+  priority: P1
+  portal_url: https://www.aragon.es/
+  sede_url: https://www.aragon.es/tramites/servicios-de-la-sede-electronica
+  catalogo_url: https://www.aragon.es/tramites
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: monthly
+  coverage: Healthcare (SALUD), education, social services (~1300 procedures)
+  notes: Manual discovery.
+- id: ccaa-balears
+  name: Govern de les Illes Balears
+  jurisdiction: ccaa
+  ccaa_code: illes_balears
+  tier: 2
+  priority: P1
+  portal_url: https://www.caib.es/
+  sede_url: https://www.caib.es/seucaib/es/
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - ca
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: monthly
+  coverage: Healthcare (IB-Salut), education, social services
+  notes: Catalogo integrated. Highest foreign-born % (27.65%).
+- id: ccaa-extremadura
+  name: Junta de Extremadura
+  jurisdiction: ccaa
+  ccaa_code: extremadura
+  tier: 2
+  priority: P1
+  portal_url: https://www.juntaex.es/
+  sede_url: https://tramites.juntaex.es/
+  catalogo_url: https://tramites.juntaex.es/sta/CarpetaPublic/doEvent?APP_CODE=STA&PAGE_CODE=CATALOGO
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: monthly
+  coverage: Healthcare (SES), education, social services
+  notes: STA platform (shared with Melilla).
+- id: ccaa-asturias
+  name: Principado de Asturias
+  jurisdiction: ccaa
+  ccaa_code: asturias
+  tier: 2
+  priority: P2
+  portal_url: https://www.asturias.es/
+  sede_url: https://sede.asturias.es/
+  catalogo_url: https://sede.asturias.es/todos-los-servicios-y-tramites
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: monthly
+  coverage: Healthcare (SESPA), education, social services
+  notes: Manual discovery.
+- id: ccaa-navarra
+  name: Comunidad Foral de Navarra
+  jurisdiction: ccaa
+  ccaa_code: navarra
+  tier: 2
+  priority: P2
+  portal_url: https://www.navarra.es/
+  sede_url: https://www.navarra.es/es/tramites
+  catalogo_url: https://www.navarra.es/es/tramites/buscador
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  - eu
+  rate_limit_rps: 1.0
+  update_frequency: monthly
+  coverage: Healthcare (Osasunbidea), education, social services
+  notes: Basque co-official in some areas.
+- id: ccaa-cantabria
+  name: Gobierno de Cantabria
+  jurisdiction: ccaa
+  ccaa_code: cantabria
+  tier: 2
+  priority: P2
+  portal_url: https://www.cantabria.es/
+  sede_url: https://sede.cantabria.es/sede/
+  catalogo_url: https://sede.cantabria.es/sede/catalogo-de-tramites
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: monthly
+  coverage: Healthcare (SCS), education, social services (1253 procedures)
+  notes: Manual discovery.
+- id: ccaa-la-rioja
+  name: Gobierno de La Rioja
+  jurisdiction: ccaa
+  ccaa_code: la_rioja
+  tier: 2
+  priority: P2
+  portal_url: https://www.larioja.org/
+  sede_url: https://web.larioja.org/sede-electronica
+  catalogo_url: https://web.larioja.org/oficina-electronica/
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: monthly
+  coverage: Healthcare (SERIS), education, social services
+  notes: Manual discovery.
+- id: ccaa-ceuta
+  name: Ciudad Autonoma de Ceuta
+  jurisdiction: ccaa
+  ccaa_code: ceuta
+  tier: 2
+  priority: P2
+  portal_url: https://www.ceuta.es/
+  sede_url: https://sede.ceuta.es/
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: monthly
+  coverage: Local + CCAA-equivalent procedures (494 procedures, 479 online)
+  notes: High immigration relevance (border city). IMSERSO manages directly.
+- id: ccaa-melilla
+  name: Ciudad Autonoma de Melilla
+  jurisdiction: ccaa
+  ccaa_code: melilla
+  tier: 2
+  priority: P2
+  portal_url: https://www.melilla.es/
+  sede_url: https://sede.melilla.es/
+  catalogo_url: https://sede.melilla.es/sta/CarpetaPublic/doEvent?APP_CODE=STA&PAGE_CODE=CATALOGO
+  access_method: crawl
+  content_formats:
+  - html
+  - pdf
+  languages:
+  - es
+  rate_limit_rps: 1.0
+  update_frequency: monthly
+  coverage: Local + CCAA-equivalent procedures
+  notes: STA platform (shared with Extremadura). IMSERSO manages directly.
