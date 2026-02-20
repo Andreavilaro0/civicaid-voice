@@ -8,22 +8,28 @@ Clara es un asistente WhatsApp que guia a personas vulnerables (inmigrantes, may
 
 ## Datos Clave
 
-- 96 tests automatizados (91 passed + 5 xpassed) — `pytest tests/ -v`
+- **517 tests** (493 passed + 19 skipped + 5 xpassed) — `pytest tests/ -v`
+- **26/26 quality gates** PASS (Fase 3 Q4 Production Hardening)
+- **RAG pipeline** con hybrid BM25 + vector search — P@3 = 86%, 236 eval queries
+- **Fallback chain**: PGVector -> JSON KB -> Directory (resiliente si DB cae)
+- **Response cache** (LRU memory / Redis) para latencia <5ms en queries repetidas
 - 11 skills atomicos en el pipeline — `src/core/skills/`
-- 9 feature flags con defaults seguros — `src/core/config.py`
-- 3 tramites: IMV, Empadronamiento, Tarjeta Sanitaria — `data/tramites/`
+- 29 feature flags con defaults seguros — `src/core/config.py`
+- 8 tramites: IMV, Empadronamiento, Tarjeta Sanitaria, NIE/TIE, Desempleo, etc.
 - 2 idiomas: Espanol + Frances — `detect_lang.py`
-- 81 entries Notion: 43 Backlog + 12 KB + 26 Testing
 - Deploy: Render (Docker, free tier) — `curl /health`
-- Latencia cache HIT: ~2 segundos
-- 22/22 gates PASS (Fases 0-3)
+- Admin API: `/admin/rag-metrics`, `/admin/staleness`, `/admin/satisfaction`
 
 ## Donde Verificar
 
-- **Tests:** `pytest tests/ -v --tb=short` → 96 passed (0 failed)
-- **Lint:** `ruff check src/ tests/` → 0 errores
+- **Tests:** `pytest tests/ -v --tb=short` → 493 passed, 0 failed
+- **Lint:** `ruff check src/ tests/ scripts/ --select E,F,W --ignore E501` → 0 errores
 - **Health:** `curl localhost:5000/health` → JSON status: healthy
-- **Docker:** `docker build -t civicaid .` → Build exitoso
+- **Docker RAG:** `docker compose up -d && python scripts/init_db.py` → PostgreSQL + pgvector
+- **Ingestion:** `python scripts/run_ingestion.py --all --dry-run` → 8 tramites listados
+- **Drift:** `python scripts/check_drift.py --all` → 8 procedures verificados
+- **RAG Eval:** `python scripts/run_rag_eval.py` → P@3 >= 85% sobre 236 queries
+- **Admin:** `curl -H "Authorization: Bearer $ADMIN_TOKEN" localhost:5000/admin/rag-metrics`
 
 ## Demo en Vivo — Momentos WOW
 
