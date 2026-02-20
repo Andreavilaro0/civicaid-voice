@@ -69,12 +69,14 @@ export const DURATION = {
 
 /** Frecuencias para feedback auditivo via Web Audio API */
 export const AUDIO_FEEDBACK: Record<string, AudioFeedbackParams> = {
-  /** Beep al iniciar grabacion — nota ascendente, invitacion */
-  recordStart: { frequency: 440, duration: 150, type: "sine" },
-  /** Beep al parar grabacion — nota descendente, confirmacion */
-  recordStop: { frequency: 349, duration: 150, type: "sine" },
-  /** Sonido sutil de mensaje enviado */
-  messageSent: { frequency: 523, duration: 100, type: "sine" },
+  /** Beep al iniciar — A4 ascendente, triangulo calido, 200ms */
+  recordStart: { frequency: 440, duration: 200, type: "triangle" },
+  /** Beep al parar — F4 descendente, triangulo calido, 200ms */
+  recordStop: { frequency: 349, duration: 200, type: "triangle" },
+  /** Beep de aviso a 50s — doble pulso A4, urgencia suave */
+  recordWarning: { frequency: 440, duration: 120, type: "triangle" },
+  /** Sonido sutil de mensaje enviado — C5 */
+  messageSent: { frequency: 523, duration: 100, type: "triangle" },
 };
 
 /* ------------------------------------------------------------------ */

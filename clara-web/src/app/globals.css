@@ -74,3 +74,15 @@ p, li, dd {
     scroll-behavior: smooth;
   }
 }
+
+/* Waveform bars — scaleY breathing rhythm (50 BPM ~ heartbeat) */
+@keyframes waveBar {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+
+/* Mic button — gentle scale breathing (30 BPM ~ calm) */
+@keyframes gentlePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
