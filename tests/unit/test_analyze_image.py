@@ -1,7 +1,7 @@
 """Tests for analyze_image skill."""
 
 from unittest.mock import patch
-from src.core.skills.analyze_image import analyze_image, ImageAnalysisResult, VISION_PROMPTS
+from src.core.skills.analyze_image import analyze_image, ImageAnalysisResult
 
 
 def test_analyze_image_returns_result_dataclass():

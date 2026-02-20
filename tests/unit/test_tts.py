@@ -1,7 +1,6 @@
 """Tests for TTS skill — dual engine (Gemini + gTTS)."""
 
 from unittest.mock import patch, MagicMock
-import os
 
 
 def test_text_to_audio_returns_none_without_audio_base_url():

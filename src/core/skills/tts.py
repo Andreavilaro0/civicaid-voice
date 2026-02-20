@@ -2,7 +2,6 @@
 
 import hashlib
 import os
-import struct
 import wave
 
 from src.core.config import config
@@ -116,7 +115,6 @@ def _synthesize_gemini(text: str, language: str) -> bytes | None:
         )
 
         audio_data = response.candidates[0].content.parts[0].inline_data.data
-        mime = getattr(response.candidates[0].content.parts[0].inline_data, "mime_type", "")
 
         # If already WAV, return as-is; otherwise wrap PCM in WAV header
         if b"RIFF" in audio_data[:4]:
