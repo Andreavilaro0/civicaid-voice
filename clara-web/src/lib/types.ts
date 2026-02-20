@@ -110,6 +110,11 @@ export interface Message {
    * "reading" = "Clara esta leyendo tu documento..."
    */
   loading?: LoadingContext;
+  /** Accion estructurada para errores — renderiza boton real clickeable */
+  error?: {
+    action: ErrorAction;
+    actionLabel: string;
+  };
 }
 
 /* ------------------------------------------------------------------ */
