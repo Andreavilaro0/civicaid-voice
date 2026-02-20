@@ -73,6 +73,8 @@ def webhook():
     # ACK template based on input type
     if input_type == InputType.AUDIO:
         ack_text = get_template("ack_audio", "es")
+    elif input_type == InputType.IMAGE:
+        ack_text = get_template("ack_image", "es")
     else:
         ack_text = get_template("ack_text", "es")
 
