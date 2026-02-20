@@ -103,6 +103,7 @@ tests/
 | GUARDRAILS_ON | true | Habilita guardrails de contenido |
 | VISION_ENABLED | true | Habilita analisis de imagenes via Gemini Vision |
 | VISION_TIMEOUT | 10 | Segundos max Gemini Vision |
+| TTS_ENGINE | "gtts" | Motor TTS: "gtts" (robotico) o "gemini" (voz calida Clara) |
 | STRUCTURED_OUTPUT_ON | false | Habilita salida estructurada JSON |
 | OBSERVABILITY_ON | true | Habilita metricas y trazas |
 | RAG_ENABLED | false | Habilita RAG pipeline (PGVector hybrid search) |

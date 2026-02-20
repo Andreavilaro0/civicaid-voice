@@ -48,6 +48,9 @@ class Config:
     VISION_ENABLED: bool = field(default_factory=lambda: _bool(os.getenv("VISION_ENABLED", "true")))
     VISION_TIMEOUT: int = field(default_factory=lambda: int(os.getenv("VISION_TIMEOUT", "10")))
 
+    # --- TTS ---
+    TTS_ENGINE: str = field(default_factory=lambda: os.getenv("TTS_ENGINE", "gtts"))
+
     # --- RAG ---
     RAG_ENABLED: bool = field(default_factory=lambda: _bool(os.getenv("RAG_ENABLED", "false")))
 

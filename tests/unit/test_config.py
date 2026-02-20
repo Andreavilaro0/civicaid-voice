@@ -57,3 +57,10 @@ def test_memory_config_defaults():
     assert c.MEMORY_SECRET_SALT == ""
     assert c.MEMORY_OPTIN_DEFAULT is False
     assert c.FORGET_TOKEN == ""
+
+
+def test_tts_engine_default():
+    from src.core.config import Config
+    c = Config()
+    assert hasattr(c, "TTS_ENGINE")
+    assert c.TTS_ENGINE in ("gtts", "gemini")
