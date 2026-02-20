@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 100" fill="none">
+  <!-- Speech bubble -->
+  <rect x="10" y="10" width="70" height="55" rx="18" fill="#FFFFFF"/>
+  <!-- Bubble tail -->
+  <path d="M25 65 L15 80 L40 65" fill="#FFFFFF"/>
+  <!-- Sound wave bars inside bubble -->
+  <rect x="28" y="28" width="4" height="20" rx="2" fill="#D46A1E"/>
+  <rect x="36" y="22" width="4" height="32" rx="2" fill="#D46A1E"/>
+  <rect x="44" y="26" width="4" height="24" rx="2" fill="#D46A1E"/>
+  <rect x="52" y="30" width="4" height="16" rx="2" fill="#D46A1E"/>
+  <rect x="60" y="33" width="4" height="10" rx="2" fill="#D46A1E"/>
+  <!-- Clara text -->
+  <text x="95" y="52" font-family="'Atkinson Hyperlegible', system-ui, sans-serif" font-weight="700" font-size="42" fill="#FFFFFF">Clara</text>
+  <!-- Tagline -->
+  <text x="96" y="75" font-family="Inter, system-ui, sans-serif" font-weight="400" font-size="14" fill="rgba(255,255,255,0.8)">Tu voz tiene poder</text>
+</svg>
