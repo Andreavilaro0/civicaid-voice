@@ -8,7 +8,8 @@ from src.core.models import (
 from src.core import cache
 from src.core.config import config
 from src.core.skills.detect_lang import detect_language
-from src.core.skills.kb_lookup import kb_lookup
+from src.core.skills.kb_lookup import kb_lookup  # noqa: F401 — kept for backward compat
+from src.core.retriever import get_retriever
 from src.core.skills.llm_generate import llm_generate
 from src.core.skills.verify_response import verify_response
 from src.core.skills.send_response import send_final_message
@@ -183,8 +184,8 @@ def process(msg: IncomingMessage) -> None:
             send_final_message(response)
             return
 
-        # --- KB LOOKUP ---
-        kb_context: KBContext | None = kb_lookup(text, language)
+        # --- KB LOOKUP (via retriever chain) ---
+        kb_context: KBContext | None = get_retriever().retrieve(text, language)
 
         # --- BUILD MEMORY CONTEXT ---
         memory_profile_str = ""

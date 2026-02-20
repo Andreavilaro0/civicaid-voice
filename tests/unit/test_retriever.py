@@ -1,6 +1,6 @@
 """Tests for the Retriever interface and JSONKBRetriever."""
 import pytest
-from src.core.retriever import Retriever, JSONKBRetriever, get_retriever
+from src.core.retriever import Retriever, JSONKBRetriever, FallbackRetriever, get_retriever, reset_retriever
 from src.core.models import KBContext
 
 
@@ -41,10 +41,16 @@ class TestJSONKBRetriever:
 class TestGetRetriever:
     """Test the factory function."""
 
-    def test_get_retriever_returns_json(self):
+    def test_get_retriever_returns_fallback_or_json(self):
+        reset_retriever()
         r = get_retriever()
-        assert isinstance(r, JSONKBRetriever)
+        reset_retriever()
+        # With RAG_FALLBACK_CHAIN=true (default), returns FallbackRetriever
+        # which wraps JSONKBRetriever as part of its chain
+        assert isinstance(r, (FallbackRetriever, JSONKBRetriever))
 
     def test_get_retriever_returns_retriever(self):
+        reset_retriever()
         r = get_retriever()
+        reset_retriever()
         assert isinstance(r, Retriever)
