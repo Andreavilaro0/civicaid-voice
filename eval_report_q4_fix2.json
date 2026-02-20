@@ -1,0 +1,2950 @@
+{
+  "metrics": {
+    "precision_at_1": 0.6440677966101694,
+    "precision_at_3": 0.7542372881355932,
+    "mrr": 0.6942090395480226,
+    "bm25_activation_rate": 0.8737864077669902,
+    "total_queries": 236,
+    "positive_queries": 206,
+    "negative_queries": 30
+  },
+  "results": [
+    {
+      "query_id": "q001",
+      "query": "que es el ingreso minimo vital",
+      "category": "basic_info",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.8104814
+    },
+    {
+      "query_id": "q002",
+      "query": "requisitos para el ingreso minimo vital",
+      "category": "requisitos",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.82969123
+    },
+    {
+      "query_id": "q003",
+      "query": "que documentos necesito para el IMV",
+      "category": "documentos",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.6882148
+    },
+    {
+      "query_id": "q004",
+      "query": "como solicitar el ingreso minimo vital",
+      "category": "como_solicitar",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio"
+      ],
+      "bm25_score": 0.84387076
+    },
+    {
+      "query_id": "q005",
+      "query": "cuanto tardan en resolver el IMV",
+      "category": "plazos",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.6882148
+    },
+    {
+      "query_id": "q006",
+      "query": "IMV",
+      "category": "acronyms",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio"
+      ],
+      "bm25_score": 0.6882148
+    },
+    {
+      "query_id": "q007",
+      "query": "cuanto se cobra con el ingreso minimo vital",
+      "category": "basic_info",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.8104814
+    },
+    {
+      "query_id": "q008",
+      "query": "que es el empadronamiento",
+      "category": "basic_info",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "top_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "retrieved_procedures": [
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad"
+      ],
+      "bm25_score": 0.63235545
+    },
+    {
+      "query_id": "q009",
+      "query": "que necesito para empadronarme",
+      "category": "requisitos",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "top_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "retrieved_procedures": [
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q010",
+      "query": "papeles para el empadronamiento",
+      "category": "documentos",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "top_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "retrieved_procedures": [
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.63235545
+    },
+    {
+      "query_id": "q011",
+      "query": "como me empadrono en madrid",
+      "category": "como_solicitar",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "top_procedure": null,
+      "retrieved_procedures": [],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q012",
+      "query": "que hago para empadronarme",
+      "category": "colloquial",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "top_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "retrieved_procedures": [
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q013",
+      "query": "pueden negarme el empadronamiento",
+      "category": "basic_info",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "top_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "retrieved_procedures": [
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.63235545
+    },
+    {
+      "query_id": "q014",
+      "query": "puedo empadronarme sin papeles",
+      "category": "colloquial",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.0005691394
+    },
+    {
+      "query_id": "q015",
+      "query": "que es la tarjeta sanitaria",
+      "category": "basic_info",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "top_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "retrieved_procedures": [
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad"
+      ],
+      "bm25_score": 0.6971536
+    },
+    {
+      "query_id": "q016",
+      "query": "quien tiene derecho a la tarjeta sanitaria",
+      "category": "requisitos",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "top_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "retrieved_procedures": [
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.827629
+    },
+    {
+      "query_id": "q017",
+      "query": "documentos para la tarjeta sanitaria",
+      "category": "documentos",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "top_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "retrieved_procedures": [
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.83847886
+    },
+    {
+      "query_id": "q018",
+      "query": "como pido la tarjeta sanitaria en madrid",
+      "category": "como_solicitar",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "top_procedure": null,
+      "retrieved_procedures": [],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q019",
+      "query": "TSI",
+      "category": "acronyms",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "top_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "retrieved_procedures": [
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.5222179
+    },
+    {
+      "query_id": "q020",
+      "query": "necesito ir al medico y no tengo tarjeta sanitaria",
+      "category": "colloquial",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "top_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "retrieved_procedures": [
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de"
+      ],
+      "bm25_score": 0.6971536
+    },
+    {
+      "query_id": "q021",
+      "query": "que es el NIE",
+      "category": "basic_info",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "top_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "retrieved_procedures": [
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.8412749
+    },
+    {
+      "query_id": "q022",
+      "query": "requisitos para el NIE siendo europeo",
+      "category": "requisitos",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "top_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "retrieved_procedures": [
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-cdms-tarjeta-sanitaria-individual-tsi"
+      ],
+      "bm25_score": 0.8412749
+    },
+    {
+      "query_id": "q023",
+      "query": "documentos para la TIE",
+      "category": "documentos",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "top_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "retrieved_procedures": [
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de"
+      ],
+      "bm25_score": 0.8663682
+    },
+    {
+      "query_id": "q024",
+      "query": "como pido cita para el NIE",
+      "category": "como_solicitar",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "top_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "retrieved_procedures": [
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.8729536
+    },
+    {
+      "query_id": "q025",
+      "query": "plazo para solicitar la TIE",
+      "category": "plazos",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "top_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "retrieved_procedures": [
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.91110164
+    },
+    {
+      "query_id": "q026",
+      "query": "NIE",
+      "category": "acronyms",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "top_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "retrieved_procedures": [
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.8412749
+    },
+    {
+      "query_id": "q027",
+      "query": "TIE",
+      "category": "acronyms",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "top_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "retrieved_procedures": [
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.8508528
+    },
+    {
+      "query_id": "q028",
+      "query": "diferencia entre NIE y TIE",
+      "category": "basic_info",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "top_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "retrieved_procedures": [
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.9743993
+    },
+    {
+      "query_id": "q029",
+      "query": "que es el paro",
+      "category": "basic_info",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.49107918
+    },
+    {
+      "query_id": "q030",
+      "query": "requisitos para cobrar el paro",
+      "category": "requisitos",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.49196553
+    },
+    {
+      "query_id": "q031",
+      "query": "que documentos necesito para pedir el paro",
+      "category": "documentos",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.52280664
+    },
+    {
+      "query_id": "q032",
+      "query": "como solicitar la prestacion por desempleo",
+      "category": "como_solicitar",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-segsocial-ingreso-minimo-vital",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio"
+      ],
+      "bm25_score": 0.6652482
+    },
+    {
+      "query_id": "q033",
+      "query": "plazo para pedir el paro despues de un despido",
+      "category": "plazos",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.58821476
+    },
+    {
+      "query_id": "q034",
+      "query": "SEPE",
+      "category": "acronyms",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-segsocial-ingreso-minimo-vital",
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de"
+      ],
+      "bm25_score": 0.100077175
+    },
+    {
+      "query_id": "q035",
+      "query": "como pido el paro",
+      "category": "colloquial",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-segsocial-ingreso-minimo-vital",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.49107918
+    },
+    {
+      "query_id": "q036",
+      "query": "cuanto se cobra de paro",
+      "category": "basic_info",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.49107918
+    },
+    {
+      "query_id": "q037",
+      "query": "que es la ayuda al alquiler",
+      "category": "basic_info",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.47353286
+    },
+    {
+      "query_id": "q038",
+      "query": "requisitos para la ayuda al alquiler",
+      "category": "requisitos",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.52803457
+    },
+    {
+      "query_id": "q039",
+      "query": "documentos para pedir ayuda al alquiler",
+      "category": "documentos",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.47353286
+    },
+    {
+      "query_id": "q040",
+      "query": "como solicitar el bono alquiler joven",
+      "category": "como_solicitar",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.9694065
+    },
+    {
+      "query_id": "q041",
+      "query": "cuanto dan de ayuda al alquiler",
+      "category": "basic_info",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.47353286
+    },
+    {
+      "query_id": "q042",
+      "query": "necesito ayuda para pagar el piso",
+      "category": "colloquial",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.16714813
+    },
+    {
+      "query_id": "q043",
+      "query": "que es el certificado de discapacidad",
+      "category": "basic_info",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio"
+      ],
+      "bm25_score": 0.74093103
+    },
+    {
+      "query_id": "q044",
+      "query": "requisitos para pedir certificado de discapacidad",
+      "category": "requisitos",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.80441606
+    },
+    {
+      "query_id": "q045",
+      "query": "documentos para el certificado de discapacidad",
+      "category": "documentos",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.847403
+    },
+    {
+      "query_id": "q046",
+      "query": "como solicitar el reconocimiento de discapacidad",
+      "category": "como_solicitar",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio"
+      ],
+      "bm25_score": 0.76313424
+    },
+    {
+      "query_id": "q047",
+      "query": "cuanto tardan en dar el certificado de discapacidad",
+      "category": "plazos",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.74093103
+    },
+    {
+      "query_id": "q048",
+      "query": "beneficios del 33 por ciento de discapacidad",
+      "category": "basic_info",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio"
+      ],
+      "bm25_score": 0.74093103
+    },
+    {
+      "query_id": "q049",
+      "query": "que es la justicia gratuita",
+      "category": "basic_info",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad"
+      ],
+      "bm25_score": 0.9902939
+    },
+    {
+      "query_id": "q050",
+      "query": "requisitos para justicia gratuita",
+      "category": "requisitos",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.99092436
+    },
+    {
+      "query_id": "q051",
+      "query": "documentos para pedir abogado de oficio",
+      "category": "documentos",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.17241628
+    },
+    {
+      "query_id": "q052",
+      "query": "como pedir justicia gratuita",
+      "category": "como_solicitar",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.9902939
+    },
+    {
+      "query_id": "q053",
+      "query": "cuanto tardan en darte abogado de oficio",
+      "category": "plazos",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-segsocial-ingreso-minimo-vital",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.17241628
+    },
+    {
+      "query_id": "q054",
+      "query": "necesito abogado gratis",
+      "category": "colloquial",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.0011868116
+    },
+    {
+      "query_id": "q055",
+      "query": "turno de oficio para extranjeros",
+      "category": "colloquial",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de"
+      ],
+      "bm25_score": 0.118091054
+    },
+    {
+      "query_id": "q056",
+      "query": "ayuda alquiler en Madrid",
+      "category": "territorial",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": null,
+      "retrieved_procedures": [],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q057",
+      "query": "empadronamiento en Barcelona",
+      "category": "territorial",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "top_procedure": null,
+      "retrieved_procedures": [],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q058",
+      "query": "tarjeta sanitaria en Andalucia",
+      "category": "territorial",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "top_procedure": null,
+      "retrieved_procedures": [],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q059",
+      "query": "certificado de discapacidad en Valencia",
+      "category": "territorial",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "top_procedure": null,
+      "retrieved_procedures": [],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q060",
+      "query": "pedir el paro en Sevilla",
+      "category": "territorial",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": null,
+      "retrieved_procedures": [],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q061",
+      "query": "como conseguir la nacionalidad espanola",
+      "category": "negative",
+      "expected_procedure": null,
+      "top_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "retrieved_procedures": [
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-cdms-tarjeta-sanitaria-individual-tsi"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q062",
+      "query": "beca para estudiar en la universidad",
+      "category": "negative",
+      "expected_procedure": null,
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q063",
+      "query": "como renovar el pasaporte",
+      "category": "negative",
+      "expected_procedure": null,
+      "top_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "retrieved_procedures": [
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-segsocial-ingreso-minimo-vital",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q064",
+      "query": "prestacion por maternidad",
+      "category": "negative",
+      "expected_procedure": null,
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q065",
+      "query": "hola buenos dias",
+      "category": "negative",
+      "expected_procedure": null,
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-segsocial-ingreso-minimo-vital",
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q066",
+      "query": "para que sirve el ingreso minimo vital",
+      "category": "basic_info",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.8104814
+    },
+    {
+      "query_id": "q067",
+      "query": "quien puede pedir el IMV",
+      "category": "basic_info",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.6882148
+    },
+    {
+      "query_id": "q068",
+      "query": "el IMV es compatible con trabajar",
+      "category": "basic_info",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio"
+      ],
+      "bm25_score": 0.6882148
+    },
+    {
+      "query_id": "q069",
+      "query": "cuantas personas cobran el IMV en espana",
+      "category": "basic_info",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.70974123
+    },
+    {
+      "query_id": "q070",
+      "query": "que pasa si me deniegan el IMV",
+      "category": "basic_info",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.69183517
+    },
+    {
+      "query_id": "q071",
+      "query": "pueden quitarme el ingreso minimo vital",
+      "category": "basic_info",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad"
+      ],
+      "bm25_score": 0.8104814
+    },
+    {
+      "query_id": "q072",
+      "query": "el IMV se pide cada ano",
+      "category": "basic_info",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.6882148
+    },
+    {
+      "query_id": "q073",
+      "query": "para que sirve el empadronamiento",
+      "category": "basic_info",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "top_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "retrieved_procedures": [
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad"
+      ],
+      "bm25_score": 0.63235545
+    },
+    {
+      "query_id": "q074",
+      "query": "quien puede empadronarse",
+      "category": "basic_info",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-cdms-tarjeta-sanitaria-individual-tsi"
+      ],
+      "bm25_score": 0.0005691394
+    },
+    {
+      "query_id": "q075",
+      "query": "el empadronamiento caduca",
+      "category": "basic_info",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "top_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "retrieved_procedures": [
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.63235545
+    },
+    {
+      "query_id": "q076",
+      "query": "que pasa si no estoy empadronado",
+      "category": "basic_info",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.12413788
+    },
+    {
+      "query_id": "q077",
+      "query": "empadronamiento para extranjeros",
+      "category": "basic_info",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "top_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "retrieved_procedures": [
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de"
+      ],
+      "bm25_score": 0.63235545
+    },
+    {
+      "query_id": "q078",
+      "query": "puedo empadronarme en dos sitios",
+      "category": "basic_info",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.0005691394
+    },
+    {
+      "query_id": "q079",
+      "query": "cuanto tarda el empadronamiento",
+      "category": "basic_info",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "top_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "retrieved_procedures": [
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.63235545
+    },
+    {
+      "query_id": "q080",
+      "query": "para que sirve la tarjeta sanitaria",
+      "category": "basic_info",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "top_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "retrieved_procedures": [
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de"
+      ],
+      "bm25_score": 0.6971536
+    },
+    {
+      "query_id": "q081",
+      "query": "la tarjeta sanitaria es gratuita",
+      "category": "basic_info",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "top_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "retrieved_procedures": [
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.6971536
+    },
+    {
+      "query_id": "q082",
+      "query": "puedo ir al medico sin tarjeta sanitaria",
+      "category": "basic_info",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "top_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "retrieved_procedures": [
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad"
+      ],
+      "bm25_score": 0.6971536
+    },
+    {
+      "query_id": "q083",
+      "query": "la tarjeta sanitaria caduca",
+      "category": "basic_info",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "top_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "retrieved_procedures": [
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad"
+      ],
+      "bm25_score": 0.6971536
+    },
+    {
+      "query_id": "q084",
+      "query": "como renovar la tarjeta sanitaria",
+      "category": "basic_info",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "top_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "retrieved_procedures": [
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-segsocial-ingreso-minimo-vital",
+        "age-cdms-tarjeta-sanitaria-individual-tsi"
+      ],
+      "bm25_score": 0.6971536
+    },
+    {
+      "query_id": "q085",
+      "query": "tarjeta sanitaria para bebes",
+      "category": "basic_info",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "top_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "retrieved_procedures": [
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.6971536
+    },
+    {
+      "query_id": "q086",
+      "query": "tarjeta sanitaria europea",
+      "category": "basic_info",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "top_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "retrieved_procedures": [
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.6971536
+    },
+    {
+      "query_id": "q087",
+      "query": "que cubre la tarjeta sanitaria",
+      "category": "basic_info",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "top_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "retrieved_procedures": [
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.6971536
+    },
+    {
+      "query_id": "q088",
+      "query": "para que sirve el NIE",
+      "category": "basic_info",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "top_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "retrieved_procedures": [
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.8412749
+    },
+    {
+      "query_id": "q089",
+      "query": "quien necesita el NIE",
+      "category": "basic_info",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "top_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "retrieved_procedures": [
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-cdms-tarjeta-sanitaria-individual-tsi"
+      ],
+      "bm25_score": 0.8412749
+    },
+    {
+      "query_id": "q090",
+      "query": "el NIE caduca",
+      "category": "basic_info",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "top_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "retrieved_procedures": [
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.8412749
+    },
+    {
+      "query_id": "q091",
+      "query": "como renovar el NIE",
+      "category": "basic_info",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "top_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "retrieved_procedures": [
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.8412749
+    },
+    {
+      "query_id": "q092",
+      "query": "NIE para ciudadanos europeos",
+      "category": "basic_info",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "top_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "retrieved_procedures": [
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-cdms-tarjeta-sanitaria-individual-tsi"
+      ],
+      "bm25_score": 0.8412749
+    },
+    {
+      "query_id": "q093",
+      "query": "que es la TIE tarjeta de identidad de extranjero",
+      "category": "basic_info",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "top_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "retrieved_procedures": [
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-cdms-tarjeta-sanitaria-individual-tsi"
+      ],
+      "bm25_score": 0.8508528
+    },
+    {
+      "query_id": "q094",
+      "query": "puedo trabajar con NIE",
+      "category": "basic_info",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "top_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "retrieved_procedures": [
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad"
+      ],
+      "bm25_score": 0.8412749
+    },
+    {
+      "query_id": "q095",
+      "query": "cuanto cuesta el NIE",
+      "category": "basic_info",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "top_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "retrieved_procedures": [
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-cdms-tarjeta-sanitaria-individual-tsi"
+      ],
+      "bm25_score": 0.8412749
+    },
+    {
+      "query_id": "q096",
+      "query": "para que sirve la prestacion por desempleo",
+      "category": "basic_info",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.6652482
+    },
+    {
+      "query_id": "q097",
+      "query": "quien puede cobrar el paro",
+      "category": "basic_info",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": null,
+      "retrieved_procedures": [],
+      "bm25_score": 0,
+      "error": "Embedding failed after 3 attempts: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/embed_content_free_tier_requests, limit: 100, model: gemini-embedding-1.0\\nPlease retry in 32.32715654s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/embed_content_free_tier_requests', 'quotaId': 'EmbedContentRequestsPerMinutePerUserPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-embedding-1.0'}, 'quotaValue': '100'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '32s'}]}}"
+    },
+    {
+      "query_id": "q098",
+      "query": "cuanto tiempo se cobra el paro",
+      "category": "basic_info",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-segsocial-ingreso-minimo-vital",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.49154133
+    },
+    {
+      "query_id": "q099",
+      "query": "que pasa cuando se acaba el paro",
+      "category": "basic_info",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.49107918
+    },
+    {
+      "query_id": "q100",
+      "query": "el paro se puede prorrogar",
+      "category": "basic_info",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.49107918
+    },
+    {
+      "query_id": "q101",
+      "query": "puedo cobrar el paro y trabajar a media jornada",
+      "category": "basic_info",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.5392954
+    },
+    {
+      "query_id": "q102",
+      "query": "que es el subsidio por desempleo",
+      "category": "basic_info",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-segsocial-ingreso-minimo-vital",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q103",
+      "query": "diferencia entre paro y subsidio",
+      "category": "basic_info",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.49107918
+    },
+    {
+      "query_id": "q104",
+      "query": "para que sirve el bono alquiler joven",
+      "category": "basic_info",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.9694065
+    },
+    {
+      "query_id": "q105",
+      "query": "quien puede pedir la ayuda al alquiler",
+      "category": "basic_info",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.47353286
+    },
+    {
+      "query_id": "q106",
+      "query": "que edad hay que tener para el bono alquiler joven",
+      "category": "basic_info",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.98216516
+    },
+    {
+      "query_id": "q107",
+      "query": "cuanto dura la ayuda al alquiler",
+      "category": "basic_info",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.47353286
+    },
+    {
+      "query_id": "q108",
+      "query": "la ayuda al alquiler es compatible con otras ayudas",
+      "category": "basic_info",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.47353286
+    },
+    {
+      "query_id": "q109",
+      "query": "que pasa si cambio de piso con la ayuda al alquiler",
+      "category": "basic_info",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.47353286
+    },
+    {
+      "query_id": "q110",
+      "query": "puedo pedir ayuda al alquiler si comparto piso",
+      "category": "basic_info",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio"
+      ],
+      "bm25_score": 0.47353286
+    },
+    {
+      "query_id": "q111",
+      "query": "ayuda alquiler para mayores de 35",
+      "category": "basic_info",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.63433856
+    },
+    {
+      "query_id": "q112",
+      "query": "para que sirve el certificado de discapacidad",
+      "category": "basic_info",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.74093103
+    },
+    {
+      "query_id": "q113",
+      "query": "quien puede pedir el certificado de discapacidad",
+      "category": "basic_info",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio"
+      ],
+      "bm25_score": 0.8219443
+    },
+    {
+      "query_id": "q114",
+      "query": "que grados de discapacidad hay",
+      "category": "basic_info",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio"
+      ],
+      "bm25_score": 0.74093103
+    },
+    {
+      "query_id": "q115",
+      "query": "que beneficios tiene el 65 por ciento de discapacidad",
+      "category": "basic_info",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.74093103
+    },
+    {
+      "query_id": "q116",
+      "query": "se puede revisar el grado de discapacidad",
+      "category": "basic_info",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio"
+      ],
+      "bm25_score": 0.8219443
+    },
+    {
+      "query_id": "q117",
+      "query": "certificado de discapacidad para ninos",
+      "category": "basic_info",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.74093103
+    },
+    {
+      "query_id": "q118",
+      "query": "discapacidad temporal certificado",
+      "category": "basic_info",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-segsocial-ingreso-minimo-vital",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.74093103
+    },
+    {
+      "query_id": "q119",
+      "query": "que enfermedades dan discapacidad",
+      "category": "basic_info",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio"
+      ],
+      "bm25_score": 0.74093103
+    },
+    {
+      "query_id": "q120",
+      "query": "para que sirve la justicia gratuita",
+      "category": "basic_info",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.9902939
+    },
+    {
+      "query_id": "q121",
+      "query": "quien tiene derecho a justicia gratuita",
+      "category": "basic_info",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.99748766
+    },
+    {
+      "query_id": "q122",
+      "query": "que cubre la justicia gratuita",
+      "category": "basic_info",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.9902939
+    },
+    {
+      "query_id": "q123",
+      "query": "justicia gratuita para victimas de violencia de genero",
+      "category": "basic_info",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.9902939
+    },
+    {
+      "query_id": "q124",
+      "query": "puedo elegir abogado con justicia gratuita",
+      "category": "basic_info",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.99029404
+    },
+    {
+      "query_id": "q125",
+      "query": "justicia gratuita para menores",
+      "category": "basic_info",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.9902939
+    },
+    {
+      "query_id": "q126",
+      "query": "que pasa si me deniegan la justicia gratuita",
+      "category": "basic_info",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.99029636
+    },
+    {
+      "query_id": "q127",
+      "query": "justicia gratuita en asuntos civiles",
+      "category": "basic_info",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.9902939
+    },
+    {
+      "query_id": "q128",
+      "query": "DARDE",
+      "category": "acronyms",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-segsocial-ingreso-minimo-vital",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.06079271
+    },
+    {
+      "query_id": "q129",
+      "query": "OAC",
+      "category": "acronyms",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad"
+      ],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q130",
+      "query": "MIVAU",
+      "category": "acronyms",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q131",
+      "query": "AEAT",
+      "category": "acronyms",
+      "expected_procedure": null,
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q132",
+      "query": "DGT",
+      "category": "acronyms",
+      "expected_procedure": null,
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q133",
+      "query": "IPREM",
+      "category": "acronyms",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.082745634
+    },
+    {
+      "query_id": "q134",
+      "query": "BOE",
+      "category": "acronyms",
+      "expected_procedure": null,
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q135",
+      "query": "AGE",
+      "category": "acronyms",
+      "expected_procedure": null,
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q136",
+      "query": "CCAA",
+      "category": "acronyms",
+      "expected_procedure": null,
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad"
+      ],
+      "bm25_score": 0.4172563
+    },
+    {
+      "query_id": "q137",
+      "query": "DNI",
+      "category": "acronyms",
+      "expected_procedure": null,
+      "top_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "retrieved_procedures": [
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.26470333
+    },
+    {
+      "query_id": "q138",
+      "query": "como consigo el paro rapido",
+      "category": "colloquial",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-segsocial-ingreso-minimo-vital",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.49107918
+    },
+    {
+      "query_id": "q139",
+      "query": "me han echado del curro que hago",
+      "category": "colloquial",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q140",
+      "query": "necesito la tarjeta del medico",
+      "category": "colloquial",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.0021586192
+    },
+    {
+      "query_id": "q141",
+      "query": "me pueden echar si no tengo papeles",
+      "category": "colloquial",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.33884662
+    },
+    {
+      "query_id": "q142",
+      "query": "quiero empadronarme pero no tengo contrato",
+      "category": "colloquial",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-cdms-tarjeta-sanitaria-individual-tsi"
+      ],
+      "bm25_score": 0.0644614
+    },
+    {
+      "query_id": "q143",
+      "query": "no tengo pasta para el alquiler ayuda",
+      "category": "colloquial",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.47353286
+    },
+    {
+      "query_id": "q144",
+      "query": "mi hijo tiene discapacidad que hago",
+      "category": "colloquial",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio"
+      ],
+      "bm25_score": 0.74093103
+    },
+    {
+      "query_id": "q145",
+      "query": "necesito un abogado y no tengo dinero",
+      "category": "colloquial",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.0011868116
+    },
+    {
+      "query_id": "q146",
+      "query": "kiero pedir el imv como ago",
+      "category": "colloquial",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio"
+      ],
+      "bm25_score": 0.6882148
+    },
+    {
+      "query_id": "q147",
+      "query": "onde pido la tarjeta sanitaria",
+      "category": "colloquial",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "top_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "retrieved_procedures": [
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de"
+      ],
+      "bm25_score": 0.6971536
+    },
+    {
+      "query_id": "q148",
+      "query": "tengo ke renovar el nie k necesito",
+      "category": "colloquial",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "top_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "retrieved_procedures": [
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-cdms-tarjeta-sanitaria-individual-tsi"
+      ],
+      "bm25_score": 0.8412749
+    },
+    {
+      "query_id": "q149",
+      "query": "se me acaba el paro y no encuentro trabajo",
+      "category": "colloquial",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-segsocial-ingreso-minimo-vital",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.4926121
+    },
+    {
+      "query_id": "q150",
+      "query": "estoy sin curro y sin un duro",
+      "category": "colloquial",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q151",
+      "query": "me quiero apuntar al padron",
+      "category": "colloquial",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "top_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "retrieved_procedures": [
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q152",
+      "query": "cuanto me dan de paro si cobro 1200",
+      "category": "colloquial",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.57899535
+    },
+    {
+      "query_id": "q153",
+      "query": "mi madre necesita certificado discapacidad",
+      "category": "colloquial",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.88902426
+    },
+    {
+      "query_id": "q154",
+      "query": "abogado gratis para desahucio",
+      "category": "colloquial",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q155",
+      "query": "no me llega pa pagar el piso",
+      "category": "colloquial",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q156",
+      "query": "tengo que ir al SEPE presencialmente",
+      "category": "colloquial",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.100077175
+    },
+    {
+      "query_id": "q157",
+      "query": "la seguridad social me puede ayudar",
+      "category": "colloquial",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-segsocial-ingreso-minimo-vital",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.27874517
+    },
+    {
+      "query_id": "q158",
+      "query": "estoy en situacion irregular puedo empadronarme",
+      "category": "colloquial",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-cdms-tarjeta-sanitaria-individual-tsi"
+      ],
+      "bm25_score": 0.0005691394
+    },
+    {
+      "query_id": "q159",
+      "query": "necesito papeles para vivir en espana",
+      "category": "colloquial",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "top_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "retrieved_procedures": [
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q160",
+      "query": "como pido cita en extranjeria",
+      "category": "colloquial",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "top_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "retrieved_procedures": [
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-segsocial-ingreso-minimo-vital",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q161",
+      "query": "ke es eso del bono joven",
+      "category": "colloquial",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.27277026
+    },
+    {
+      "query_id": "q162",
+      "query": "puedo pedir abogado gratis si no tengo papeles",
+      "category": "colloquial",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.4568921
+    },
+    {
+      "query_id": "q163",
+      "query": "empadronamiento en Madrid",
+      "category": "territorial",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "top_procedure": null,
+      "retrieved_procedures": [],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q164",
+      "query": "ayuda alquiler en Barcelona",
+      "category": "territorial",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": null,
+      "retrieved_procedures": [],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q165",
+      "query": "NIE en Valencia",
+      "category": "territorial",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "top_procedure": null,
+      "retrieved_procedures": [],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q166",
+      "query": "paro en Bilbao",
+      "category": "territorial",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": null,
+      "retrieved_procedures": [],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q167",
+      "query": "tarjeta sanitaria en Cataluna",
+      "category": "territorial",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "top_procedure": null,
+      "retrieved_procedures": [],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q168",
+      "query": "certificado discapacidad en Galicia",
+      "category": "territorial",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "top_procedure": null,
+      "retrieved_procedures": [],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q169",
+      "query": "justicia gratuita en Malaga",
+      "category": "territorial",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": null,
+      "retrieved_procedures": [],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q170",
+      "query": "IMV en Canarias",
+      "category": "territorial",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": null,
+      "retrieved_procedures": [],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q171",
+      "query": "empadronamiento en Zaragoza",
+      "category": "territorial",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "top_procedure": null,
+      "retrieved_procedures": [],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q172",
+      "query": "bono alquiler joven en Comunidad Valenciana",
+      "category": "territorial",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": null,
+      "retrieved_procedures": [],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q173",
+      "query": "NIE en Murcia",
+      "category": "territorial",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "top_procedure": null,
+      "retrieved_procedures": [],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q174",
+      "query": "paro en Asturias",
+      "category": "territorial",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": null,
+      "retrieved_procedures": [],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q175",
+      "query": "tarjeta sanitaria en Pais Vasco",
+      "category": "territorial",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "top_procedure": null,
+      "retrieved_procedures": [],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q176",
+      "query": "certificado discapacidad en Castilla y Leon",
+      "category": "territorial",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "top_procedure": null,
+      "retrieved_procedures": [],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q177",
+      "query": "justicia gratuita en Extremadura",
+      "category": "territorial",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": null,
+      "retrieved_procedures": [],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q178",
+      "query": "becas universidad erasmus",
+      "category": "negative",
+      "expected_procedure": null,
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q179",
+      "query": "como sacar el pasaporte espanol",
+      "category": "negative",
+      "expected_procedure": null,
+      "top_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "retrieved_procedures": [
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q180",
+      "query": "prestacion por maternidad requisitos",
+      "category": "negative",
+      "expected_procedure": null,
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.119769126
+    },
+    {
+      "query_id": "q181",
+      "query": "como pedir una hipoteca",
+      "category": "negative",
+      "expected_procedure": null,
+      "top_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "retrieved_procedures": [
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q182",
+      "query": "tramites para herencia",
+      "category": "negative",
+      "expected_procedure": null,
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q183",
+      "query": "divorcio mutuo acuerdo",
+      "category": "negative",
+      "expected_procedure": null,
+      "top_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "retrieved_procedures": [
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-segsocial-ingreso-minimo-vital",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q184",
+      "query": "permiso de conducir renovacion",
+      "category": "negative",
+      "expected_procedure": null,
+      "top_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "retrieved_procedures": [
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q185",
+      "query": "declaracion de la renta plazos",
+      "category": "negative",
+      "expected_procedure": null,
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio"
+      ],
+      "bm25_score": 0.004201669
+    },
+    {
+      "query_id": "q186",
+      "query": "pension de jubilacion",
+      "category": "negative",
+      "expected_procedure": null,
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q187",
+      "query": "alta autonomos seguridad social",
+      "category": "negative",
+      "expected_procedure": null,
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-segsocial-ingreso-minimo-vital",
+        "age-cdms-tarjeta-sanitaria-individual-tsi"
+      ],
+      "bm25_score": 0.25133982
+    },
+    {
+      "query_id": "q188",
+      "query": "matriculacion vehiculo DGT",
+      "category": "negative",
+      "expected_procedure": null,
+      "top_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "retrieved_procedures": [
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-cdms-tarjeta-sanitaria-individual-tsi"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q189",
+      "query": "certificado de antecedentes penales",
+      "category": "negative",
+      "expected_procedure": null,
+      "top_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "retrieved_procedures": [
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q190",
+      "query": "visado de turista para espana",
+      "category": "negative",
+      "expected_procedure": null,
+      "top_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "retrieved_procedures": [
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q191",
+      "query": "ayuda dependencia ley",
+      "category": "negative",
+      "expected_procedure": null,
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q192",
+      "query": "pension alimenticia hijos",
+      "category": "negative",
+      "expected_procedure": null,
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio"
+      ],
+      "bm25_score": 0.09149065
+    },
+    {
+      "query_id": "q193",
+      "query": "necesito NIE para pedir el IMV",
+      "category": "multi_tramite",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": null,
+      "retrieved_procedures": [],
+      "bm25_score": 0,
+      "error": "Embedding failed after 3 attempts: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/embed_content_free_tier_requests, limit: 100, model: gemini-embedding-1.0\\nPlease retry in 32.262922999s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/embed_content_free_tier_requests', 'quotaId': 'EmbedContentRequestsPerMinutePerUserPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-embedding-1.0', 'location': 'global'}, 'quotaValue': '100'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '32s'}]}}"
+    },
+    {
+      "query_id": "q194",
+      "query": "puedo pedir paro y alquiler joven a la vez",
+      "category": "multi_tramite",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.9694065
+    },
+    {
+      "query_id": "q195",
+      "query": "necesito empadronamiento para la tarjeta sanitaria",
+      "category": "multi_tramite",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "top_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "retrieved_procedures": [
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad"
+      ],
+      "bm25_score": 0.70120525
+    },
+    {
+      "query_id": "q196",
+      "query": "con el certificado de discapacidad puedo pedir justicia gratuita",
+      "category": "multi_tramite",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad"
+      ],
+      "bm25_score": 0.99150777
+    },
+    {
+      "query_id": "q197",
+      "query": "necesito empadronarme para pedir el paro",
+      "category": "multi_tramite",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-cdms-tarjeta-sanitaria-individual-tsi"
+      ],
+      "bm25_score": 0.49107918
+    },
+    {
+      "query_id": "q198",
+      "query": "el IMV es compatible con el bono alquiler joven",
+      "category": "multi_tramite",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.98615104
+    },
+    {
+      "query_id": "q199",
+      "query": "necesito tarjeta sanitaria para pedir el certificado de discapacidad",
+      "category": "multi_tramite",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-cdms-tarjeta-sanitaria-individual-tsi"
+      ],
+      "bm25_score": 0.74093103
+    },
+    {
+      "query_id": "q200",
+      "query": "puedo pedir justicia gratuita si cobro el IMV",
+      "category": "multi_tramite",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-segsocial-ingreso-minimo-vital",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad"
+      ],
+      "bm25_score": 0.9935072
+    },
+    {
+      "query_id": "q201",
+      "query": "necesito NIE para empadronarme",
+      "category": "multi_tramite",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "top_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "retrieved_procedures": [
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-cdms-tarjeta-sanitaria-individual-tsi"
+      ],
+      "bm25_score": 0.8412749
+    },
+    {
+      "query_id": "q202",
+      "query": "hay que estar empadronado para pedir ayuda al alquiler",
+      "category": "multi_tramite",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.5495755
+    },
+    {
+      "query_id": "q203",
+      "query": "el paro cuenta como ingreso para el IMV",
+      "category": "multi_tramite",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.6882148
+    },
+    {
+      "query_id": "q204",
+      "query": "necesito abogado para recurrir denegacion del IMV",
+      "category": "multi_tramite",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.6882148
+    },
+    {
+      "query_id": "q205",
+      "query": "puedo pedir la tarjeta sanitaria con el NIE",
+      "category": "multi_tramite",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "top_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "retrieved_procedures": [
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad"
+      ],
+      "bm25_score": 0.9257038
+    },
+    {
+      "query_id": "q206",
+      "query": "si tengo discapacidad me dan mas paro",
+      "category": "multi_tramite",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.7435288
+    },
+    {
+      "query_id": "q207",
+      "query": "necesito empadronamiento para el certificado de discapacidad",
+      "category": "multi_tramite",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.74093103
+    },
+    {
+      "query_id": "q208",
+      "query": "justicia gratuita para recurrir desempleo",
+      "category": "multi_tramite",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.9902939
+    },
+    {
+      "query_id": "q209",
+      "query": "con TIE puedo pedir ayuda al alquiler",
+      "category": "multi_tramite",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "retrieved_procedures": [
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.8508528
+    },
+    {
+      "query_id": "q210",
+      "query": "el bono alquiler joven requiere estar empadronado",
+      "category": "multi_tramite",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.9784062
+    },
+    {
+      "query_id": "q211",
+      "query": "certificado discapacidad para pedir IMV complemento",
+      "category": "multi_tramite",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.7667496
+    },
+    {
+      "query_id": "q212",
+      "query": "NIE necesario para abogado de oficio",
+      "category": "multi_tramite",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-cdms-tarjeta-sanitaria-individual-tsi"
+      ],
+      "bm25_score": 0.8412749
+    },
+    {
+      "query_id": "q213",
+      "query": "imv",
+      "category": "edge_case",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio"
+      ],
+      "bm25_score": 0.6882148
+    },
+    {
+      "query_id": "q214",
+      "query": "?",
+      "category": "edge_case",
+      "expected_procedure": null,
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-segsocial-ingreso-minimo-vital",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q215",
+      "query": "...",
+      "category": "edge_case",
+      "expected_procedure": null,
+      "top_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "retrieved_procedures": [
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q216",
+      "query": "a",
+      "category": "edge_case",
+      "expected_procedure": null,
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q217",
+      "query": "12345",
+      "category": "edge_case",
+      "expected_procedure": null,
+      "top_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "retrieved_procedures": [
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-segsocial-ingreso-minimo-vital",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.0
+    },
+    {
+      "query_id": "q218",
+      "query": "hola que tal como va todo espero que bien porque necesito informacion sobre el ingreso minimo vital y tambien sobre el empadronamiento y la tarjeta sanitaria todo junto por favor gracias",
+      "category": "edge_case",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.8104814
+    },
+    {
+      "query_id": "q219",
+      "query": "je voudrais savoir comment demander le revenu minimum vital en espagne",
+      "category": "edge_case",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 5.1898775e-07
+    },
+    {
+      "query_id": "q220",
+      "query": "comment obtenir la carte sanitaire",
+      "category": "edge_case",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "top_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "retrieved_procedures": [
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q221",
+      "query": "NIE NIE NIE",
+      "category": "edge_case",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "top_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "retrieved_procedures": [
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-cdms-tarjeta-sanitaria-individual-tsi"
+      ],
+      "bm25_score": 0.8412749
+    },
+    {
+      "query_id": "q222",
+      "query": "AYUDA ALQUILER POR FAVOR URGENTE",
+      "category": "edge_case",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.47353286
+    },
+    {
+      "query_id": "q223",
+      "query": "paro paro paro necesito paro ya",
+      "category": "edge_case",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.49107918
+    },
+    {
+      "query_id": "q224",
+      "query": "q es el imv???!!!",
+      "category": "edge_case",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 1e-20
+    },
+    {
+      "query_id": "q225",
+      "query": "😭 necesito ayuda con el paro",
+      "category": "edge_case",
+      "expected_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "top_procedure": "age-sepe-prestacion-por-desempleo-paro",
+      "retrieved_procedures": [
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.49107918
+    },
+    {
+      "query_id": "q226",
+      "query": "como pido el certificado de discapacidad 33%",
+      "category": "edge_case",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.74093103
+    },
+    {
+      "query_id": "q227",
+      "query": "ingreso minimo vital 2024 2025 cuantia actualizada",
+      "category": "edge_case",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-sepe-prestacion-por-desempleo-paro",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.8104814
+    },
+    {
+      "query_id": "q228",
+      "query": "    empadronamiento    ",
+      "category": "edge_case",
+      "expected_procedure": "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+      "top_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "retrieved_procedures": [
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-segsocial-ingreso-minimo-vital",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.63235545
+    },
+    {
+      "query_id": "q229",
+      "query": "JUSTICIA GRATUITA",
+      "category": "edge_case",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven"
+      ],
+      "bm25_score": 0.9902939
+    },
+    {
+      "query_id": "q230",
+      "query": "tarjeta sanitaria perdida que hago",
+      "category": "edge_case",
+      "expected_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "top_procedure": "age-cdms-tarjeta-sanitaria-individual-tsi",
+      "retrieved_procedures": [
+        "age-cdms-tarjeta-sanitaria-individual-tsi",
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal"
+      ],
+      "bm25_score": 0.6971536
+    },
+    {
+      "query_id": "q231",
+      "query": "nie+tie+extranjeria",
+      "category": "edge_case",
+      "expected_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "top_procedure": "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+      "retrieved_procedures": [
+        "age-extranjeria-nie-numero-de-identidad-de-extranjero-tie-tarjeta-de-identidad-de",
+        "age-aytomad-empadronamiento-alta-en-el-padron-municipal",
+        "age-cdms-tarjeta-sanitaria-individual-tsi"
+      ],
+      "bm25_score": 0.17540406
+    },
+    {
+      "query_id": "q232",
+      "query": "bono alquiler joven 250 euros mes requisitos edad",
+      "category": "edge_case",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.9857491
+    },
+    {
+      "query_id": "q233",
+      "query": "que ventajas tiene el certificado de discapacidad",
+      "category": "basic_info",
+      "expected_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "top_procedure": "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+      "retrieved_procedures": [
+        "age-caem-certificado-de-discapacidad-reconocimiento-del-grado-de-discapacidad",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio"
+      ],
+      "bm25_score": 0.74093103
+    },
+    {
+      "query_id": "q234",
+      "query": "donde se solicita la justicia gratuita",
+      "category": "basic_info",
+      "expected_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "top_procedure": "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+      "retrieved_procedures": [
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.99032325
+    },
+    {
+      "query_id": "q235",
+      "query": "cuanto dinero dan de ayuda al alquiler",
+      "category": "basic_info",
+      "expected_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "top_procedure": "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+      "retrieved_procedures": [
+        "age-mdvy-ayuda-al-alquiler-bono-alquiler-joven",
+        "age-segsocial-ingreso-minimo-vital"
+      ],
+      "bm25_score": 0.47353286
+    },
+    {
+      "query_id": "q236",
+      "query": "requisitos basicos del ingreso minimo vital",
+      "category": "basic_info",
+      "expected_procedure": "age-segsocial-ingreso-minimo-vital",
+      "top_procedure": "age-segsocial-ingreso-minimo-vital",
+      "retrieved_procedures": [
+        "age-segsocial-ingreso-minimo-vital",
+        "age-cdaj-justicia-gratuita-asistencia-juridica-gratuita-turno-de-oficio",
+        "age-sepe-prestacion-por-desempleo-paro"
+      ],
+      "bm25_score": 0.8623864
+    }
+  ]
+}
