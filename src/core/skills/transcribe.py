@@ -38,7 +38,7 @@ def transcribe(audio_bytes: bytes, mime_type: str = "audio/ogg") -> TranscriptRe
         audio_b64 = base64.b64encode(audio_bytes).decode("utf-8")
 
         response = client.models.generate_content(
-            model="gemini-1.5-flash",
+            model="gemini-2.5-flash",
             contents=[
                 genai.types.Content(
                     parts=[

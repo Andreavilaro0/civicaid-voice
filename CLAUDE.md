@@ -6,7 +6,7 @@
 
 - **Hackathon:** OdiseIA4Good — UDIT (Feb 2026)
 - **Repo:** /Users/andreaavila/Documents/hakaton/civicaid-voice
-- **Stack:** Python 3.11, Flask, Twilio WhatsApp, Whisper base, Gemini 1.5 Flash, Docker, Render
+- **Stack:** Python 3.11, Flask, Twilio WhatsApp, Whisper base, Gemini 2.5 Flash, Docker, Render
 - **KB:** Extensible — cualquier .json en data/tramites/ con campo "keywords" se carga automaticamente
 - **RAG:** PostgreSQL + pgvector, hybrid BM25+vector search, fallback chain, response cache
 - **Estado:** Fases 0-4 completadas, Fase 3 Q1-Q4 RAG completada (FULL PASS)

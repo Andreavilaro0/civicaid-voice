@@ -151,4 +151,4 @@ def test_transcribe_sends_correct_mime_type():
             transcribe(b"\x00\x01", "audio/mp4")
             call_args = mock_client.models.generate_content.call_args
             # Verify generate_content was called with correct model
-            assert call_args[1]["model"] == "gemini-1.5-flash"
+            assert call_args[1]["model"] == "gemini-2.5-flash"

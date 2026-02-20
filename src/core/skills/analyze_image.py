@@ -58,7 +58,7 @@ def analyze_image(
         image_b64 = base64.b64encode(image_bytes).decode("utf-8")
 
         response = client.models.generate_content(
-            model="gemini-1.5-flash",
+            model="gemini-2.5-flash",
             contents=[
                 genai.types.Content(
                     parts=[

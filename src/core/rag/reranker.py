@@ -111,7 +111,7 @@ def _gemini_rerank(query: str, results: list[dict]) -> list[dict]:
 
         try:
             response = client.models.generate_content(
-                model="gemini-1.5-flash", contents=prompt
+                model="gemini-2.5-flash", contents=prompt
             )
             score_text = response.text.strip()
             match = re.search(r"\d+", score_text)
