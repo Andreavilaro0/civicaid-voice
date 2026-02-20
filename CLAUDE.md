@@ -8,7 +8,8 @@
 - **Repo:** /Users/andreaavila/Documents/hakaton/civicaid-voice
 - **Stack:** Python 3.11, Flask, Twilio WhatsApp, Whisper base, Gemini 1.5 Flash, Docker, Render
 - **KB:** Extensible — cualquier .json en data/tramites/ con campo "keywords" se carga automaticamente
-- **Estado:** Fases 0-4 completadas
+- **RAG:** PostgreSQL + pgvector, hybrid BM25+vector search, fallback chain, response cache
+- **Estado:** Fases 0-4 completadas, Fase 3 Q1-Q4 RAG completada (FULL PASS)
 
 ## Arquitectura
 
@@ -16,7 +17,12 @@
 Usuario WhatsApp -> Twilio -> Flask /webhook -> TwiML ACK (<1s)
                                              -> Background Thread:
                                                cache_match -> HIT -> Twilio REST -> Usuario
-                                               cache_match -> MISS -> KB + Gemini -> Twilio REST -> Usuario
+                                               cache_match -> MISS -> get_retriever() -> Gemini -> Twilio REST
+                                                                      |
+                                                              FallbackRetriever:
+                                                                PGVector (hybrid BM25+vector)
+                                                                -> JSON KB (keyword matching)
+                                                                -> Directory (last resort)
 ```
 
 Patron **TwiML ACK**: respuesta HTTP 200 inmediata, procesamiento en hilo de fondo, envio final via Twilio REST API.
@@ -31,31 +37,58 @@ src/
     health.py               # GET /health — healthcheck
     static_files.py         # GET /static/cache/* — servir MP3s
   core/
-    config.py               # Feature flags (DEMO_MODE, LLM_LIVE, WHISPER_ON, timeouts)
-    models.py               # 8 dataclasses (IncomingMessage, CacheEntry, FinalResponse, etc.)
+    config.py               # Feature flags (29 flags: DEMO_MODE, LLM_LIVE, RAG_*, MEMORY_*, etc.)
+    models.py               # 8 dataclasses (IncomingMessage, CacheEntry, FinalResponse, KBContext, etc.)
     cache.py                # Carga demo_cache.json
-    pipeline.py             # Orquestador de 11 skills
+    pipeline.py             # Orquestador de 11 skills — uses get_retriever().retrieve()
     twilio_client.py        # Wrapper Twilio REST
     guardrails.py           # Capa de seguridad pre/post
     models_structured.py    # Salidas JSON estructuradas
-    retriever.py            # RAG stub (futuro)
+    retriever.py            # Singleton retriever factory (FallbackRetriever, PGVector, JSON, Directory)
     skills/                 # 11 skills atomicas (incl. tts.py)
     prompts/                # system_prompt.py, templates.py
+    rag/                    # RAG infrastructure (Q2-Q4)
+      store.py              # PGVectorStore (hybrid BM25+vector search)
+      chunker.py            # Heading-aware section chunker
+      embedder.py           # Gemini embedding (768 dims)
+      reranker.py           # Heuristic + Gemini reranker
+      territory.py          # Territory detection (17 CCAA, 60+ cities)
+      synonyms.py           # Acronym/synonym expansion (26 entries)
+      response_cache.py     # LRU memory + Redis cache
+      ingestion.py          # Ingestion pipeline (JSON -> chunk -> embed -> DB)
+      drift.py              # Drift detection (content hash comparison)
+      boe_monitor.py        # BOE RSS monitor
+      directory.py          # Directory fallback retriever
+      models.py             # SQLAlchemy models (4 tables)
+      database.py           # DB engine + session
+      migrator.py           # JSON -> PostgreSQL migration
   utils/
     logger.py               # Logging estructurado
     eval_runner.py           # Runner de evaluaciones
     timing.py               # Decorador timing
     observability.py         # RequestContext + hooks Flask
+    rag_eval.py             # RAG evaluation framework (P@K, MRR, BM25)
+    rag_metrics.py          # RAG observability metrics
+  routes/
+    admin.py                # Admin endpoints (rag-metrics, staleness, satisfaction)
 data/
   cache/demo_cache.json     # 8 respuestas pre-calculadas + 6 MP3s
-  evals/*.json              # 5 archivos de evaluacion
-  tramites/*.json           # 3 KBs (IMV, empadronamiento, tarjeta_sanitaria)
+  evals/*.json              # Eval sets + reports (236 queries, P@3=86%)
+  tramites/*.json           # 8 KBs (IMV, empadronamiento, tarjeta_sanitaria, NIE/TIE, etc.)
+  policy/                   # Allowlist, blocklist, canonical rules
+  sources/                  # Source registry (44 fuentes), local seed (20 cities)
+scripts/
+  run_ingestion.py          # CLI ingestion runner (--all, --dry-run)
+  check_drift.py            # CLI drift detection (--all, --json)
+  check_boe.py              # CLI BOE monitor (--check, --json)
+  run_rag_eval.py           # CLI eval runner
+  init_db.py                # PostgreSQL table initialization
 tests/
-  unit/ (443 tests)         # cache, config, detect_input, detect_lang, kb_lookup, guardrails, evals, redteam, retriever, structured_outputs, observability, transcribe, ingestion, drift, boe_monitor, admin, rag_metrics, chunker, store, synonyms, territory, etc.
-  integration/ (26 tests)   # pipeline, twilio_stub, webhook, rag_retriever, rag_pipeline, retriever_rerank, fallback_chain, admin_integration, ingestion_pipeline, drift_pipeline, memory_isolation
+  unit/ (~450 tests)        # All modules: cache, config, pipeline, guardrails, RAG store/chunker/embedder/reranker/territory/synonyms/cache/ingestion/drift/boe/admin/metrics
+  integration/ (~35 tests)  # pipeline, webhook, RAG pipeline, fallback chain, admin, ingestion, drift
   evals/ (tests)            # rag_precision, rag_precision_q4
   e2e/ (4 tests)            # demo_flows
-  # Total: 469+ tests (469 passed + 5 xpassed)
+  # Total: 517 collected (493 passed, 19 skipped, 5 xpassed)
 ```
 
 ## Feature Flags (config.py)
@@ -70,7 +103,14 @@ tests/
 | GUARDRAILS_ON | true | Habilita guardrails de contenido |
 | STRUCTURED_OUTPUT_ON | false | Habilita salida estructurada JSON |
 | OBSERVABILITY_ON | true | Habilita metricas y trazas |
-| RAG_ENABLED | false | Habilita RAG (stub, pendiente implementacion) |
+| RAG_ENABLED | false | Habilita RAG pipeline (PGVector hybrid search) |
+| RAG_FALLBACK_CHAIN | true | FallbackRetriever: PGVector -> JSON -> Directory |
+| RAG_CACHE_ENABLED | false | Response cache (memory LRU / Redis) |
+| RAG_METRICS_ENABLED | true | RAG observability metrics |
+| RAG_INGESTION_ENABLED | false | Automated ingestion pipeline |
+| RAG_DRIFT_CHECK_ENABLED | false | Content drift detection |
+| RAG_BOE_MONITOR_ENABLED | false | BOE RSS monitor |
+| MEMORY_ENABLED | false | User memory/personalization |
 
 > **Nota:** TWILIO_TIMEOUT (10s) esta hardcodeado en `src/core/skills/send_response.py`, no es un flag en config.py.
 
@@ -109,6 +149,11 @@ tests/
 |--------|-----|
 | scripts/run-local.sh | Correr app local (venv + deps + Flask) |
 | scripts/run_evals.py | Runner de evaluaciones (16 casos, 4 sets) |
+| scripts/run_ingestion.py | CLI ingestion runner (--all, --dry-run, --force) |
+| scripts/check_drift.py | CLI drift detection (--all, --stale, --json) |
+| scripts/check_boe.py | CLI BOE monitor (--check, --json) |
+| scripts/run_rag_eval.py | RAG eval runner (P@K, MRR, BM25) |
+| scripts/init_db.py | PostgreSQL table initialization |
 
 ## Notion
 
@@ -125,19 +170,29 @@ tests/
 pytest tests/ -v --tb=short
 
 # Lint
-ruff check src/ tests/ --select E,F,W --ignore E501
+ruff check src/ tests/ scripts/ --select E,F,W --ignore E501
 
 # Local
 bash scripts/run-local.sh
 
-# Docker
+# Docker (PostgreSQL + pgvector for RAG)
+docker compose up -d
+python scripts/init_db.py
+
+# Docker (app)
 docker build -t civicaid-voice . && docker run -p 10000:10000 --env-file .env civicaid-voice
 
 # Health
 curl http://localhost:5000/health | python3 -m json.tool
 
-# Evals
-python scripts/run_evals.py
+# RAG Ingestion
+python scripts/run_ingestion.py --all --dry-run
+
+# RAG Eval (requires Docker DB)
+python scripts/run_rag_eval.py
+
+# Admin metrics
+curl -H "Authorization: Bearer $ADMIN_TOKEN" http://localhost:5000/admin/rag-metrics
 ```
 
 ## Equipo Humano
