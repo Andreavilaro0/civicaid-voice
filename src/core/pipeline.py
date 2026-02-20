@@ -10,6 +10,7 @@ from src.core.config import config
 from src.core.skills.detect_lang import detect_language
 from src.core.skills.kb_lookup import kb_lookup  # noqa: F401 — kept for backward compat
 from src.core.retriever import get_retriever
+from src.core.skills.analyze_image import analyze_image
 from src.core.skills.llm_generate import llm_generate
 from src.core.skills.verify_response import verify_response
 from src.core.skills.send_response import send_final_message
@@ -183,6 +184,36 @@ def process(msg: IncomingMessage) -> None:
             )
             send_final_message(response)
             return
+
+        # --- IMAGE PIPELINE (Gemini vision) ---
+        if msg.input_type == InputType.IMAGE and msg.media_url:
+            from src.core.skills.fetch_media import fetch_media
+
+            media_bytes = fetch_media(msg.media_url)
+            if media_bytes is None:
+                _send_fallback(msg, "vision_fail", start)
+                return
+
+            vision_result = analyze_image(media_bytes, msg.media_type or "image/jpeg")
+
+            if vision_result.success and vision_result.text:
+                elapsed_ms = int((time.time() - start) * 1000)
+                log_pipeline_result(msg.request_id, msg.from_number, "vision", elapsed_ms)
+                if ctx:
+                    ctx.add_timing("vision", vision_result.duration_ms)
+                    ctx.add_timing("total", elapsed_ms)
+                    log_observability(ctx)
+                response = FinalResponse(
+                    to_number=msg.from_number,
+                    body=vision_result.text,
+                    source="vision",
+                    total_ms=elapsed_ms,
+                )
+                send_final_message(response)
+                return
+            else:
+                _send_fallback(msg, "vision_fail", start)
+                return
 
         # --- KB LOOKUP (via retriever chain) ---
         kb_context: KBContext | None = get_retriever().retrieve(text, language)
