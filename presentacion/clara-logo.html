@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clara — Logo Preview</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: #F5F5F5;
+      padding: 48px 32px;
+    }
+
+    h1 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #9E9E9E;
+      margin-bottom: 32px;
+    }
+
+    /* ---- Section ---- */
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #BDBDBD;
+      margin-bottom: 24px;
+    }
+
+    /* ---- Panel grid ---- */
+    .panel-row {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+
+    .panel {
+      border-radius: 12px;
+      padding: 40px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      flex: 1;
+      min-width: 320px;
+    }
+
+    .panel--light {
+      background: #FFFFFF;
+      border: 1px solid #E0E0E0;
+    }
+
+    .panel--dark {
+      background: #1B5E7B;
+    }
+
+    /* ---- Variant wrapper ---- */
+    .variant {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* ---- Icon only ---- */
+    .clara-icon {
+      width: 80px;
+      height: 80px;
+      flex-shrink: 0;
+    }
+
+    /* ---- Text block ---- */
+    .clara-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .clara-name {
+      font-size: 28px;
+      font-weight: 600;
+      color: #1B5E7B;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .clara-name--light {
+      color: #FFFFFF;
+    }
+
+    .clara-tagline {
+      font-size: 13px;
+      font-weight: 400;
+      font-style: italic;
+      color: #757575;
+      line-height: 1.4;
+      margin-top: 4px;
+    }
+
+    .clara-tagline--light {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    /* ---- Divider ---- */
+    .divider {
+      width: 1px;
+      height: 48px;
+      background: rgba(0,0,0,0.08);
+      align-self: center;
+      margin: 0 -8px;
+    }
+
+    .divider--dark {
+      background: rgba(255,255,255,0.15);
+    }
+
+    /* ---- Favicon strip ---- */
+    .favicon-row {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+
+    .favicon-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .favicon-label {
+      font-size: 11px;
+      color: #9E9E9E;
+      font-weight: 500;
+    }
+
+    .favicon-bg-light {
+      background: #FFFFFF;
+      border: 1px solid #E0E0E0;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+    }
+
+    .favicon-bg-dark {
+      background: #1B5E7B;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+    }
+
+    /* ---- The reusable SVG icon as inline ---- */
+  </style>
+</head>
+<body>
+
+  <h1>Clara &mdash; Logo System Preview</h1>
+
+  <!-- ============================================================
+       INLINE SVG DEFINITION (reused via <use>)
+  ============================================================ -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="clara-icon-blue" viewBox="0 0 80 80" fill="none">
+      <!-- Wave arc 3 — outermost -->
+      <path
+        d="M 28 14 A 30 30 0 0 1 28 66"
+        stroke="#1B5E7B"
+        stroke-width="4.5"
+        stroke-linecap="round"
+        fill="none"
+        opacity="0.35"
+      />
+      <!-- Wave arc 2 — middle -->
+      <path
+        d="M 28 23 A 20 20 0 0 1 28 57"
+        stroke="#1B5E7B"
+        stroke-width="4.5"
+        stroke-linecap="round"
+        fill="none"
+        opacity="0.65"
+      />
+      <!-- Wave arc 1 — innermost -->
+      <path
+        d="M 28 32 A 10 10 0 0 1 28 48"
+        stroke="#1B5E7B"
+        stroke-width="4.5"
+        stroke-linecap="round"
+        fill="none"
+        opacity="1"
+      />
+      <!-- Central dot -->
+      <circle cx="28" cy="40" r="5.5" fill="#D46A1E" />
+    </symbol>
+
+    <symbol id="clara-icon-white" viewBox="0 0 80 80" fill="none">
+      <!-- Wave arc 3 — outermost -->
+      <path
+        d="M 28 14 A 30 30 0 0 1 28 66"
+        stroke="#FFFFFF"
+        stroke-width="4.5"
+        stroke-linecap="round"
+        fill="none"
+        opacity="0.35"
+      />
+      <!-- Wave arc 2 — middle -->
+      <path
+        d="M 28 23 A 20 20 0 0 1 28 57"
+        stroke="#FFFFFF"
+        stroke-width="4.5"
+        stroke-linecap="round"
+        fill="none"
+        opacity="0.65"
+      />
+      <!-- Wave arc 1 — innermost -->
+      <path
+        d="M 28 32 A 10 10 0 0 1 28 48"
+        stroke="#FFFFFF"
+        stroke-width="4.5"
+        stroke-linecap="round"
+        fill="none"
+        opacity="1"
+      />
+      <!-- Central dot — warm accent stays the same -->
+      <circle cx="28" cy="40" r="5.5" fill="#D46A1E" />
+    </symbol>
+  </svg>
+
+  <!-- ============================================================
+       SECTION: LIGHT BACKGROUND / DARK BACKGROUND PANELS
+  ============================================================ -->
+  <p class="section-label">Variantes sobre fondo claro y oscuro</p>
+
+  <div class="panel-row">
+
+    <!-- LIGHT PANEL -->
+    <div class="panel panel--light">
+
+      <!-- Variant 1: Icon only -->
+      <div class="variant">
+        <svg class="clara-icon" aria-label="Clara icono">
+          <use href="#clara-icon-blue" />
+        </svg>
+      </div>
+
+      <div style="height:1px; background:#F0F0F0;"></div>
+
+      <!-- Variant 2: Icon + name -->
+      <div class="variant">
+        <svg class="clara-icon" aria-label="Clara icono">
+          <use href="#clara-icon-blue" />
+        </svg>
+        <div class="clara-text">
+          <span class="clara-name">Clara</span>
+        </div>
+      </div>
+
+      <div style="height:1px; background:#F0F0F0;"></div>
+
+      <!-- Variant 3: Icon + name + tagline -->
+      <div class="variant">
+        <svg class="clara-icon" aria-label="Clara icono">
+          <use href="#clara-icon-blue" />
+        </svg>
+        <div class="clara-text">
+          <span class="clara-name">Clara</span>
+          <span class="clara-tagline">Tu voz tiene poder</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- DARK PANEL -->
+    <div class="panel panel--dark">
+
+      <!-- Variant 1: Icon only -->
+      <div class="variant">
+        <svg class="clara-icon" aria-label="Clara icono">
+          <use href="#clara-icon-white" />
+        </svg>
+      </div>
+
+      <div style="height:1px; background:rgba(255,255,255,0.12);"></div>
+
+      <!-- Variant 2: Icon + name -->
+      <div class="variant">
+        <svg class="clara-icon" aria-label="Clara icono">
+          <use href="#clara-icon-white" />
+        </svg>
+        <div class="clara-text">
+          <span class="clara-name clara-name--light">Clara</span>
+        </div>
+      </div>
+
+      <div style="height:1px; background:rgba(255,255,255,0.12);"></div>
+
+      <!-- Variant 3: Icon + name + tagline -->
+      <div class="variant">
+        <svg class="clara-icon" aria-label="Clara icono">
+          <use href="#clara-icon-white" />
+        </svg>
+        <div class="clara-text">
+          <span class="clara-name clara-name--light">Clara</span>
+          <span class="clara-tagline clara-tagline--light">Tu voz tiene poder</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ============================================================
+       SECTION: FAVICON / SMALL SIZE TEST
+  ============================================================ -->
+  <p class="section-label">Legibilidad a distintas escalas</p>
+
+  <div class="favicon-row">
+
+    <div class="favicon-box">
+      <div class="favicon-bg-light">
+        <svg width="200" height="200" aria-label="Clara 200px"><use href="#clara-icon-blue" /></svg>
+      </div>
+      <span class="favicon-label">200px</span>
+    </div>
+
+    <div class="favicon-box">
+      <div class="favicon-bg-light">
+        <svg width="80" height="80" aria-label="Clara 80px"><use href="#clara-icon-blue" /></svg>
+      </div>
+      <span class="favicon-label">80px</span>
+    </div>
+
+    <div class="favicon-box">
+      <div class="favicon-bg-light">
+        <svg width="48" height="48" aria-label="Clara 48px"><use href="#clara-icon-blue" /></svg>
+      </div>
+      <span class="favicon-label">48px</span>
+    </div>
+
+    <div class="favicon-box">
+      <div class="favicon-bg-light">
+        <svg width="32" height="32" aria-label="Clara 32px"><use href="#clara-icon-blue" /></svg>
+      </div>
+      <span class="favicon-label">32px</span>
+    </div>
+
+    <div class="favicon-box">
+      <div class="favicon-bg-light">
+        <svg width="16" height="16" aria-label="Clara 16px"><use href="#clara-icon-blue" /></svg>
+      </div>
+      <span class="favicon-label">16px</span>
+    </div>
+
+    <div class="favicon-box">
+      <div class="favicon-bg-dark">
+        <svg width="200" height="200" aria-label="Clara 200px dark"><use href="#clara-icon-white" /></svg>
+      </div>
+      <span class="favicon-label">200px oscuro</span>
+    </div>
+
+    <div class="favicon-box">
+      <div class="favicon-bg-dark">
+        <svg width="48" height="48" aria-label="Clara 48px dark"><use href="#clara-icon-white" /></svg>
+      </div>
+      <span class="favicon-label">48px oscuro</span>
+    </div>
+
+    <div class="favicon-box">
+      <div class="favicon-bg-dark">
+        <svg width="16" height="16" aria-label="Clara 16px dark"><use href="#clara-icon-white" /></svg>
+      </div>
+      <span class="favicon-label">16px oscuro</span>
+    </div>
+
+  </div>
+
+  <!-- ============================================================
+       SECTION: COLOR PALETTE
+  ============================================================ -->
+  <p class="section-label">Paleta de color</p>
+
+  <div style="display:flex; gap:16px; flex-wrap:wrap; margin-bottom:48px;">
+    <div style="display:flex; flex-direction:column; gap:8px; align-items:center;">
+      <div style="width:64px; height:64px; background:#1B5E7B; border-radius:8px;"></div>
+      <span style="font-size:11px; color:#757575;">#1B5E7B</span>
+      <span style="font-size:10px; color:#BDBDBD;">Confianza</span>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:8px; align-items:center;">
+      <div style="width:64px; height:64px; background:#D46A1E; border-radius:8px;"></div>
+      <span style="font-size:11px; color:#757575;">#D46A1E</span>
+      <span style="font-size:10px; color:#BDBDBD;">Calidez</span>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:8px; align-items:center;">
+      <div style="width:64px; height:64px; background:#757575; border-radius:8px;"></div>
+      <span style="font-size:11px; color:#757575;">#757575</span>
+      <span style="font-size:10px; color:#BDBDBD;">Texto secundario</span>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:8px; align-items:center;">
+      <div style="width:64px; height:64px; background:#FFFFFF; border-radius:8px; border:1px solid #E0E0E0;"></div>
+      <span style="font-size:11px; color:#757575;">#FFFFFF</span>
+      <span style="font-size:10px; color:#BDBDBD;">Fondo claro</span>
+    </div>
+  </div>
+
+</body>
+</html>
