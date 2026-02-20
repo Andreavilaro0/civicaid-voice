@@ -75,3 +75,8 @@ def init_app(app):
                 logger.info("[OBS] %s", json.dumps(summary, ensure_ascii=False))
             clear_context()
         return response
+
+
+def log_rag_stage(stage: str, duration_ms: float) -> None:
+    """Log RAG pipeline stage timing."""
+    logger.info("[RAG_STAGE] stage=%s duration_ms=%.1f", stage, duration_ms)

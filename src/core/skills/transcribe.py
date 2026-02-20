@@ -30,26 +30,36 @@ def transcribe(audio_bytes: bytes, mime_type: str = "audio/ogg") -> TranscriptRe
 
     start = time.time()
     try:
-        import google.generativeai as genai
-        genai.configure(api_key=config.GEMINI_API_KEY)
-        model = genai.GenerativeModel("gemini-1.5-flash")
+        import base64
+        from google import genai
+        client = genai.Client(api_key=config.GEMINI_API_KEY)
 
-        response = model.generate_content(
-            [
-                {
-                    "role": "user",
-                    "parts": [
-                        {"inline_data": {"mime_type": mime_type, "data": audio_bytes}},
-                        {"text": (
-                            "Transcribe this audio exactly as spoken. "
-                            "Reply ONLY with the transcription, nothing else. "
-                            "Also detect the language and prepend it as a tag like [es] or [fr]."
-                        )},
-                    ],
-                }
+        # Encode audio bytes to base64 for the new SDK
+        audio_b64 = base64.b64encode(audio_bytes).decode("utf-8")
+
+        response = client.models.generate_content(
+            model="gemini-1.5-flash",
+            contents=[
+                genai.types.Content(
+                    parts=[
+                        genai.types.Part(
+                            inline_data=genai.types.Blob(
+                                mime_type=mime_type, data=audio_b64
+                            )
+                        ),
+                        genai.types.Part(
+                            text=(
+                                "Transcribe this audio exactly as spoken. "
+                                "Reply ONLY with the transcription, nothing else. "
+                                "Also detect the language and prepend it as a tag like [es] or [fr]."
+                            )
+                        ),
+                    ]
+                )
             ],
-            generation_config={"max_output_tokens": 300, "temperature": 0.1},
-            request_options={"timeout": config.WHISPER_TIMEOUT},
+            config=genai.types.GenerateContentConfig(
+                max_output_tokens=300, temperature=0.1,
+            ),
         )
 
         elapsed = int((time.time() - start) * 1000)

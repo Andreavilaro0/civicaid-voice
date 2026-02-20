@@ -108,3 +108,35 @@ def log_memory(request_id: str, user_id_hash: str, backend: str,
               memory_backend=backend, memory_hit=hit,
               memory_write=write, memory_size_bytes=size_bytes,
               latency_ms=latency_ms)
+
+
+def log_retrieval(source: str, cache_hit: bool, latency_ms: float, procedure_id: str = "") -> None:
+    """Log a RAG retrieval event."""
+    _log_json(logging.INFO, "RAG_RETRIEVAL",
+              f"source={source} cache_hit={cache_hit} latency_ms={latency_ms:.1f} procedure={procedure_id}",
+              source=source, cache_hit=cache_hit, latency_ms=latency_ms,
+              procedure_id=procedure_id)
+
+
+def log_ingestion(source_id: str, status: str, chunks: int = 0, duration_ms: int = 0) -> None:
+    """Log an ingestion event."""
+    _log_json(logging.INFO, "RAG_INGESTION",
+              f"source={source_id} status={status} chunks={chunks} duration_ms={duration_ms}",
+              source_id=source_id, status=status, chunks=chunks,
+              duration_ms=duration_ms)
+
+
+def log_drift(procedure_id: str, status: str, staleness_days: int = 0) -> None:
+    """Log a drift check event."""
+    _log_json(logging.INFO, "RAG_DRIFT",
+              f"procedure={procedure_id} status={status} staleness_days={staleness_days}",
+              procedure_id=procedure_id, status=status,
+              staleness_days=staleness_days)
+
+
+def log_satisfaction(from_number: str, feedback: str, positive: bool) -> None:
+    """Log user satisfaction feedback."""
+    masked = from_number[:6] + "***" if len(from_number) >= 6 else from_number + "***"
+    _log_json(logging.INFO, "USER_SATISFACTION",
+              f"from={masked} feedback={feedback} positive={positive}",
+              from_number_masked=masked, feedback=feedback, positive=positive)
