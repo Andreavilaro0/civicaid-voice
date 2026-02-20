@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CivicAid — Demo WhatsApp Clara</title>
+  <style>
+    /* ── PAGE ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #1a1a2e;
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(120,40,200,.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(0,180,120,.10) 0%, transparent 55%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      padding: 32px 16px;
+    }
+
+    /* ── PHONE FRAME ── */
+    .phone-wrap {
+      position: relative;
+      width: 390px;
+      max-width: 100%;
+      filter: drop-shadow(0 32px 64px rgba(0,0,0,.7));
+    }
+
+    .phone-frame {
+      background: #1c1c1e;
+      border-radius: 54px;
+      padding: 14px;
+      box-shadow:
+        inset 0 0 0 2px #3a3a3c,
+        0 0 0 1px #0d0d0d;
+      position: relative;
+    }
+
+    /* side buttons */
+    .phone-frame::before {
+      content: '';
+      position: absolute;
+      left: -3px;
+      top: 110px;
+      width: 3px;
+      height: 36px;
+      background: #3a3a3c;
+      border-radius: 2px 0 0 2px;
+      box-shadow: 0 48px 0 #3a3a3c, 0 86px 0 #3a3a3c;
+    }
+    .phone-frame::after {
+      content: '';
+      position: absolute;
+      right: -3px;
+      top: 140px;
+      width: 3px;
+      height: 64px;
+      background: #3a3a3c;
+      border-radius: 0 2px 2px 0;
+    }
+
+    .phone-screen {
+      border-radius: 42px;
+      overflow: hidden;
+      background: #e5ddd5;
+      position: relative;
+    }
+
+    /* ── STATUS BAR ── */
+    .status-bar {
+      background: #075E54;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 24px 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: 0.2px;
+    }
+    .status-bar .time { font-size: 13px; font-weight: 700; }
+    .status-icons { display: flex; align-items: center; gap: 5px; }
+    .status-icons svg { width: 14px; height: 14px; fill: white; }
+
+    /* ── WHATSAPP HEADER ── */
+    .wa-header {
+      background: #075E54;
+      display: flex;
+      align-items: center;
+      padding: 8px 12px 10px;
+      gap: 10px;
+      border-bottom: 1px solid rgba(0,0,0,.15);
+    }
+
+    .back-arrow {
+      color: #fff;
+      font-size: 20px;
+      line-height: 1;
+      padding: 2px 4px;
+      opacity: .9;
+    }
+
+    .avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #4A90D9 0%, #2563EB 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      flex-shrink: 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,.3);
+    }
+
+    .contact-info { flex: 1; }
+    .contact-name {
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .contact-status {
+      color: rgba(255,255,255,.82);
+      font-size: 12px;
+      margin-top: 1px;
+    }
+
+    .header-icons {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: rgba(255,255,255,.85);
+    }
+    .header-icons svg { width: 20px; height: 20px; fill: currentColor; }
+
+    /* ── CHAT BODY ── */
+    .chat-body {
+      background-color: #e5ddd5;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cg fill='%23c8bdb5' fill-opacity='0.18'%3E%3Ccircle cx='10' cy='10' r='2'/%3E%3Ccircle cx='30' cy='10' r='2'/%3E%3Ccircle cx='50' cy='10' r='2'/%3E%3Ccircle cx='70' cy='10' r='2'/%3E%3Ccircle cx='20' cy='20' r='2'/%3E%3Ccircle cx='40' cy='20' r='2'/%3E%3Ccircle cx='60' cy='20' r='2'/%3E%3Ccircle cx='10' cy='30' r='2'/%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3Ccircle cx='50' cy='30' r='2'/%3E%3Ccircle cx='70' cy='30' r='2'/%3E%3Ccircle cx='20' cy='40' r='2'/%3E%3Ccircle cx='40' cy='40' r='2'/%3E%3Ccircle cx='60' cy='40' r='2'/%3E%3Ccircle cx='10' cy='50' r='2'/%3E%3Ccircle cx='30' cy='50' r='2'/%3E%3Ccircle cx='50' cy='50' r='2'/%3E%3Ccircle cx='70' cy='50' r='2'/%3E%3Ccircle cx='20' cy='60' r='2'/%3E%3Ccircle cx='40' cy='60' r='2'/%3E%3Ccircle cx='60' cy='60' r='2'/%3E%3Ccircle cx='10' cy='70' r='2'/%3E%3Ccircle cx='30' cy='70' r='2'/%3E%3Ccircle cx='50' cy='70' r='2'/%3E%3Ccircle cx='70' cy='70' r='2'/%3E%3C/g%3E%3C/svg%3E");
+      padding: 10px 8px 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      max-height: 560px;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+
+    /* hide scrollbar */
+    .chat-body::-webkit-scrollbar { width: 0; }
+
+    /* ── DATE DIVIDER ── */
+    .date-chip {
+      align-self: center;
+      background: rgba(255,255,255,.75);
+      backdrop-filter: blur(4px);
+      color: #8a8a8a;
+      font-size: 11.5px;
+      border-radius: 8px;
+      padding: 4px 10px;
+      margin: 6px 0;
+      font-weight: 500;
+      box-shadow: 0 1px 2px rgba(0,0,0,.08);
+    }
+
+    /* ── BUBBLE BASE ── */
+    .bubble-row {
+      display: flex;
+      margin: 1px 0;
+    }
+    .bubble-row.from-them { justify-content: flex-start; padding-left: 2px; }
+    .bubble-row.from-me   { justify-content: flex-end;   padding-right: 2px; }
+
+    .bubble {
+      max-width: 78%;
+      border-radius: 8px;
+      padding: 7px 10px 5px;
+      position: relative;
+      font-size: 13.5px;
+      line-height: 1.45;
+      word-break: break-word;
+      box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    }
+
+    /* tail for them */
+    .from-them .bubble {
+      background: #fff;
+      border-top-left-radius: 2px;
+    }
+    .from-them .bubble::before {
+      content: '';
+      position: absolute;
+      left: -7px;
+      top: 0;
+      border: 7px solid transparent;
+      border-right-color: #fff;
+      border-top-color: #fff;
+      border-top-right-radius: 2px;
+    }
+
+    /* tail for me */
+    .from-me .bubble {
+      background: #DCF8C6;
+      border-top-right-radius: 2px;
+    }
+    .from-me .bubble::after {
+      content: '';
+      position: absolute;
+      right: -7px;
+      top: 0;
+      border: 7px solid transparent;
+      border-left-color: #DCF8C6;
+      border-top-color: #DCF8C6;
+      border-top-left-radius: 2px;
+    }
+
+    /* ── BUBBLE TEXT ── */
+    .bubble-text {
+      color: #111;
+      white-space: pre-wrap;
+    }
+    .bubble-text .link {
+      color: #128C7E;
+      text-decoration: underline;
+      font-size: 12.5px;
+    }
+
+    /* ── TIMESTAMP + CHECKS ── */
+    .bubble-meta {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 3px;
+      margin-top: 2px;
+    }
+    .bubble-time {
+      font-size: 10.5px;
+      color: #8a8a8a;
+      line-height: 1;
+    }
+    .from-me .bubble-time { color: #6aab6a; }
+    .checks {
+      display: flex;
+      align-items: center;
+    }
+    .checks svg { width: 14px; height: 10px; }
+
+    /* ── VOICE MESSAGE ── */
+    .voice-bubble {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 180px;
+      padding: 8px 10px 5px;
+    }
+    .play-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #25D366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .play-btn svg { width: 14px; height: 14px; fill: white; margin-left: 2px; }
+
+    .voice-waveform {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .waveform-bars {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      height: 26px;
+    }
+    .waveform-bars span {
+      display: block;
+      width: 2.5px;
+      border-radius: 2px;
+      background: #25D366;
+      opacity: .85;
+    }
+    .voice-duration {
+      font-size: 11px;
+      color: #8a8a8a;
+    }
+
+    /* ── IMAGE MESSAGE ── */
+    .img-bubble {
+      padding: 4px 4px 5px;
+      max-width: 220px;
+    }
+    .img-thumb {
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+      background: #c5bfb8;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .img-thumb .blur-doc {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(3px) brightness(.9);
+    }
+    .img-thumb .doc-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .doc-icon svg { width: 36px; height: 36px; fill: rgba(255,255,255,.8); }
+
+    /* fake doc texture */
+    .fake-doc {
+      width: 100%;
+      height: 100%;
+      background:
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 14px,
+          rgba(0,0,0,.07) 14px,
+          rgba(0,0,0,.07) 15px
+        ),
+        linear-gradient(160deg, #d8cfc7 0%, #bfb8b0 100%);
+      border-radius: 4px;
+    }
+    .fake-doc-lines {
+      padding: 18px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .fake-doc-line {
+      height: 7px;
+      background: rgba(0,0,0,.18);
+      border-radius: 3px;
+    }
+    .fake-doc-line.short { width: 55%; }
+    .fake-doc-line.medium { width: 75%; }
+    .fake-doc-line.long { width: 90%; }
+    .fake-doc-line.logo {
+      width: 60px;
+      height: 14px;
+      background: rgba(0,70,140,.28);
+      margin-bottom: 6px;
+    }
+
+    /* ── INPUT BAR ── */
+    .input-bar {
+      background: #f0f0f0;
+      padding: 6px 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-top: 1px solid #ddd;
+    }
+
+    .input-field {
+      flex: 1;
+      background: #fff;
+      border-radius: 22px;
+      padding: 9px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 1px 2px rgba(0,0,0,.08);
+    }
+    .input-field span {
+      font-size: 13.5px;
+      color: #aaa;
+    }
+    .input-icons { display: flex; gap: 8px; color: #8a8a8a; }
+    .input-icons svg { width: 20px; height: 20px; fill: currentColor; }
+
+    .mic-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #25D366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .mic-btn svg { width: 20px; height: 20px; fill: white; }
+
+    /* ── LABEL BADGE ── */
+    .badge-clara {
+      font-size: 11px;
+      font-weight: 700;
+      color: #128C7E;
+      margin-bottom: 2px;
+      padding-left: 2px;
+    }
+
+    /* ── ANIMATED ELLIPSIS ── */
+    @keyframes blink { 0%,80%,100%{opacity:0} 40%{opacity:1} }
+    .typing-dot { display:inline-block; width:6px; height:6px; border-radius:50%; background:#aaa; animation:blink 1.4s infinite; }
+    .typing-dot:nth-child(2){animation-delay:.2s}
+    .typing-dot:nth-child(3){animation-delay:.4s}
+  </style>
+</head>
+<body>
+
+<div class="phone-wrap">
+  <div class="phone-frame">
+    <div class="phone-screen">
+
+      <!-- STATUS BAR -->
+      <div class="status-bar">
+        <span class="time">14:30</span>
+        <div class="status-icons">
+          <!-- signal -->
+          <svg viewBox="0 0 24 24"><rect x="1" y="13" width="3" height="8" rx="1"/><rect x="6" y="9" width="3" height="12" rx="1"/><rect x="11" y="5" width="3" height="16" rx="1"/><rect x="16" y="1" width="3" height="20" rx="1" opacity=".35"/></svg>
+          <!-- wifi -->
+          <svg viewBox="0 0 24 24"><path d="M12 18a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm-4.95-2.55a7 7 0 019.9 0l1.41-1.41a9 9 0 00-12.73 0l1.42 1.41zm-2.83-2.83a11 11 0 0115.56 0l1.41-1.42a13 13 0 00-18.38 0l1.41 1.42z"/></svg>
+          <!-- battery -->
+          <svg viewBox="0 0 28 14"><rect x=".5" y=".5" width="23" height="13" rx="3" stroke="white" stroke-width="1" fill="none"/><rect x="2" y="2" width="18" height="10" rx="2" fill="white"/><path d="M25 4.5v5a2 2 0 000-5z"/></svg>
+        </div>
+      </div>
+
+      <!-- WA HEADER -->
+      <div class="wa-header">
+        <span class="back-arrow">&#8592;</span>
+        <div class="avatar">C</div>
+        <div class="contact-info">
+          <div class="contact-name">Clara</div>
+          <div class="contact-status">en linea</div>
+        </div>
+        <div class="header-icons">
+          <!-- video call -->
+          <svg viewBox="0 0 24 24"><path d="M17 10.5V7a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h12a1 1 0 001-1v-3.5l4 4v-11l-4 4z"/></svg>
+          <!-- phone -->
+          <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+          <!-- dots -->
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
+        </div>
+      </div>
+
+      <!-- CHAT BODY -->
+      <div class="chat-body" id="chat">
+
+        <!-- DATE -->
+        <div class="date-chip">HOY</div>
+
+        <!-- 1. CLARA welcome -->
+        <div class="bubble-row from-them">
+          <div>
+            <div class="badge-clara">Clara</div>
+            <div class="bubble">
+              <div class="bubble-text">Hola, soy Clara. Estoy aqui para ayudarte con tramites y ayudas del gobierno espanol.
+
+Puedo ayudarte con:
+1. Ingreso Minimo Vital (IMV) — ayuda economica
+2. Empadronamiento — registro en tu municipio
+3. Tarjeta Sanitaria — acceso a sanidad publica
+
+Escribe, habla o envia una foto de tu documento.</div>
+              <div class="bubble-meta">
+                <span class="bubble-time">14:31</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. USER text -->
+        <div class="bubble-row from-me">
+          <div class="bubble">
+            <div class="bubble-text">que es el imv</div>
+            <div class="bubble-meta">
+              <span class="bubble-time">14:32</span>
+              <span class="checks">
+                <!-- double blue tick -->
+                <svg viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 5l3.5 3.5L12 1" stroke="#4FC3F7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M6 5l3.5 3.5L17 1" stroke="#4FC3F7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. CLARA IMV response -->
+        <div class="bubble-row from-them">
+          <div>
+            <div class="bubble">
+              <div class="bubble-text">Es buena pregunta — el IMV es una ayuda importante y tienes derecho a pedirla.
+
+El Ingreso Minimo Vital (IMV) es una prestacion mensual de la Seguridad Social para personas con bajos ingresos.
+
+Cantidad: entre 491&#x20AC; y 1.033&#x20AC;/mes.
+
+Requisitos principales:
+&#x2022; Tener entre 23 y 65 a&#xF1;os
+&#x2022; Residir en Espa&#xF1;a al menos 1 a&#xF1;o
+&#x2022; Ingresos por debajo del l&#xED;mite
+
+Fuente: <span class="link">seg-social.es/imv</span>
+
+&#xBF;Quieres saber c&#xF3;mo solicitarlo?</div>
+              <div class="bubble-meta">
+                <span class="bubble-time">14:32</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. USER voice message -->
+        <div class="bubble-row from-me">
+          <div class="bubble voice-bubble">
+            <div class="play-btn">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5z"/></svg>
+            </div>
+            <div class="voice-waveform">
+              <div class="waveform-bars">
+                <span style="height:6px"></span>
+                <span style="height:14px"></span>
+                <span style="height:10px"></span>
+                <span style="height:20px"></span>
+                <span style="height:16px"></span>
+                <span style="height:22px"></span>
+                <span style="height:18px"></span>
+                <span style="height:12px"></span>
+                <span style="height:24px"></span>
+                <span style="height:20px"></span>
+                <span style="height:16px"></span>
+                <span style="height:10px"></span>
+                <span style="height:18px"></span>
+                <span style="height:22px"></span>
+                <span style="height:14px"></span>
+                <span style="height:8px"></span>
+                <span style="height:16px"></span>
+                <span style="height:12px"></span>
+                <span style="height:6px"></span>
+                <span style="height:10px"></span>
+              </div>
+              <div class="voice-duration">0:08</div>
+            </div>
+            <div class="bubble-meta" style="flex-direction:column;align-items:flex-end;gap:2px;margin-top:0;align-self:flex-end;">
+              <span class="bubble-time">14:33</span>
+              <span class="checks">
+                <svg viewBox="0 0 18 10" fill="none">
+                  <path d="M1 5l3.5 3.5L12 1" stroke="#4FC3F7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M6 5l3.5 3.5L17 1" stroke="#4FC3F7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. CLARA empadronamiento response -->
+        <div class="bubble-row from-them">
+          <div>
+            <div class="bubble">
+              <div class="bubble-text">El empadronamiento es uno de los primeros pasos cuando llegas a una ciudad — es mas sencillo de lo que parece.
+
+Para empadronarte (registrarte oficialmente en tu municipio) necesitas:
+
+1. Ir al Ayuntamiento de tu ciudad
+2. Llevar tu pasaporte o NIE
+3. Un contrato de alquiler o declaraci&#xF3;n del propietario
+
+El tr&#xE1;mite es gratuito y suele tardar 1&#x2013;3 d&#xED;as.
+
+Fuente: <span class="link">administracion.gob.es</span></div>
+              <div class="bubble-meta">
+                <span class="bubble-time">14:33</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. USER image message -->
+        <div class="bubble-row from-me">
+          <div class="bubble img-bubble">
+            <div class="img-thumb">
+              <!-- fake blurred document -->
+              <div class="fake-doc">
+                <div class="fake-doc-lines">
+                  <div class="fake-doc-line logo"></div>
+                  <div class="fake-doc-line long"></div>
+                  <div class="fake-doc-line medium"></div>
+                  <div class="fake-doc-line short"></div>
+                  <div class="fake-doc-line long"></div>
+                  <div class="fake-doc-line medium"></div>
+                  <div class="fake-doc-line long"></div>
+                  <div class="fake-doc-line short"></div>
+                </div>
+              </div>
+              <!-- blur overlay -->
+              <div style="position:absolute;inset:0;backdrop-filter:blur(2.5px);background:rgba(180,170,160,.18);border-radius:6px;"></div>
+              <!-- camera icon overlay -->
+              <div class="doc-overlay">
+                <div class="doc-icon">
+                  <svg viewBox="0 0 24 24"><path d="M21 19V7a2 2 0 00-2-2h-1.5L16 3H8L6.5 5H5a2 2 0 00-2 2v12a2 2 0 002 2h14a2 2 0 002-2zM12 17a4 4 0 110-8 4 4 0 010 8z"/></svg>
+                </div>
+              </div>
+            </div>
+            <div class="bubble-meta" style="padding:0 4px;margin-top:4px;">
+              <span class="bubble-time">14:34</span>
+              <span class="checks">
+                <svg viewBox="0 0 18 10" fill="none">
+                  <path d="M1 5l3.5 3.5L12 1" stroke="#4FC3F7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M6 5l3.5 3.5L17 1" stroke="#4FC3F7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. CLARA document analysis -->
+        <div class="bubble-row from-them">
+          <div>
+            <div class="bubble">
+              <div class="bubble-text">Veo que me has enviado una imagen. Entiendo que puede ser preocupante recibir documentos oficiales — vamos a mirarlo juntos.
+
+Parece una carta del SEPE (Servicio de Empleo) sobre tu prestaci&#xF3;n por desempleo. El documento indica que se renueva el <strong>15 de marzo</strong>.
+
+&#xBF;Necesitas que te explique alguna parte?</div>
+              <div class="bubble-meta">
+                <span class="bubble-time">14:34</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- spacer so last message is not cut off -->
+        <div style="height:4px;"></div>
+
+      </div>
+      <!-- END CHAT BODY -->
+
+      <!-- INPUT BAR -->
+      <div class="input-bar">
+        <!-- emoji -->
+        <svg width="24" height="24" fill="#8a8a8a" viewBox="0 0 24 24" style="flex-shrink:0">
+          <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 100-16 8 8 0 000 16zm-3.5-6a3.5 3.5 0 007 0H8.5zm-1-4a1 1 0 112 0 1 1 0 01-2 0zm7 0a1 1 0 112 0 1 1 0 01-2 0z"/>
+        </svg>
+        <div class="input-field">
+          <span>Escribe un mensaje</span>
+          <div class="input-icons">
+            <!-- paperclip -->
+            <svg viewBox="0 0 24 24"><path d="M16.5 6v11.5a4 4 0 01-8 0V5a2.5 2.5 0 015 0v10.5a1 1 0 01-2 0V6h-1.5v9.5a2.5 2.5 0 005 0V5a4 4 0 00-8 0v12.5a5.5 5.5 0 0011 0V6h-1.5z"/></svg>
+            <!-- camera -->
+            <svg viewBox="0 0 24 24"><path d="M12 15.2A3.2 3.2 0 108.8 12 3.2 3.2 0 0012 15.2zm7-12h-2.53L15 2H9L7.53 3.2H5A2.8 2.8 0 002.2 6v12A2.8 2.8 0 005 20.8h14A2.8 2.8 0 0021.8 18V6A2.8 2.8 0 0019 3.2z"/></svg>
+          </div>
+        </div>
+        <div class="mic-btn">
+          <svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 003-3V5a3 3 0 00-6 0v6a3 3 0 003 3zm5-3a5 5 0 01-10 0H5a7 7 0 0014 0h-2zm-5 9a7 7 0 007-7h-2a5 5 0 01-10 0H5a7 7 0 007 7zm0 0v2m-2 1h4"/></svg>
+        </div>
+      </div>
+
+    </div><!-- end phone-screen -->
+  </div><!-- end phone-frame -->
+</div><!-- end phone-wrap -->
+
+<script>
+  // Auto-scroll chat to bottom on load
+  const chat = document.getElementById('chat');
+  chat.scrollTop = chat.scrollHeight;
+</script>
+
+</body>
+</html>
