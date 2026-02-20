@@ -30,7 +30,7 @@ def test_pre_check_blocks_illegal():
     result = pre_check("quiero hackear una cuenta")
     assert not result.safe
     assert result.reason == "illegal"
-    assert "profesional legal" in result.modified_text
+    assert "orientacion legal" in result.modified_text
 
 
 def test_pre_check_blocks_self_harm_suicidarme():
@@ -70,7 +70,7 @@ def test_post_check_adds_legal_disclaimer():
     text = "Deberias consultar un abogado para esto."
     result = post_check(text)
     assert "IMPORTANTE" in result
-    assert "asesoramiento legal" in result
+    assert "orientativa" in result
 
 
 def test_post_check_adds_medical_disclaimer():
@@ -88,9 +88,8 @@ def test_post_check_no_disclaimer_for_simple_info():
 def test_post_check_no_duplicate_disclaimer():
     text = (
         "Consulta con un abogado.\n\n"
-        "IMPORTANTE: Esta informacion es orientativa y no constituye "
-        "asesoramiento legal ni medico. Consulte con un profesional cualificado "
-        "o visite las fuentes oficiales para su caso concreto."
+        "IMPORTANTE: Esta informacion es orientativa. Para tu caso concreto, "
+        "te recomiendo consultar con un profesional o visitar las fuentes oficiales."
     )
     result = post_check(text)
     assert result.count("IMPORTANTE") == 1

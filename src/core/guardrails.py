@@ -20,14 +20,13 @@ BLOCKED_PATTERNS = [
     (r'\b(bomba|explosivo|armas?|terroris\w*)\b', 'violence',
      'No puedo ayudar con ese tema. Si hay una emergencia, llama al 112.'),
     (r'\b(hackear|robar identidad|falsificar)\b', 'illegal',
-     'No puedo asistir con actividades ilegales. Consulte con un profesional legal.'),
+     'No puedo ayudar con eso. Si necesitas orientacion legal, puedes llamar al 060 o acudir a un abogado de oficio.'),
 ]
 
 # --- DISCLAIMER: Always appended for legal/medical topics ---
 LEGAL_DISCLAIMER = (
-    "\n\nIMPORTANTE: Esta informacion es orientativa y no constituye "
-    "asesoramiento legal ni medico. Consulte con un profesional cualificado "
-    "o visite las fuentes oficiales para su caso concreto."
+    "\n\nIMPORTANTE: Esta informacion es orientativa. Para tu caso concreto, "
+    "te recomiendo consultar con un profesional o visitar las fuentes oficiales."
 )
 
 LEGAL_TRIGGERS = re.compile(
