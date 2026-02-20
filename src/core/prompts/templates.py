@@ -11,6 +11,16 @@ TEMPLATES = {
         "fr": "J'écoute votre audio... 🎧",
         "en": "Listening to your audio... 🎧",
     },
+    "ack_image": {
+        "es": "Estoy analizando tu imagen... \U0001f4f7",
+        "fr": "J'analyse votre image... \U0001f4f7",
+        "en": "Analyzing your image... \U0001f4f7",
+    },
+    "vision_fail": {
+        "es": "No pude analizar la imagen. \u00bfPodr\u00edas describir lo que ves o escribir tu pregunta?",
+        "fr": "Je n'ai pas pu analyser l'image. Pourriez-vous d\u00e9crire ce que vous voyez ?",
+        "en": "I couldn't analyze the image. Could you describe what you see or type your question?",
+    },
     "fallback_generic": {
         "es": "Puedo ayudarte con trámites, ayudas y procesos del gobierno español. ¿Sobre qué necesitas información?",
         "fr": "Je peux vous aider avec les démarches, aides et procédures du gouvernement espagnol. De quoi avez-vous besoin ?",
