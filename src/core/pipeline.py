@@ -75,10 +75,13 @@ def process(msg: IncomingMessage) -> None:
 
             text = transcript.text
             language = transcript.language
+            # Remember detected audio language for future ACKs
+            from src.core.skills.detect_lang import set_conversation_lang
+            set_conversation_lang(msg.from_number, language)
 
         # --- DETECT LANGUAGE (for text input) ---
         if msg.input_type == InputType.TEXT:
-            language = detect_language(text)
+            language = detect_language(text, phone=msg.from_number)
 
         # --- MEMORY BLOCK ---
         memory = None

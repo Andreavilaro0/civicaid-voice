@@ -70,10 +70,15 @@ def webhook():
 
     log_ack(from_number, input_type.value)
 
-    # Detect ACK language from message body (lightweight keyword check)
-    from src.core.skills.detect_lang import _keyword_hint
+    # Detect ACK language: keyword hint → conversation memory → default "es"
+    from src.core.skills.detect_lang import _keyword_hint, get_conversation_lang, set_conversation_lang
     from src.core.prompts.templates import is_greeting
-    ack_lang = _keyword_hint(body) or "es"
+    hint = _keyword_hint(body)
+    if hint:
+        set_conversation_lang(from_number, hint)
+        ack_lang = hint
+    else:
+        ack_lang = get_conversation_lang(from_number)
 
     # ACK template based on input type (greeting gets warm welcome)
     if input_type == InputType.AUDIO:
