@@ -24,7 +24,7 @@ _ELEVENLABS_VOICE_ID = {
     "ar": "21m00Tcm4TlvDq8ikWAM",  # Rachel — calm, clear for Arabic
 }
 
-_ELEVENLABS_MODEL = "eleven_multilingual_v2"
+_ELEVENLABS_MODEL = "eleven_turbo_v2_5"
 
 # ---------------------------------------------------------------------------
 # Gemini TTS — Clara voice persona (fallback if ElevenLabs unavailable)
@@ -186,7 +186,7 @@ def _synthesize_elevenlabs(text: str, language: str) -> bytes | None:
             voice_id=voice_id,
             text=text,
             model_id=_ELEVENLABS_MODEL,
-            output_format="mp3_44100_128",
+            output_format="mp3_22050_32",
         )
         return b"".join(audio_gen)
 
