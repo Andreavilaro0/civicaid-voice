@@ -88,8 +88,8 @@ _GEMINI_VOICE_NAME = {
     "ar": "Achernar",   # "Soft" — soft and warm for Arabic
 }
 
-# Max words to send to TTS — keeps audio under ~30 seconds
-_TTS_MAX_WORDS = 80
+# Max words to send to TTS — keeps audio under ~15 seconds
+_TTS_MAX_WORDS = 45
 
 
 def _strip_formatting(text: str) -> str:

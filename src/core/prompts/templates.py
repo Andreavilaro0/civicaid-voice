@@ -28,11 +28,11 @@ def is_greeting(text: str) -> bool:
 TEMPLATES = {
     # --- Greetings: Hero arrives, Guide welcomes with warmth ---
     "ack_greeting": {
-        "es": "Hola! Soy Clara. Estas en el sitio correcto. Estoy aqui para ayudarte con tramites, ayudas y cualquier lio con papeles. Cuentame, que necesitas?",
-        "fr": "Bonjour ! Je suis Clara. Vous etes au bon endroit. Je suis la pour vous aider avec vos demarches et toute la paperasse. Dites-moi, de quoi avez-vous besoin ?",
-        "en": "Hi! I'm Clara. You're in the right place. I'm here to help you with government procedures, benefits, and any paperwork trouble. What do you need?",
-        "pt": "Ola! Sou a Clara. Estas no sitio certo. Estou aqui para te ajudar com processos, ajudas e qualquer confusao com papeis. Conta-me, do que precisas?",
-        "ar": "اهلا! انا كلارا. وصلت للمكان الصحيح. انا هنا لمساعدتك في المعاملات والمساعدات وأي مشكلة مع الأوراق. بماذا تحتاج مساعدة؟",
+        "es": "Hola! Soy Clara, encantada de conocerte. Cuentame, en que te puedo echar una mano?",
+        "fr": "Bonjour ! Je suis Clara, ravie de vous connaitre. Dites-moi, comment je peux vous aider ?",
+        "en": "Hi! I'm Clara, lovely to meet you. Tell me, how can I help?",
+        "pt": "Ola! Sou a Clara, prazer em conhecer-te. Conta-me, em que te posso ajudar?",
+        "ar": "اهلا! انا كلارا، سعيدة بمعرفتك. قولي، كيف أقدر أساعدك؟",
     },
     # --- ACKs: Reassure the hero while searching ---
     "ack_text": {
