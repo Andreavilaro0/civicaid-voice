@@ -13,10 +13,18 @@ def _bool(val: str) -> bool:
 
 @dataclass(frozen=True)
 class Config:
+    # --- WhatsApp Provider: "twilio" or "meta" ---
+    WHATSAPP_PROVIDER: str = field(default_factory=lambda: os.getenv("WHATSAPP_PROVIDER", "twilio"))
+
     # --- Twilio ---
     TWILIO_ACCOUNT_SID: str = field(default_factory=lambda: os.getenv("TWILIO_ACCOUNT_SID", ""))
     TWILIO_AUTH_TOKEN: str = field(default_factory=lambda: os.getenv("TWILIO_AUTH_TOKEN", ""))
     TWILIO_SANDBOX_FROM: str = field(default_factory=lambda: os.getenv("TWILIO_SANDBOX_FROM", "whatsapp:+14155238886"))
+
+    # --- Meta WhatsApp Cloud API ---
+    META_WHATSAPP_TOKEN: str = field(default_factory=lambda: os.getenv("META_WHATSAPP_TOKEN", ""))
+    META_PHONE_NUMBER_ID: str = field(default_factory=lambda: os.getenv("META_PHONE_NUMBER_ID", ""))
+    META_VERIFY_TOKEN: str = field(default_factory=lambda: os.getenv("META_VERIFY_TOKEN", "clara_verify_2026"))
 
     # --- Gemini ---
     GEMINI_API_KEY: str = field(default_factory=lambda: os.getenv("GEMINI_API_KEY", ""))
@@ -50,6 +58,7 @@ class Config:
 
     # --- TTS ---
     TTS_ENGINE: str = field(default_factory=lambda: os.getenv("TTS_ENGINE", "gtts"))
+    ELEVENLABS_API_KEY: str = field(default_factory=lambda: os.getenv("ELEVENLABS_API_KEY", ""))
 
     # --- RAG ---
     RAG_ENABLED: bool = field(default_factory=lambda: _bool(os.getenv("RAG_ENABLED", "false")))

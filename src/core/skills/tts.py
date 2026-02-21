@@ -1,4 +1,4 @@
-"""Text-to-Speech — dual engine: Gemini TTS (warm) or gTTS (fallback)."""
+"""Text-to-Speech — triple engine: ElevenLabs (premium) / Gemini (warm) / gTTS (fallback)."""
 
 import hashlib
 import os
@@ -12,7 +12,22 @@ from src.utils.timing import timed
 _CACHE_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "..", "data", "cache")
 
 # ---------------------------------------------------------------------------
-# Clara voice persona — "directorial" system instructions (Google best practice)
+# ElevenLabs — premium human-quality voices for Clara
+# Voice IDs: pre-selected warm female voices per language
+# Model: eleven_multilingual_v2 (29 languages, natural prosody)
+# ---------------------------------------------------------------------------
+_ELEVENLABS_VOICE_ID = {
+    "es": "XB0fDUnXU5powFXDhCwa",  # Charlotte — warm, natural, empathetic
+    "fr": "XB0fDUnXU5powFXDhCwa",  # Charlotte — works beautifully in French
+    "en": "21m00Tcm4TlvDq8ikWAM",  # Rachel — calm, reassuring
+    "pt": "XB0fDUnXU5powFXDhCwa",  # Charlotte — warm multilingual
+    "ar": "21m00Tcm4TlvDq8ikWAM",  # Rachel — calm, clear for Arabic
+}
+
+_ELEVENLABS_MODEL = "eleven_multilingual_v2"
+
+# ---------------------------------------------------------------------------
+# Gemini TTS — Clara voice persona (fallback if ElevenLabs unavailable)
 # Format: Audio Profile → Scene → Director's Notes → Pacing
 # ---------------------------------------------------------------------------
 _GEMINI_VOICE_STYLE = {
@@ -21,6 +36,7 @@ _GEMINI_VOICE_STYLE = {
         "Estas en una cafeteria tranquila explicando un tramite a alguien que confias. "
         "Tu voz es natural, cercana, nunca profesional ni de call center. "
         "Habla a ritmo de conversacion real: ni lento ni rapido, como si hablaras con tu hermana. "
+        "Sonrie con la voz cuando des animo. Usa micro-pausas naturales entre ideas. "
         "Cuando dices algo empatico, baja un poco el tono y suaviza. "
         "Cuando das pasos concretos, se clara y firme pero sin perder la calidez. "
         "No leas, cuenta. No informes, explica. No recites, conversa."
@@ -39,6 +55,7 @@ _GEMINI_VOICE_STYLE = {
         "You are in a quiet coffee shop explaining a process to someone you care about. "
         "Your voice is natural, close, never professional or call-center-like. "
         "Speak at a real conversation pace: not slow, not fast, like talking to your sister. "
+        "Smile with your voice when encouraging. Use natural micro-pauses between ideas. "
         "When saying something empathetic, soften your tone slightly. "
         "When giving concrete steps, be clear and steady but still warm. "
         "Don't read, tell. Don't inform, explain. Don't recite, converse."
@@ -151,6 +168,36 @@ def _pcm_to_wav(pcm_data: bytes, sample_rate: int = 24000) -> bytes:
     return buf.getvalue()
 
 
+# ---------------------------------------------------------------------------
+# Engine: ElevenLabs (premium human-quality TTS)
+# ---------------------------------------------------------------------------
+def _synthesize_elevenlabs(text: str, language: str) -> bytes | None:
+    """Call ElevenLabs TTS. Returns MP3 bytes or None on failure."""
+    if not config.ELEVENLABS_API_KEY:
+        return None
+
+    try:
+        from elevenlabs import ElevenLabs
+
+        client = ElevenLabs(api_key=config.ELEVENLABS_API_KEY)
+        voice_id = _ELEVENLABS_VOICE_ID.get(language, _ELEVENLABS_VOICE_ID["es"])
+
+        audio_gen = client.text_to_speech.convert(
+            voice_id=voice_id,
+            text=text,
+            model_id=_ELEVENLABS_MODEL,
+            output_format="mp3_44100_128",
+        )
+        return b"".join(audio_gen)
+
+    except Exception as e:
+        log_error("elevenlabs_tts", str(e))
+        return None
+
+
+# ---------------------------------------------------------------------------
+# Engine: Gemini TTS (warm Clara voice)
+# ---------------------------------------------------------------------------
 def _synthesize_gemini(text: str, language: str) -> bytes | None:
     """Call Gemini TTS. Returns WAV bytes or None on failure.
 
@@ -194,6 +241,9 @@ def _synthesize_gemini(text: str, language: str) -> bytes | None:
         return None
 
 
+# ---------------------------------------------------------------------------
+# Engine: gTTS (basic fallback)
+# ---------------------------------------------------------------------------
 def _synthesize_gtts(text: str, language: str) -> str | None:
     """Original gTTS synthesis. Returns filepath or None."""
     lang_map = {"es": "es", "fr": "fr", "en": "en"}
@@ -213,6 +263,9 @@ def _synthesize_gtts(text: str, language: str) -> str | None:
         return None
 
 
+# ---------------------------------------------------------------------------
+# Main entry point
+# ---------------------------------------------------------------------------
 @timed("tts")
 def text_to_audio(text: str, language: str = "es") -> str | None:
     """Convert text to audio. Returns public URL or None on failure.
@@ -221,6 +274,7 @@ def text_to_audio(text: str, language: str = "es") -> str | None:
     to ~80 words before synthesis (keeps audio under ~30s).
 
     Engine selection via TTS_ENGINE env var:
+    - "elevenlabs": ElevenLabs premium voice with Gemini/gTTS fallback
     - "gemini": Gemini TTS (warm Clara voice) with gTTS fallback
     - "gtts": Original gTTS (default, backward compatible)
     """
@@ -232,8 +286,24 @@ def text_to_audio(text: str, language: str = "es") -> str | None:
     if not prepared or len(prepared.strip()) < 5:
         return None
 
+    # --- ElevenLabs TTS path (premium) ---
+    if config.TTS_ENGINE == "elevenlabs":
+        filepath, filename = _cache_path(prepared, language, "mp3")
+
+        if os.path.exists(filepath):
+            return _build_url(filename)
+
+        mp3_bytes = _synthesize_elevenlabs(prepared, language)
+        if mp3_bytes:
+            with open(filepath, "wb") as f:
+                f.write(mp3_bytes)
+            return _build_url(filename)
+
+        log_error("tts", "ElevenLabs TTS failed, falling back to Gemini")
+        # Fall through to Gemini
+
     # --- Gemini TTS path ---
-    if config.TTS_ENGINE == "gemini":
+    if config.TTS_ENGINE in ("gemini", "elevenlabs"):
         filepath, filename = _cache_path(prepared, language, "wav")
 
         if os.path.exists(filepath):
@@ -247,7 +317,7 @@ def text_to_audio(text: str, language: str = "es") -> str | None:
 
         log_error("tts", "Gemini TTS failed, falling back to gTTS")
 
-    # --- gTTS path (default or fallback) ---
+    # --- gTTS path (default or last-resort fallback) ---
     filepath, filename = _cache_path(prepared, language, "mp3")
 
     if os.path.exists(filepath):
