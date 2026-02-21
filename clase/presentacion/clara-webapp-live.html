@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+<title>Clara — Tu voz tiene poder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#1B5E7B;--orange:#D46A1E;--green:#2E7D4F;--bg:#FAFAFA;--text:#1A1A2E;--text2:#4A4A5A;--border:#E0E0E0}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  min-height:100vh;min-height:100dvh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:linear-gradient(to bottom,#FAFAFA,#F0F7FA,#E8F1F5);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  padding:16px;
+}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:1000;opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(prefers-color-scheme:dark){
+  :root{--bg:#0f1419;--text:#e8e8ee;--text2:#a0a0b0;--border:#2a2f36}
+  body{background:linear-gradient(to bottom,#0f1419,#111d24,#0f1419);color:#e8e8ee}
+  .prompt-bar{background:#1a1f26!important;border-color:#2a2f36!important}
+  .chip{background:#1a1f26!important;border-color:#2a2f36!important;color:#a0c4d4!important}
+}
+
+/* Animations */
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
+@keyframes gentlePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes logoRipple{0%{transform:scale(1);opacity:.3}70%{transform:scale(1.6);opacity:0}100%{transform:scale(1.6);opacity:0}}
+
+/* Logo */
+.logo-wrap{
+  position:relative;width:72px;height:72px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:16px;
+  animation:fadeInUp .6s ease-out both;
+}
+.logo-ring{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(27,94,123,.1);animation:logoRipple 3s ease-out infinite}
+.logo-ring2{position:absolute;inset:-14px;border-radius:50%;border:1px solid rgba(27,94,123,.05);animation:logoRipple 3s ease-out 1s infinite}
+
+/* Cycling text */
+.cycle-zone{text-align:center;margin-bottom:8px;min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.greeting{
+  font-size:18px;color:var(--text2);font-weight:500;
+  margin-bottom:6px;
+  transition:opacity .4s,transform .4s;
+  animation:fadeInUp .5s ease-out .1s both;
+}
+.tagline{
+  font-family:'Atkinson Hyperlegible',sans-serif;font-weight:700;
+  font-size:36px;line-height:1.1;
+  transition:opacity .4s,transform .4s;
+  animation:fadeInUp .5s ease-out .15s both;
+}
+.desc{
+  font-size:17px;color:var(--text2);
+  max-width:340px;text-align:center;line-height:1.5;
+  margin-bottom:20px;
+  transition:opacity .4s,transform .4s;
+  animation:fadeInUp .5s ease-out .2s both;
+}
+
+/* Mic button */
+.mic-btn{
+  width:88px;height:88px;
+  background:linear-gradient(135deg,var(--blue),#134a5f);
+  border-radius:50%;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 32px rgba(27,94,123,.3);
+  margin-bottom:12px;
+  transition:all .2s;
+  animation:scaleIn .4s ease-out .3s both, gentlePulse 3s ease-in-out .7s infinite;
+}
+.mic-btn:hover{box-shadow:0 12px 40px rgba(27,94,123,.4)}
+.mic-btn:active{transform:scale(.95)}
+.mic-btn.recording{background:linear-gradient(135deg,#C62828,#a11d1d);box-shadow:0 8px 32px rgba(198,40,40,.4);animation:scaleIn .4s ease-out .3s both, gentlePulse 1s ease-in-out infinite}
+.mic-status{font-size:15px;color:#C62828;font-weight:600;min-height:22px;margin-bottom:24px;animation:fadeInUp .3s ease-out both}
+.mic-label{
+  font-size:16px;color:var(--text2);font-weight:500;
+  margin-bottom:28px;
+  transition:opacity .4s,transform .4s;
+  animation:fadeInUp .4s ease-out .35s both;
+}
+
+/* Prompt bar — ChatGPT style */
+.prompt-wrap{
+  width:100%;max-width:560px;
+  animation:fadeInUp .4s ease-out .4s both;
+}
+.prompt-bar{
+  display:flex;align-items:center;gap:8px;
+  border:2px solid var(--border);border-radius:28px;
+  padding:12px 14px 12px 22px;
+  background:#fff;
+  transition:border-color .2s,box-shadow .2s;
+  box-shadow:0 2px 20px rgba(27,94,123,.06);
+}
+.prompt-bar:focus-within{
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(27,94,123,.15),0 4px 24px rgba(27,94,123,.12);
+}
+.prompt-input{
+  flex:1;border:none;background:transparent;
+  font-size:18px;color:var(--text);outline:none;
+  font-family:'Inter',sans-serif;
+}
+.prompt-input::placeholder{color:#BDBDBD}
+.prompt-send{
+  width:44px;height:44px;border-radius:50%;border:none;
+  background:var(--blue);cursor:pointer;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity .15s;
+}
+
+/* Suggestion chips — below prompt bar */
+.suggestions{
+  display:flex;gap:8px;flex-wrap:wrap;justify-content:center;
+  margin-top:14px;
+  transition:opacity .4s;
+}
+.chip{
+  white-space:nowrap;padding:10px 18px;
+  border-radius:22px;border:1.5px solid var(--border);
+  background:#fff;font-size:15px;color:var(--blue);
+  cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif;
+  box-shadow:0 1px 6px rgba(27,94,123,.04);
+}
+.chip:hover{border-color:var(--blue);background:rgba(27,94,123,.04);transform:translateY(-1px)}
+
+/* Footer */
+.footer{
+  font-size:14px;color:var(--text2);opacity:.7;
+  text-align:center;letter-spacing:.04em;
+  margin-top:32px;
+  transition:opacity .4s;
+  animation:fadeInUp .4s ease-out .5s both;
+}
+
+/* Top bar */
+.topbar{
+  position:fixed;top:0;left:0;right:0;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px;z-index:50;
+  background:linear-gradient(to bottom,rgba(250,250,250,.95),rgba(250,250,250,0));
+}
+.hamburger{
+  width:48px;height:48px;display:flex;align-items:center;justify-content:center;
+  border-radius:12px;border:none;background:transparent;cursor:pointer;
+  transition:background .15s;flex-shrink:0;
+}
+.hamburger:hover{background:rgba(27,94,123,.06)}
+.lang-bar{display:flex;gap:6px}
+.lang-pill{
+  padding:6px 12px;border-radius:20px;border:2px solid var(--blue);
+  background:transparent;color:var(--blue);font-size:14px;font-weight:600;
+  cursor:pointer;min-height:40px;transition:all .15s;font-family:'Inter',sans-serif;
+}
+.lang-pill.active{background:var(--blue);color:#fff}
+
+/* Menu overlay */
+@keyframes menuSlideIn{from{transform:translateX(-100%)}to{transform:translateX(0)}}
+@keyframes menuSlideInRTL{from{transform:translateX(100%)}to{transform:translateX(0)}}
+@keyframes overlayFadeIn{from{opacity:0}to{opacity:1}}
+.menu-overlay{display:none;position:fixed;inset:0;z-index:100;animation:overlayFadeIn .3s both}
+.menu-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.4)}
+.menu-panel{
+  position:absolute;top:0;bottom:0;left:0;width:280px;max-width:80vw;
+  background:var(--bg);padding:24px;animation:menuSlideIn .3s ease-out;
+  display:flex;flex-direction:column;gap:8px;
+}
+[dir="rtl"] .menu-panel{left:auto;right:0;animation-name:menuSlideInRTL}
+.menu-close{
+  width:48px;height:48px;display:flex;align-items:center;justify-content:center;
+  border:none;background:transparent;cursor:pointer;align-self:flex-end;border-radius:12px;
+}
+.menu-link{
+  display:block;padding:14px 16px;font-size:18px;color:var(--text);
+  text-decoration:none;border-radius:12px;transition:background .15s;font-weight:500;cursor:pointer;
+}
+.menu-link:hover{background:rgba(27,94,123,.06)}
+.menu-footer{margin-top:auto;font-size:13px;color:var(--text2);text-align:center;opacity:.6}
+
+/* Language dots */
+.lang-dots{
+  position:fixed;bottom:16px;left:50%;transform:translateX(-50%);
+  display:flex;gap:8px;z-index:10;
+}
+.lang-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--border);transition:all .3s;
+}
+.lang-dot.active{background:var(--blue);transform:scale(1.4)}
+
+/* ── Responsive ── */
+@media(max-width:380px){
+  .tagline{font-size:28px}
+  .desc{font-size:15px;max-width:280px}
+  .mic-btn{width:72px;height:72px}
+  .mic-btn svg{width:36px;height:36px}
+  .prompt-input{font-size:16px}
+  .chip{font-size:13px;padding:8px 14px}
+  .lang-pill{padding:5px 10px;font-size:13px;min-height:36px}
+}
+@media(min-width:768px){
+  .topbar{padding:16px 32px}
+  .logo-wrap{width:96px;height:96px}
+  .tagline{font-size:52px}
+  .desc{font-size:19px;max-width:460px}
+  .mic-btn{width:120px;height:120px}
+  .mic-btn svg{width:52px;height:52px}
+  .prompt-wrap{max-width:620px}
+  .chip{font-size:16px;padding:12px 22px}
+  .lang-pill{padding:8px 16px;font-size:15px;min-height:44px}
+}
+@media(min-width:1024px){
+  .tagline{font-size:60px}
+  .desc{font-size:20px;max-width:520px}
+  .prompt-wrap{max-width:680px}
+}
+@media(prefers-color-scheme:dark){
+  .topbar{background:linear-gradient(to bottom,rgba(15,20,25,.95),rgba(15,20,25,0))}
+  .menu-panel{background:#0f1419}
+}
+</style>
+</head>
+<body>
+
+<!-- Top bar: hamburger + language pills -->
+<div class="topbar">
+  <button class="hamburger" id="menuBtn" aria-label="Abrir menú">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18"/><path d="M3 6h18"/><path d="M3 18h18"/></svg>
+  </button>
+  <div class="lang-bar" id="langBar">
+    <button class="lang-pill active" data-lang="es">ES</button>
+    <button class="lang-pill" data-lang="fr">FR</button>
+    <button class="lang-pill" data-lang="ar">AR</button>
+  </div>
+</div>
+
+<!-- Menu overlay -->
+<div class="menu-overlay" id="menuOverlay">
+  <div class="menu-backdrop" id="menuBackdrop"></div>
+  <div class="menu-panel">
+    <button class="menu-close" id="menuClose" aria-label="Cerrar menú">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+    </button>
+    <div id="menuNav"></div>
+    <p class="menu-footer">Clara — Tu voz tiene poder<br>OdiseIA4Good 2026</p>
+  </div>
+</div>
+
+<!-- Language dots -->
+<div class="lang-dots">
+  <div class="lang-dot active" id="dotEs"></div>
+  <div class="lang-dot" id="dotFr"></div>
+  <div class="lang-dot" id="dotAr"></div>
+</div>
+
+<!-- Logo -->
+<div class="logo-wrap">
+  <div class="logo-ring"></div>
+  <div class="logo-ring2"></div>
+  <svg width="52" height="52" viewBox="0 0 80 80" fill="none" aria-label="Clara logo">
+    <path d="M28 14A30 30 0 0128 66" stroke="#1B5E7B" stroke-width="4.5" stroke-linecap="round" opacity=".35"/>
+    <path d="M28 23A20 20 0 0128 57" stroke="#1B5E7B" stroke-width="4.5" stroke-linecap="round" opacity=".65"/>
+    <path d="M28 32A10 10 0 0128 48" stroke="#1B5E7B" stroke-width="4.5" stroke-linecap="round"/>
+    <circle cx="28" cy="40" r="5.5" fill="#D46A1E"/>
+  </svg>
+</div>
+
+<!-- Cycling content -->
+<div class="cycle-zone">
+  <p id="greeting" class="greeting">Hola, soy Clara</p>
+  <h1 id="tagline" class="tagline">
+    <span style="color:var(--blue)">Tu voz</span><br>
+    <span style="color:var(--orange)">tiene poder</span>
+  </h1>
+</div>
+
+<p id="desc" class="desc">Te ayudo con trámites sociales en España. Habla o escribe en tu idioma.</p>
+
+<!-- Mic button -->
+<button class="mic-btn" id="micBtn" aria-label="Pulsa para hablar">
+  <svg width="44" height="44" viewBox="0 0 24 24" fill="white">
+    <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+    <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+  </svg>
+</button>
+<p id="micLabel" class="mic-label">Pulsa para hablar</p>
+<p id="micStatus" class="mic-status"></p>
+
+<!-- ChatGPT-style prompt bar -->
+<div class="prompt-wrap">
+  <form class="prompt-bar" id="promptForm">
+    <input id="promptInput" class="prompt-input" type="text" placeholder="Pregunta algo a Clara..." autocomplete="off">
+    <button type="submit" class="prompt-send" aria-label="Enviar">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
+        <path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9z"/>
+      </svg>
+    </button>
+  </form>
+  <div id="suggestions" class="suggestions"></div>
+</div>
+
+<p id="footer" class="footer">Gratis · Confidencial · En tu idioma</p>
+
+<script>
+/* ═══════════════════════════════════════════════════
+   Clara Demo — Trilingual audio + voice input
+   ═══════════════════════════════════════════════════ */
+
+const LANGS = [
+  { code:'es', dir:'ltr', greeting:'Hola, soy Clara', tagline:['Tu voz','tiene poder'],
+    desc:'Te ayudo con trámites sociales en España. Habla o escribe en tu idioma.',
+    mic:'Pulsa para hablar', placeholder:'Pregunta algo a Clara...',
+    footer:'Gratis · Confidencial · En tu idioma',
+    suggestions:['¿Qué es el IMV?','Empadronamiento','Tarjeta sanitaria','Renovar NIE'],
+    listening:'Escuchando...', speechLang:'es-ES' },
+  { code:'fr', dir:'ltr', greeting:'Bonjour, je suis Clara', tagline:['Ta voix','a du pouvoir'],
+    desc:"Je t'aide avec les démarches sociales en Espagne. Parle ou écris dans ta langue.",
+    mic:'Appuie pour parler', placeholder:'Pose une question à Clara...',
+    footer:'Gratuit · Confidentiel · Dans ta langue',
+    suggestions:["Qu'est-ce que le RMV?",'Inscription municipale','Carte sanitaire','Renouveler NIE'],
+    listening:'Écoute en cours...', speechLang:'fr-FR' },
+  { code:'ar', dir:'rtl', greeting:'مرحبا، أنا كلارا', tagline:['صوتك','له قوة'],
+    desc:'أساعدك في الإجراءات الاجتماعية في إسبانيا. تحدث أو اكتب بلغتك.',
+    mic:'اضغط للتحدث', placeholder:'...اسأل كلارا',
+    footer:'مجاني · سري · بلغتك',
+    suggestions:['ما هو الحد الأدنى للدخل؟','التسجيل البلدي','البطاقة الصحية','تجديد NIE'],
+    listening:'...جارِ الاستماع', speechLang:'ar-SA' }
+];
+
+const MENU = {
+  es:['Cómo usar Clara','Quiénes somos','El futuro de Clara'],
+  fr:['Comment utiliser Clara','Qui sommes-nous',"L'avenir de Clara"],
+  ar:['كيف تستخدم كلارا','من نحن','مستقبل كلارا']
+};
+
+/* ── State ── */
+let idx = 0, cycling = true, cycleTimer, pauseTimer, isRecording = false;
+
+/* ── DOM ── */
+const $ = id => document.getElementById(id);
+const greeting = $('greeting'), tagline = $('tagline'), desc = $('desc');
+const micLabel = $('micLabel'), micStatus = $('micStatus'), micBtn = $('micBtn');
+const promptInput = $('promptInput'), suggestions = $('suggestions'), footer = $('footer');
+const dots = [$('dotEs'), $('dotFr'), $('dotAr')];
+const menuOverlay = $('menuOverlay'), menuNav = $('menuNav');
+
+/* ── Preload trilingual audio ── */
+const welcomeAudio = new Audio();
+welcomeAudio.preload = 'auto';
+welcomeAudio.src = 'welcome-trilingual.mp3';
+
+/* ── Auto-play on first interaction ── */
+let hasPlayed = false;
+function tryAutoPlay() {
+  if (hasPlayed) return;
+  hasPlayed = true;
+  welcomeAudio.currentTime = 0;
+  welcomeAudio.play().catch(() => {});
+}
+document.addEventListener('click', tryAutoPlay, { once: true });
+document.addEventListener('touchstart', tryAutoPlay, { once: true });
+// Also try immediately (some browsers allow it)
+setTimeout(() => { welcomeAudio.play().catch(() => {}); }, 300);
+
+/* ── Render ── */
+function render() {
+  const l = LANGS[idx];
+  document.documentElement.dir = l.dir;
+  document.documentElement.lang = l.code;
+
+  greeting.textContent = l.greeting; greeting.style.direction = l.dir;
+  tagline.innerHTML = `<span style="color:var(--blue)">${l.tagline[0]}</span><br><span style="color:var(--orange)">${l.tagline[1]}</span>`;
+  tagline.style.direction = l.dir;
+  desc.textContent = l.desc; desc.style.direction = l.dir;
+  micLabel.textContent = l.mic; micLabel.style.direction = l.dir;
+  promptInput.placeholder = l.placeholder;
+  promptInput.style.direction = l.dir;
+  promptInput.style.textAlign = l.dir === 'rtl' ? 'right' : 'left';
+  footer.textContent = l.footer; footer.style.direction = l.dir;
+
+  suggestions.innerHTML = l.suggestions.map(s =>
+    `<button class="chip" onclick="handleChip(this)">${s}</button>`
+  ).join('');
+  suggestions.style.direction = l.dir;
+
+  dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  document.querySelectorAll('.lang-pill').forEach(p =>
+    p.classList.toggle('active', p.dataset.lang === l.code));
+
+  const m = MENU[l.code] || MENU.es;
+  menuNav.innerHTML = m.map(t => `<div class="menu-link">${t}</div>`).join('');
+}
+
+/* ── Airport cycling ── */
+function cycle() {
+  const els = [greeting, tagline, desc, micLabel, suggestions, footer];
+  els.forEach(el => { el.style.opacity = '0'; el.style.transform = 'translateY(8px)'; });
+  setTimeout(() => {
+    idx = (idx + 1) % LANGS.length;
+    render();
+    els.forEach(el => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; });
+  }, 400);
+}
+function startCycling() { clearInterval(cycleTimer); if (cycling) cycleTimer = setInterval(cycle, 4500); }
+
+/* ── Language pills ── */
+$('langBar').addEventListener('click', e => {
+  const pill = e.target.closest('[data-lang]');
+  if (!pill) return;
+  const newIdx = LANGS.findIndex(l => l.code === pill.dataset.lang);
+  if (newIdx < 0 || newIdx === idx) return;
+
+  cycling = false; clearInterval(cycleTimer); clearTimeout(pauseTimer);
+  const els = [greeting, tagline, desc, micLabel, suggestions, footer];
+  els.forEach(el => { el.style.opacity = '0'; el.style.transform = 'translateY(8px)'; });
+  setTimeout(() => { idx = newIdx; render(); els.forEach(el => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; }); }, 300);
+  pauseTimer = setTimeout(() => { cycling = true; startCycling(); }, 15000);
+});
+
+/* ── Menu ── */
+$('menuBtn').addEventListener('click', () => { menuOverlay.style.display = 'block'; $('menuClose').focus(); });
+$('menuClose').addEventListener('click', () => menuOverlay.style.display = 'none');
+$('menuBackdrop').addEventListener('click', () => menuOverlay.style.display = 'none');
+document.addEventListener('keydown', e => { if (e.key === 'Escape') menuOverlay.style.display = 'none'; });
+
+/* ── Mic button = VOICE INPUT (Web Speech Recognition) ── */
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recognition = null;
+
+micBtn.addEventListener('click', () => {
+  tryAutoPlay(); // ensure audio context unlocked
+
+  if (isRecording) { stopRecording(); return; }
+
+  if (!SpeechRecognition) {
+    micStatus.textContent = 'Tu navegador no soporta reconocimiento de voz';
+    setTimeout(() => micStatus.textContent = '', 3000);
+    return;
+  }
+
+  recognition = new SpeechRecognition();
+  recognition.lang = LANGS[idx].speechLang;
+  recognition.interimResults = true;
+  recognition.continuous = false;
+  recognition.maxAlternatives = 1;
+
+  recognition.onstart = () => {
+    isRecording = true;
+    micBtn.classList.add('recording');
+    micStatus.textContent = LANGS[idx].listening;
+    micLabel.style.display = 'none';
+  };
+
+  recognition.onresult = (e) => {
+    const transcript = Array.from(e.results).map(r => r[0].transcript).join('');
+    promptInput.value = transcript;
+    if (e.results[0].isFinal) {
+      micStatus.textContent = '✓ ' + transcript;
+    }
+  };
+
+  recognition.onend = () => { stopRecording(); };
+  recognition.onerror = (e) => {
+    stopRecording();
+    if (e.error !== 'no-speech') micStatus.textContent = 'Error: ' + e.error;
+    setTimeout(() => micStatus.textContent = '', 3000);
+  };
+
+  recognition.start();
+});
+
+function stopRecording() {
+  isRecording = false;
+  micBtn.classList.remove('recording');
+  micLabel.style.display = '';
+  if (recognition) try { recognition.stop(); } catch(e) {}
+  setTimeout(() => { if (!isRecording) micStatus.textContent = ''; }, 4000);
+}
+
+/* ── Chip click ── */
+function handleChip(el) {
+  el.style.background = 'rgba(27,94,123,.12)';
+  el.style.borderColor = 'var(--blue)';
+  promptInput.value = el.textContent;
+  setTimeout(() => { el.style.background = ''; el.style.borderColor = ''; }, 300);
+}
+
+/* ── Prompt form ── */
+$('promptForm').addEventListener('submit', e => {
+  e.preventDefault();
+  if (promptInput.value.trim()) {
+    // Demo: just show what was sent
+    const sent = promptInput.value.trim();
+    promptInput.value = '';
+    micStatus.textContent = '→ ' + sent;
+    setTimeout(() => micStatus.textContent = '', 4000);
+  }
+});
+
+/* ── Init ── */
+render();
+startCycling();
+</script>
+</body>
+</html>

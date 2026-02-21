@@ -39,6 +39,10 @@ const config: Config = {
       borderRadius: {
         bubble: "16px",
       },
+      boxShadow: {
+        warm: '0 2px 20px rgba(27,94,123,0.06), 0 0 0 1px rgba(224,224,224,0.5)',
+        'warm-hover': '0 8px 30px rgba(27,94,123,0.1), 0 0 0 1px rgba(224,224,224,0.5)',
+      },
     },
   },
   plugins: [],

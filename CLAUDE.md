@@ -28,68 +28,64 @@ Usuario WhatsApp -> Twilio -> Flask /webhook -> TwiML ACK (<1s)
 
 Patron **TwiML ACK**: respuesta HTTP 200 inmediata, procesamiento en hilo de fondo, envio final via Twilio REST API.
 
-## Estructura del Codigo
+## Estructura del Repo
 
 ```
-src/
-  app.py                    # Flask entry point — create_app()
-  routes/
-    webhook.py              # POST /webhook — Twilio, con signature validation
-    health.py               # GET /health — healthcheck
-    static_files.py         # GET /static/cache/* — servir MP3/WAV/OGG (dynamic MIME)
-  core/
-    config.py               # Feature flags (50 flags: DEMO_MODE, LLM_LIVE, VISION_*, TTS_*, RAG_*, MEMORY_*, etc.)
-    models.py               # 8 dataclasses (IncomingMessage, CacheEntry, FinalResponse, KBContext, etc.)
-    cache.py                # Carga demo_cache.json
-    pipeline.py             # Orquestador de 12 skills — uses get_retriever().retrieve()
-    twilio_client.py        # Wrapper Twilio REST
-    guardrails.py           # Capa de seguridad pre/post
-    models_structured.py    # Salidas JSON estructuradas
-    retriever.py            # Singleton retriever factory (FallbackRetriever, PGVector, JSON, Directory)
-    skills/                 # 13 skills atomicas (incl. tts.py, analyze_image.py, whatsapp_format.py)
-    prompts/                # system_prompt.py, templates.py
-    rag/                    # RAG infrastructure (Q2-Q4)
-      store.py              # PGVectorStore (hybrid BM25+vector search)
-      chunker.py            # Heading-aware section chunker
-      embedder.py           # Gemini embedding (768 dims)
-      reranker.py           # Heuristic + Gemini reranker
-      territory.py          # Territory detection (17 CCAA, 60+ cities)
-      synonyms.py           # Acronym/synonym expansion (26 entries)
-      response_cache.py     # LRU memory + Redis cache
-      ingestion.py          # Ingestion pipeline (JSON -> chunk -> embed -> DB)
-      drift.py              # Drift detection (content hash comparison)
-      boe_monitor.py        # BOE RSS monitor
-      directory.py          # Directory fallback retriever
-      models.py             # SQLAlchemy models (4 tables)
-      database.py           # DB engine + session
-      migrator.py           # JSON -> PostgreSQL migration
-  utils/
-    logger.py               # Logging estructurado
-    eval_runner.py           # Runner de evaluaciones
-    timing.py               # Decorador timing
-    observability.py         # RequestContext + hooks Flask
-    rag_eval.py             # RAG evaluation framework (P@K, MRR, BM25)
-    rag_metrics.py          # RAG observability metrics
-  routes/
-    admin.py                # Admin endpoints (rag-metrics, staleness, satisfaction)
-data/
-  cache/demo_cache.json     # 8 respuestas pre-calculadas + 6 MP3s
-  evals/*.json              # Eval sets + reports (236 queries, P@3=86%)
-  tramites/*.json           # 8 KBs (IMV, empadronamiento, tarjeta_sanitaria, NIE/TIE, etc.)
-  policy/                   # Allowlist, blocklist, canonical rules
-  sources/                  # Source registry (44 fuentes), local seed (20 cities)
-scripts/
-  run_ingestion.py          # CLI ingestion runner (--all, --dry-run)
-  check_drift.py            # CLI drift detection (--all, --json)
-  check_boe.py              # CLI BOE monitor (--check, --json)
-  run_rag_eval.py           # CLI eval runner
-  init_db.py                # PostgreSQL table initialization
-tests/
-  unit/ (~500 tests)        # All modules: cache, config, pipeline, guardrails, RAG, tts, tone, whatsapp_format, vision
-  integration/ (~40 tests)  # pipeline, webhook, RAG pipeline, fallback chain, admin, ingestion, drift
-  evals/ (tests)            # rag_precision, rag_precision_q4
-  e2e/ (4 tests)            # demo_flows
-  # Total: 568 passed, 19 skipped, 5 xpassed (post Fase 5 + audit)
+civicaid-voice/
+├── back/                          # Backend Python (Flask + Twilio + Gemini)
+│   ├── src/                       # Codigo fuente
+│   ├── data/                      # Knowledge base, evals, cache
+│   ├── scripts/                   # Utilidades CLI
+│   ├── tests/                     # Tests (unit, integration, evals, e2e)
+│   ├── schemas/                   # JSON schemas
+│   ├── Dockerfile, docker-compose.yml
+│   ├── requirements.txt, pyproject.toml
+│   └── render.yaml (rootDir: back)
+├── clara-web/                     # Frontend Next.js (actual)
+├── clase/                         # Material escolar
+│   ├── presentacion/              # Pitch, demos HTML, PPTX, PDF, guion
+│   └── design/                    # Branding, mockups, videos, marketing
+├── docs/                          # Documentacion tecnica
+├── CLAUDE.md
+├── README.md
+└── .gitignore
+```
+
+## Estructura del Backend (back/)
+
+```
+back/
+  src/
+    app.py                    # Flask entry point — create_app()
+    routes/
+      webhook.py              # POST /webhook — Twilio, con signature validation
+      health.py               # GET /health — healthcheck
+      static_files.py         # GET /static/cache/* — servir MP3/WAV/OGG (dynamic MIME)
+      admin.py                # Admin endpoints (rag-metrics, staleness, satisfaction)
+    core/
+      config.py               # Feature flags (50 flags: DEMO_MODE, LLM_LIVE, VISION_*, TTS_*, RAG_*, MEMORY_*, etc.)
+      models.py               # 8 dataclasses (IncomingMessage, CacheEntry, FinalResponse, KBContext, etc.)
+      cache.py                # Carga demo_cache.json
+      pipeline.py             # Orquestador de 12 skills — uses get_retriever().retrieve()
+      twilio_client.py        # Wrapper Twilio REST
+      guardrails.py           # Capa de seguridad pre/post
+      models_structured.py    # Salidas JSON estructuradas
+      retriever.py            # Singleton retriever factory (FallbackRetriever, PGVector, JSON, Directory)
+      skills/                 # 13 skills atomicas (incl. tts.py, analyze_image.py, whatsapp_format.py)
+      prompts/                # system_prompt.py, templates.py
+      rag/                    # RAG infrastructure (Q2-Q4)
+    utils/
+      logger.py, eval_runner.py, timing.py, observability.py, rag_eval.py, rag_metrics.py
+  data/
+    cache/demo_cache.json     # 8 respuestas pre-calculadas + 6 MP3s
+    evals/*.json              # Eval sets + reports (236 queries, P@3=86%)
+    tramites/*.json           # 8 KBs (IMV, empadronamiento, tarjeta_sanitaria, NIE/TIE, etc.)
+    policy/                   # Allowlist, blocklist, canonical rules
+    sources/                  # Source registry (44 fuentes), local seed (20 cities)
+  scripts/
+    run_ingestion.py, check_drift.py, check_boe.py, run_rag_eval.py, init_db.py
+  tests/
+    unit/ (~500 tests), integration/ (~40 tests), evals/, e2e/ (4 tests)
 ```
 
 ## Feature Flags (config.py)
@@ -116,7 +112,7 @@ tests/
 | RAG_BOE_MONITOR_ENABLED | false | BOE RSS monitor |
 | MEMORY_ENABLED | false | User memory/personalization |
 
-> **Nota:** TWILIO_TIMEOUT (10s) esta hardcodeado en `src/core/skills/send_response.py`, no es un flag en config.py.
+> **Nota:** TWILIO_TIMEOUT (10s) esta hardcodeado en `back/src/core/skills/send_response.py`, no es un flag en config.py.
 
 ## Documentacion
 
@@ -151,17 +147,17 @@ tests/
 | Verificacion Fase 5 | docs/plans/evidence/VERIFY-BACK-FRONT-REPORT.md |
 | Auditoria Post-Q4 | docs/plans/evidence/audit-report-2026-02-20-post-q4.md |
 
-## Scripts
+## Scripts (back/scripts/)
 
 | Script | Uso |
 |--------|-----|
-| scripts/run-local.sh | Correr app local (venv + deps + Flask) |
-| scripts/run_evals.py | Runner de evaluaciones (16 casos, 4 sets) |
-| scripts/run_ingestion.py | CLI ingestion runner (--all, --dry-run, --force) |
-| scripts/check_drift.py | CLI drift detection (--all, --stale, --json) |
-| scripts/check_boe.py | CLI BOE monitor (--check, --json) |
-| scripts/run_rag_eval.py | RAG eval runner (P@K, MRR, BM25) |
-| scripts/init_db.py | PostgreSQL table initialization |
+| back/scripts/run-local.sh | Correr app local (venv + deps + Flask) |
+| back/scripts/run_evals.py | Runner de evaluaciones (16 casos, 4 sets) |
+| back/scripts/run_ingestion.py | CLI ingestion runner (--all, --dry-run, --force) |
+| back/scripts/check_drift.py | CLI drift detection (--all, --stale, --json) |
+| back/scripts/check_boe.py | CLI BOE monitor (--check, --json) |
+| back/scripts/run_rag_eval.py | RAG eval runner (P@K, MRR, BM25) |
+| back/scripts/init_db.py | PostgreSQL table initialization |
 
 ## Notion
 
@@ -174,34 +170,54 @@ tests/
 ## Comandos Rapidos
 
 ```bash
-# Tests
-pytest tests/ -v --tb=short
+# Tests (desde back/)
+cd back && pytest tests/ -v --tb=short
 
-# Lint
-ruff check src/ tests/ scripts/ --select E,F,W --ignore E501
+# Lint (desde back/)
+cd back && ruff check src/ tests/ scripts/ --select E,F,W --ignore E501
 
-# Local
-bash scripts/run-local.sh
+# Local (desde back/)
+cd back && bash scripts/run-local.sh
 
-# Docker (PostgreSQL + pgvector for RAG)
-docker compose up -d
-python scripts/init_db.py
+# Docker (PostgreSQL + pgvector for RAG) — desde back/
+cd back && docker compose up -d
+cd back && python scripts/init_db.py
 
-# Docker (app)
-docker build -t civicaid-voice . && docker run -p 10000:10000 --env-file .env civicaid-voice
+# Docker (app) — desde back/
+cd back && docker build -t civicaid-voice . && docker run -p 10000:10000 --env-file ../.env civicaid-voice
 
 # Health
 curl http://localhost:5000/health | python3 -m json.tool
 
+# Frontend (clara-web/)
+cd clara-web && npm run dev
+
 # RAG Ingestion
-python scripts/run_ingestion.py --all --dry-run
+cd back && python scripts/run_ingestion.py --all --dry-run
 
 # RAG Eval (requires Docker DB)
-python scripts/run_rag_eval.py
+cd back && python scripts/run_rag_eval.py
 
 # Admin metrics
 curl -H "Authorization: Bearer $ADMIN_TOKEN" http://localhost:5000/admin/rag-metrics
 ```
+
+## Welcome Page — Estado Actual (2026-02-21)
+
+### Completado
+- `clara-web/src/app/page.tsx` — Reescrito sin GSAP: layout compacto mobile-first con CSS `fadeInUp`/`scaleIn`, speak() simplificado (ElevenLabs static → Browser Speech API, sin backend TTS fallback)
+- `clara-web/src/app/layout.tsx` — GSAP CDN `<script>` eliminado
+- `clara-web/src/app/globals.css` — `@keyframes scaleIn` agregado
+- `clara-web/public/audio/welcome-es.mp3` — Regenerado con Charlotte, Multilingual v2 (stability=0.50, similarity_boost=0.70, style=0.15, speed=0.95)
+- Build limpio: `tsc --noEmit` + `npm run build` sin errores
+
+### Pendiente: Regenerar audio FR y AR
+Los audios FR y AR son de una sesion anterior (voz Laura, params suboptimos). Regenerar con:
+- **Tool:** `mcp__elevenlabs__text_to_speech` o `mcp__kie-ai__elevenlabs_tts`
+- **Voz:** Charlotte | **Modelo:** eleven_multilingual_v2
+- **Params:** stability=0.50, similarity_boost=0.70, style=0.15, speed=0.95
+- **FR:** `"Bonjour, je suis Clara. Je suis là pour t'aider. Parle ou écris dans ta langue."` → `clara-web/public/audio/welcome-fr.mp3`
+- **AR:** `"مرحبا، أنا كلارا. أنا هنا لمساعدتك. تحدث أو اكتب بلغتك."` → `clara-web/public/audio/welcome-ar.mp3`
 
 ## Equipo Humano
 

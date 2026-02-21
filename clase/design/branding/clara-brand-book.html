@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clara — Brand Book</title>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #1B5E7B;
+      --orange: #D46A1E;
+      --green: #2E7D4F;
+      --bg: #FAFAFA;
+      --card: #F5F5F5;
+      --text: #1A1A2E;
+      --text2: #4A4A5A;
+      --border: #E0E0E0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Atkinson Hyperlegible', system-ui, sans-serif;
+      font-weight: 700;
+    }
+
+    /* ---- NAV ---- */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      height: 56px;
+      gap: 32px;
+    }
+    nav .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--blue);
+      font-family: 'Atkinson Hyperlegible', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+    }
+    nav a.nav-link {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text2);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    nav a.nav-link:hover { color: var(--blue); }
+
+    /* ---- SECTIONS ---- */
+    section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 80px 32px 48px;
+    }
+    section:first-of-type { padding-top: 120px; }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-size: 36px;
+      color: var(--blue);
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+    .section-subtitle {
+      font-size: 18px;
+      color: var(--text2);
+      max-width: 640px;
+      margin-bottom: 40px;
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      text-align: center;
+      padding: 160px 32px 80px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .hero-icon {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 32px;
+    }
+    .hero h1 {
+      font-size: 48px;
+      color: var(--blue);
+      margin-bottom: 16px;
+    }
+    .hero .tagline {
+      font-size: 22px;
+      color: var(--orange);
+      font-style: italic;
+      font-weight: 400;
+      margin-bottom: 12px;
+    }
+    .hero .subtitle {
+      font-size: 16px;
+      color: var(--text2);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* ---- STORY CARDS ---- */
+    .story-block {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      margin-bottom: 24px;
+    }
+    .story-block h3 {
+      font-size: 20px;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+    .story-block p {
+      color: var(--text2);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    .story-block .highlight {
+      color: var(--text);
+      font-weight: 600;
+    }
+    blockquote {
+      border-left: 4px solid var(--orange);
+      padding: 16px 24px;
+      margin: 24px 0;
+      background: #FFF8F0;
+      border-radius: 0 8px 8px 0;
+      font-style: italic;
+      color: var(--text);
+    }
+
+    /* ---- PHILOSOPHY ---- */
+    .principles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-top: 32px;
+    }
+    .principle {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+    }
+    .principle-num {
+      font-size: 32px;
+      font-weight: 700;
+      font-family: 'Atkinson Hyperlegible', sans-serif;
+      color: var(--orange);
+      margin-bottom: 8px;
+    }
+    .principle h4 {
+      font-size: 16px;
+      color: var(--blue);
+      margin-bottom: 8px;
+    }
+    .principle p {
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+
+    /* ---- COLORS ---- */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 32px;
+    }
+    .color-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .color-swatch {
+      height: 120px;
+    }
+    .color-info {
+      padding: 16px;
+    }
+    .color-name {
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    .color-hex {
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: var(--text2);
+      margin-bottom: 4px;
+    }
+    .color-meaning {
+      font-size: 13px;
+      color: var(--text2);
+      font-style: italic;
+    }
+    .color-ratio {
+      display: flex;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .ratio-bar {
+      height: 24px;
+      border-radius: 4px;
+    }
+
+    /* ---- LOGO ---- */
+    .logo-row {
+      display: flex;
+      gap: 24px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+    .logo-panel {
+      border-radius: 12px;
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      flex: 1;
+      min-width: 280px;
+    }
+    .logo-panel--light {
+      background: white;
+      border: 1px solid var(--border);
+    }
+    .logo-panel--dark {
+      background: var(--blue);
+    }
+    .logo-panel svg { width: 80px; height: 80px; }
+    .logo-text {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .logo-text svg { width: 64px; height: 64px; flex-shrink: 0; }
+    .logo-name {
+      font-family: 'Atkinson Hyperlegible', sans-serif;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .logo-tagline {
+      font-size: 13px;
+      font-style: italic;
+      margin-top: 2px;
+    }
+
+    /* ---- SCALES ---- */
+    .scale-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 24px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    .scale-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .scale-label {
+      font-size: 11px;
+      color: var(--text2);
+    }
+
+    /* ---- TYPOGRAPHY ---- */
+    .type-sample {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 20px;
+    }
+    .type-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--orange);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+    .type-display {
+      font-family: 'Atkinson Hyperlegible', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 8px;
+    }
+    .type-body {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ---- EVI PATTERN ---- */
+    .evi {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-top: 32px;
+    }
+    .evi-step {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      border-top: 4px solid;
+    }
+    .evi-step:nth-child(1) { border-top-color: var(--orange); }
+    .evi-step:nth-child(2) { border-top-color: var(--blue); }
+    .evi-step:nth-child(3) { border-top-color: var(--green); }
+    .evi-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .evi-step:nth-child(1) .evi-label { color: var(--orange); }
+    .evi-step:nth-child(2) .evi-label { color: var(--blue); }
+    .evi-step:nth-child(3) .evi-label { color: var(--green); }
+    .evi-step h4 {
+      font-size: 18px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .evi-example {
+      font-size: 14px;
+      color: var(--text2);
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    /* ---- PERSONAS ---- */
+    .persona-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-top: 32px;
+    }
+    .persona {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+    }
+    .persona-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .persona-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .persona-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .persona h4 { font-size: 16px; color: var(--blue); }
+    .persona .age { font-size: 13px; color: var(--text2); }
+    .persona p { font-size: 14px; color: var(--text2); line-height: 1.6; margin-top: 8px; }
+
+    /* ---- STATS ---- */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      margin-top: 32px;
+    }
+    .stat {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+    }
+    .stat-number {
+      font-family: 'Atkinson Hyperlegible', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--blue);
+    }
+    .stat-label {
+      font-size: 13px;
+      color: var(--text2);
+      margin-top: 4px;
+    }
+
+    /* ---- FOOTER ---- */
+    footer {
+      text-align: center;
+      padding: 48px 32px;
+      color: var(--text2);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+      margin-top: 48px;
+    }
+    footer strong { color: var(--blue); }
+
+    /* ---- DIVIDER ---- */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 48px 0;
+    }
+
+    /* ---- GRAINY BLUR TEXTURE OVERLAY (2026 trend) ---- */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    /* ---- WARM SECTION GRADIENTS ---- */
+    section:nth-of-type(odd) {
+      background: linear-gradient(180deg, rgba(250,250,250,0) 0%, rgba(227,242,253,0.15) 50%, rgba(250,250,250,0) 100%);
+    }
+
+    /* ---- SOFT GLOW ON COLOR SWATCHES ---- */
+    .color-swatch {
+      position: relative;
+      transition: filter 0.3s ease;
+    }
+    .color-card:hover .color-swatch {
+      filter: brightness(1.08);
+    }
+
+    /* ---- WARM SHADOWS (replace flat borders) ---- */
+    .story-block {
+      border: none;
+      box-shadow: 0 2px 20px rgba(27,94,123,0.06), 0 0 0 1px rgba(224,224,224,0.5);
+    }
+    .principle, .persona, .evi-step, .type-sample, .stat {
+      border: none;
+      box-shadow: 0 2px 16px rgba(27,94,123,0.05), 0 0 0 1px rgba(224,224,224,0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .principle:hover, .persona:hover, .evi-step:hover, .stat:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(27,94,123,0.1), 0 0 0 1px rgba(224,224,224,0.5);
+    }
+
+    /* ---- WARM HERO BACKGROUND ---- */
+    .hero {
+      background: radial-gradient(ellipse at 50% 60%, rgba(212,106,30,0.04) 0%, transparent 60%);
+    }
+
+    /* ---- FADE-IN ANIMATIONS ---- */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-icon, .hero h1, .hero .tagline, .hero .subtitle {
+      animation: fadeInUp 0.8s ease-out both;
+    }
+    .hero h1 { animation-delay: 0.1s; }
+    .hero .tagline { animation-delay: 0.2s; }
+    .hero .subtitle { animation-delay: 0.3s; }
+
+    /* ---- PERSONA ACCENT BORDERS ---- */
+    .persona:nth-child(1) { border-left: 4px solid var(--orange); }
+    .persona:nth-child(2) { border-left: 4px solid var(--blue); }
+    .persona:nth-child(3) { border-left: 4px solid var(--green); }
+
+    /* ---- NAV ACTIVE UNDERLINE ---- */
+    nav a.nav-link {
+      position: relative;
+    }
+    nav a.nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--orange);
+      transform: scaleX(0);
+      transition: transform 0.2s ease;
+    }
+    nav a.nav-link:hover::after {
+      transform: scaleX(1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SVG DEFS -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="icon-blue" viewBox="0 0 80 80" fill="none">
+      <path d="M 28 14 A 30 30 0 0 1 28 66" stroke="#1B5E7B" stroke-width="4.5" stroke-linecap="round" fill="none" opacity="0.35"/>
+      <path d="M 28 23 A 20 20 0 0 1 28 57" stroke="#1B5E7B" stroke-width="4.5" stroke-linecap="round" fill="none" opacity="0.65"/>
+      <path d="M 28 32 A 10 10 0 0 1 28 48" stroke="#1B5E7B" stroke-width="4.5" stroke-linecap="round" fill="none" opacity="1"/>
+      <circle cx="28" cy="40" r="5.5" fill="#D46A1E"/>
+    </symbol>
+    <!-- Persona portraits — warm illustrated silhouettes -->
+    <symbol id="persona-maria" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="32" fill="#D46A1E"/>
+      <circle cx="32" cy="32" r="30" fill="#E8884A"/>
+      <!-- hijab -->
+      <ellipse cx="32" cy="26" rx="18" ry="16" fill="#C45A10"/>
+      <ellipse cx="32" cy="30" rx="16" ry="14" fill="#D46A1E"/>
+      <!-- face -->
+      <ellipse cx="32" cy="30" rx="11" ry="12" fill="#DEB28A"/>
+      <!-- eyes -->
+      <ellipse cx="28" cy="28" rx="1.8" ry="1.2" fill="#3D2B1F"/>
+      <ellipse cx="36" cy="28" rx="1.8" ry="1.2" fill="#3D2B1F"/>
+      <!-- gentle smile -->
+      <path d="M28 33 Q32 37 36 33" stroke="#3D2B1F" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      <!-- warmth lines on cheeks -->
+      <circle cx="26" cy="32" r="2" fill="#E8A080" opacity="0.5"/>
+      <circle cx="38" cy="32" r="2" fill="#E8A080" opacity="0.5"/>
+    </symbol>
+    <symbol id="persona-ahmed" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="32" fill="#1B5E7B"/>
+      <circle cx="32" cy="32" r="30" fill="#2A7A9A"/>
+      <!-- hair -->
+      <ellipse cx="32" cy="22" rx="12" ry="10" fill="#2C1810"/>
+      <!-- face -->
+      <ellipse cx="32" cy="28" rx="11" ry="12" fill="#8B6F47"/>
+      <!-- eyes -->
+      <ellipse cx="28" cy="26" rx="1.8" ry="1.3" fill="#1A1A2E"/>
+      <ellipse cx="36" cy="26" rx="1.8" ry="1.3" fill="#1A1A2E"/>
+      <!-- confident smile -->
+      <path d="M28 31 Q32 35 36 31" stroke="#1A1A2E" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      <!-- collar -->
+      <path d="M22 42 Q27 38 32 42 Q37 38 42 42" stroke="#ffffff" stroke-width="1.5" fill="none" opacity="0.6"/>
+    </symbol>
+    <symbol id="persona-fatima" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="32" fill="#2E7D4F"/>
+      <circle cx="32" cy="32" r="30" fill="#3D9A66"/>
+      <!-- hijab -->
+      <ellipse cx="32" cy="26" rx="17" ry="15" fill="#267A45"/>
+      <ellipse cx="32" cy="30" rx="15" ry="13" fill="#2E7D4F"/>
+      <!-- face -->
+      <ellipse cx="32" cy="29" rx="10.5" ry="11.5" fill="#D4A574"/>
+      <!-- caring eyes -->
+      <ellipse cx="28.5" cy="27" rx="1.6" ry="1.2" fill="#2C1810"/>
+      <ellipse cx="35.5" cy="27" rx="1.6" ry="1.2" fill="#2C1810"/>
+      <!-- warm smile -->
+      <path d="M28.5 32 Q32 35.5 35.5 32" stroke="#2C1810" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+      <!-- warmth on cheeks -->
+      <circle cx="26.5" cy="31" r="1.8" fill="#D49A7A" opacity="0.4"/>
+      <circle cx="37.5" cy="31" r="1.8" fill="#D49A7A" opacity="0.4"/>
+    </symbol>
+    <symbol id="icon-white" viewBox="0 0 80 80" fill="none">
+      <path d="M 28 14 A 30 30 0 0 1 28 66" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" fill="none" opacity="0.35"/>
+      <path d="M 28 23 A 20 20 0 0 1 28 57" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" fill="none" opacity="0.65"/>
+      <path d="M 28 32 A 10 10 0 0 1 28 48" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" fill="none" opacity="1"/>
+      <circle cx="28" cy="40" r="5.5" fill="#D46A1E"/>
+    </symbol>
+  </svg>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">
+      <svg width="28" height="28"><use href="#icon-blue"/></svg>
+      Clara
+    </a>
+    <a href="#story" class="nav-link">Historia</a>
+    <a href="#philosophy" class="nav-link">Filosofía</a>
+    <a href="#colors" class="nav-link">Colores</a>
+    <a href="#logo" class="nav-link">Logo</a>
+    <a href="#typography" class="nav-link">Tipografía</a>
+    <a href="#voice" class="nav-link">Voz</a>
+    <a href="#voice-first" class="nav-link">Voz Primero</a>
+    <a href="#personas" class="nav-link">Personas</a>
+    <a href="#expansion" class="nav-link">Expansión</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero" id="hero">
+    <svg class="hero-icon"><use href="#icon-blue"/></svg>
+    <h1>Clara</h1>
+    <p class="tagline">Tu voz tiene poder</p>
+    <p class="subtitle">Brand Book — Navegación Cívica por Voz<br>OdiseIA4Good 2026</p>
+  </div>
+
+  <!-- STORY -->
+  <section id="story">
+    <p class="section-label">01 — Historia</p>
+    <h2 class="section-title">De una voz ignorada a un derecho ejercido</h2>
+
+    <div class="story-block">
+      <h3>El Muro Invisible</h3>
+      <p>María tiene 58 años. Llegó de Casablanca hace tres meses. No lee español. No tiene email. No sabe que tiene derecho al empadronamiento, a la tarjeta sanitaria, al IMV.</p>
+      <p style="margin-top:12px">Un día su hija le dice: <span class="highlight">"Mamá, tienes derecho a un médico gratis."</span> María no lo cree. Su hija busca la información: una web oficial, 47 páginas en PDF, nivel de lectura universitario, solo en español.</p>
+      <p style="margin-top:12px">María no pide la tarjeta sanitaria. No porque no la necesite. <span class="highlight">Porque el sistema le dijo, sin palabras, que no era para ella.</span></p>
+    </div>
+
+    <blockquote>Esto pasa en toda España. Cada día, personas como María quedan fuera del sistema. El problema no es falta de información. La información existe. El problema es que es inaccesible para quien más la necesita.</blockquote>
+
+    <div class="story-block" style="margin-top:32px;">
+      <h3>Las barreras que nadie cuenta</h3>
+      <div style="display:grid; gap:20px; margin-top:16px;">
+
+        <div style="display:flex; gap:16px; align-items:center; padding:16px 20px; background:rgba(212,106,30,0.04); border-left:3px solid var(--orange); border-radius:0 12px 12px 0;">
+          <img src="personas/youssef-portrait.png" alt="Youssef, 30 años, Marruecos" style="width:72px; height:72px; border-radius:50%; object-fit:cover; flex-shrink:0; border:2px solid var(--orange);" />
+          <div>
+            <p style="font-weight:600; color:var(--orange); font-size:14px; margin-bottom:6px;">Youssef, 30 — No sabe leer</p>
+            <p>Lleva dos años en España. Habla español básico, pero nunca fue al colegio. No sabe leer ni en árabe ni en español. Cuando le dieron un formulario de empadronamiento, no pudo distinguir dónde escribir su nombre. Lo dejó en blanco y se fue. <span class="highlight">Clara le guía paso a paso por voz: "Donde dice nombre, escribe Youssef. ¿Necesitas que te lo deletree?"</span></p>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:16px; align-items:center; padding:16px 20px; background:rgba(27,94,123,0.04); border-left:3px solid var(--blue); border-radius:0 12px 12px 0;">
+          <img src="personas/aminata-portrait.png" alt="Aminata, 28 años, Senegal" style="width:72px; height:72px; border-radius:50%; object-fit:cover; flex-shrink:0; border:2px solid var(--blue);" />
+          <div>
+            <p style="font-weight:600; color:var(--blue); font-size:14px; margin-bottom:6px;">Aminata, 28 — No entiende las palabras</p>
+            <p>Preguntó en una oficina qué era el "empadronamiento." Le dijeron: "Es la inscripción en el padrón municipal que certifica tu domicilio habitual." Se quedó igual. No entendió una sola palabra después de "es." <span class="highlight">Clara dice: "Empadronamiento es decirle al ayuntamiento dónde vives. Es gratis. Y con eso puedes pedir médico."</span></p>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:16px; align-items:center; padding:16px 20px; background:rgba(46,125,79,0.04); border-left:3px solid var(--green); border-radius:0 12px 12px 0;">
+          <img src="personas/omar-portrait.png" alt="Omar, 25 años, Marruecos" style="width:72px; height:72px; border-radius:50%; object-fit:cover; flex-shrink:0; border:2px solid var(--green);" />
+          <div>
+            <p style="font-weight:600; color:var(--green); font-size:14px; margin-bottom:6px;">Omar, 25 — No se atreve a hablar</p>
+            <p>Entiende español, pero cada vez que llama a una oficina se bloquea. Le hablan rápido. Usa palabras que no conoce. Siente vergüenza de preguntar. Cuelga antes de que le atiendan. <span class="highlight">Con Clara no hay prisa. No hay juicio. Puede repetir la pregunta diez veces. Clara siempre responde con la misma paciencia.</span></p>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:16px; align-items:center; padding:16px 20px; background:rgba(212,106,30,0.04); border-left:3px solid var(--orange); border-radius:0 12px 12px 0;">
+          <img src="personas/fatou-portrait.png" alt="Fatou, 35 años, Senegal" style="width:72px; height:72px; border-radius:50%; object-fit:cover; flex-shrink:0; border:2px solid var(--orange);" />
+          <div>
+            <p style="font-weight:600; color:var(--orange); font-size:14px; margin-bottom:6px;">Fatou, 35 — No puede escribir un mensaje</p>
+            <p>Quiere pedir información sobre el IMV. Pero no sabe escribir "Ingreso Mínimo Vital" — ni en su idioma. Su hijo está en el colegio y no puede ayudarla. Solo sabe enviar notas de voz en WhatsApp. <span class="highlight">Clara entiende su nota de voz en wolof, le responde en francés por audio, y le dice exactamente qué documentos necesita.</span></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="story-block">
+      <h3>Por qué Clara</h3>
+      <p>Clara nace de una convicción: <span class="highlight">entender tus derechos no debería ser un privilegio.</span></p>
+      <p style="margin-top:12px">No es un chatbot. No es un asistente virtual. Clara es <span class="highlight">Navegación Cívica por Voz</span> — la primera tecnología que convierte la voz de una persona vulnerable en acceso real a sus derechos, en su idioma, sin leer, sin esperar, sin miedo.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="stat-number">17</div><div class="stat-label">Comunidades autónomas</div></div>
+      <div class="stat"><div class="stat-number">3+</div><div class="stat-label">Idiomas soportados</div></div>
+      <div class="stat"><div class="stat-number">8</div><div class="stat-label">Trámites en la base de conocimiento</div></div>
+      <div class="stat"><div class="stat-number">&lt;3s</div><div class="stat-label">Tiempo de respuesta</div></div>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section id="philosophy">
+    <p class="section-label">02 — Filosofía</p>
+    <h2 class="section-title">Tres principios</h2>
+    <p class="section-subtitle">Cada decisión de diseño, cada línea de código, cada palabra de Clara se basa en estos tres principios.</p>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="principle-num">01</div>
+        <h4>La voz es el interfaz más humano</h4>
+        <p>Antes de la escritura, antes de las pantallas, estaba la voz. Clara devuelve la tecnología a su forma más natural: una conversación. Si puedes hablar, puedes acceder a tus derechos.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-num">02</div>
+        <h4>Los trámites son derechos, no castigos</h4>
+        <p>Clara nunca dice "es obligatorio que..." Dice "tienes derecho a..." Reencuadra la burocracia como empoderamiento. Cada trámite completado es un derecho ejercido.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-num">03</div>
+        <h4>La accesibilidad no es un extra</h4>
+        <p>Clara no se "adapta" a personas vulnerables. Está diseñada desde cero para ellas. La accesibilidad no es una feature — es la arquitectura completa.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLORS -->
+  <section id="colors">
+    <p class="section-label">03 — Colores</p>
+    <h2 class="section-title">Cada color cuenta una historia</h2>
+    <p class="section-subtitle">Paleta diseñada para WCAG AAA, sensibilidad multicultural, y transmitir confianza institucional con calidez humana.</p>
+
+    <div class="color-grid">
+      <div class="color-card">
+        <div class="color-swatch" style="background:#1B5E7B"></div>
+        <div class="color-info">
+          <div class="color-name">Azul Confianza</div>
+          <div class="color-hex">#1B5E7B</div>
+          <div class="color-meaning">La estructura que sostiene. El gobierno accesible.</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#D46A1E"></div>
+        <div class="color-info">
+          <div class="color-name">Naranja Calidez</div>
+          <div class="color-hex">#D46A1E</div>
+          <div class="color-meaning">El momento de hablar. La activación. La chispa.</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#2E7D4F"></div>
+        <div class="color-info">
+          <div class="color-name">Verde Esperanza</div>
+          <div class="color-hex">#2E7D4F</div>
+          <div class="color-meaning">El trámite completado. El derecho ejercido.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:32px">
+      <p class="section-label">Proporción de uso</p>
+      <div style="display:flex; height:40px; border-radius:8px; overflow:hidden; margin-top:12px;">
+        <div style="background:#1B5E7B; flex:45; display:flex; align-items:center; justify-content:center; color:white; font-size:12px; font-weight:600;">45%</div>
+        <div style="background:#D46A1E; flex:15; display:flex; align-items:center; justify-content:center; color:white; font-size:12px; font-weight:600;">15%</div>
+        <div style="background:#2E7D4F; flex:10; display:flex; align-items:center; justify-content:center; color:white; font-size:12px; font-weight:600;">10%</div>
+        <div style="background:#F5F5F5; flex:30; display:flex; align-items:center; justify-content:center; color:#4A4A5A; font-size:12px; font-weight:600;">30%</div>
+      </div>
+      <div style="display:flex; margin-top:8px; font-size:11px; color:#9E9E9E;">
+        <div style="flex:45">Confianza</div>
+        <div style="flex:15">Calidez</div>
+        <div style="flex:10">Esperanza</div>
+        <div style="flex:30">Espacio</div>
+      </div>
+    </div>
+
+    <div class="color-grid" style="margin-top:32px">
+      <div class="color-card">
+        <div class="color-swatch" style="background:#FAFAFA; border-bottom:1px solid #E0E0E0;"></div>
+        <div class="color-info">
+          <div class="color-name">Fondo</div>
+          <div class="color-hex">#FAFAFA</div>
+          <div class="color-meaning">Espacio para respirar. Nunca blanco clínico.</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#1A1A2E"></div>
+        <div class="color-info">
+          <div class="color-name">Texto</div>
+          <div class="color-hex">#1A1A2E</div>
+          <div class="color-meaning">Contraste 15.2:1. Legible siempre.</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#E3F2FD; border-bottom:1px solid #E0E0E0;"></div>
+        <div class="color-info">
+          <div class="color-name">Info</div>
+          <div class="color-hex">#E3F2FD</div>
+          <div class="color-meaning">Burbujas de Clara. Información segura.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGO -->
+  <section id="logo">
+    <p class="section-label">04 — Logo</p>
+    <h2 class="section-title">Una voz que se propaga</h2>
+    <p class="section-subtitle">Tres arcos de onda sonora emanan de un punto central naranja. Cada arco es más tenue — como una voz que viaja lejos pero empieza íntima.</p>
+
+    <div class="logo-row">
+      <!-- Light panel -->
+      <div class="logo-panel logo-panel--light">
+        <svg width="100" height="100"><use href="#icon-blue"/></svg>
+        <div class="divider" style="width:100%; height:1px; background:#F0F0F0; margin:0;"></div>
+        <div class="logo-text">
+          <svg><use href="#icon-blue"/></svg>
+          <div>
+            <div class="logo-name" style="color:var(--blue);">Clara</div>
+            <div class="logo-tagline" style="color:var(--text2);">Tu voz tiene poder</div>
+          </div>
+        </div>
+      </div>
+      <!-- Dark panel -->
+      <div class="logo-panel logo-panel--dark">
+        <svg width="100" height="100"><use href="#icon-white"/></svg>
+        <div class="divider" style="width:100%; height:1px; background:rgba(255,255,255,0.15); margin:0;"></div>
+        <div class="logo-text">
+          <svg><use href="#icon-white"/></svg>
+          <div>
+            <div class="logo-name" style="color:white;">Clara</div>
+            <div class="logo-tagline" style="color:rgba(255,255,255,0.72);">Tu voz tiene poder</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scales -->
+    <p class="section-label" style="margin-top:40px;">Legibilidad a distintas escalas</p>
+    <div class="scale-row">
+      <div class="scale-item">
+        <div style="background:white; border:1px solid var(--border); border-radius:8px; padding:8px; display:flex; align-items:center; justify-content:center;">
+          <svg width="120" height="120"><use href="#icon-blue"/></svg>
+        </div>
+        <span class="scale-label">120px</span>
+      </div>
+      <div class="scale-item">
+        <div style="background:white; border:1px solid var(--border); border-radius:8px; padding:6px; display:flex; align-items:center; justify-content:center;">
+          <svg width="64" height="64"><use href="#icon-blue"/></svg>
+        </div>
+        <span class="scale-label">64px</span>
+      </div>
+      <div class="scale-item">
+        <div style="background:white; border:1px solid var(--border); border-radius:8px; padding:4px; display:flex; align-items:center; justify-content:center;">
+          <svg width="32" height="32"><use href="#icon-blue"/></svg>
+        </div>
+        <span class="scale-label">32px</span>
+      </div>
+      <div class="scale-item">
+        <div style="background:white; border:1px solid var(--border); border-radius:8px; padding:4px; display:flex; align-items:center; justify-content:center;">
+          <svg width="16" height="16"><use href="#icon-blue"/></svg>
+        </div>
+        <span class="scale-label">16px</span>
+      </div>
+      <div class="scale-item">
+        <div style="background:var(--blue); border-radius:8px; padding:8px; display:flex; align-items:center; justify-content:center;">
+          <svg width="64" height="64"><use href="#icon-white"/></svg>
+        </div>
+        <span class="scale-label">64px oscuro</span>
+      </div>
+      <div class="scale-item">
+        <div style="background:var(--blue); border-radius:8px; padding:4px; display:flex; align-items:center; justify-content:center;">
+          <svg width="32" height="32"><use href="#icon-white"/></svg>
+        </div>
+        <span class="scale-label">32px oscuro</span>
+      </div>
+    </div>
+
+    <!-- Meaning -->
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:16px; margin-top:40px;">
+      <div style="background:white; border:1px solid var(--border); border-radius:12px; padding:20px; text-align:center;">
+        <div style="width:12px; height:12px; border-radius:50%; background:var(--orange); margin:0 auto 8px;"></div>
+        <div style="font-weight:600; font-size:14px; color:var(--text);">Punto central</div>
+        <div style="font-size:12px; color:var(--text2);">El momento de hablar</div>
+      </div>
+      <div style="background:white; border:1px solid var(--border); border-radius:12px; padding:20px; text-align:center;">
+        <div style="width:24px; height:12px; border:2px solid var(--blue); border-radius:0 12px 12px 0; border-left:none; margin:0 auto 8px;"></div>
+        <div style="font-weight:600; font-size:14px; color:var(--text);">Arco interno</div>
+        <div style="font-size:12px; color:var(--text2);">La voz personal</div>
+      </div>
+      <div style="background:white; border:1px solid var(--border); border-radius:12px; padding:20px; text-align:center;">
+        <div style="width:32px; height:16px; border:2px solid var(--blue); border-radius:0 16px 16px 0; border-left:none; margin:0 auto 8px; opacity:0.65;"></div>
+        <div style="font-weight:600; font-size:14px; color:var(--text);">Arco medio</div>
+        <div style="font-size:12px; color:var(--text2);">La voz que viaja</div>
+      </div>
+      <div style="background:white; border:1px solid var(--border); border-radius:12px; padding:20px; text-align:center;">
+        <div style="width:40px; height:20px; border:2px solid var(--blue); border-radius:0 20px 20px 0; border-left:none; margin:0 auto 8px; opacity:0.35;"></div>
+        <div style="font-weight:600; font-size:14px; color:var(--text);">Arco externo</div>
+        <div style="font-size:12px; color:var(--text2);">El impacto</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section id="typography">
+    <p class="section-label">05 — Tipografía</p>
+    <h2 class="section-title">Legibilidad es un derecho</h2>
+    <p class="section-subtitle">Dos fuentes elegidas por accesibilidad, no por estética. Si alguien con 60 años en un móvil viejo no lo puede leer, es demasiado pequeño.</p>
+
+    <div class="type-sample">
+      <div class="type-name">Atkinson Hyperlegible — Titulares</div>
+      <div class="type-display">Tus derechos, en tu idioma</div>
+      <p style="font-size:13px; color:var(--text2); margin-top:8px;">Creada por el Braille Institute para personas con baja visión. Cada carácter es único e inconfundible.</p>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-name">Inter — Texto de cuerpo</div>
+      <div class="type-body">Para pedir el empadronamiento necesitas: tu pasaporte o DNI, un contrato de alquiler o recibo a tu nombre, y pedir cita en tu ayuntamiento. Es más fácil de lo que parece.</div>
+      <p style="font-size:13px; color:var(--text2); margin-top:8px;">Optimizada para pantallas. Legible a cualquier tamaño. Funciona en español, francés, árabe.</p>
+    </div>
+
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:16px; margin-top:24px;">
+      <div style="background:white; border:1px solid var(--border); border-radius:12px; padding:20px; text-align:center;">
+        <div style="font-family:'Atkinson Hyperlegible'; font-size:32px; font-weight:700; color:var(--blue);">18px</div>
+        <div style="font-size:12px; color:var(--text2);">Tamaño mínimo</div>
+      </div>
+      <div style="background:white; border:1px solid var(--border); border-radius:12px; padding:20px; text-align:center;">
+        <div style="font-family:'Atkinson Hyperlegible'; font-size:32px; font-weight:700; color:var(--blue);">7:1</div>
+        <div style="font-size:12px; color:var(--text2);">Contraste WCAG AAA</div>
+      </div>
+      <div style="background:white; border:1px solid var(--border); border-radius:12px; padding:20px; text-align:center;">
+        <div style="font-family:'Atkinson Hyperlegible'; font-size:32px; font-weight:700; color:var(--blue);">1.6</div>
+        <div style="font-size:12px; color:var(--text2);">Line-height</div>
+      </div>
+      <div style="background:white; border:1px solid var(--border); border-radius:12px; padding:20px; text-align:center;">
+        <div style="font-family:'Atkinson Hyperlegible'; font-size:32px; font-weight:700; color:var(--blue);">70</div>
+        <div style="font-size:12px; color:var(--text2);">Max caracteres/línea</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOICE / EVI -->
+  <section id="voice">
+    <p class="section-label">06 — Voz y Tono</p>
+    <h2 class="section-title">Empatizar. Validar. Informar.</h2>
+    <p class="section-subtitle">Cada respuesta de Clara sigue tres pasos. Empatía antes que información. Siempre.</p>
+
+    <div class="evi">
+      <div class="evi-step">
+        <div class="evi-label">Paso 1</div>
+        <h4>Empatizar</h4>
+        <p class="evi-example">"Entiendo que llevar meses esperando es agotador."</p>
+        <p style="font-size:13px; color:var(--text2); margin-top:8px;">Nombra la emoción. Una frase. Nunca la salta.</p>
+      </div>
+      <div class="evi-step">
+        <div class="evi-label">Paso 2</div>
+        <h4>Validar</h4>
+        <p class="evi-example">"Tienes todo el derecho a recibir una respuesta."</p>
+        <p style="font-size:13px; color:var(--text2); margin-top:8px;">Confirma que su preocupación es legítima.</p>
+      </div>
+      <div class="evi-step">
+        <div class="evi-label">Paso 3</div>
+        <h4>Informar</h4>
+        <p class="evi-example">"1. Busca el resguardo. 2. Mientras lo tengas, puedes trabajar."</p>
+        <p style="font-size:13px; color:var(--text2); margin-top:8px;">Max 4 pasos. Termina con siguiente acción.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:40px;">
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+        <div class="story-block" style="border-left: 4px solid var(--green); margin:0;">
+          <h3 style="color:var(--green); font-size:14px;">Clara SÍ dice</h3>
+          <p>"Tienes todo el derecho a esto."</p>
+          <p>"Vamos paso a paso, sin prisa."</p>
+          <p>"Tiene varios pasos, pero vamos uno a uno."</p>
+          <p>"Si algo no queda claro, pregúntame otra vez."</p>
+        </div>
+        <div class="story-block" style="border-left: 4px solid #C62828; margin:0;">
+          <h3 style="color:#C62828; font-size:14px;">Clara NUNCA dice</h3>
+          <p>"Es tu responsabilidad."</p>
+          <p>"Deberías haber..."</p>
+          <p>"Es complicado."</p>
+          <p>"Como ya te dije..."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOICE-FIRST -->
+  <section id="voice-first">
+    <p class="section-label">07 — Voz Primero</p>
+    <h2 class="section-title">Sin leer. Sin escribir. Sin esperar.</h2>
+    <p class="section-subtitle">Clara funciona por voz porque millones de personas no pueden leer formularios, navegar webs ni escribir emails. La voz es el único interfaz verdaderamente universal.</p>
+
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap:20px; margin-top:32px;">
+      <div class="story-block" style="text-align:center; padding:32px;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:16px;">
+          <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
+          <path d="M19 10v2a7 7 0 01-14 0v-2"/>
+          <line x1="12" y1="19" x2="12" y2="23"/>
+          <line x1="8" y1="23" x2="16" y2="23"/>
+        </svg>
+        <h4 style="font-size:16px; color:var(--blue); margin-bottom:8px;">Entrada por voz</h4>
+        <p style="font-size:14px; color:var(--text2);">Habla en tu idioma. Whisper transcribe. No necesitas escribir nada.</p>
+      </div>
+      <div class="story-block" style="text-align:center; padding:32px;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:16px;">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+        </svg>
+        <h4 style="font-size:16px; color:var(--blue); margin-bottom:8px;">Multilingüe real</h4>
+        <p style="font-size:14px; color:var(--text2);">Español, francés, árabe y darija. Clara detecta tu idioma y responde en él.</p>
+      </div>
+      <div class="story-block" style="text-align:center; padding:32px;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:16px;">
+          <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+          <path d="M19.07 4.93a10 10 0 010 14.14"/>
+          <path d="M15.54 8.46a5 5 0 010 7.07"/>
+        </svg>
+        <h4 style="font-size:16px; color:var(--blue); margin-bottom:8px;">Respuesta por audio</h4>
+        <p style="font-size:14px; color:var(--text2);">Clara responde con voz cálida. Si no sabes leer, escuchas. Tan simple como una llamada.</p>
+      </div>
+    </div>
+
+    <div class="story-block" style="margin-top:32px; padding:24px 28px; background:rgba(27,94,123,0.03);">
+      <h4 style="font-size:15px; color:var(--blue); margin-bottom:16px;">Lo que cambia cuando la voz es el interfaz</h4>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; font-size:14px;">
+        <div style="padding:12px 16px; background:rgba(212,106,30,0.06); border-radius:8px;">
+          <strong style="color:var(--orange);">Antes:</strong> Un formulario de 4 páginas en español jurídico
+        </div>
+        <div style="padding:12px 16px; background:rgba(46,125,79,0.06); border-radius:8px;">
+          <strong style="color:var(--green);">Con Clara:</strong> "¿Tienes pasaporte y contrato de alquiler? Entonces puedes empadronarte."
+        </div>
+        <div style="padding:12px 16px; background:rgba(212,106,30,0.06); border-radius:8px;">
+          <strong style="color:var(--orange);">Antes:</strong> "Acreditar residencia efectiva mediante certificado de convivencia"
+        </div>
+        <div style="padding:12px 16px; background:rgba(46,125,79,0.06); border-radius:8px;">
+          <strong style="color:var(--green);">Con Clara:</strong> "Necesitas demostrar que vives ahí. Puede ser un recibo de luz."
+        </div>
+        <div style="padding:12px 16px; background:rgba(212,106,30,0.06); border-radius:8px;">
+          <strong style="color:var(--orange);">Antes:</strong> Llamar al 010, esperar 40 minutos, no entender la respuesta
+        </div>
+        <div style="padding:12px 16px; background:rgba(46,125,79,0.06); border-radius:8px;">
+          <strong style="color:var(--green);">Con Clara:</strong> Un audio de 30 segundos en tu idioma, a cualquier hora
+        </div>
+      </div>
+    </div>
+
+    <blockquote style="margin-top:32px; text-align:center; font-size:16px;">
+      Si puedes hablar, puedes acceder a tus derechos. No importa tu idioma. No importa si sabes leer. Tu voz es suficiente.
+    </blockquote>
+  </section>
+
+  <!-- PERSONAS -->
+  <section id="personas">
+    <p class="section-label">08 — Personas</p>
+    <h2 class="section-title">Para quién existe Clara</h2>
+    <p class="section-subtitle">Tres personas reales. Tres barreras diferentes. Una misma solución.</p>
+
+    <div class="persona-grid">
+      <div class="persona">
+        <div class="persona-header">
+          <div class="persona-avatar"><img src="personas/maria-portrait.png" alt="María, 58 años, Marruecos"/></div>
+          <div>
+            <h4>María</h4>
+            <span class="age">58 años — Marruecos</span>
+          </div>
+        </div>
+        <p><strong>No lee ni escribe español.</strong> Solo habla darija y algo de francés. Usa WhatsApp con notas de voz porque es lo único que sabe usar. Su hija le dijo que tiene derechos pero no sabe cuáles ni cómo pedirlos. <strong>Clara le habla en su idioma</strong> y le dice paso a paso qué hacer — todo por voz.</p>
+        <blockquote style="margin-top:12px; font-size:13px; padding:8px 12px; border-left:3px solid var(--orange); background:rgba(212,106,30,0.04);">"Solo quiero saber si tengo derecho a ver un médico."</blockquote>
+      </div>
+      <div class="persona">
+        <div class="persona-header">
+          <div class="persona-avatar"><img src="personas/ahmed-portrait.png" alt="Ahmed, 34 años, Senegal"/></div>
+          <div>
+            <h4>Ahmed</h4>
+            <span class="age">34 años — Senegal</span>
+          </div>
+        </div>
+        <p>Habla wolof y francés. <strong>No sabe navegar webs ni rellenar formularios.</strong> Trabaja 10 horas al día. No puede ir a una oficina en horario laboral. <strong>Clara le responde por voz a las 11 de la noche</strong>, en francés, cuando él puede.</p>
+        <blockquote style="margin-top:12px; font-size:13px; padding:8px 12px; border-left:3px solid var(--blue); background:rgba(27,94,123,0.04);">"Trabajo todo el día. No puedo llamar a nadie. Necesito algo que funcione de noche."</blockquote>
+      </div>
+      <div class="persona">
+        <div class="persona-header">
+          <div class="persona-avatar"><img src="personas/fatima-portrait.png" alt="Fátima, 42 años, Marruecos"/></div>
+          <div>
+            <h4>Fátima</h4>
+            <span class="age">42 años — Marruecos</span>
+          </div>
+        </div>
+        <p>Habla árabe y algo de español oral, pero <strong>no sabe leer ni escribir en ningún idioma.</strong> Madre de tres niños que necesitan tarjeta sanitaria. Le da vergüenza preguntar. <strong>Clara le responde por voz en árabe</strong>, sin juzgar, sin prisa. Clara valida. Clara informa.</p>
+        <blockquote style="margin-top:12px; font-size:13px; padding:8px 12px; border-left:3px solid var(--green); background:rgba(46,125,79,0.04);">"No quiero molestar, pero mis hijos necesitan un médico."</blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPANSION -->
+  <section id="expansion">
+    <p class="section-label">09 — Visión de Expansión</p>
+    <h2 class="section-title">De España al mundo</h2>
+    <p class="section-subtitle">Clara nace en España, pero el muro invisible existe en toda Europa. La voz no tiene fronteras.</p>
+
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:20px; margin-top:32px;">
+      <div class="story-block" style="text-align:center; padding:32px;">
+        <div style="font-size:36px; margin-bottom:8px;">&#x1F1EA;&#x1F1F8;</div>
+        <h4 style="font-size:16px; color:var(--blue);">Fase 1 — España</h4>
+        <p style="font-size:14px; margin-top:8px;">17 CCAA, 8 trámites, 3 idiomas. WhatsApp + Web.</p>
+      </div>
+      <div class="story-block" style="text-align:center; padding:32px;">
+        <div style="font-size:36px; margin-bottom:8px;">&#x1F1EA;&#x1F1FA;</div>
+        <h4 style="font-size:16px; color:var(--blue);">Fase 2 — Europa</h4>
+        <p style="font-size:14px; margin-top:8px;">Francia, Italia, Alemania. Misma tecnología, nuevas leyes.</p>
+      </div>
+      <div class="story-block" style="text-align:center; padding:32px;">
+        <div style="font-size:36px; margin-bottom:8px;">&#x1F30D;</div>
+        <h4 style="font-size:16px; color:var(--blue);">Fase 3 — Global</h4>
+        <p style="font-size:14px; margin-top:8px;">Donde haya burocracia y personas vulnerables, Clara puede llegar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <svg width="32" height="32" style="margin-bottom:12px;"><use href="#icon-blue"/></svg>
+    <p><strong>Clara</strong> — Tu voz tiene poder</p>
+    <p style="margin-top:4px;">Navegación Cívica por Voz — OdiseIA4Good 2026 — UDIT Madrid</p>
+  </footer>
+
+</body>
+</html>

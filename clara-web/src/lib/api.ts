@@ -223,6 +223,24 @@ export function getErrorMessage(
         actionLabel: "Reessayer",
       },
     },
+    ar: {
+      network: {
+        message: "يبدو أنه لا يوجد اتصال. تحقق من الواي فاي أو بيانات الهاتف.",
+        actionLabel: "إعادة المحاولة",
+      },
+      timeout: {
+        message: "يستغرق الأمر وقتاً أطول من المعتاد. لحظة...",
+        actionLabel: "انتظار",
+      },
+      audio: {
+        message: "لم أتمكن من فهم الصوت. هل يمكنك الإعادة أو الكتابة؟",
+        actionLabel: "كتابة",
+      },
+      server: {
+        message: "حدث خطأ ما. حاول مرة أخرى.",
+        actionLabel: "إعادة المحاولة",
+      },
+    },
   };
 
   const display = messages[lang][error.category];

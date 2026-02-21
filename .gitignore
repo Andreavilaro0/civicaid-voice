@@ -46,10 +46,18 @@ htmlcov/
 
 # Audio temp files
 *.wav
-!data/demo/*.ogg
+!back/data/demo/*.ogg
 
 # TTS-generated cache files (runtime artifacts)
-data/cache/tts_*.mp3
+back/data/cache/tts_*.mp3
+
+# Node
+node_modules/
+
+# iCloud/Finder duplicates
+*\ 2.*
+*\ 2
 
 # Logs
 *.log
+.mcp.json

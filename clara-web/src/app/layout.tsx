@@ -20,6 +20,18 @@ export const metadata: Metadata = {
   description:
     "Asistente de voz que te ayuda con tramites sociales en Espana. Habla o escribe en tu idioma.",
   manifest: "/manifest.json",
+  openGraph: {
+    title: "Clara — Tu voz tiene poder",
+    description: "Navegacion civica por voz. Ayuda con tramites sociales en Espana, en tu idioma.",
+    type: "website",
+    locale: "es_ES",
+    siteName: "Clara — CivicAid Voice",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Clara — Tu voz tiene poder",
+    description: "Navegacion civica por voz para personas vulnerables en Espana.",
+  },
 };
 
 export const viewport: Viewport = {
@@ -36,6 +48,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className={`${inter.variable} ${atkinson.variable}`}>
+      <head />
       <body className="bg-clara-bg text-clara-text font-body antialiased min-h-screen">
         <a
           href="#main-content"
