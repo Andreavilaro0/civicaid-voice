@@ -1,6 +1,7 @@
 """Orchestrator: receives IncomingMessage, executes skills in order, sends response."""
 
 import time
+import threading
 from src.core.models import (
     IncomingMessage, InputType, FinalResponse, CacheResult,
     TranscriptResult, KBContext, LLMResponse,
@@ -24,6 +25,41 @@ from src.core.memory.update import update_memory_after_response
 from src.utils.logger import log_cache, log_error, log_memory, log_observability, log_pipeline_result
 from src.utils.observability import get_context
 
+# ── Inactivity follow-up tracking ──
+# {phone_number: {"timestamp": float, "language": str, "timer": Timer}}
+_user_activity: dict[str, dict] = {}
+_activity_lock = threading.Lock()
+FOLLOWUP_DELAY = 300  # 5 minutes
+
+
+def _schedule_followup(phone: str, language: str) -> None:
+    """Schedule a follow-up message after FOLLOWUP_DELAY seconds of inactivity."""
+    if config.WHATSAPP_PROVIDER != "meta":
+        return
+    with _activity_lock:
+        # Cancel previous timer
+        prev = _user_activity.get(phone)
+        if prev and prev.get("timer"):
+            prev["timer"].cancel()
+        # Schedule new timer
+        timer = threading.Timer(FOLLOWUP_DELAY, _send_followup_if_idle, args=[phone, language, time.time()])
+        timer.daemon = True
+        timer.start()
+        _user_activity[phone] = {"timestamp": time.time(), "language": language, "timer": timer}
+
+
+def _send_followup_if_idle(phone: str, language: str, scheduled_at: float) -> None:
+    """Send follow-up only if user hasn't sent anything since scheduled_at."""
+    with _activity_lock:
+        entry = _user_activity.get(phone)
+        if not entry or entry["timestamp"] > scheduled_at:
+            return  # User sent a message after this was scheduled
+    try:
+        from src.core.skills.send_response_meta import send_followup
+        send_followup(phone, language)
+    except Exception as e:
+        log_error("followup_timer", str(e))
+
 
 def _build_media_url(audio_file: str | None) -> str | None:
     """Build public URL for cached audio file."""
@@ -40,33 +76,34 @@ def process(msg: IncomingMessage) -> None:
     ctx = get_context()
 
     try:
-        # --- COMMAND DETECTION (menu, reiniciar, etc.) ---
+        # --- GREETING DETECTION → Welcome flow ---
         cmd_text = text.strip().lower().replace("/", "")
-        if cmd_text in ("menu", "inicio", "start", "hola", "reiniciar", "clear", "borrar"):
+        is_greeting = cmd_text in ("hola", "hi", "hello", "salut", "bonjour", "مرحبا", "start", "inicio")
+        is_restart = cmd_text in ("menu", "reiniciar", "restart", "clear", "borrar", "reset")
+
+        if is_greeting or is_restart:
+            lang_detected = detect_language(text, phone=msg.from_number) if text else "es"
             if config.WHATSAPP_PROVIDER == "meta":
-                from src.core.skills.send_response_meta import send_interactive_menu
-                lang_detected = detect_language(text, phone=msg.from_number) if text else "es"
-                send_interactive_menu(msg.from_number, lang_detected)
-                return
+                from src.core.skills.send_response_meta import send_welcome
+                send_welcome(msg.from_number, lang_detected)
             else:
-                # Twilio: send text menu
                 elapsed_ms = int((time.time() - start) * 1000)
-                menu_text = (
-                    "Hola, soy Clara. ¿En qué puedo ayudarte?\n\n"
-                    "1️⃣ ¿Qué es el IMV?\n"
-                    "2️⃣ Empadronamiento\n"
-                    "3️⃣ Tarjeta sanitaria\n"
-                    "4️⃣ NIE/TIE\n\n"
-                    "Escribe tu pregunta o elige un número."
-                )
                 response = FinalResponse(
                     to_number=msg.from_number,
-                    body=menu_text,
-                    source="menu",
+                    body=(
+                        "👋 *Hola, soy Clara.*\n\n"
+                        "Te ayudo con trámites sociales en España.\n\n"
+                        "1️⃣ ¿Qué es el IMV?\n"
+                        "2️⃣ Empadronamiento\n"
+                        "3️⃣ Tarjeta sanitaria\n"
+                        "4️⃣ NIE/TIE\n\n"
+                        "Escribe tu pregunta o elige un número."
+                    ),
+                    source="welcome",
                     total_ms=elapsed_ms,
                 )
                 send_final_message(response)
-                return
+            return
 
         # --- INTERACTIVE BUTTON REPLIES (Meta) ---
         if text.startswith("btn_"):
@@ -74,8 +111,19 @@ def process(msg: IncomingMessage) -> None:
                 "btn_imv": "¿Qué es el IMV?",
                 "btn_empadronamiento": "¿Cómo me empadrono?",
                 "btn_salud": "¿Cómo saco la tarjeta sanitaria?",
+                "btn_continue": "",  # Continue = do nothing
+                "btn_restart": "RESTART",
             }
-            text = button_map.get(text, text)
+            mapped = button_map.get(text, text)
+            if mapped == "":
+                return  # "Seguir conversación" = do nothing
+            if mapped == "RESTART":
+                lang_detected = detect_language("", phone=msg.from_number)
+                if config.WHATSAPP_PROVIDER == "meta":
+                    from src.core.skills.send_response_meta import send_welcome
+                    send_welcome(msg.from_number, lang_detected)
+                return
+            text = mapped
 
         # --- GUARDRAILS PRE-CHECK ---
         if config.GUARDRAILS_ON:
@@ -350,6 +398,9 @@ def process(msg: IncomingMessage) -> None:
             total_ms=elapsed_ms,
         )
         send_final_message(response)
+
+        # --- SCHEDULE FOLLOW-UP (5 min inactivity) ---
+        _schedule_followup(msg.from_number, language)
 
     except Exception as e:
         log_error("pipeline", str(e))
