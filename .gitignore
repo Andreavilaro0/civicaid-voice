@@ -58,6 +58,25 @@ node_modules/
 *\ 2.*
 *\ 2
 
+# Heavy media — served from ImageKit CDN (https://ik.imagekit.io/xwvrhiauz/hackaton/)
+# Clase assets (presentations, design)
+clase/**/*.mp3
+clase/**/*.mp4
+clase/**/*.png
+clase/**/*.pdf
+clase/**/*.pptx
+clase/**/*.svg
+# Frontend media
+clara-web/public/**/*.mp3
+clara-web/public/**/*.png
+clara-web/design/**/*.pdf
+front/public/**/*.mp3
+front/public/**/*.png
+front/dist/
+# Docs binary
+docs/**/*.pdf
+
 # Logs
 *.log
 .mcp.json
+upload_to_imagekit.sh

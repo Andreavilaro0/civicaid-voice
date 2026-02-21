@@ -446,6 +446,107 @@ export const FOOTER_SECTION: Record<Language, {
 };
 
 /* ------------------------------------------------------------------ */
+/*  Quienes Somos — SB7 narrative (E-V-I pattern)                     */
+/* ------------------------------------------------------------------ */
+
+export const QUIENES_SOMOS_STORY: Record<Language, {
+  empatizar: { title: string; body: string; stat: string };
+  validar: { title: string; body: string; closing: string };
+  momento: { title: string; body: string };
+  equipo: {
+    title: string;
+    intro: string;
+    members: { name: string; role: string }[];
+  };
+  cta: { title: string; body: string; button: string };
+}> = {
+  es: {
+    empatizar: {
+      title: "Esto no deberia ser tan dificil",
+      body: "Sabemos lo que es sentarse en una oficina publica sin entender una palabra. Ese nudo en el estomago cuando te dan un formulario de cuatro paginas en espanol juridico. Ese miedo a preguntar porque no quieres molestar. Esa sensacion de que el sistema no fue hecho para ti.",
+      stat: "No estas sola. 4.5 millones de personas en Espana pasan por esto cada dia.",
+    },
+    validar: {
+      title: "Entender tus derechos no deberia ser un privilegio",
+      body: "Si vives en Espana, tienes derechos. Derecho a la sanidad. Derecho al empadronamiento. Derecho a ayudas economicas si las necesitas. Pero acceder a ellos requiere navegar un laberinto de formularios, webs y oficinas que no fueron disenados pensando en ti.",
+      closing: "Eso no esta bien.",
+    },
+    momento: {
+      title: "Por eso existe Clara",
+      body: "En febrero de 2026, cinco personas nos sentamos en un hackathon con una pregunta: Y si pudieras acceder a tus derechos simplemente hablando?\n\nNo queriamos construir otro chatbot. Queriamos construir algo que funcionara como funciona la vida real: le cuentas a alguien tu situacion, y esa persona te dice exactamente que hacer, paso a paso, en tu idioma.\n\nAsi nacio Clara.",
+    },
+    equipo: {
+      title: "Quienes somos",
+      intro: "No somos los heroes de esta historia — los heroes sois vosotros.",
+      members: [
+        { name: "Andrea", role: "Creadora de Clara" },
+      ],
+    },
+    cta: {
+      title: "Tu voz tiene poder",
+      body: "Clara esta lista para ayudarte. Habla o escribe en tu idioma.",
+      button: "Habla con Clara ahora",
+    },
+  },
+  fr: {
+    empatizar: {
+      title: "Ca ne devrait pas etre aussi difficile",
+      body: "Nous savons ce que c'est de s'asseoir dans un bureau public sans comprendre un mot. Ce noeud dans l'estomac quand on te donne un formulaire de quatre pages en espagnol juridique. Cette peur de demander parce que tu ne veux pas deranger.",
+      stat: "Tu n'es pas seule. 4,5 millions de personnes en Espagne vivent ca chaque jour.",
+    },
+    validar: {
+      title: "Comprendre tes droits ne devrait pas etre un privilege",
+      body: "Si tu vis en Espagne, tu as des droits. Droit a la sante. Droit a l'inscription municipale. Droit aux aides economiques si tu en as besoin. Mais y acceder exige de naviguer un labyrinthe de formulaires et de bureaux qui n'ont pas ete concus pour toi.",
+      closing: "Ce n'est pas normal.",
+    },
+    momento: {
+      title: "C'est pour ca que Clara existe",
+      body: "En fevrier 2026, cinq personnes se sont assises a un hackathon avec une question: Et si tu pouvais acceder a tes droits simplement en parlant?\n\nNous ne voulions pas construire un autre chatbot. Nous voulions construire quelque chose qui fonctionne comme la vraie vie: tu racontes ta situation, et on te dit exactement quoi faire, etape par etape, dans ta langue.\n\nC'est ainsi que Clara est nee.",
+    },
+    equipo: {
+      title: "Qui sommes-nous",
+      intro: "Nous ne sommes pas les heros de cette histoire — les heros, c'est vous.",
+      members: [
+        { name: "Andrea", role: "Creatrice de Clara" },
+      ],
+    },
+    cta: {
+      title: "Ta voix a du pouvoir",
+      body: "Clara est prete a t'aider. Parle ou ecris dans ta langue.",
+      button: "Parle avec Clara maintenant",
+    },
+  },
+  ar: {
+    empatizar: {
+      title: "لا ينبغي أن يكون الأمر بهذه الصعوبة",
+      body: "نعرف ما يعنيه أن تجلس في مكتب حكومي دون أن تفهم كلمة واحدة. تلك العقدة في المعدة عندما يعطونك استمارة من أربع صفحات بالإسبانية القانونية. ذلك الخوف من السؤال لأنك لا تريد أن تزعج أحداً.",
+      stat: "لست وحدك. 4.5 مليون شخص في إسبانيا يمرون بهذا كل يوم.",
+    },
+    validar: {
+      title: "فهم حقوقك لا ينبغي أن يكون امتيازاً",
+      body: "إذا كنت تعيش في إسبانيا، لديك حقوق. الحق في الرعاية الصحية. الحق في التسجيل البلدي. الحق في المساعدات الاقتصادية إذا كنت بحاجة إليها. لكن الوصول إليها يتطلب التنقل في متاهة من الاستمارات والمواقع والمكاتب التي لم تُصمم من أجلك.",
+      closing: "هذا ليس عدلاً.",
+    },
+    momento: {
+      title: "لهذا وُلدت كلارا",
+      body: "في فبراير 2026، جلس خمسة أشخاص في هاكاثون مع سؤال واحد: ماذا لو كان بإمكانك الوصول إلى حقوقك بمجرد التحدث؟\n\nلم نكن نريد بناء روبوت محادثة آخر. أردنا بناء شيء يعمل كما تعمل الحياة الحقيقية: تحكي وضعك، ويقول لك أحدهم بالضبط ماذا تفعل، خطوة بخطوة، بلغتك.\n\nهكذا وُلدت كلارا.",
+    },
+    equipo: {
+      title: "من نحن",
+      intro: "لسنا أبطال هذه القصة — الأبطال أنتم.",
+      members: [
+        { name: "Andrea", role: "صانعة كلارا" },
+      ],
+    },
+    cta: {
+      title: "صوتك له قوة",
+      body: "كلارا جاهزة لمساعدتك. تحدث أو اكتب بلغتك.",
+      button: "تحدث مع كلارا الآن",
+    },
+  },
+};
+
+/* ------------------------------------------------------------------ */
 /*  Sub-page titles                                                   */
 /* ------------------------------------------------------------------ */
 
