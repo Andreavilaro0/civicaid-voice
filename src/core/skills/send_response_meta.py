@@ -158,32 +158,6 @@ def send_welcome(to_number: str, language: str = "es") -> bool:
     except Exception as e:
         log_error("send_welcome_audio", str(e))
 
-    # 3. Send interactive menu
-    try:
-        payload = {
-            "messaging_product": "whatsapp",
-            "to": to_number,
-            "type": "interactive",
-            "interactive": {
-                "type": "button",
-                "body": {"text": {
-                    "es": "¿Sobre qué tema quieres preguntar?",
-                    "fr": "Sur quel sujet veux-tu demander?",
-                    "ar": "عن أي موضوع تريد أن تسأل؟",
-                }.get(language, "¿Sobre qué tema quieres preguntar?")},
-                "action": {
-                    "buttons": [
-                        {"type": "reply", "reply": btn}
-                        for btn in w["buttons"]
-                    ],
-                },
-            },
-        }
-        resp = requests.post(_url(), json=payload, headers=_headers(), timeout=10)
-        resp.raise_for_status()
-    except Exception as e:
-        log_error("send_welcome_menu", str(e))
-
     return True
 
 
