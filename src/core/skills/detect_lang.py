@@ -1,72 +1,87 @@
-"""Detect language of text using langdetect with Spanish keyword hints."""
+"""Detect language of text using langdetect with keyword hints."""
 
 from langdetect import detect, LangDetectException
 from src.utils.timing import timed
 
-# Keywords that strongly indicate Spanish — covers tramites vocabulary
+# Only UNAMBIGUOUS keywords per language (no shared words like "como", "que")
 _ES_KEYWORDS = {
-    "hola", "que", "como", "ayuda", "necesito", "quiero", "gracias",
+    "hola", "necesito", "quiero", "gracias", "ayuda",
     "imv", "empadronamiento", "empadron", "padron", "tarjeta", "sanitaria",
     "tramite", "cita", "previa", "medico", "seguridad", "social",
-    "buenas", "buenos", "dias", "tardes", "noches",
+    "buenas", "buenos", "noches",
 }
 
-# Keywords that strongly indicate French
 _FR_KEYWORDS = {
-    "bonjour", "salut", "merci", "comment", "aide", "besoin",
-    "carte", "mairie", "inscrire", "inscription", "domicile",
+    "bonjour", "salut", "merci", "besoin", "demarche",
+    "mairie", "inscrire", "inscription", "domicile", "papiers",
+    "oui", "non", "pourquoi", "quand",
 }
 
-# Keywords that strongly indicate English
 _EN_KEYWORDS = {
     "hello", "hi", "hey", "help", "need", "want", "please", "thanks",
-    "thank", "how", "what", "where", "registration", "appointment",
+    "thank", "how", "what", "where", "when", "why", "the", "is", "are",
+    "my", "can", "could", "would", "should", "about", "with",
+    "registration", "appointment", "document", "benefits",
+    "i", "you", "your", "do", "does", "have",
 }
 
-# Keywords that strongly indicate Portuguese
 _PT_KEYWORDS = {
-    "ola", "oi", "obrigado", "obrigada", "preciso", "ajuda", "por favor",
-    "como", "onde", "registo", "consulta", "documento",
+    "ola", "oi", "obrigado", "obrigada", "preciso",
+    "onde", "registo", "consulta", "por favor",
+    "nao", "sim", "tenho", "posso", "quero",
 }
 
-# Keywords that strongly indicate Arabic (transliterated common words)
 _AR_KEYWORDS = {
     "salam", "marhaba", "shukran", "musaada", "ahlan",
 }
+
+# Supported language codes — map langdetect output to our codes
+_SUPPORTED = {"es", "fr", "en", "pt", "ar"}
 
 
 def _keyword_hint(text: str) -> str | None:
     """Check for language-specific keywords. Returns lang code or None."""
     words = set(text.lower().split())
-    es_hits = len(words & _ES_KEYWORDS)
-    fr_hits = len(words & _FR_KEYWORDS)
-    en_hits = len(words & _EN_KEYWORDS)
-    pt_hits = len(words & _PT_KEYWORDS)
-    ar_hits = len(words & _AR_KEYWORDS)
-
-    scores = {"es": es_hits, "fr": fr_hits, "en": en_hits, "pt": pt_hits, "ar": ar_hits}
+    scores = {
+        "es": len(words & _ES_KEYWORDS),
+        "fr": len(words & _FR_KEYWORDS),
+        "en": len(words & _EN_KEYWORDS),
+        "pt": len(words & _PT_KEYWORDS),
+        "ar": len(words & _AR_KEYWORDS),
+    }
     best = max(scores, key=scores.get)
-    if scores[best] > 0:
-        return best
-    return None
+    # Require at least 1 hit, and best must win by margin for short text
+    if scores[best] == 0:
+        return None
+    # If there's a tie between es and another, don't force es
+    second = sorted(scores.values(), reverse=True)[1]
+    if scores[best] == second and best == "es":
+        # Tie — let langdetect decide
+        return None
+    return best
 
 
 @timed("detect_lang")
 def detect_language(text: str) -> str:
-    """Detect language code. Uses keyword hints for short/ambiguous text."""
+    """Detect language code. Trusts langdetect for longer text, keywords for short."""
     if not text or len(text.strip()) < 3:
         return "es"
 
-    # For short text (<40 chars), prefer keyword detection over langdetect
     hint = _keyword_hint(text)
-    if hint and len(text.strip()) < 40:
+
+    # For very short text (<30 chars), prefer keyword detection
+    if hint and len(text.strip()) < 30:
         return hint
 
     try:
         lang = detect(text)
-        # langdetect often confuses es with pt/it/ca — use hint as tiebreaker
-        if lang in ("pt", "it", "ca", "gl") and hint == "es":
+        # Map to supported languages
+        if lang in _SUPPORTED:
+            return lang
+        # langdetect sometimes returns "ca" (Catalan) or "gl" (Galician) for Spanish
+        if lang in ("ca", "gl"):
             return "es"
-        return lang
+        # For other unsupported languages, use keyword hint or default
+        return hint or "es"
     except LangDetectException:
         return hint or "es"
