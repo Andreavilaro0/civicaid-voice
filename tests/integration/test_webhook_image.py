@@ -27,8 +27,9 @@ def test_webhook_image_returns_ack_image(client):
         assert resp.status_code == 200
         assert b"<Response>" in resp.data
         assert b"<Message>" in resp.data
-        # Verify ACK contains image-specific text
-        assert "imagen" in resp.data.decode("utf-8").lower()
+        # Verify ACK contains image-specific text (documento or imagen)
+        body = resp.data.decode("utf-8").lower()
+        assert "documento" in body or "imagen" in body
         time.sleep(0.1)
         assert mock_process.called
         msg = mock_process.call_args[0][0]

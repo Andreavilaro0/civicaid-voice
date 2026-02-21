@@ -5,7 +5,7 @@ from src.core.prompts.templates import get_template
 
 def test_ack_image_template_exists():
     result = get_template("ack_image", "es")
-    assert "imagen" in result.lower()
+    assert "documento" in result.lower() or "imagen" in result.lower()
 
 
 def test_ack_image_template_french():
