@@ -37,6 +37,10 @@ services:
         value: "false"
       - key: GUARDRAILS_ON
         value: "true"
+      - key: TTS_ENGINE
+        value: "elevenlabs"
+      - key: ELEVENLABS_API_KEY
+        sync: false
       - key: RAG_ENABLED
         value: "false"
       - key: MEMORY_ENABLED
