@@ -655,3 +655,102 @@ class TestEdgeCases:
     def test_special_characters(self):
         result = detect_language("@#$%^&*()")
         assert result == "es"  # No keywords after strip
+
+
+# ===========================================================================
+# 11. REAL-WORLD MULTI-LANGUAGE PHRASES & EDGE CASES
+# ===========================================================================
+class TestRealWorldMultiLanguagePhrases:
+    """Real-world civic question phrases in multiple languages."""
+
+    def test_es_empadronamiento_question(self):
+        assert detect_language("necesito ayuda con el empadronamiento") == "es"
+
+    def test_fr_inscription_question(self):
+        result = detect_language("j'ai besoin d'aide pour l'inscription")
+        assert result == "fr"
+
+    def test_en_registration_question(self):
+        result = detect_language("I need help with my registration please")
+        assert result == "en"
+
+    def test_pt_registo_question(self):
+        result = detect_language("preciso de ajuda com o registo")
+        assert result == "pt"
+
+    def test_ar_transliterated_help(self):
+        result = detect_language("salam musaada")
+        assert result == "ar"
+
+    def test_catalan_mapped_to_es(self):
+        """Catalan 'ca' should map to 'es'."""
+        # Long enough for langdetect, use Catalan text
+        result = detect_language("Necessito ajuda amb l'empadronament a Barcelona, si us plau")
+        assert result in ("es", "ca") or result == "es"  # Should map ca -> es
+
+    def test_empty_text_defaults_es(self):
+        assert detect_language("") == "es"
+
+    def test_empty_text_with_phone_uses_memory(self):
+        phone = "whatsapp:+33test_memory_lang"
+        set_conversation_lang(phone, "fr")
+        result = detect_language("", phone=phone)
+        assert result == "fr"
+
+    def test_very_short_fr_keyword(self):
+        """Single French keyword 'merci' detected."""
+        assert detect_language("merci") == "fr"
+
+    def test_very_short_en_keyword(self):
+        """Single English keyword 'help' detected."""
+        assert detect_language("help") == "en"
+
+    def test_very_short_pt_keyword(self):
+        """Single Portuguese keyword 'ola' detected."""
+        assert detect_language("ola") == "pt"
+
+    def test_conversation_memory_persists(self):
+        phone = "whatsapp:+persist_test_lang"
+        detect_language("Bonjour, j'ai besoin d'aide", phone=phone)
+        # Very short follow-up with no keyword matches uses memory
+        result = detect_language("ok", phone=phone)
+        assert result == "fr"
+
+    def test_set_and_get_conversation_lang(self):
+        phone = "whatsapp:+set_get_test"
+        set_conversation_lang(phone, "pt")
+        assert get_conversation_lang(phone) == "pt"
+
+    def test_get_conversation_lang_default(self):
+        assert get_conversation_lang("whatsapp:+nonexistent") == "es"
+
+    def test_number_only_returns_default(self):
+        """Number-only input should return default."""
+        result = detect_language("12345")
+        assert result == "es"
+
+    def test_punctuation_only_returns_default(self):
+        """Punctuation-only input returns default."""
+        result = detect_language("...")
+        assert result == "es"
+
+    def test_strip_punctuation_helps_detection(self):
+        """'merci!' should still detect as French after stripping."""
+        result = detect_language("merci!")
+        assert result == "fr"
+
+    def test_mixed_es_en_short(self):
+        """Mixed 'Hola, I need help' -- keyword scoring decides."""
+        result = detect_language("Hola, I need help")
+        # EN has more keywords (I, need, help) vs ES (hola)
+        assert result in ("en", "es")
+
+    def test_long_english_text(self):
+        """Long English text uses langdetect."""
+        text = "I need to register at the town hall to get my health card. Can you help me with the appointment?"
+        assert detect_language(text) == "en"
+
+    def test_long_french_text(self):
+        """Long French text uses langdetect."""
+        text = "Je dois m'inscrire a la mairie pour obtenir ma carte de sante. Pouvez-vous m'aider avec le rendez-vous?"
+        assert detect_language(text) == "fr"

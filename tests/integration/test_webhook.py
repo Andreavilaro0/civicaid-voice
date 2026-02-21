@@ -240,3 +240,155 @@ def test_webhook_rejects_invalid_signature(client):
             "NumMedia": "0",
         }, headers={"X-Twilio-Signature": "invalid-signature"})
         assert resp.status_code == 403
+
+
+# ── Multi-language ACK flow tests ──────────────────────────────────────
+
+
+def test_webhook_pt_greeting_gets_pt_ack(client):
+    """Portuguese greeting gets Portuguese ack_greeting."""
+    with patch("src.core.pipeline.process"):
+        resp = client.post("/webhook", data={
+            "Body": "Ola, preciso de ajuda",
+            "From": "whatsapp:+351912345679",
+            "NumMedia": "0",
+        })
+        assert resp.status_code == 200
+        body = resp.data.decode("utf-8")
+        assert "Clara" in body or "prazer" in body or "momento" in body
+
+
+def test_webhook_ar_greeting_gets_ar_ack(client):
+    """Arabic greeting gets Arabic ack."""
+    with patch("src.core.pipeline.process"):
+        resp = client.post("/webhook", data={
+            "Body": "Salam ahlan",
+            "From": "whatsapp:+212600000001",
+            "NumMedia": "0",
+        })
+        assert resp.status_code == 200
+        body = resp.data.decode("utf-8")
+        # Arabic ACK should contain Arabic script
+        assert "\u0643\u0644\u0627\u0631\u0627" in body or "\u0644\u062d\u0638\u0629" in body or "\u0633\u0624\u0627\u0644" in body
+
+
+def test_webhook_language_switch_fr_to_es(client):
+    """User switches from French to Spanish, ACK follows."""
+    phone = "whatsapp:+33switch_test_1"
+    with patch("src.core.pipeline.process"):
+        # First: French
+        client.post("/webhook", data={
+            "Body": "Bonjour, j'ai besoin d'aide",
+            "From": phone,
+            "NumMedia": "0",
+        })
+        # Second: Spanish
+        resp = client.post("/webhook", data={
+            "Body": "Hola necesito ayuda con el padron",
+            "From": phone,
+            "NumMedia": "0",
+        })
+        assert resp.status_code == 200
+        body = resp.data.decode("utf-8")
+        # Should be Spanish now
+        assert "Clara" in body or "momento" in body
+
+
+def test_webhook_three_en_messages_third_still_en(client):
+    """Three messages from EN speaker: third ambiguous still gets EN."""
+    phone = "whatsapp:+44three_msg_test"
+    with patch("src.core.pipeline.process"):
+        client.post("/webhook", data={
+            "Body": "Hello, I need help please",
+            "From": phone,
+            "NumMedia": "0",
+        })
+        client.post("/webhook", data={
+            "Body": "What about the health card?",
+            "From": phone,
+            "NumMedia": "0",
+        })
+        resp = client.post("/webhook", data={
+            "Body": "NIE",
+            "From": phone,
+            "NumMedia": "0",
+        })
+        assert resp.status_code == 200
+        body = resp.data.decode("utf-8")
+        assert "moment" in body or "question" in body or "Clara" in body
+
+
+def test_webhook_audio_from_fr_user_gets_fr_ack(client):
+    """Audio from a user who previously spoke French gets French ack_audio."""
+    phone = "whatsapp:+33audio_fr_test"
+    with patch("src.core.pipeline.process"):
+        # Establish French
+        client.post("/webhook", data={
+            "Body": "Bonjour",
+            "From": phone,
+            "NumMedia": "0",
+        })
+        # Send audio
+        resp = client.post("/webhook", data={
+            "Body": "",
+            "From": phone,
+            "NumMedia": "1",
+            "MediaUrl0": "https://api.twilio.com/xxx",
+            "MediaContentType0": "audio/ogg",
+        })
+        assert resp.status_code == 200
+        body = resp.data.decode("utf-8")
+        # FR ack_audio: "Je vous ecoute. Un instant."
+        assert "ecoute" in body or "instant" in body
+
+
+def test_webhook_image_from_en_user_gets_en_ack(client):
+    """Image from English speaker gets English ack_image."""
+    phone = "whatsapp:+44image_en_test"
+    with patch("src.core.pipeline.process"):
+        # Establish English
+        client.post("/webhook", data={
+            "Body": "Hello, I need help",
+            "From": phone,
+            "NumMedia": "0",
+        })
+        # Send image
+        resp = client.post("/webhook", data={
+            "Body": "",
+            "From": phone,
+            "NumMedia": "1",
+            "MediaUrl0": "https://api.twilio.com/xxx/Media/yyy",
+            "MediaContentType0": "image/jpeg",
+        })
+        assert resp.status_code == 200
+        body = resp.data.decode("utf-8")
+        # EN ack_image: "Let me look at your document. One second."
+        assert "document" in body or "look" in body or "second" in body
+
+
+def test_webhook_es_greeting_gets_ack_greeting(client):
+    """Spanish greeting gets ack_greeting (not ack_text)."""
+    with patch("src.core.pipeline.process"):
+        resp = client.post("/webhook", data={
+            "Body": "Hola",
+            "From": "whatsapp:+34greeting_es",
+            "NumMedia": "0",
+        })
+        assert resp.status_code == 200
+        body = resp.data.decode("utf-8")
+        # ack_greeting has "encantada" or more personal intro
+        assert "Clara" in body
+
+
+def test_webhook_en_non_greeting_gets_ack_text(client):
+    """English non-greeting gets ack_text (not ack_greeting)."""
+    with patch("src.core.pipeline.process"):
+        resp = client.post("/webhook", data={
+            "Body": "What documents do I need for registration?",
+            "From": "whatsapp:+44non_greet_en",
+            "NumMedia": "0",
+        })
+        assert resp.status_code == 200
+        body = resp.data.decode("utf-8")
+        # ack_text: "Good question. Give me a moment..."
+        assert "moment" in body or "question" in body

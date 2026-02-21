@@ -258,3 +258,92 @@ def test_synthesize_elevenlabs_exception_returns_none():
         from src.core.skills.tts import _synthesize_elevenlabs
         # Should not raise; returns None
         assert _synthesize_elevenlabs("hola", "es") is None
+
+
+# ---------------------------------------------------------------------------
+# Multi-language TTS tests: voice selection, text prep, truncation per language
+# ---------------------------------------------------------------------------
+
+
+def test_gemini_voice_fr_is_different_from_es():
+    """FR voice should be different from ES voice."""
+    from src.core.skills.tts import _GEMINI_VOICE_NAME
+    assert _GEMINI_VOICE_NAME["fr"] != _GEMINI_VOICE_NAME["es"]
+
+
+def test_gemini_voice_en_exists_and_valid():
+    """EN voice should exist and be a non-empty string."""
+    from src.core.skills.tts import _GEMINI_VOICE_NAME
+    assert "en" in _GEMINI_VOICE_NAME
+    assert isinstance(_GEMINI_VOICE_NAME["en"], str)
+    assert len(_GEMINI_VOICE_NAME["en"]) > 0
+
+
+def test_gemini_style_es_mentions_clara():
+    """ES voice style must mention Clara persona."""
+    from src.core.skills.tts import _GEMINI_VOICE_STYLE
+    assert "Clara" in _GEMINI_VOICE_STYLE["es"]
+
+
+def test_gemini_style_fr_mentions_clara():
+    """FR voice style must mention Clara persona."""
+    from src.core.skills.tts import _GEMINI_VOICE_STYLE
+    assert "Clara" in _GEMINI_VOICE_STYLE["fr"]
+
+
+def test_gemini_style_en_mentions_clara():
+    """EN voice style must mention Clara persona."""
+    from src.core.skills.tts import _GEMINI_VOICE_STYLE
+    assert "Clara" in _GEMINI_VOICE_STYLE["en"]
+
+
+def test_elevenlabs_voice_id_es_nonempty():
+    """ES ElevenLabs voice ID is a non-empty string."""
+    from src.core.skills.tts import _ELEVENLABS_VOICE_ID
+    assert len(_ELEVENLABS_VOICE_ID["es"]) > 5
+
+
+def test_elevenlabs_voice_id_fr_nonempty():
+    """FR ElevenLabs voice ID is a non-empty string."""
+    from src.core.skills.tts import _ELEVENLABS_VOICE_ID
+    assert len(_ELEVENLABS_VOICE_ID["fr"]) > 5
+
+
+def test_elevenlabs_voice_id_en_nonempty():
+    """EN ElevenLabs voice ID is a non-empty string."""
+    from src.core.skills.tts import _ELEVENLABS_VOICE_ID
+    assert len(_ELEVENLABS_VOICE_ID["en"]) > 5
+
+
+def test_prepare_text_french_parenthetical():
+    """French parenthetical explanations get micro-pause."""
+    from src.core.skills.tts import _prepare_text_for_tts
+    result = _prepare_text_for_tts("le padron (inscription a la mairie)")
+    assert "..." in result
+
+
+def test_prepare_text_portuguese_numbered_steps():
+    """Portuguese numbered steps are stripped."""
+    from src.core.skills.tts import _prepare_text_for_tts
+    result = _prepare_text_for_tts("1. O teu passaporte")
+    assert "O teu passaporte" in result
+    assert not result.strip().startswith("1.")
+
+
+def test_truncate_french_long_text():
+    """Truncation works on French long text."""
+    from src.core.skills.tts import _truncate_for_tts, _TTS_MAX_WORDS
+    words = ["parole"] * (_TTS_MAX_WORDS + 20)
+    long_text = " ".join(words)
+    result = _truncate_for_tts(long_text)
+    assert len(result.split()) <= _TTS_MAX_WORDS
+
+
+def test_truncate_english_prefers_sentence_boundary():
+    """Truncation on English text prefers sentence boundary."""
+    from src.core.skills.tts import _truncate_for_tts, _TTS_MAX_WORDS
+    prefix = ["word"] * (_TTS_MAX_WORDS - 10)
+    suffix = ["extra"] * 20
+    sentence = " ".join(prefix) + ". " + " ".join(suffix)
+    result = _truncate_for_tts(sentence)
+    assert result.endswith(".")

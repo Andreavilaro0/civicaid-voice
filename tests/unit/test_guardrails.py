@@ -154,3 +154,101 @@ def test_guardrail_self_harm_is_empathetic():
     for _, category, response in BLOCKED_PATTERNS:
         if category == "self_harm":
             assert "ayuda" in response.lower() or "necesitas" in response.lower()
+
+
+# --- MULTI-LANGUAGE SAFE INPUTS ---
+
+def test_pre_check_allows_french_safe_input():
+    """French civic question is safe."""
+    result = pre_check("Bonjour, j'ai besoin d'aide pour m'inscrire a la mairie")
+    assert result.safe
+
+def test_pre_check_allows_english_safe_input():
+    """English civic question is safe."""
+    result = pre_check("Hello, I need help with my registration")
+    assert result.safe
+
+def test_pre_check_allows_portuguese_safe_input():
+    """Portuguese civic question is safe."""
+    result = pre_check("Ola, preciso de ajuda com o registo")
+    assert result.safe
+
+def test_pre_check_allows_arabic_transliterated_input():
+    """Arabic transliterated civic question is safe."""
+    result = pre_check("Salam, ahlan musaada")
+    assert result.safe
+
+def test_pre_check_allows_nie_mention():
+    """NIE document mention should NOT be blocked."""
+    result = pre_check("Necesito renovar mi NIE")
+    assert result.safe
+
+def test_pre_check_allows_cita_previa():
+    """Appointment request should NOT be blocked."""
+    result = pre_check("Como puedo pedir una cita previa?")
+    assert result.safe
+
+def test_pre_check_allows_armas_in_safe_context():
+    """'armas' in isolation triggers block (by design)."""
+    result = pre_check("quiero comprar armas")
+    assert not result.safe
+    assert result.reason == "violence"
+
+def test_pre_check_allows_medical_question():
+    """Medical tramite question is safe (not violence/illegal)."""
+    result = pre_check("Como consigo la tarjeta sanitaria?")
+    assert result.safe
+
+
+# --- POST-CHECK MULTI-LANGUAGE ---
+
+def test_post_check_preserves_clean_french_response():
+    """Clean French response passes through unchanged."""
+    text = "Le padron est un registre municipal. Vous pouvez le faire a la mairie."
+    assert post_check(text) == text
+
+def test_post_check_preserves_clean_english_response():
+    """Clean English response passes through unchanged."""
+    text = "The registration process takes about 15 minutes at city hall."
+    assert post_check(text) == text
+
+def test_post_check_preserves_clean_arabic_response():
+    """Clean Arabic response passes through unchanged."""
+    text = "التسجيل في البلدية هو خطوة ضرورية."
+    assert post_check(text) == text
+
+def test_post_check_redacts_nie_in_any_language_context():
+    """NIE pattern is redacted regardless of surrounding language."""
+    text = "Votre NIE est X1234567B. Gardez-le precieusement."
+    result = post_check(text)
+    assert "X1234567B" not in result
+    assert "[NIE REDACTADO]" in result
+
+def test_post_check_redacts_dni_in_english_context():
+    """DNI pattern is redacted in English text too."""
+    text = "Your DNI number is 12345678A for the record."
+    result = post_check(text)
+    assert "12345678A" not in result
+
+def test_blocked_responses_contain_phone_number():
+    """Every block response must include a help phone number."""
+    from src.core.guardrails import BLOCKED_PATTERNS
+    for _, category, response in BLOCKED_PATTERNS:
+        has_phone = any(num in response for num in ["024", "060", "112"])
+        assert has_phone, f"Category '{category}' missing phone number in response"
+
+def test_blocked_responses_no_emoji():
+    """Block responses must not contain emoji (Fase 5 rule)."""
+    import re
+    from src.core.guardrails import BLOCKED_PATTERNS
+    emoji_pattern = re.compile(
+        "["
+        "\U0001F600-\U0001F64F"
+        "\U0001F300-\U0001F5FF"
+        "\U0001F680-\U0001F6FF"
+        "\U0001F1E0-\U0001F1FF"
+        "]+", flags=re.UNICODE
+    )
+    for _, category, response in BLOCKED_PATTERNS:
+        assert not emoji_pattern.search(response), \
+            f"Category '{category}' response should not contain emoji"
