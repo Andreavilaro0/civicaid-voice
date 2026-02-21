@@ -52,4 +52,13 @@ services:
         sync: false
       - key: REDIS_URL
         sync: false
+      # --- Meta WhatsApp Cloud API ---
+      - key: WHATSAPP_PROVIDER
+        value: "meta"
+      - key: META_WHATSAPP_TOKEN
+        sync: false
+      - key: META_PHONE_NUMBER_ID
+        sync: false
+      - key: META_VERIFY_TOKEN
+        value: "clara_verify_2026"
     healthCheckPath: /health

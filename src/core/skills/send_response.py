@@ -1,4 +1,4 @@
-"""Send final response to user via Twilio REST API."""
+"""Send final response — dispatches to Twilio or Meta based on WHATSAPP_PROVIDER."""
 
 from src.core.models import FinalResponse
 from src.core.config import config
@@ -8,7 +8,15 @@ from src.utils.timing import timed
 
 @timed("send_response")
 def send_final_message(response: FinalResponse) -> bool:
-    """Send text + optional media to user via Twilio REST. Returns True on success."""
+    """Send text + optional media. Routes to Twilio or Meta automatically."""
+    if config.WHATSAPP_PROVIDER == "meta":
+        from src.core.skills.send_response_meta import send_final_message_meta
+        return send_final_message_meta(response)
+    return _send_via_twilio(response)
+
+
+def _send_via_twilio(response: FinalResponse) -> bool:
+    """Send via Twilio REST API with retry."""
     try:
         from twilio.rest import Client
         client = Client(config.TWILIO_ACCOUNT_SID, config.TWILIO_AUTH_TOKEN)

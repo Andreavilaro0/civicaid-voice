@@ -46,6 +46,10 @@ def create_app() -> Flask:
     from src.routes.api_chat import api_bp
     app.register_blueprint(api_bp)
 
+    # Meta WhatsApp Cloud API webhook (registers alongside Twilio)
+    from src.routes.webhook_meta import webhook_meta_bp
+    app.register_blueprint(webhook_meta_bp)
+
     # CORS for web frontend API
     import os
     from flask_cors import CORS
