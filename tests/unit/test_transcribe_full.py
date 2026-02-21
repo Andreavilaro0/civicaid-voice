@@ -152,3 +152,81 @@ def test_transcribe_sends_correct_mime_type():
             call_args = mock_client.models.generate_content.call_args
             # Verify generate_content was called with correct model
             assert call_args[1]["model"] == "gemini-2.5-flash"
+
+
+def test_transcribe_three_letter_code():
+    """Branch: Gemini returns [eng] (3-letter ISO) — document behavior."""
+    mock_genai = um.MagicMock()
+    mock_client = um.MagicMock()
+    mock_genai.Client.return_value = mock_client
+    mock_response = mock_client.models.generate_content.return_value
+    mock_response.text = "[eng] I need help with my registration"
+
+    with patch("src.core.skills.transcribe.config") as mock_cfg:
+        mock_cfg.GEMINI_API_KEY = "test-key"
+        with patch.dict("sys.modules", {
+            "google.genai": mock_genai,
+            "google": um.MagicMock(genai=mock_genai),
+        }):
+            result = transcribe(b"\x00\x01\x02", "audio/ogg")
+            assert result.success is True
+            assert result.text is not None
+            assert len(result.text) > 0
+
+
+def test_transcribe_empty_response():
+    """Branch: Gemini returns empty string."""
+    mock_genai = um.MagicMock()
+    mock_client = um.MagicMock()
+    mock_genai.Client.return_value = mock_client
+    mock_response = mock_client.models.generate_content.return_value
+    mock_response.text = ""
+
+    with patch("src.core.skills.transcribe.config") as mock_cfg:
+        mock_cfg.GEMINI_API_KEY = "test-key"
+        with patch.dict("sys.modules", {
+            "google.genai": mock_genai,
+            "google": um.MagicMock(genai=mock_genai),
+        }):
+            result = transcribe(b"\x00\x01\x02", "audio/ogg")
+            # Empty text should be handled gracefully
+            assert result.text == "" or result.success is False
+
+
+def test_transcribe_whitespace_only_response():
+    """Branch: Gemini returns whitespace — treated as empty."""
+    mock_genai = um.MagicMock()
+    mock_client = um.MagicMock()
+    mock_genai.Client.return_value = mock_client
+    mock_response = mock_client.models.generate_content.return_value
+    mock_response.text = "   \n  "
+
+    with patch("src.core.skills.transcribe.config") as mock_cfg:
+        mock_cfg.GEMINI_API_KEY = "test-key"
+        with patch.dict("sys.modules", {
+            "google.genai": mock_genai,
+            "google": um.MagicMock(genai=mock_genai),
+        }):
+            result = transcribe(b"\x00\x01\x02", "audio/ogg")
+            if result.success:
+                assert result.text.strip() == ""
+
+
+def test_transcribe_english_tag():
+    """Branch: Gemini returns [en] tag for English audio."""
+    mock_genai = um.MagicMock()
+    mock_client = um.MagicMock()
+    mock_genai.Client.return_value = mock_client
+    mock_response = mock_client.models.generate_content.return_value
+    mock_response.text = "[en] I need help with my healthcare card"
+
+    with patch("src.core.skills.transcribe.config") as mock_cfg:
+        mock_cfg.GEMINI_API_KEY = "test-key"
+        with patch.dict("sys.modules", {
+            "google.genai": mock_genai,
+            "google": um.MagicMock(genai=mock_genai),
+        }):
+            result = transcribe(b"\x00\x01\x02", "audio/ogg")
+            assert result.success is True
+            assert result.language == "en"
+            assert "healthcare" in result.text

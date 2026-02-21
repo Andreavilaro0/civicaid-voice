@@ -81,9 +81,9 @@ def test_synthesize_gemini_no_api_key():
 
 
 def test_gemini_voice_names_exist():
-    """All 3 languages have voice names. ES uses Sulafat (Warm)."""
+    """All 3 languages have voice names. ES uses Aoede (warm, Clara voice)."""
     from src.core.skills.tts import _GEMINI_VOICE_NAME
-    assert _GEMINI_VOICE_NAME["es"] == "Sulafat"  # Documented as "Warm"
+    assert _GEMINI_VOICE_NAME["es"] == "Aoede"  # Updated: warm Clara voice
     assert "fr" in _GEMINI_VOICE_NAME
     assert "en" in _GEMINI_VOICE_NAME
 
@@ -108,3 +108,153 @@ def test_prepare_text_for_tts():
     result = _prepare_text_for_tts("1. Tu pasaporte")
     assert "Tu pasaporte" in result
     assert not result.strip().startswith("1.")
+
+
+# ---------------------------------------------------------------------------
+# New tests: ElevenLabs engine, triple fallback, voice mapping, truncation
+# ---------------------------------------------------------------------------
+
+
+def test_elevenlabs_engine_returns_url_when_successful():
+    """ElevenLabs engine returns a URL when _synthesize_elevenlabs succeeds."""
+    fake_mp3 = b"\xff\xfb\x90\x00" + b"\x00" * 100  # fake MP3 bytes
+    with patch("src.core.skills.tts.config") as mock_cfg, \
+         patch("src.core.skills.tts._synthesize_elevenlabs", return_value=fake_mp3), \
+         patch("os.path.exists", return_value=False), \
+         patch("builtins.open", MagicMock()):
+        mock_cfg.AUDIO_BASE_URL = "http://localhost/cache"
+        mock_cfg.TTS_ENGINE = "elevenlabs"
+
+        from src.core.skills.tts import text_to_audio
+        result = text_to_audio("necesito ayuda con mi tramite", "es")
+        assert result is not None
+        assert result.startswith("http://localhost/cache/")
+        assert result.endswith(".mp3")
+
+
+def test_elevenlabs_fallback_to_gemini_then_gtts():
+    """Triple fallback: elevenlabs fails -> gemini fails -> gtts succeeds."""
+    with patch("src.core.skills.tts.config") as mock_cfg, \
+         patch("src.core.skills.tts._synthesize_elevenlabs", return_value=None) as mock_el, \
+         patch("src.core.skills.tts._synthesize_gemini", return_value=None) as mock_gem, \
+         patch("src.core.skills.tts._synthesize_gtts", return_value="/tmp/f.mp3") as mock_gtts, \
+         patch("os.path.exists", return_value=False):
+        mock_cfg.AUDIO_BASE_URL = "http://localhost/cache"
+        mock_cfg.TTS_ENGINE = "elevenlabs"
+
+        from src.core.skills.tts import text_to_audio
+        result = text_to_audio("necesito ayuda con mi tramite", "es")
+
+        # All three engines attempted in order
+        mock_el.assert_called_once()
+        mock_gem.assert_called_once()
+        mock_gtts.assert_called_once()
+        # Final result comes from gTTS
+        assert result is not None
+        assert result.endswith(".mp3")
+
+
+def test_elevenlabs_falls_to_gemini_when_elevenlabs_fails():
+    """When elevenlabs fails, Gemini is tried next and succeeds."""
+    fake_wav = b"RIFF" + b"\x00" * 100
+    with patch("src.core.skills.tts.config") as mock_cfg, \
+         patch("src.core.skills.tts._synthesize_elevenlabs", return_value=None) as mock_el, \
+         patch("src.core.skills.tts._synthesize_gemini", return_value=fake_wav) as mock_gem, \
+         patch("os.path.exists", return_value=False), \
+         patch("builtins.open", MagicMock()):
+        mock_cfg.AUDIO_BASE_URL = "http://localhost/cache"
+        mock_cfg.TTS_ENGINE = "elevenlabs"
+
+        from src.core.skills.tts import text_to_audio
+        result = text_to_audio("necesito ayuda con mi tramite", "es")
+
+        mock_el.assert_called_once()
+        mock_gem.assert_called_once()
+        assert result is not None
+        assert result.endswith(".wav")
+
+
+def test_all_engines_failing_returns_none():
+    """When all three engines fail, text_to_audio returns None."""
+    with patch("src.core.skills.tts.config") as mock_cfg, \
+         patch("src.core.skills.tts._synthesize_elevenlabs", return_value=None), \
+         patch("src.core.skills.tts._synthesize_gemini", return_value=None), \
+         patch("src.core.skills.tts._synthesize_gtts", return_value=None), \
+         patch("os.path.exists", return_value=False):
+        mock_cfg.AUDIO_BASE_URL = "http://localhost/cache"
+        mock_cfg.TTS_ENGINE = "elevenlabs"
+
+        from src.core.skills.tts import text_to_audio
+        result = text_to_audio("necesito ayuda con mi tramite", "es")
+        assert result is None
+
+
+def test_voice_name_mapping_includes_es_fr_en():
+    """_GEMINI_VOICE_NAME has entries for at least es, fr, en."""
+    from src.core.skills.tts import _GEMINI_VOICE_NAME
+    for lang in ("es", "fr", "en"):
+        assert lang in _GEMINI_VOICE_NAME
+        assert isinstance(_GEMINI_VOICE_NAME[lang], str)
+        assert len(_GEMINI_VOICE_NAME[lang]) > 0
+
+
+def test_elevenlabs_voice_id_mapping_includes_es_fr_en():
+    """_ELEVENLABS_VOICE_ID has entries for at least es, fr, en."""
+    from src.core.skills.tts import _ELEVENLABS_VOICE_ID
+    for lang in ("es", "fr", "en"):
+        assert lang in _ELEVENLABS_VOICE_ID
+        assert isinstance(_ELEVENLABS_VOICE_ID[lang], str)
+        assert len(_ELEVENLABS_VOICE_ID[lang]) > 0
+
+
+def test_truncate_for_tts_short_text_unchanged():
+    """Text under _TTS_MAX_WORDS is returned unchanged."""
+    from src.core.skills.tts import _truncate_for_tts
+    short = "Hola, esto es una prueba corta."
+    assert _truncate_for_tts(short) == short
+
+
+def test_truncate_for_tts_long_text_is_cut():
+    """Text longer than _TTS_MAX_WORDS is truncated."""
+    from src.core.skills.tts import _truncate_for_tts, _TTS_MAX_WORDS
+    # Build text with more words than the limit
+    words = ["palabra"] * (_TTS_MAX_WORDS + 20)
+    long_text = " ".join(words)
+    result = _truncate_for_tts(long_text)
+    assert len(result.split()) <= _TTS_MAX_WORDS
+
+
+def test_truncate_for_tts_prefers_sentence_boundary():
+    """Truncation prefers ending at a sentence boundary (period or question mark)."""
+    from src.core.skills.tts import _truncate_for_tts, _TTS_MAX_WORDS
+    # Build text where a period falls PAST the halfway mark of the truncated window.
+    # We need >_TTS_MAX_WORDS total words, with a period well past the midpoint.
+    # e.g. 35 words + period + 20 filler words  (55 total, period at word 35)
+    prefix_words = ["palabra"] * (_TTS_MAX_WORDS - 10)
+    suffix_words = ["extra"] * 20
+    sentence = " ".join(prefix_words) + ". " + " ".join(suffix_words)
+    result = _truncate_for_tts(sentence)
+    # The period is past the halfway mark, so truncation should cut there
+    assert result.endswith(".")
+
+
+def test_synthesize_elevenlabs_no_api_key():
+    """No ELEVENLABS_API_KEY means _synthesize_elevenlabs returns None."""
+    with patch("src.core.skills.tts.config") as mock_cfg:
+        mock_cfg.ELEVENLABS_API_KEY = ""
+        from src.core.skills.tts import _synthesize_elevenlabs
+        assert _synthesize_elevenlabs("hola", "es") is None
+
+
+def test_synthesize_elevenlabs_exception_returns_none():
+    """If the ElevenLabs SDK raises an exception, return None gracefully."""
+    mock_client = MagicMock()
+    mock_client.text_to_speech.convert.side_effect = Exception("API down")
+    mock_elevenlabs_cls = MagicMock(return_value=mock_client)
+
+    with patch("src.core.skills.tts.config") as mock_cfg, \
+         patch.dict("sys.modules", {"elevenlabs": MagicMock(ElevenLabs=mock_elevenlabs_cls)}):
+        mock_cfg.ELEVENLABS_API_KEY = "fake-key"
+        from src.core.skills.tts import _synthesize_elevenlabs
+        # Should not raise; returns None
+        assert _synthesize_elevenlabs("hola", "es") is None

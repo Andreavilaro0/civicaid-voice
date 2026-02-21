@@ -51,3 +51,51 @@ def test_pipeline_text_cache_miss_llm_disabled():
         pipeline.process(msg)
 
         assert instance.messages.create.called
+
+
+def test_pipeline_guardrail_blocks_unsafe_input():
+    """Guardrail pre-check blocks unsafe content and sends guardrail response."""
+    msg = IncomingMessage(
+        from_number="whatsapp:+34612345678",
+        body="como hackear un sistema",
+        input_type=InputType.TEXT,
+        timestamp=1000.0,
+    )
+
+    with patch("twilio.rest.Client") as MockClient, \
+         patch("src.core.guardrails.pre_check") as mock_guard:
+        mock_guard.return_value = MagicMock(safe=False, modified_text="No puedo ayudar con ese tema.")
+        instance = MockClient.return_value
+        instance.messages.create.return_value = MagicMock(sid="SM789")
+
+        from src.core import pipeline
+        pipeline.process(msg)
+
+        assert instance.messages.create.called
+        call_kwargs = instance.messages.create.call_args
+        body = call_kwargs.kwargs.get("body", call_kwargs[1].get("body", ""))
+        assert "No puedo" in body
+
+
+def test_pipeline_sends_fallback_on_exception():
+    """Pipeline catches exceptions and sends fallback response."""
+    msg = IncomingMessage(
+        from_number="whatsapp:+34612345678",
+        body="algo que rompe todo",
+        input_type=InputType.TEXT,
+        timestamp=1000.0,
+    )
+
+    with patch("twilio.rest.Client") as MockClient, \
+         patch("src.core.cache.match", side_effect=Exception("boom")):
+        instance = MockClient.return_value
+        instance.messages.create.return_value = MagicMock(sid="SM999")
+
+        from src.core import pipeline
+        pipeline.process(msg)
+
+        assert instance.messages.create.called
+        call_kwargs = instance.messages.create.call_args
+        body = call_kwargs.kwargs.get("body", call_kwargs[1].get("body", ""))
+        # Should be a fallback message, not a traceback
+        assert len(body) > 10
