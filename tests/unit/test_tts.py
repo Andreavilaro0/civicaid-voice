@@ -8,7 +8,7 @@ def test_text_to_audio_returns_none_without_audio_base_url():
     with patch("src.core.skills.tts.config") as mock_cfg:
         mock_cfg.AUDIO_BASE_URL = ""
         from src.core.skills.tts import text_to_audio
-        assert text_to_audio("hola", "es") is None
+        assert text_to_audio("necesito ayuda con mi tramite", "es") is None
 
 
 def test_text_to_audio_gtts_returns_url():
@@ -21,7 +21,7 @@ def test_text_to_audio_gtts_returns_url():
         mock_gtts.return_value = "/tmp/fake.mp3"
 
         from src.core.skills.tts import text_to_audio
-        result = text_to_audio("hola", "es")
+        result = text_to_audio("necesito ayuda con mi tramite", "es")
         assert result is not None
         assert result.startswith("http://localhost/cache/")
         assert result.endswith(".mp3")
@@ -38,7 +38,7 @@ def test_text_to_audio_gemini_returns_url():
         mock_cfg.TTS_ENGINE = "gemini"
 
         from src.core.skills.tts import text_to_audio
-        result = text_to_audio("hola", "es")
+        result = text_to_audio("necesito ayuda con mi tramite", "es")
         assert result is not None
         assert result.startswith("http://localhost/cache/")
         assert result.endswith(".wav")
@@ -54,7 +54,7 @@ def test_text_to_audio_gemini_fallback_to_gtts():
         mock_cfg.TTS_ENGINE = "gemini"
 
         from src.core.skills.tts import text_to_audio
-        result = text_to_audio("hola", "es")
+        result = text_to_audio("necesito ayuda con mi tramite", "es")
         mock_gtts.assert_called_once()
         assert result is not None
         assert result.endswith(".mp3")
@@ -68,7 +68,7 @@ def test_text_to_audio_cached_file_returns_url():
         mock_cfg.TTS_ENGINE = "gtts"
 
         from src.core.skills.tts import text_to_audio
-        result = text_to_audio("hola", "es")
+        result = text_to_audio("necesito ayuda con mi tramite", "es")
         assert result is not None
 
 
@@ -99,11 +99,12 @@ def test_gemini_voice_styles_are_detailed():
 
 
 def test_prepare_text_for_tts():
-    """Text pre-processing adds micro-pauses for natural delivery."""
+    """Text pre-processing adds micro-pauses and strips formatting."""
     from src.core.skills.tts import _prepare_text_for_tts
     # Parenthetical explanations get pause
     result = _prepare_text_for_tts("el padron (registro en tu ciudad)")
     assert "..." in result
-    # Numbered steps get pause
+    # Numbered steps are stripped for natural speech
     result = _prepare_text_for_tts("1. Tu pasaporte")
-    assert "... " in result
+    assert "Tu pasaporte" in result
+    assert not result.strip().startswith("1.")

@@ -27,11 +27,11 @@ def is_greeting(text: str) -> bool:
 
 TEMPLATES = {
     "ack_greeting": {
-        "es": "Hola! Soy Clara, tu amiga para tramites. Dame un segundo...",
-        "fr": "Bonjour ! Je suis Clara, votre amie pour les demarches. Un instant...",
-        "en": "Hi! I'm Clara, your friend for government procedures. One moment...",
-        "pt": "Ola! Sou a Clara, a tua amiga para burocracias. Um momento...",
-        "ar": "!اهلا! انا كلارا، صديقتك للمعاملات الحكومية. لحظة من فضلك",
+        "es": "Hola! Soy Clara. Estoy aqui para echarte una mano con tramites y ayudas. Cuentame, que necesitas?",
+        "fr": "Bonjour ! Je suis Clara. Je suis la pour vous aider avec vos demarches. Dites-moi, de quoi avez-vous besoin ?",
+        "en": "Hi! I'm Clara. I'm here to help you with government procedures and benefits. What do you need?",
+        "pt": "Ola! Sou a Clara. Estou aqui para te ajudar com processos e ajudas. Conta-me, do que precisas?",
+        "ar": "اهلا! انا كلارا. انا هنا لمساعدتك في المعاملات والمساعدات. بماذا تحتاج مساعدة؟",
     },
     "ack_text": {
         "es": "Dame un momento, estoy buscando esa informacion.",
@@ -44,11 +44,15 @@ TEMPLATES = {
         "es": "Estoy escuchando tu mensaje, un momento.",
         "fr": "J'ecoute votre message, un instant.",
         "en": "Listening to your message, one moment.",
+        "pt": "Estou a ouvir a tua mensagem, um momento.",
+        "ar": "أستمع لرسالتك، لحظة من فضلك.",
     },
     "ack_image": {
         "es": "Estoy mirando tu imagen, dame un momento.",
         "fr": "Je regarde votre image, un instant.",
         "en": "Looking at your image, one moment.",
+        "pt": "Estou a ver a tua imagem, um momento.",
+        "ar": "أنظر إلى صورتك، لحظة من فضلك.",
     },
     "vision_fail": {
         "es": "No he podido ver bien la imagen. Puedes intentar enviarla de nuevo, o si prefieres, describeme lo que ves y te ayudo.",

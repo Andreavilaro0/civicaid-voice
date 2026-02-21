@@ -136,11 +136,11 @@ def llm_generate(
         chunks_block=chunks_block,
     )
 
-    # Structured output instruction (opt-in)
+    # User message as separate content (not mixed with system prompt)
     safe_user_text = escape_xml_tags(user_text)  # P0-1: prevent XML tag injection
-    prompt_text = f"{system}\n\n<user_query>\n{safe_user_text}\n</user_query>"
+    user_message = f"<user_query>\n{safe_user_text}\n</user_query>"
     if config.STRUCTURED_OUTPUT_ON:
-        prompt_text += (
+        user_message += (
             '\n\nIMPORTANT: Respond ONLY with valid JSON matching this schema: '
             '{"intent":"string","language":"string","tramite":"string|null",'
             '"summary":"string","steps":["string"],"required_docs":["string"],'
@@ -153,10 +153,11 @@ def llm_generate(
         client = genai.Client(api_key=config.GEMINI_API_KEY)
         response = client.models.generate_content(
             model="gemini-2.5-flash",
-            contents=prompt_text,
+            contents=user_message,
             config=genai.types.GenerateContentConfig(
+                system_instruction=system,
                 max_output_tokens=1024,
-                temperature=0.3,
+                temperature=0.45,
             ),
         )
         elapsed = int((time.time() - start) * 1000)

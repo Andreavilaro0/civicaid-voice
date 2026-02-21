@@ -64,4 +64,5 @@ def test_webhook_text_does_not_get_image_ack(client):
         })
         body = resp.data.decode("utf-8").lower()
         assert "imagen" not in body
-        assert "procesando" in body or "momento" in body
+        # Greeting triggers ack_greeting (clara) or ack_text (momento)
+        assert "clara" in body or "momento" in body

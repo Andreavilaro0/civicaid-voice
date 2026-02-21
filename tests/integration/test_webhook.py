@@ -84,7 +84,9 @@ def test_webhook_ack_spanish_for_spanish_text(client):
             "NumMedia": "0",
         })
         assert resp.status_code == 200
-        assert "momento" in resp.data.decode("utf-8")
+        body = resp.data.decode("utf-8")
+        # Greeting triggers ack_greeting (Clara intro) or ack_text (momento)
+        assert "Clara" in body or "momento" in body
 
 
 def test_webhook_ack_defaults_spanish_for_audio(client):
