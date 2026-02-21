@@ -1,53 +1,107 @@
-# Clara Web App — Experiencia Completa de Impacto
+# Clara Web App — Enhance Existing App + Demo de Impacto
 
-> **For Claude:** Ejecuta este plan en **team agent mode**. Crea el equipo `clara-webapp` con los agentes definidos abajo. Usa superpowers:executing-plans para coordinar.
+> **For Claude:** Ejecuta este plan en **team agent mode**. Crea el equipo `clara-webapp` con 6 agentes. Usa superpowers:executing-plans para coordinar.
 
-**Goal:** Crear una web app single-page que sea la MEJOR DEMO del hackathon: logo animado con filosofia "Tender Resonance", chat funcional con voz, narrativa de impacto integrada (la historia de Maria), y diseño WCAG AAA que transmita "tu voz tiene poder". NO es solo un chat — es una experiencia que hace llorar a los jueces.
-
-**Architecture:** `presentacion/clara-webapp-live.html` autocontenido (HTML/CSS/JS inline), GSAP 3.12 CDN, Web Speech API, fetch() a `POST /api/chat`. Mobile-first (390px), accesible, multilingue (ES/FR/AR).
-
-**Tech Stack:** HTML5, CSS3, GSAP 3.12 (CDN), Lottie (CDN), Web Speech API, Fetch API, Flask endpoint
+**Goal:** Mejorar la app Next.js EXISTENTE en `clara-web/` y crear un demo HTML standalone para el pitch. NO crear desde cero — ya hay 21 archivos fuente, componentes, hooks, API client, y design system.
 
 ---
 
-## LECTURA OBLIGATORIA ANTES DE EMPEZAR
+## LO QUE YA EXISTE (NO recrear)
 
-Cada agente DEBE leer los archivos relevantes a su rol:
+### Next.js App (`clara-web/`) — 21 archivos, ~102K
 
-| Archivo | Contenido | Para quien |
-|---------|-----------|------------|
-| `design/branding/clara-brand-book.html` | **FUENTE MAESTRA** — SVGs logo+personas, CSS warm shadows/grainy texture, narrativa completa, E-V-I visual, before/after | **TODOS** |
-| `design/branding/colores/PALETA-CLARA.md` | Tokens de color, WCAG AAA | design-agent, frontend-agent |
-| `design/branding/tipografia/TIPOGRAFIA-CLARA.md` | Escala tipografica, fonts | design-agent, frontend-agent |
-| `design/branding/guia-de-marca/BRAND-GUIDE-CLARA.md` | Guia de marca completa | design-agent, narrative-agent |
-| `design/branding/logo/CIVIC-RESONANCE-PHILOSOPHY.md` | Filosofia del logo ondas | design-agent |
-| `design/branding/logo/clara-logo.svg` | SVG del logo (version simplificada) | frontend-agent |
-| `clara-web/design/civic-tenderness-visual-philosophy.md` | Filosofia visual "Tender Resonance" | design-agent, frontend-agent |
-| `clara-web/design/MARKETING-CONTENT-STRATEGY-REPORT.md` | Estrategia contenido, StoryBrand | narrative-agent |
-| `docs/08-marketing/CLARA-TONE-VOICE-GUIDE.md` | Guia tono voz Clara, E-V-I | narrative-agent, frontend-agent |
-| `docs/08-marketing/NARRATIVA-JUECES-FASE4.md` | Narrativa para jueces | narrative-agent |
-| `clara-web/design/design-research-report.md` | Research UX, elderly, accesibilidad | design-agent |
-| `src/core/prompts/templates.py` | Templates de Clara (tono) | frontend-agent |
-| `data/cache/demo_cache.json` | Respuestas demo Clara | frontend-agent |
-| `src/routes/api_chat.py` | Endpoint existente | integration-agent |
+| Archivo | Que tiene | Estado |
+|---------|-----------|--------|
+| `src/app/page.tsx` (13K) | Landing: logo SVG, greeting ES/FR, mic button 120px, topic chips, language selector | FUNCIONAL |
+| `src/app/chat/page.tsx` (2.5K) | Chat: Header + MessageList + ChatInput + VoiceRecorder + DocumentUpload | FUNCIONAL |
+| `src/app/globals.css` (3.5K) | Tailwind v4, Clara palette, keyframes (waveBar, gentlePulse, logoRipple, fadeInUp, float) | FUNCIONAL |
+| `src/app/layout.tsx` (1.4K) | Root: Atkinson Hyperlegible + Inter fonts, metadata, skip-to-content | FUNCIONAL |
+| `tailwind.config.ts` (1.2K) | Clara colors, fonts, sizes, touch targets, bubble radius | FUNCIONAL |
+| `src/components/ui/Button.tsx` | Generic button (primary/secondary) | FUNCIONAL |
+| `src/components/ui/ChatBubble.tsx` | Chat bubble (user/clara) | FUNCIONAL |
+| `src/components/ui/LoadingState.tsx` | 3 waveform bars (listening/thinking/reading) | FUNCIONAL |
+| `src/components/ui/AudioPlayer.tsx` (9.8K) | Play/pause/speed/progress, bilingual labels | FUNCIONAL |
+| `src/components/ui/LanguageSelector.tsx` (1.4K) | ES/FR toggle | NECESITA AR |
+| `src/components/Header.tsx` (2.6K) | Clara logo + language selector | FUNCIONAL |
+| `src/components/MessageList.tsx` (4.3K) | Auto-scroll, AudioPlayer integration | FUNCIONAL |
+| `src/components/ChatInput.tsx` (6.1K) | Text/voice/image mode toggle | FUNCIONAL |
+| `src/components/VoiceRecorder.tsx` (11K) | Web Audio API, 60s max, feedback beeps | FUNCIONAL |
+| `src/components/DocumentUpload.tsx` (12K) | Camera/gallery, base64, size validation | FUNCIONAL |
+| `src/hooks/useChat.ts` (7.5K) | Messages state, API calls, session_id, errors | FUNCIONAL |
+| `src/hooks/useAudioRecorder.ts` (7.3K) | MediaRecorder wrapper, base64 encoding | FUNCIONAL |
+| `src/hooks/useAudioPlayer.ts` (6.8K) | HTMLAudioElement wrapper | FUNCIONAL |
+| `src/lib/api.ts` (7K) | HTTP client, POST /api/chat, timeout, errors | FUNCIONAL |
+| `src/lib/types.ts` (4.6K) | TypeScript contracts (Language="es"\|"fr", ChatRequest, etc.) | NECESITA AR |
+| `src/lib/constants.ts` (4K) | COLORS, EASING, DURATION, AUDIO_FEEDBACK | FUNCIONAL |
+
+### Demo HTML (`presentacion/demo-webapp.html`) — 19K
+- Phone frame mockup con chat interface
+- Dark background con gradientes
+
+### Brand Book (`design/branding/clara-brand-book.html`) — 1110 lineas
+- SVG symbols: `#icon-blue`, `#icon-white`, `#persona-maria`, `#persona-ahmed`, `#persona-fatima`
+- CSS: warm shadows, grainy texture, hero glow, hover lift, E-V-I cards, before/after grid
 
 ---
 
-## EQUIPO
+## GAP ANALYSIS — Lo que FALTA
 
-Crea equipo **`clara-webapp`** con estos agentes:
+| Gap | Donde | Prioridad |
+|-----|-------|-----------|
+| Arabic (AR) language + RTL | types.ts, LanguageSelector, page.tsx, content objects | ALTA |
+| GSAP cinematic entrance | page.tsx (landing) | ALTA |
+| Impact narrative (4.5M, personas, before/after) | Nuevo componente o seccion en page.tsx | ALTA |
+| Brand book SVG personas (Maria/Ahmed/Fatima) | Nuevo componente | MEDIA |
+| Dark mode (`prefers-color-scheme`) | globals.css + layout.tsx | MEDIA |
+| Warm shadows + grainy texture | globals.css | MEDIA |
+| Quick-reply chips post-saludo | ChatInput o MessageList | ALTA |
+| OG tags completos | layout.tsx metadata | BAJA |
+| Standalone pitch demo HTML | `presentacion/clara-webapp-live.html` | ALTA |
 
-| Nombre | subagent_type | Skills | Responsabilidad |
-|--------|---------------|--------|-----------------|
-| `design-agent` | general-purpose | web-typography, refactoring-ui, frontend-design | T1-T2: Design system CSS completo, layout, animaciones, filosofia Tender Resonance |
-| `frontend-agent` | general-purpose | senior-fullstack, react-best-practices | T3-T6: HTML/CSS/JS del webapp, chat funcional, voz, accesibilidad |
-| `narrative-agent` | general-purpose | brand-voice, copywriting-classic, storytelling-storybrand | T7-T8: Contenido narrativo, historia de Maria, microcopy, textos de impacto |
-| `integration-agent` | general-purpose | senior-fullstack, test-master | T9-T10: Endpoint API, tests, integracion backend, verificacion final |
+---
+
+## LECTURA OBLIGATORIA
+
+| Archivo | Para quien |
+|---------|------------|
+| `design/branding/clara-brand-book.html` | **TODOS** — SVGs, CSS patterns, narrativa |
+| `clara-web/src/app/page.tsx` | design-agent, frontend-agent, animation-agent |
+| `clara-web/src/app/globals.css` | design-agent |
+| `clara-web/tailwind.config.ts` | design-agent |
+| `clara-web/src/lib/types.ts` | i18n-agent, frontend-agent |
+| `clara-web/src/components/ui/LanguageSelector.tsx` | i18n-agent |
+| `clara-web/src/app/chat/page.tsx` | frontend-agent |
+| `clara-web/src/hooks/useChat.ts` | frontend-agent |
+| `clara-web/src/lib/constants.ts` | frontend-agent, animation-agent |
+| `design/branding/colores/PALETA-CLARA.md` | design-agent |
+| `design/branding/tipografia/TIPOGRAFIA-CLARA.md` | design-agent |
+| `clara-web/design/civic-tenderness-visual-philosophy.md` | design-agent, animation-agent |
+| `docs/08-marketing/CLARA-TONE-VOICE-GUIDE.md` | narrative-agent |
+| `docs/08-marketing/NARRATIVA-JUECES-FASE4.md` | narrative-agent |
+| `clara-web/design/MARKETING-CONTENT-STRATEGY-REPORT.md` | narrative-agent |
+| `presentacion/demo-webapp.html` | demo-agent |
+| `src/routes/api_chat.py` | qa-agent |
+
+---
+
+## EQUIPO — 6 Agentes
+
+| Nombre | subagent_type | Responsabilidad |
+|--------|---------------|-----------------|
+| `design-agent` | frontend-developer | T1: Enhance globals.css + tailwind con brand book patterns |
+| `i18n-agent` | general-purpose | T2: Add Arabic + RTL across all files |
+| `animation-agent` | frontend-developer | T3: GSAP entrance sequence on landing page |
+| `narrative-agent` | general-purpose | T4: Impact content, personas component, before/after, microcopy |
+| `frontend-agent` | frontend-developer | T5-T7: Wire everything into Next.js pages + standalone demo |
+| `qa-agent` | general-purpose | T8: Tests, accessibility audit, gates, commit |
 
 **Dependencias:**
-- T1-T2 (design-agent) y T7-T8 (narrative-agent) corren EN PARALELO
-- T3-T6 (frontend-agent) esperan a que T1-T2 y T7-T8 terminen
-- T9-T10 (integration-agent) esperan a que T3-T6 terminen
+```
+Fase 1 (paralelo): T1 + T2 + T4 (design + i18n + narrative)
+Fase 2 (paralelo): T3 + T5 (animation + frontend wiring) — esperan Fase 1
+Fase 3:            T6 (standalone demo) — espera Fase 2
+Fase 4:            T7-T8 (quick-reply + QA) — espera Fase 3
+```
 
 ---
 
@@ -55,549 +109,357 @@ Crea equipo **`clara-webapp`** con estos agentes:
 
 ```bash
 echo "=== PRE-CHECK ==="
-PYTHONPATH=. python -m pytest tests/ -x -q --tb=no 2>&1 | tail -3
+cd clara-web && npm run build 2>&1 | tail -5
+cd .. && PYTHONPATH=. python -m pytest tests/ -x -q --tb=no 2>&1 | tail -3
 ruff check src/ tests/ --select E,F,W --ignore E501 2>&1 | tail -1
-PYTHONPATH=. python -c "from src.app import create_app; app = create_app(); print('BOOT OK')"
 echo "=== PRE-CHECK DONE ==="
 ```
 
-**ABORT si tests fallan o boot falla.**
-
 ---
 
-## DESIGN SYSTEM TOKENS (Referencia Rapida)
+## T1: Design System Enhancement (design-agent)
+
+**MODIFY** (no crear): `clara-web/src/app/globals.css` y `clara-web/tailwind.config.ts`
+
+### 1a: globals.css — Agregar brand book CSS patterns
+
+Agregar DESPUES de las keyframes existentes:
 
 ```css
-:root {
-  /* Colors */
-  --clara-blue: #1B5E7B;
-  --clara-orange: #D46A1E;
-  --clara-green: #2E7D4F;
-  --clara-bg: #FAFAFA;
-  --clara-card: #F5F5F5;
-  --clara-bubble-clara: #E3F2FD;
-  --clara-bubble-user: #1B5E7B;
-  --clara-text-primary: #1A1A2E;
-  --clara-text-secondary: #4A4A5A;
-  --clara-border: #E0E0E0;
-  --clara-error: #C62828;
-  --clara-warning: #F9A825;
-
-  /* Typography */
-  --font-display: 'Atkinson Hyperlegible', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  --fs-h1: 36px;
-  --fs-h2: 28px;
-  --fs-h3: 22px;
-  --fs-body-lg: 20px;
-  --fs-body: 18px;
-  --fs-body-sm: 16px;
-  --fs-button: 18px;
-  --fs-caption: 14px;
-  --lh-body: 1.6;
-  --lh-heading: 1.2;
-
-  /* Spacing */
-  --radius-bubble: 16px;
-  --radius-button: 16px;
-  --radius-card: 16px;
-  --space-xs: 4px;
-  --space-sm: 8px;
-  --space-md: 16px;
-  --space-lg: 24px;
-  --space-xl: 40px;
-
-  /* Shadows */
-  --shadow-soft: 0 2px 12px rgba(27, 94, 123, 0.08);
-  --shadow-float: 0 8px 32px rgba(27, 94, 123, 0.12);
-
-  /* Brand Book warm shadows (replace flat borders) */
-  --shadow-warm: 0 2px 20px rgba(27, 94, 123, 0.06), 0 0 0 1px rgba(224, 224, 224, 0.5);
-  --shadow-warm-hover: 0 8px 30px rgba(27, 94, 123, 0.1), 0 0 0 1px rgba(224, 224, 224, 0.5);
+/* ── Brand Book: Warm Shadows ── */
+.shadow-warm {
+  box-shadow: 0 2px 20px rgba(27,94,123,0.06), 0 0 0 1px rgba(224,224,224,0.5);
 }
-```
+.shadow-warm-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(27,94,123,0.1), 0 0 0 1px rgba(224,224,224,0.5);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
----
-
-## SVG ASSETS (Copiar directamente del Brand Book)
-
-**FUENTE:** `design/branding/clara-brand-book.html` lineas 536-598
-
-Incluir este bloque `<svg style="display:none">` al inicio del `<body>`. Contiene:
-
-| Symbol ID | Que es | Donde usar |
-|-----------|--------|------------|
-| `#icon-blue` | Logo Clara (3 arcos azules + punto naranja) | Hero, favicon concept, header |
-| `#icon-white` | Logo Clara variante blanca (para dark mode/fondos oscuros) | Dark mode hero, footer |
-| `#persona-maria` | Retrato SVG ilustrado de Maria (58, Marruecos, fondo naranja, hijab) | Seccion impacto/personas |
-| `#persona-ahmed` | Retrato SVG ilustrado de Ahmed (34, Senegal, fondo azul) | Seccion impacto/personas |
-| `#persona-fatima` | Retrato SVG ilustrado de Fatima (42, Marruecos, fondo verde, hijab) | Seccion impacto/personas |
-
-**Uso:** `<svg width="80" height="80"><use href="#icon-blue"/></svg>`
-
-> **IMPORTANTE:** Estos SVGs son inline y production-ready. NO usar PNGs de personas/ — usar los SVG symbols del brand book que son mas ligeros y escalables.
-
----
-
-## CSS PATTERNS DEL BRAND BOOK (Referencia para design-agent)
-
-**Textura granular (2026 trend):**
-```css
+/* ── Brand Book: Grainy Texture Overlay (2026 trend) ── */
 body::after {
   content: '';
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  inset: 0;
   pointer-events: none;
   z-index: 1000;
   opacity: 0.03;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
 }
-```
 
-**Hero con resplandor calido:**
-```css
-.hero {
-  background: radial-gradient(ellipse at 50% 60%, rgba(212,106,30,0.04) 0%, transparent 60%);
-}
-```
-
-**Hover lift en cards:**
-```css
-.card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-warm-hover);
-}
-```
-
----
-
-## T1: Design System CSS + Layout (design-agent)
-
-**Leer primero:** clara-brand-book.html (FUENTE MAESTRA), PALETA-CLARA.md, TIPOGRAFIA-CLARA.md, civic-tenderness-visual-philosophy.md, design-research-report.md
-
-**Output:** Bloque `<style>` completo para `presentacion/clara-webapp-live.html`
-
-### Requisitos:
-
-**Layout (mobile-first 390px):**
-1. **Hero section** (pantalla completa): Logo SVG `<use href="#icon-blue"/>` centrado (120px), texto animado debajo, fondo con gradiente calido radial (ver CSS PATTERNS arriba)
-2. **Impact strip** (post-animacion): Una frase de impacto con dato ("4.5 millones de personas vulnerables en Espana")
-3. **Personas strip** (opcional, post-impact): 3 avatares SVG circulares (Maria/Ahmed/Fatima usando `#persona-maria`, etc.) con nombres y citas breves — muestra para QUIEN es Clara
-4. **Chat section** (aparece tras hero): Burbujas Clara/usuario, scroll, max-width 480px centrado
-5. **Input bar** (fija abajo): Campo texto + boton voz (56px, naranja pulsante) + boton enviar
-6. **Footer** (sutil): "Hackathon OdiseIA4Good 2026 | Tu voz tiene poder"
-
-**Filosofia visual Tender Resonance + Brand Book:**
-- Formas organicas, radii 16-24px, CERO esquinas afiladas
-- Espacio negativo generoso ("no te vamos a abrumar")
-- Elementos flotan con gravedad natural, no grids rigidos
-- Color como temperatura emocional: azul = confianza institucional, naranja = calidez humana
-- Animacion de carga = circulo respirando a 60 BPM (1s ciclo)
-- **Warm shadows** (del brand book): usar `--shadow-warm` en lugar de bordes planos
-- **Textura granular** (del brand book): overlay sutil `body::after` con feTurbulence SVG noise
-- **Hover lift** en cards/botones: `translateY(-2px)` + shadow intensificado
-- **Blockquote estilo brand book**: border-left 4px naranja, fondo `#FFF8F0`, border-radius 0 8px 8px 0
-
-**Responsive:**
-```css
-/* Mobile first (390px) */
-/* Tablet (768px+): max-width 520px centrado */
-/* Desktop (1024px+): max-width 480px, centrado con fondo difuminado */
-```
-
-**Dark mode:** Detectar `prefers-color-scheme: dark`, invertir backgrounds manteniendo AAA. Cambiar logo de `#icon-blue` a `#icon-white` (variante del brand book).
-
-**Accesibilidad WCAG AAA:**
-- Contraste 7:1 texto normal, 4.5:1 texto grande
-- Touch targets 48px minimo (56px voz, 48px enviar)
-- Focus outline 3px solid var(--clara-blue)
-- `prefers-reduced-motion`: desactivar animaciones, mostrar todo instantaneo
-
----
-
-## T2: Animaciones GSAP + Lottie (design-agent)
-
-**Timeline de entrada (secuencia cinematografica):**
-
-```
-t=0.0s  Fondo: gradiente radial sutil aparece (opacity 0→1, 1.2s)
-t=0.3s  Logo: scale 0.6→1, opacity 0→1 (0.8s, ease: back.out(1.7))
-t=1.0s  Logo: empieza flotacion perpetua (y ±8px, 3s ciclo, ease: sine.inOut)
-t=1.2s  Ondas del logo: pulsan en secuencia (opacity 35%→100%→35%, stagger 0.15s)
-t=1.5s  Texto: "Hola, soy Clara" typewriter (0.04s/char, cursor parpadeante)
-t=3.0s  Texto: fade a "Bonjour, je suis Clara" (crossfade 0.4s)
-t=4.5s  Texto: fade a "مرحبا، أنا كلارا" (crossfade 0.4s, dir: RTL)
-t=6.0s  Texto: fade a tagline "Tu voz tiene poder" (permanece, font-weight: bold)
-t=6.5s  Impact strip: slide-up + counter animado "4.5M personas vulnerables"
-t=7.0s  Personas strip: 3 chips con SVG avatares + citas (stagger 0.2s, fade-in + slide-up)
-t=8.0s  Hero: slide-up suave, chat section aparece desde abajo
-t=8.5s  Input bar: slide-up desde bottom
-t=9.0s  Clara envia saludo automatico en chat (primera burbuja)
-```
-
-**Animacion de carga (mientras Clara "piensa"):**
-- 3 circulos concentricos pulsando a ritmo cardiaco (1s ciclo)
-- Color: var(--clara-blue) al 30% opacity
-- Texto debajo: "Clara esta buscando esa informacion..."
-- Transicion suave al aparecer burbuja de respuesta
-
-**Animacion de grabacion de voz:**
-- Boton mic: borde pulsa naranja→rojo, 1.5s ciclo
-- Onda sonora animada dentro del boton (3 barras verticales oscilando)
-- Contador de tiempo "0:03..." sutil
-
-**prefers-reduced-motion:**
-```javascript
-const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-if (reduced) { /* mostrar todo, skip timeline, solo transiciones opacity */ }
-```
-
----
-
-## T3: HTML estructura + Chat UI (frontend-agent)
-
-**Leer primero:** Output de T1 (CSS), clara-brand-book.html (SVG symbols), templates.py, demo_cache.json
-
-**Crear:** `presentacion/clara-webapp-live.html`
-
-**Estructura HTML5:**
-```html
-<!DOCTYPE html>
-<html lang="es" dir="ltr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#1B5E7B">
-  <meta property="og:title" content="Clara — Tu voz tiene poder">
-  <meta property="og:description" content="Asistente gratuito para tramites del gobierno espanol. Texto, voz, imagenes. ES/FR/AR.">
-  <title>Clara — Tu voz tiene poder</title>
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <style>/* T1 output aqui */</style>
-</head>
-<body>
-  <!-- SVG DEFS — copiar de clara-brand-book.html lineas 536-598 -->
-  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-    <symbol id="icon-blue" viewBox="0 0 80 80"><!-- 3 arcos + punto naranja --></symbol>
-    <symbol id="icon-white" viewBox="0 0 80 80"><!-- variante blanca --></symbol>
-    <symbol id="persona-maria" viewBox="0 0 64 64"><!-- retrato ilustrado --></symbol>
-    <symbol id="persona-ahmed" viewBox="0 0 64 64"><!-- retrato ilustrado --></symbol>
-    <symbol id="persona-fatima" viewBox="0 0 64 64"><!-- retrato ilustrado --></symbol>
-  </svg>
-
-  <!-- HERO -->
-  <section id="hero" class="hero" aria-label="Bienvenida">
-    <svg class="hero-icon" width="120" height="120"><use href="#icon-blue"/></svg>
-    <!-- Texto animado multilingue -->
-    <!-- Impact counter -->
-  </section>
-
-  <!-- PERSONAS STRIP (opcional — muestra para QUIEN es Clara) -->
-  <section id="personas" class="personas-strip" aria-label="Personas que Clara ayuda">
-    <div class="persona-chip">
-      <svg width="48" height="48"><use href="#persona-maria"/></svg>
-      <span>"Solo quiero saber si tengo derecho a ver un medico."</span>
-    </div>
-    <div class="persona-chip">
-      <svg width="48" height="48"><use href="#persona-ahmed"/></svg>
-      <span>"Necesito algo que funcione de noche."</span>
-    </div>
-    <div class="persona-chip">
-      <svg width="48" height="48"><use href="#persona-fatima"/></svg>
-      <span>"No quiero molestar, pero mis hijos necesitan un medico."</span>
-    </div>
-  </section>
-
-  <!-- CHAT -->
-  <main id="chatArea" class="chat-area" role="log" aria-live="polite" aria-label="Conversacion con Clara">
-    <!-- Burbujas se insertan via JS -->
-  </main>
-
-  <!-- INPUT -->
-  <footer id="inputBar" class="input-bar" aria-label="Escribe o habla tu pregunta">
-    <!-- Selector idioma (ES/FR/AR) -->
-    <!-- Campo texto -->
-    <!-- Boton voz (56px, naranja, aria-label) -->
-    <!-- Boton enviar -->
-  </footer>
-
-  <script>/* T2 animaciones + T4 chat + T5 voz */</script>
-</body>
-</html>
-```
-
-**Burbujas de chat:**
-- Clara (izquierda): fondo var(--clara-bubble-clara), border-radius 16px, con "tail" CSS apuntando izquierda
-- Usuario (derecha): fondo var(--clara-bubble-user), texto blanco, tail derecha
-- Timestamp sutil debajo (font-size 12px, color var(--clara-text-secondary))
-- Una idea por burbuja, max-width 85%
-
-**Selector de idioma:**
-- 3 botones pill: ES (default activo), FR, AR
-- Al cambiar: actualiza `<html lang>` y `dir` (AR = rtl), placeholder input, recognition.lang
-- Transicion suave entre idiomas
-
----
-
-## T4: Chat funcional — API integration (frontend-agent)
-
-**Funcion sendMessage():**
-```javascript
-async function sendMessage(text) {
-  if (!text.trim()) return;
-  addBubble(text, 'user');
-  inputEl.value = '';
-  const loadingId = showLoading(); // circulos respirando
-
-  try {
-    const API_URL = location.hostname === 'localhost'
-      ? 'http://localhost:5000/api/chat'
-      : '/api/chat';
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: text, language: currentLang }),
-    });
-    const data = await res.json();
-    removeLoading(loadingId);
-
-    // Burbuja con animacion de entrada (slide-up 20px + fade)
-    addBubble(
-      data.response || 'No he podido procesar tu mensaje. Puedes intentar de nuevo, o llama al 060.',
-      'clara'
-    );
-  } catch {
-    removeLoading(loadingId);
-    addBubble(
-      'No he podido conectar con el servidor. Puedes intentar en unos segundos, o llama al 060.',
-      'clara'
-    );
+/* ── Dark Mode ── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-clara-bg: #0f1419;
+    --color-clara-text: #e8e8ee;
+    --color-clara-text-secondary: #a0a0b0;
+    --color-clara-card: #1a1f26;
+    --color-clara-border: #2a2f36;
+    --color-clara-info: #1a2a3a;
   }
 }
+
+/* ── Persona chip component ── */
+.persona-chip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 2px 20px rgba(27,94,123,0.06);
+}
+
+/* ── Before/After grid ── */
+.before-after-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.before-cell {
+  padding: 12px 16px;
+  background: rgba(212,106,30,0.06);
+  border-radius: 8px;
+  border-left: 3px solid #D46A1E;
+}
+.after-cell {
+  padding: 12px 16px;
+  background: rgba(46,125,79,0.06);
+  border-radius: 8px;
+  border-left: 3px solid #2E7D4F;
+}
 ```
 
-**Saludo automatico post-animacion (t=8.5s):**
-```javascript
-const GREETINGS = {
-  es: 'Hola, soy Clara. Estoy aqui para ayudarte con tramites y ayudas del gobierno espanol.\n\nPuedo ayudarte con:\n— *Ingreso Minimo Vital* (ayuda economica)\n— *Empadronamiento* (registrarte en tu municipio)\n— *Tarjeta sanitaria* (acceso a sanidad publica)\n\nSobre que te gustaria saber?',
-  fr: 'Bonjour, je suis Clara. Je suis la pour vous aider avec les demarches administratives en Espagne.\n\nJe peux vous aider avec:\n— *Revenu Minimum Vital* (aide economique)\n— *Inscription municipale* (enregistrement)\n— *Carte sanitaire* (acces sante publique)\n\nComment puis-je vous aider?',
-  ar: 'مرحبا، أنا كلارا. أنا هنا لمساعدتك في الإجراءات الحكومية في إسبانيا.\n\nيمكنني مساعدتك في:\n— الحد الأدنى للدخل\n— التسجيل البلدي\n— البطاقة الصحية\n\nماذا تحتاج؟',
+### 1b: tailwind.config.ts — Add dark mode + shadow tokens
+
+Agregar en `extend`:
+```typescript
+boxShadow: {
+  warm: '0 2px 20px rgba(27,94,123,0.06), 0 0 0 1px rgba(224,224,224,0.5)',
+  'warm-hover': '0 8px 30px rgba(27,94,123,0.1), 0 0 0 1px rgba(224,224,224,0.5)',
+},
+```
+
+---
+
+## T2: Arabic + RTL Support (i18n-agent)
+
+**MODIFY** estos archivos existentes:
+
+### 2a: `src/lib/types.ts`
+```typescript
+// CAMBIAR:
+export type Language = "es" | "fr";
+// A:
+export type Language = "es" | "fr" | "ar";
+```
+
+### 2b: `src/components/ui/LanguageSelector.tsx`
+Agregar boton "AR" al selector. Al seleccionar AR, emitir evento para que layout cambie `dir="rtl"`.
+
+### 2c: `src/app/page.tsx`
+Agregar bloque `ar` al objeto `content`:
+```typescript
+ar: {
+  greeting: "مرحبا، أنا كلارا",
+  tagline: ["صوتك", "له قوة"],
+  description: "أساعدك في الإجراءات الاجتماعية في إسبانيا. تحدث أو اكتب بلغتك.",
+  mic_label: "اضغط للتحدث",
+  topics_hint: "أو اختر موضوعاً:",
+  topics: [
+    { icon: "coin", label: "مساعدة\nمالية", speech: "المساعدة المالية" },
+    { icon: "house", label: "تسجيل\nبلدي", speech: "التسجيل البلدي" },
+    { icon: "health", label: "صحة", speech: "البطاقة الصحية" },
+    { icon: "doc", label: "NIE/TIE", speech: "NIE أو TIE" },
+  ],
+  cta_text: "أفضل الكتابة",
+  welcome_speech: "مرحبا، أنا كلارا. اضغط الزر الكبير لتتحدث معي.",
+  footer: "مجاني · سري · بلغتك",
+},
+```
+
+### 2d: `src/app/layout.tsx`
+Agregar prop `dir` dinamico. Usar cookie o searchParam para detectar AR y setear `dir="rtl"`.
+
+### 2e: `src/hooks/useChat.ts`
+Agregar saludo AR al welcome message. Agregar `ar-SA` como lang para Speech API.
+
+### 2f: `src/app/globals.css`
+Agregar:
+```css
+[dir="rtl"] .chat-bubble-user { border-radius: 16px 4px 16px 16px; }
+[dir="rtl"] .chat-bubble-clara { border-radius: 4px 16px 16px 16px; }
+```
+
+---
+
+## T3: GSAP Entrance Sequence (animation-agent)
+
+**MODIFY:** `clara-web/src/app/page.tsx`
+
+### 3a: Agregar GSAP via CDN en layout.tsx o como next/script
+```typescript
+import Script from 'next/script';
+// En el JSX:
+<Script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" strategy="beforeInteractive" />
+```
+
+### 3b: Reemplazar las CSS animations actuales con GSAP timeline
+
+En `page.tsx`, agregar useEffect con timeline:
+
+```typescript
+useEffect(() => {
+  if (typeof gsap === 'undefined') return;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) return; // CSS fallback handles it
+
+  const tl = gsap.timeline();
+  tl.from('.hero-logo', { scale: 0.6, opacity: 0, duration: 0.8, ease: 'back.out(1.7)' })
+    .to('.hero-logo', { y: -8, duration: 3, ease: 'sine.inOut', repeat: -1, yoyo: true }, '+=0.2')
+    .from('.greeting-text', { opacity: 0, y: 20, duration: 0.6 }, '-=2.8')
+    .from('.tagline-text', { opacity: 0, y: 20, duration: 0.6 }, '-=2.2')
+    .from('.description-text', { opacity: 0, y: 20, duration: 0.6 }, '-=1.8')
+    .from('.mic-button', { scale: 0, duration: 0.5, ease: 'back.out(2)' }, '-=1.2')
+    .from('.topic-chips > *', { opacity: 0, y: 15, stagger: 0.1, duration: 0.4 }, '-=0.8');
+}, []);
+```
+
+### 3c: Multilingual typewriter (en hero, antes del tagline)
+
+Agregar estado que cicla por 3 saludos: "Hola, soy Clara" → "Bonjour, je suis Clara" → "مرحبا، أنا كلارا" → tagline final.
+
+---
+
+## T4: Impact Narrative Content (narrative-agent)
+
+**CREAR:** `clara-web/src/components/ImpactSection.tsx`
+
+Componente React que incluye:
+
+### 4a: Impact counter
+```tsx
+<div className="text-center py-6">
+  <span className="font-display text-[48px] font-bold text-clara-blue">4.5M</span>
+  <p className="text-body-sm text-clara-text-secondary">
+    personas vulnerables en España no acceden a ayudas
+  </p>
+</div>
+```
+
+### 4b: Personas strip (usar SVGs del brand book)
+```tsx
+const personas = [
+  { id: 'maria', name: 'María, 58', quote: { es: '"Solo quiero saber si tengo derecho a ver un médico."', fr: '"Je veux juste savoir si j\'ai droit à un médecin."', ar: '"أريد فقط أن أعرف هل لي الحق في رؤية طبيب."' }},
+  { id: 'ahmed', name: 'Ahmed, 34', quote: { ... }},
+  { id: 'fatima', name: 'Fátima, 42', quote: { ... }},
+];
+```
+
+### 4c: Before/After comparison
+Grid naranja/verde del brand book seccion "Voz Primero":
+- Antes: "Un formulario de 4 páginas en español jurídico"
+- Con Clara: "¿Tienes pasaporte y contrato? Entonces puedes empadronarte."
+(3 filas total)
+
+### 4d: SVG Defs component
+**CREAR:** `clara-web/src/components/SvgDefs.tsx`
+Copiar los `<symbol>` del brand book (lineas 536-598) como componente React.
+
+### 4e: Microcopy trilingue
+**CREAR:** `clara-web/src/lib/i18n.ts`
+Centralizar TODOS los strings en un objeto `Record<Language, {...}>` para ES/FR/AR.
+
+### 4f: Quick-reply chips data
+```typescript
+export const QUICK_REPLIES: Record<Language, string[]> = {
+  es: ["¿Qué es el IMV?", "¿Cómo me empadrono?", "Tarjeta sanitaria"],
+  fr: ["Qu'est-ce que le RMV?", "Comment s'inscrire?", "Carte sanitaire"],
+  ar: ["ما هو الحد الأدنى للدخل؟", "كيف أسجل؟", "البطاقة الصحية"],
 };
 ```
 
-**Quick-reply chips (post-saludo):**
-3 botones debajo del saludo de Clara para acelerar la demo:
-- "Que es el IMV?" / "Qu'est-ce que le RMV?" / "ما هو الحد الأدنى للدخل؟"
-- "Como me empadrono?" / "Comment s'inscrire?" / "كيف أسجل؟"
-- "Tarjeta sanitaria" / "Carte sanitaire" / "البطاقة الصحية"
+---
 
-Al hacer click, se envia como mensaje del usuario.
+## T5: Wire Into Next.js Pages (frontend-agent)
+
+**MODIFY** archivos existentes para integrar T1-T4:
+
+### 5a: `page.tsx` — Landing page enhancements
+1. Import `SvgDefs` y renderizar al inicio del body
+2. Import `ImpactSection` y renderizar ENTRE hero y mic button
+3. Agregar clases CSS para GSAP targeting (`.hero-logo`, `.greeting-text`, etc.)
+4. Agregar multilingual typewriter al greeting
+5. Integrar dark mode logo switch (`#icon-blue` / `#icon-white`)
+
+### 5b: `chat/page.tsx` — Quick-reply chips
+1. Agregar quick-reply chips debajo del primer mensaje de Clara
+2. Al click: `send(chipText)` — se envia como mensaje del usuario
+3. Chips desaparecen despues del primer envio
+
+### 5c: `MessageList.tsx` — Quick-reply rendering
+Agregar prop `onQuickReply` y renderizar chips como botones pill debajo del welcome message.
+
+### 5d: `layout.tsx` — OG tags + dir support
+1. Mejorar metadata con OG tags completos
+2. Agregar dynamic `dir` attribute support
 
 ---
 
-## T5: Entrada por voz — Web Speech API (frontend-agent)
+## T6: Standalone Demo HTML (frontend-agent)
 
-**Deteccion y configuracion:**
-```javascript
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-const hasVoice = !!SpeechRecognition;
-if (!hasVoice) voiceBtn.style.display = 'none';
-```
+**CREAR:** `presentacion/clara-webapp-live.html`
 
-**toggleVoice():**
-- Tap para iniciar, tap para parar (NO mantener pulsado — diseño elderly-friendly)
-- `recognition.lang` cambia con selector idioma (es-ES, fr-FR, ar-SA)
-- `interimResults: true` — muestra transcripcion parcial en el input
-- Al finalizar: envia automaticamente via sendMessage()
+Single-file HTML autocontenido para el pitch. COPIAR estructura de `presentacion/demo-webapp.html` como BASE, luego agregar:
 
-**Feedback visual durante grabacion:**
-- Boton mic: borde pulsa naranja/rojo (CSS animation)
-- Contador de tiempo "0:03" aparece junto al boton
-- Input muestra transcripcion parcial en tiempo real (italic, color secondary)
+1. SVG defs del brand book (logo + personas)
+2. GSAP CDN + entrance timeline (logo → typewriter → impact → personas → chat)
+3. Chat funcional con `fetch()` a `/api/chat`
+4. Web Speech API (tap-to-start)
+5. Quick-reply chips
+6. 3 idiomas (ES/FR/AR + RTL)
+7. Impact section (4.5M + personas + before/after)
+8. Brand book CSS (warm shadows, grainy texture, hero glow)
+9. Dark mode + reduced-motion
 
-**Error handling (tono Clara):**
-- `no-speech`: no hacer nada (silencioso)
-- Otros errores: "No he podido escucharte. Puedes intentar de nuevo, o si prefieres, escribe tu pregunta."
+> Este archivo es para presentacion — NO necesita Next.js, NO necesita build step.
 
 ---
 
-## T6: Accesibilidad + Responsive final (frontend-agent)
+## T7: Final Polish (frontend-agent)
 
-**Checklist WCAG AAA:**
-- [ ] `role="log"` + `aria-live="polite"` en chat
-- [ ] Todos los botones: `aria-label` descriptivo
-- [ ] Focus visible: outline 3px solid var(--clara-blue) con offset 2px
-- [ ] Tab order: lang selector → chat → input → voice → send
-- [ ] `<html lang="es">` cambia dinamicamente con selector
-- [ ] `<html dir="rtl">` cuando AR seleccionado
-- [ ] Contraste 7:1 verificado en TODAS las combinaciones
-- [ ] Touch targets: 48px minimo, 56px voz
-- [ ] `prefers-reduced-motion` desactiva GSAP timeline
-- [ ] `prefers-color-scheme: dark` activa modo oscuro
-- [ ] Zoom 200% no rompe layout
-- [ ] Screen reader: burbujas anuncian "Clara dice:" o "Tu dijiste:"
-
-**Responsive:**
-```css
-@media (min-width: 768px) { .container { max-width: 520px; margin: 0 auto; } }
-@media (min-width: 1024px) { body { background: linear-gradient(135deg, #f0f4f8, #fafafa); } .container { max-width: 480px; } }
+### 7a: Footer
+Agregar a `page.tsx`:
 ```
-
----
-
-## T7: Contenido narrativo — La Historia de Maria + Barreras (narrative-agent)
-
-**Leer primero:** clara-brand-book.html (FUENTE MAESTRA — seccion "Historia", "Filosofia", "Voz Primero"), CLARA-TONE-VOICE-GUIDE.md, MARKETING-CONTENT-STRATEGY-REPORT.md, NARRATIVA-JUECES-FASE4.md
-
-**Output:** Textos para integrar en el HTML.
-
-### 7a: Impact strip (aparece en hero, t=6.5s)
-
-Texto que aparece con counter animado:
-```
-"4.5 millones de personas vulnerables en Espana no acceden a ayudas por barreras de idioma y burocracia."
-```
-
-### 7b: Personas strip (aparece en hero, t=7.0s — usa SVG portraits)
-
-3 chips horizontales con avatar SVG + cita real del brand book:
-- **Maria (58, Marruecos):** "Solo quiero saber si tengo derecho a ver un medico."
-- **Ahmed (34, Senegal):** "Necesito algo que funcione de noche."
-- **Fatima (42, Marruecos):** "No quiero molestar, pero mis hijos necesitan un medico."
-
-> Estas citas vienen directamente del brand book seccion "Personas". Usar las SVG personas `#persona-maria`, `#persona-ahmed`, `#persona-fatima` como avatares.
-
-### 7c: Before/After comparison (aparece debajo de personas o como modal "Ver impacto")
-
-Formato del brand book seccion "Voz Primero" — grid 2 columnas naranja/verde:
-
-| Antes (naranja) | Con Clara (verde) |
-|-----------------|------------------|
-| "Un formulario de 4 paginas en espanol juridico" | "Tienes pasaporte y contrato? Entonces puedes empadronarte." |
-| "Acreditar residencia efectiva mediante certificado de convivencia" | "Necesitas demostrar que vives ahi. Puede ser un recibo de luz." |
-| "Llamar al 010, esperar 40 min, no entender la respuesta" | "Un audio de 30 segundos en tu idioma, a cualquier hora" |
-
-### 7d: Microcopy de la interfaz
-
-| Elemento | ES | FR | AR |
-|----------|----|----|-----|
-| Placeholder input | "Escribe tu pregunta o habla..." | "Ecrivez ou parlez..." | "...اكتب أو تحدث" |
-| Boton voz label | "Hablar con Clara" | "Parler a Clara" | "تحدث مع كلارا" |
-| Boton enviar label | "Enviar" | "Envoyer" | "إرسال" |
-| Loading | "Clara esta buscando..." | "Clara cherche..." | "...كلارا تبحث" |
-| Error conexion | "No he podido conectar. Puedes intentar en unos segundos, o llama al 060." | "Je n'ai pas pu me connecter. Reessayez ou appelez le 060." | "لم أستطع الاتصال. حاول مرة أخرى أو اتصل بـ 060." |
-
-### 7e: Footer inspiracional
-
-```
-"Clara es un bien publico digital. Codigo abierto, informacion verificada, cero costo."
+"Clara es un bien público digital. Código abierto, información verificada, cero costo."
 "Hackathon OdiseIA4Good 2026 — UDIT Madrid"
 ```
 
-### 7f: Estadisticas (del brand book — para impact section o footer)
-
-| Stat | Valor | Label |
-|------|-------|-------|
-| CCAA cubiertas | 17 | Comunidades autonomas |
-| Idiomas | 3+ | Idiomas soportados |
-| Tramites | 8 | En la base de conocimiento |
-| Respuesta | <3s | Tiempo de respuesta |
-
-### 7g: Demo script para jueces (5 preguntas que impresionan)
-
-Secuencia de preguntas para la demo en vivo:
-1. **"Que es el IMV?"** → Clara responde con empatia + pasos claros (patron E-V-I visible)
-2. **Cambiar a FR → "Comment s'inscrire a la mairie?"** → Clara responde en frances
-3. **Enviar nota de voz en espanol** → Transcripcion + respuesta
-4. **"Tengo una carta que no entiendo"** → Clara pide la foto (vision flow)
-5. **"Gracias Clara"** → Cierre calido: "Mucho animo con tu tramite"
+### 7b: Stats strip (opcional)
+4 numeros del brand book: 17 CCAA | 3+ idiomas | 8 tramites | <3s respuesta
 
 ---
 
-## T8: OG Tags + SEO + Social Sharing (narrative-agent)
+## T8: QA + Verification + Commit (qa-agent)
 
-```html
-<!-- Open Graph -->
-<meta property="og:title" content="Clara — Tu voz tiene poder">
-<meta property="og:description" content="Asistente gratuito WhatsApp para tramites en Espana. Texto, voz, imagenes. Espanol, frances, arabe.">
-<meta property="og:type" content="website">
-<meta property="og:image" content="presentacion/images/cover.png">
+### 8a: Verify backend endpoint
+Leer `src/routes/api_chat.py`. Confirmar POST /api/chat con CORS. Si falta CORS, agregar.
 
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Clara — Tu voz tiene poder">
-<meta name="twitter:description" content="4.5M personas vulnerables. Una asistente que habla su idioma.">
-```
-
----
-
-## T9: Verificar endpoint API + Tests (integration-agent)
-
-**Step 1: Verificar que `src/routes/api_chat.py` existe y funciona**
-
-Leer el archivo. Si ya existe y tiene POST /api/chat con CORS, SKIP. Si no existe o falta CORS, crear/arreglar.
-
-**Step 2: Escribir tests**
-
-```python
-# tests/unit/test_api_chat_webapp.py
-def test_api_chat_returns_json():
-    """POST /api/chat with valid message returns JSON response."""
-
-def test_api_chat_cors_headers():
-    """Response includes Access-Control-Allow-Origin."""
-
-def test_api_chat_empty_message_400():
-    """POST /api/chat with empty message returns 400."""
-
-def test_api_chat_options_preflight():
-    """OPTIONS /api/chat returns CORS preflight headers."""
-```
-
-**Step 3: Ejecutar tests**
+### 8b: Run tests
 ```bash
-PYTHONPATH=. python -m pytest tests/unit/test_api_chat_webapp.py -v --tb=short
+cd clara-web && npm run build
+cd .. && PYTHONPATH=. python -m pytest tests/ -x -q --tb=no
+ruff check src/ tests/ --select E,F,W --ignore E501
 ```
 
----
+### 8c: Accessibility audit
+- [ ] `role="log"` + `aria-live="polite"` en chat
+- [ ] Todos los botones: `aria-label` descriptivo
+- [ ] Focus visible: 3px solid clara-blue
+- [ ] `<html lang>` cambia con selector
+- [ ] `<html dir="rtl">` cuando AR
+- [ ] Contraste 7:1 todas las combinaciones
+- [ ] Touch targets: 48px minimo
+- [ ] `prefers-reduced-motion` funciona
+- [ ] `prefers-color-scheme: dark` funciona
+- [ ] Zoom 200% no rompe
 
-## T10: Verificacion final + Commit (integration-agent)
+### 8d: Gates de verificacion
 
-### Gates de verificacion:
+| Gate | Verificar | Esperado |
+|------|-----------|----------|
+| G1 | `npm run build` en clara-web/ | Build success |
+| G2 | `pytest tests/ -x -q` | 568+ passed |
+| G3 | `ruff check` | Clean |
+| G4 | types.ts tiene `"ar"` en Language | SI |
+| G5 | LanguageSelector tiene 3 botones (ES/FR/AR) | SI |
+| G6 | globals.css tiene `prefers-color-scheme: dark` | SI |
+| G7 | globals.css tiene grainy texture `body::after` | SI |
+| G8 | page.tsx importa GSAP y tiene timeline | SI |
+| G9 | `clara-webapp-live.html` existe y tiene >300 lineas | SI |
+| G10 | Demo HTML tiene `role="log"` y `aria-live` | SI |
 
-| Gate | Comando | Esperado |
-|------|---------|----------|
-| G1 | `python -m pytest tests/ -x -q --tb=no \| tail -3` | 568+ passed, 0 failed |
-| G2 | `ruff check src/ tests/ --select E,F,W --ignore E501` | All checks passed |
-| G3 | `PYTHONPATH=. python -c "from src.app import create_app; app = create_app(); print('OK')"` | OK |
-| G4 | Verificar `clara-webapp-live.html` existe y tiene >200 lineas | Existe |
-| G5 | Verificar HTML tiene `role="log"` y `aria-live="polite"` | Presente |
-| G6 | Verificar HTML tiene `prefers-reduced-motion` | Presente |
-| G7 | Verificar HTML tiene GSAP CDN script tag | Presente |
-| G8 | Verificar HTML tiene `lang="es"` en html tag | Presente |
-| G9 | Verificar HTML tiene `og:title` meta tag | Presente |
-
-### Commits (en orden):
+### 8e: Commits
 
 ```bash
-# Si se modifico api_chat.py o app.py
-git add src/routes/api_chat.py src/app.py tests/unit/test_api_chat_webapp.py
-git commit -m "feat: add/update /api/chat endpoint for webapp integration"
+# Next.js enhancements
+git add clara-web/
+git commit -m "feat(clara-web): add Arabic/RTL, GSAP animations, impact narrative, dark mode, brand book CSS
 
-# El webapp
+- Arabic language + RTL layout support (third language)
+- GSAP cinematic entrance: logo float, multilingual typewriter, staggered reveals
+- Impact section: 4.5M counter, persona SVG avatars with quotes, before/after grid
+- Dark mode via prefers-color-scheme with AAA contrast
+- Brand book CSS: warm shadows, grainy texture overlay, hover lift
+- Quick-reply chips in chat for faster demo flow
+- SVG defs from brand book (logo blue/white + 3 persona portraits)
+- Centralized i18n strings for ES/FR/AR
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
+
+# Standalone demo
 git add presentacion/clara-webapp-live.html
-git commit -m "feat: add clara-webapp-live — animated landing + chat + voice + impact narrative
-
-- Tender Resonance design: organic forms, breathing animations, WCAG AAA
-- GSAP entrance sequence: logo float, multilingual typewriter, impact counter
-- Functional chat connected to /api/chat with quick-reply chips
-- Web Speech API voice input (tap-to-start, elderly-friendly)
-- Trilingual support: ES, FR, AR (with RTL)
-- Impact strip: 4.5M stat with counter animation
-- Dark mode + reduced-motion support
-- Mobile-first responsive (390px → 768px → 1024px)
+git commit -m "feat: add standalone clara-webapp-live demo for hackathon pitch
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
 ```
@@ -606,29 +468,28 @@ Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
 
 ## Resumen
 
-| Fase | Agente | Tasks | Paralelo |
-|------|--------|-------|----------|
-| 1 | design-agent | T1-T2: CSS system + animaciones | SI (con narrative) |
-| 1 | narrative-agent | T7-T8: Contenido + OG tags | SI (con design) |
-| 2 | frontend-agent | T3-T6: HTML + chat + voz + a11y | Espera Fase 1 |
-| 3 | integration-agent | T9-T10: Tests + gates + commit | Espera Fase 2 |
+| Fase | Agente(s) | Tasks | Paralelo |
+|------|-----------|-------|----------|
+| 1 | design-agent + i18n-agent + narrative-agent | T1 + T2 + T4 | SI (3 en paralelo) |
+| 2 | animation-agent + frontend-agent | T3 + T5 | SI (2 en paralelo) |
+| 3 | frontend-agent | T6 (standalone demo) | NO |
+| 4 | frontend-agent + qa-agent | T7 + T8 | SI |
 
-**Total: 10 tasks, 4 agentes, 3 fases**
+**Total: 8 tasks, 6 agentes, 4 fases**
 
 ## Criterios de Exito
 
-- [ ] Logo SVG inline (`#icon-blue`) flota con ondas pulsando (filosofia Tender Resonance)
-- [ ] Secuencia multilingue typewriter (ES → FR → AR → tagline)
-- [ ] Counter animado "4.5M personas vulnerables"
-- [ ] **Personas strip**: 3 SVG avatares (Maria/Ahmed/Fatima) con citas reales del brand book
-- [ ] **Before/After**: comparacion visual naranja/verde del impacto de Clara
-- [ ] Chat funcional: enviar pregunta → recibir respuesta de Clara
-- [ ] Voz funcional: tap mic → hablar → transcripcion → respuesta
-- [ ] Quick-reply chips aceleran la demo
-- [ ] 3 idiomas con cambio fluido (incluyendo RTL para arabe)
-- [ ] Dark mode automatico (logo cambia a `#icon-white`)
-- [ ] **Brand book CSS**: warm shadows, textura granular sutil, hover lift, hero radial glow
-- [ ] WCAG AAA (contraste, focus, aria, reduced-motion)
-- [ ] Mobile-first, se ve perfecto en 390px
-- [ ] Tests pasan (568+)
-- [ ] Un juez que lo vea dice "wow"
+- [ ] Next.js app compila (`npm run build`)
+- [ ] 3 idiomas funcionales (ES/FR/AR) con RTL correcto
+- [ ] GSAP entrance: logo float → typewriter multilingue → impact reveal
+- [ ] Impact section: 4.5M counter + 3 SVG personas con citas
+- [ ] Before/After: comparacion naranja/verde
+- [ ] Quick-reply chips en chat
+- [ ] Dark mode automatico (logo white variant)
+- [ ] Brand book CSS: warm shadows, grainy texture, hover lift
+- [ ] Chat funcional conectado a /api/chat
+- [ ] Voz funcional (Web Speech API, 3 idiomas)
+- [ ] Standalone demo HTML funcional
+- [ ] WCAG AAA (contraste, focus, aria, reduced-motion, RTL)
+- [ ] Backend tests pasan (568+)
+- [ ] Mobile-first, perfecto en 390px
