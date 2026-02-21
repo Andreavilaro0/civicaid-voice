@@ -262,12 +262,12 @@ class TestDetectLanguage:
         assert result == "es"
 
     # --- Catalan/Galician → Spanish ---
-    def test_catalan_maps_to_spanish(self):
-        """langdetect sometimes returns 'ca' for Spanish. Verify we handle it."""
+    def test_catalan_is_supported(self):
+        """langdetect returning 'ca' is now a supported language (not mapped to 'es')."""
         from unittest.mock import patch
         with patch("src.core.skills.detect_lang.detect", return_value="ca"):
             result = detect_language("una frase llarga en catala que no te keywords")
-            assert result == "es"
+            assert result == "ca"
 
     def test_galician_maps_to_spanish(self):
         from unittest.mock import patch

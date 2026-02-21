@@ -1,6 +1,7 @@
 """Tests for eval runner framework."""
 
 import os
+import pytest
 from src.utils.eval_runner import (
     load_eval_cases,
     run_eval_case,
@@ -141,7 +142,9 @@ def test_eval_runner_with_cache():
     from src.core import cache
     from src.core.models import InputType
 
-    cache.load_cache()
+    n = cache.load_cache()
+    if n == 0:
+        pytest.skip("demo_cache.json is empty — no cache entries to test against")
 
     def get_response(query: str, lang: str) -> str:
         result = cache.match(query, lang, InputType.TEXT)
