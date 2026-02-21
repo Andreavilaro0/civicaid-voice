@@ -17,16 +17,37 @@ _FR_KEYWORDS = {
     "carte", "mairie", "inscrire", "inscription", "domicile",
 }
 
+# Keywords that strongly indicate English
+_EN_KEYWORDS = {
+    "hello", "hi", "hey", "help", "need", "want", "please", "thanks",
+    "thank", "how", "what", "where", "registration", "appointment",
+}
+
+# Keywords that strongly indicate Portuguese
+_PT_KEYWORDS = {
+    "ola", "oi", "obrigado", "obrigada", "preciso", "ajuda", "por favor",
+    "como", "onde", "registo", "consulta", "documento",
+}
+
+# Keywords that strongly indicate Arabic (transliterated common words)
+_AR_KEYWORDS = {
+    "salam", "marhaba", "shukran", "musaada", "ahlan",
+}
+
 
 def _keyword_hint(text: str) -> str | None:
     """Check for language-specific keywords. Returns lang code or None."""
     words = set(text.lower().split())
     es_hits = len(words & _ES_KEYWORDS)
     fr_hits = len(words & _FR_KEYWORDS)
-    if es_hits > 0 and es_hits >= fr_hits:
-        return "es"
-    if fr_hits > 0 and fr_hits > es_hits:
-        return "fr"
+    en_hits = len(words & _EN_KEYWORDS)
+    pt_hits = len(words & _PT_KEYWORDS)
+    ar_hits = len(words & _AR_KEYWORDS)
+
+    scores = {"es": es_hits, "fr": fr_hits, "en": en_hits, "pt": pt_hits, "ar": ar_hits}
+    best = max(scores, key=scores.get)
+    if scores[best] > 0:
+        return best
     return None
 
 

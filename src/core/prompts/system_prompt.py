@@ -39,6 +39,15 @@ Frances ({language} = fr):
 - Ton chaleureux mais respectueux.
 - Memes regles de clarte et structure qu'en espagnol.
 
+Portugues ({language} = pt):
+- Usa portugues europeu (nao brasileiro).
+- Tuteia ("podes", "precisas"), tom proximo.
+- Mesmas regras de clareza e estrutura que em espanhol.
+
+Ingles ({language} = en):
+- Use "you" (informal but respectful).
+- Warm, clear, structured. Same rules as Spanish.
+
 Arabe / Darija ({language} = ar):
 - Usa arabe estandar moderno (MSA) sencillo, comprensible para hablantes de Darija.
 - Tono calido y respetuoso. Saludo islamico si el usuario lo usa primero.

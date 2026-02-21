@@ -1,9 +1,19 @@
 """Response templates by type: greeting, tramite, error, fallback."""
 
 _GREETING_WORDS = {
-    "hola", "hello", "hi", "hey", "buenas", "buenos dias", "buenas tardes",
-    "buenas noches", "que tal", "ey", "ola", "bonjour", "salut", "bonsoir",
-    "join", "empezar", "start", "ayuda", "help",
+    # Spanish
+    "hola", "buenas", "buenos dias", "buenas tardes", "buenas noches",
+    "que tal", "ey",
+    # French
+    "bonjour", "salut", "bonsoir",
+    # English
+    "hello", "hi", "hey", "help", "start",
+    # Portuguese
+    "ola", "oi", "bom dia", "boa tarde", "boa noite",
+    # Arabic (transliterated)
+    "salam", "marhaba", "ahlan",
+    # Generic
+    "join", "empezar", "ayuda",
 }
 
 
@@ -20,11 +30,15 @@ TEMPLATES = {
         "es": "Hola! Soy Clara, tu amiga para tramites. Dame un segundo...",
         "fr": "Bonjour ! Je suis Clara, votre amie pour les demarches. Un instant...",
         "en": "Hi! I'm Clara, your friend for government procedures. One moment...",
+        "pt": "Ola! Sou a Clara, a tua amiga para burocracias. Um momento...",
+        "ar": "!اهلا! انا كلارا، صديقتك للمعاملات الحكومية. لحظة من فضلك",
     },
     "ack_text": {
         "es": "Dame un momento, estoy buscando esa informacion.",
         "fr": "Un instant, je cherche cette information.",
         "en": "One moment, I'm looking into this.",
+        "pt": "Um momento, estou a procurar essa informacao.",
+        "ar": "لحظة، أبحث عن هذه المعلومات.",
     },
     "ack_audio": {
         "es": "Estoy escuchando tu mensaje, un momento.",
@@ -45,6 +59,8 @@ TEMPLATES = {
         "es": "Estoy aqui para ayudarte con tramites, ayudas y procesos del gobierno espanol. Sobre que necesitas informacion?",
         "fr": "Je suis la pour vous aider avec les demarches et aides du gouvernement espagnol. De quoi avez-vous besoin ?",
         "en": "I'm here to help you with procedures and benefits from the Spanish government. What do you need information about?",
+        "pt": "Estou aqui para te ajudar com processos e ajudas do governo espanhol. Sobre o que precisas de informacao?",
+        "ar": "أنا هنا لمساعدتك في المعاملات والمساعدات الحكومية الإسبانية. بماذا تحتاج مساعدة؟",
     },
     "whisper_fail": {
         "es": "No he podido escuchar bien tu audio. Puedes intentar de nuevo, o si prefieres, escribeme tu pregunta.",
