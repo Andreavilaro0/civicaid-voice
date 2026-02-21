@@ -1,4 +1,5 @@
 import SubPageLayout from "@/components/welcome/SubPageLayout";
+import { cdn } from "@/lib/constants";
 import type { Language } from "@/lib/types";
 
 const steps: Record<Language, { icon: string; title: string; desc: string }[]> = {
@@ -23,10 +24,10 @@ const steps: Record<Language, { icon: string; title: string; desc: string }[]> =
 };
 
 const stepImages: { src: string; alt: Record<Language, string> }[] = [
-  { src: "/media/steps/step-1-open.png", alt: { es: "Paso 1: abre Clara", fr: "Etape 1 : ouvre Clara", ar: "الخطوة 1: افتح كلارا" } },
-  { src: "/media/steps/step-2-language.png", alt: { es: "Paso 2: elige tu idioma", fr: "Etape 2 : choisis ta langue", ar: "الخطوة 2: اختر لغتك" } },
-  { src: "/media/steps/step-3-speak.png", alt: { es: "Paso 3: habla o escribe", fr: "Etape 3 : parle ou ecris", ar: "الخطوة 3: تحدث أو اكتب" } },
-  { src: "/media/steps/step-4-response.png", alt: { es: "Paso 4: recibe tu respuesta", fr: "Etape 4 : recois ta reponse", ar: "الخطوة 4: احصل على إجابتك" } },
+  { src: cdn("/media/steps/step-1-open.png"), alt: { es: "Paso 1: abre Clara", fr: "Etape 1 : ouvre Clara", ar: "الخطوة 1: افتح كلارا" } },
+  { src: cdn("/media/steps/step-2-language.png"), alt: { es: "Paso 2: elige tu idioma", fr: "Etape 2 : choisis ta langue", ar: "الخطوة 2: اختر لغتك" } },
+  { src: cdn("/media/steps/step-3-speak.png"), alt: { es: "Paso 3: habla o escribe", fr: "Etape 3 : parle ou ecris", ar: "الخطوة 3: تحدث أو اكتب" } },
+  { src: cdn("/media/steps/step-4-response.png"), alt: { es: "Paso 4: recibe tu respuesta", fr: "Etape 4 : recois ta reponse", ar: "الخطوة 4: احصل على إجابتك" } },
 ];
 
 export default function ComoUsarPage() {

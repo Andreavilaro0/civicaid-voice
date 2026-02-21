@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { SUGGESTIONS, PROMPT_PLACEHOLDER, MENU_ITEMS, SECOND_CTA } from "@/lib/i18n";
+import { cdn } from "@/lib/constants";
 import PromptBar from "@/components/welcome/PromptBar";
 import SuggestionChips from "@/components/welcome/SuggestionChips";
 import LanguageBar from "@/components/welcome/LanguageBar";
@@ -17,9 +18,9 @@ type Lang = "es" | "fr" | "ar";
 let _currentAudio: HTMLAudioElement | null = null;
 
 const ELEVENLABS_WELCOME: Record<Lang, string> = {
-  es: "/audio/welcome-es.mp3",
-  fr: "/audio/welcome-fr.mp3",
-  ar: "/audio/welcome-ar.mp3",
+  es: cdn("/audio/welcome-es.mp3"),
+  fr: cdn("/audio/welcome-fr.mp3"),
+  ar: cdn("/audio/welcome-ar.mp3"),
 };
 
 async function speak(text: string, lang: Lang, useWelcome = false) {
@@ -167,7 +168,13 @@ export default function HomePage() {
       {/* SECTION 1: HERO (above the fold) — mantener actual            */}
       {/* ═══════════════════════════════════════════════════════════════ */}
       <section className="relative flex flex-col items-center justify-center min-h-screen px-6 py-4
-                          bg-gradient-to-b from-clara-bg via-[#F0F7FA] to-[#E8F1F5]">
+                          bg-gradient-to-b from-clara-bg via-[#F0F7FA] to-[#E8F1F5] overflow-hidden">
+        {/* Atmospheric decorative circles */}
+        <div className="absolute top-[20%] -left-[100px] w-[300px] h-[300px] rounded-full pointer-events-none"
+             style={{ background: "radial-gradient(circle, rgba(27,94,123,0.04) 0%, transparent 70%)" }} aria-hidden="true" />
+        <div className="absolute bottom-[15%] -right-[80px] w-[250px] h-[250px] rounded-full pointer-events-none"
+             style={{ background: "radial-gradient(circle, rgba(212,106,30,0.03) 0%, transparent 70%)" }} aria-hidden="true" />
+
         <div className="absolute top-0 left-0 right-0 w-full max-w-3xl mx-auto flex items-center justify-between px-6 pt-4 pb-2 z-10">
           <button onClick={() => setMenuOpen(true)} aria-label="Abrir menu"
             className="w-touch-sm h-touch-sm flex items-center justify-center rounded-xl
@@ -279,8 +286,14 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════════ */}
       {/* SECTION 7: SEGUNDO CTA                                        */}
       {/* ═══════════════════════════════════════════════════════════════ */}
-      <section className="w-full py-12 px-6 bg-gradient-to-b from-[#F0F7FA] to-[#E8F1F5] dark:from-[#141a20] dark:to-[#0f1419]">
-        <div className="max-w-3xl mx-auto flex flex-col items-center gap-6">
+      <section className="relative w-full py-16 px-6 bg-gradient-to-b from-[#F0F7FA] to-[#E8F1F5] dark:from-[#141a20] dark:to-[#0f1419] overflow-hidden">
+        {/* Decorative background arcs */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" aria-hidden="true">
+          <div className="voice-arc voice-arc--animated" style={{ width: 300, height: 300 }} />
+          <div className="voice-arc" style={{ width: 400, height: 400, opacity: 0.08 }} />
+        </div>
+
+        <div className="relative max-w-3xl mx-auto flex flex-col items-center gap-6">
           <h2 className="font-display font-bold text-h1 text-clara-text dark:text-[#e8e8ee] text-center">
             {secondCta.headline}
           </h2>

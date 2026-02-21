@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import type { Language } from "@/lib/types";
 import { PERSONAS } from "@/lib/i18n";
+import { cdn } from "@/lib/constants";
 
 interface PersonasSectionProps {
   lang: Language;
@@ -59,8 +60,8 @@ function TiltCard({
           transformStyle: "preserve-3d",
           boxShadow: hovering
             ? `${tilt.y * -1.5}px ${tilt.x * 1.5}px 30px rgba(27,94,123,0.15), 0 0 20px rgba(27,94,123,0.08)`
-            : "0 2px 20px rgba(27,94,123,0.06)",
-          borderRadius: "16px",
+            : "0 4px 24px rgba(27,94,123,0.06)",
+          borderRadius: "20px",
         }}
       >
         {children}
@@ -68,6 +69,18 @@ function TiltCard({
     </div>
   );
 }
+
+const SECTION_TITLES: Record<Language, string> = {
+  es: "Historias reales",
+  fr: "Histoires reelles",
+  ar: "قصص حقيقية",
+};
+
+const accentColors: Record<string, { border: string; glow: string; ring: string }> = {
+  maria: { border: "border-l-clara-orange", glow: "rgba(212,106,30,0.10)", ring: "rgba(212,106,30,0.2)" },
+  ahmed: { border: "border-l-clara-blue", glow: "rgba(27,94,123,0.10)", ring: "rgba(27,94,123,0.2)" },
+  fatima: { border: "border-l-clara-green", glow: "rgba(46,125,79,0.10)", ring: "rgba(46,125,79,0.2)" },
+};
 
 export default function PersonasSection({ lang }: PersonasSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
@@ -84,60 +97,64 @@ export default function PersonasSection({ lang }: PersonasSectionProps) {
     return () => observer.disconnect();
   }, []);
 
-  const colors: Record<string, string> = {
-    maria: "border-l-clara-orange",
-    ahmed: "border-l-clara-blue",
-    fatima: "border-l-clara-green",
-  };
-
-  const glowColors: Record<string, string> = {
-    maria: "rgba(212,106,30,0.12)",
-    ahmed: "rgba(27,94,123,0.12)",
-    fatima: "rgba(46,125,79,0.12)",
-  };
-
   return (
     <section
       ref={sectionRef}
-      className="w-full py-12 px-6 bg-[#FAFAFA] dark:bg-[#0f1419]"
-      aria-label={
-        lang === "ar" ? "قصص حقيقية" : lang === "fr" ? "Histoires réelles" : "Historias reales"
-      }
+      className="relative w-full py-16 px-6 bg-[#FAFAFA] dark:bg-[#0f1419] overflow-hidden"
+      aria-label={SECTION_TITLES[lang]}
     >
-      <div className="max-w-3xl mx-auto flex flex-col gap-5">
-        {PERSONAS.map((persona, i) => (
-          <TiltCard
-            key={persona.id}
-            delay={i * 0.15}
-            visible={visible}
-          >
-            <div
-              className={`persona-chip border-l-4 ${colors[persona.id] ?? "border-l-clara-blue"}`}
-              style={{
-                background: `linear-gradient(135deg, white 0%, ${glowColors[persona.id] ?? "rgba(27,94,123,0.05)"} 100%)`,
-              }}
+      <div className="max-w-3xl mx-auto flex flex-col gap-6">
+        {/* Section subtitle */}
+        <p
+          className="text-center text-body-sm text-clara-text-secondary font-display font-medium uppercase tracking-widest mb-2"
+          style={{
+            opacity: visible ? 1 : 0,
+            transition: "opacity 0.6s ease-out",
+            letterSpacing: "0.15em",
+          }}
+        >
+          {SECTION_TITLES[lang]}
+        </p>
+
+        {PERSONAS.map((persona, i) => {
+          const colors = accentColors[persona.id] ?? accentColors.ahmed;
+          return (
+            <TiltCard
+              key={persona.id}
+              delay={0.1 + i * 0.15}
+              visible={visible}
             >
-              <div className="relative flex-shrink-0" style={{ transform: "translateZ(20px)" }}>
-                <img
-                  src={`/media/personas/${persona.id}.png`}
-                  alt={persona.name}
-                  width={72}
-                  height={72}
-                  className="w-[72px] h-[72px] rounded-2xl object-cover shadow-lg"
-                  loading="lazy"
-                />
+              <div
+                className={`persona-chip border-l-4 ${colors.border}`}
+                style={{
+                  background: `linear-gradient(135deg, white 0%, ${colors.glow} 100%)`,
+                  padding: "16px 20px",
+                  borderRadius: "20px",
+                }}
+              >
+                <div className="relative flex-shrink-0" style={{ transform: "translateZ(20px)" }}>
+                  <div className="absolute -inset-1 rounded-2xl" style={{ background: colors.ring, filter: "blur(4px)" }} aria-hidden="true" />
+                  <img
+                    src={cdn(`/media/personas/${persona.id}.png`)}
+                    alt={persona.name}
+                    width={72}
+                    height={72}
+                    className="relative w-[72px] h-[72px] rounded-2xl object-cover shadow-lg"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="flex-1 min-w-0" style={{ transform: "translateZ(10px)" }}>
+                  <p className="font-display font-bold text-body text-clara-text dark:text-[#e8e8ee]">
+                    {persona.name}
+                  </p>
+                  <p className="text-body-sm text-clara-text-secondary italic leading-snug mt-1">
+                    &ldquo;{persona.quote[lang]}&rdquo;
+                  </p>
+                </div>
               </div>
-              <div className="flex-1 min-w-0" style={{ transform: "translateZ(10px)" }}>
-                <p className="font-display font-bold text-body text-clara-text dark:text-[#e8e8ee]">
-                  {persona.name}
-                </p>
-                <p className="text-body-sm text-clara-text-secondary italic leading-snug mt-1">
-                  {persona.quote[lang]}
-                </p>
-              </div>
-            </div>
-          </TiltCard>
-        ))}
+            </TiltCard>
+          );
+        })}
       </div>
     </section>
   );
