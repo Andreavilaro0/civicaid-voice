@@ -29,7 +29,8 @@ _ELEVENLABS_VOICE_ID = {
     "ar": "KHCvMklQZZo0O30ERnVn",
 }
 
-_ELEVENLABS_MODEL = "eleven_multilingual_v2"
+_ELEVENLABS_MODEL = "eleven_multilingual_v2"       # High quality (for cached/static)
+_ELEVENLABS_MODEL_TURBO = "eleven_turbo_v2_5"      # Fast (~3x faster, for live chat)
 
 # Voice settings tuned for Clara persona: warm, stable, gentle
 _ELEVENLABS_VOICE_SETTINGS = {
@@ -214,8 +215,12 @@ def _pcm_to_wav(pcm_data: bytes, sample_rate: int = 24000) -> bytes:
 # ---------------------------------------------------------------------------
 # Engine: ElevenLabs (premium human-quality TTS)
 # ---------------------------------------------------------------------------
-def _synthesize_elevenlabs(text: str, language: str) -> bytes | None:
-    """Call ElevenLabs TTS with Sara Martin voice. Returns MP3 bytes or None."""
+def _synthesize_elevenlabs(text: str, language: str, turbo: bool = True) -> bytes | None:
+    """Call ElevenLabs TTS with Sara Martin voice. Returns MP3 bytes or None.
+
+    turbo=True uses eleven_turbo_v2_5 (~3x faster, good for live chat).
+    turbo=False uses eleven_multilingual_v2 (higher quality, good for cached audio).
+    """
     if not config.ELEVENLABS_API_KEY:
         return None
 
@@ -224,11 +229,12 @@ def _synthesize_elevenlabs(text: str, language: str) -> bytes | None:
 
         client = ElevenLabs(api_key=config.ELEVENLABS_API_KEY)
         voice_id = _ELEVENLABS_VOICE_ID.get(language, _ELEVENLABS_VOICE_ID["es"])
+        model = _ELEVENLABS_MODEL_TURBO if turbo else _ELEVENLABS_MODEL
 
         audio_gen = client.text_to_speech.convert(
             voice_id=voice_id,
             text=text,
-            model_id=_ELEVENLABS_MODEL,
+            model_id=model,
             output_format="mp3_44100_128",
             voice_settings=VoiceSettings(**_ELEVENLABS_VOICE_SETTINGS),
         )

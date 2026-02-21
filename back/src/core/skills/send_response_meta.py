@@ -71,6 +71,23 @@ def _send_media(response: FinalResponse) -> None:
         log_error("send_media_meta", str(e))
 
 
+def send_audio_only(to_number: str, audio_url: str) -> bool:
+    """Send just an audio message (used for async TTS after text is already sent)."""
+    try:
+        payload = {
+            "messaging_product": "whatsapp",
+            "to": to_number,
+            "type": "audio",
+            "audio": {"link": audio_url},
+        }
+        resp = requests.post(_url(), json=payload, headers=_headers(), timeout=10)
+        resp.raise_for_status()
+        return True
+    except Exception as e:
+        log_error("send_audio_only", str(e))
+        return False
+
+
 # ── Welcome flow ──────────────────────────────────────────────────────
 
 WELCOME = {
@@ -205,10 +222,11 @@ WELCOME = {
 
 
 def send_welcome(to_number: str, language: str = "es") -> bool:
-    """Send welcome text + audio + interactive menu buttons."""
+    """Send welcome text immediately, then audio in background thread."""
+    import threading
     w = WELCOME.get(language, WELCOME["es"])
 
-    # 1. Send welcome text
+    # 1. Send welcome text IMMEDIATELY
     try:
         payload = {
             "messaging_product": "whatsapp",
@@ -222,21 +240,18 @@ def send_welcome(to_number: str, language: str = "es") -> bool:
         log_error("send_welcome_text", str(e))
         return False
 
-    # 2. Send welcome audio via TTS
-    try:
-        from src.core.skills.tts import text_to_audio
-        audio_url = text_to_audio(w["speech"], language)
-        if audio_url:
-            payload = {
-                "messaging_product": "whatsapp",
-                "to": to_number,
-                "type": "audio",
-                "audio": {"link": audio_url},
-            }
-            requests.post(_url(), json=payload, headers=_headers(), timeout=10)
-    except Exception as e:
-        log_error("send_welcome_audio", str(e))
+    # 2. Send welcome audio in BACKGROUND (don't block)
+    def _send_welcome_audio():
+        try:
+            from src.core.skills.tts import text_to_audio
+            audio_url = text_to_audio(w["speech"], language)
+            if audio_url:
+                send_audio_only(to_number, audio_url)
+        except Exception as e:
+            log_error("send_welcome_audio", str(e))
 
+    t = threading.Thread(target=_send_welcome_audio, daemon=True)
+    t.start()
     return True
 
 
@@ -301,27 +316,12 @@ FOLLOWUP_BUTTONS = {
 
 
 def send_followup(to_number: str, language: str = "es") -> bool:
-    """Send follow-up after inactivity: text + audio + buttons."""
+    """Send follow-up after inactivity: buttons first, audio in background."""
+    import threading
     text = FOLLOWUP.get(language, FOLLOWUP["es"])
     buttons = FOLLOWUP_BUTTONS.get(language, FOLLOWUP_BUTTONS["es"])
 
-    # 1. Send audio
-    try:
-        from src.core.skills.tts import text_to_audio
-        speech = FOLLOWUP_SPEECH.get(language, FOLLOWUP_SPEECH["es"])
-        audio_url = text_to_audio(speech, language)
-        if audio_url:
-            payload = {
-                "messaging_product": "whatsapp",
-                "to": to_number,
-                "type": "audio",
-                "audio": {"link": audio_url},
-            }
-            requests.post(_url(), json=payload, headers=_headers(), timeout=10)
-    except Exception as e:
-        log_error("send_followup_audio", str(e))
-
-    # 2. Send interactive buttons
+    # 1. Send interactive buttons IMMEDIATELY
     try:
         payload = {
             "messaging_product": "whatsapp",
@@ -340,10 +340,24 @@ def send_followup(to_number: str, language: str = "es") -> bool:
         }
         resp = requests.post(_url(), json=payload, headers=_headers(), timeout=10)
         resp.raise_for_status()
-        return True
     except Exception as e:
         log_error("send_followup_menu", str(e))
         return False
+
+    # 2. Send audio in BACKGROUND
+    def _send_followup_audio():
+        try:
+            from src.core.skills.tts import text_to_audio
+            speech = FOLLOWUP_SPEECH.get(language, FOLLOWUP_SPEECH["es"])
+            audio_url = text_to_audio(speech, language)
+            if audio_url:
+                send_audio_only(to_number, audio_url)
+        except Exception as e:
+            log_error("send_followup_audio", str(e))
+
+    t = threading.Thread(target=_send_followup_audio, daemon=True)
+    t.start()
+    return True
 
 
 # ── Media download ────────────────────────────────────────────────────

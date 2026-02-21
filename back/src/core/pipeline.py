@@ -61,6 +61,29 @@ def _send_followup_if_idle(phone: str, language: str, scheduled_at: float) -> No
         log_error("followup_timer", str(e))
 
 
+def _send_audio_async(to_number: str, text: str, language: str) -> None:
+    """Generate TTS and send audio as a separate message (non-blocking)."""
+    def _do_tts():
+        try:
+            from src.core.skills.tts import text_to_audio
+            audio_url = text_to_audio(text, language)
+            if audio_url:
+                if config.WHATSAPP_PROVIDER == "meta":
+                    from src.core.skills.send_response_meta import send_audio_only
+                    send_audio_only(to_number, audio_url)
+                else:
+                    response = FinalResponse(
+                        to_number=to_number, body="", media_url=audio_url,
+                        source="tts", total_ms=0,
+                    )
+                    send_final_message(response)
+        except Exception as e:
+            log_error("async_tts", str(e))
+
+    t = threading.Thread(target=_do_tts, daemon=True)
+    t.start()
+
+
 def _build_media_url(audio_file: str | None) -> str | None:
     """Build public URL for cached audio file."""
     if not audio_file or not config.AUDIO_BASE_URL:
@@ -381,15 +404,7 @@ def process(msg: IncomingMessage) -> None:
                         hit=True, write=True, size_bytes=len(str(memory.to_dict())),
                         latency_ms=0)
 
-        # --- TTS: convert response to audio ---
-        audio_url = None
-        try:
-            from src.core.skills.tts import text_to_audio
-            audio_url = text_to_audio(verified_text, language)
-        except Exception as tts_err:
-            log_error("tts", str(tts_err))
-
-        # --- SEND FINAL ---
+        # --- SEND TEXT IMMEDIATELY (don't wait for TTS) ---
         elapsed_ms = int((time.time() - start) * 1000)
         if llm_resp.success:
             log_pipeline_result(msg.request_id, msg.from_number, "llm", elapsed_ms)
@@ -402,11 +417,14 @@ def process(msg: IncomingMessage) -> None:
         response = FinalResponse(
             to_number=msg.from_number,
             body=verified_text,
-            media_url=audio_url,
+            media_url=None,  # Text first, audio follows async
             source="llm" if llm_resp.success else "fallback",
             total_ms=elapsed_ms,
         )
         send_final_message(response)
+
+        # --- TTS: generate and send audio in background ---
+        _send_audio_async(msg.from_number, verified_text, language)
 
         # --- SCHEDULE FOLLOW-UP (5 min inactivity) ---
         _schedule_followup(msg.from_number, language)
