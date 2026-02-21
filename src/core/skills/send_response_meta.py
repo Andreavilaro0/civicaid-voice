@@ -71,6 +71,68 @@ def _send_media(url: str, headers: dict, response: FinalResponse) -> None:
         log_error("send_media_meta", str(e))
 
 
+def send_interactive_menu(to_number: str, language: str = "es") -> bool:
+    """Send an interactive button menu via Meta Cloud API."""
+    headers = {
+        "Authorization": f"Bearer {config.META_WHATSAPP_TOKEN}",
+        "Content-Type": "application/json",
+    }
+    url = f"{META_API_URL}/{config.META_PHONE_NUMBER_ID}/messages"
+
+    menus = {
+        "es": {
+            "body": "Hola, soy Clara. ¿En qué puedo ayudarte?",
+            "buttons": [
+                {"id": "btn_imv", "title": "¿Qué es el IMV?"},
+                {"id": "btn_empadronamiento", "title": "Empadronamiento"},
+                {"id": "btn_salud", "title": "Tarjeta sanitaria"},
+            ],
+        },
+        "fr": {
+            "body": "Salut, je suis Clara. Comment puis-je t'aider?",
+            "buttons": [
+                {"id": "btn_imv", "title": "Qu'est-ce que le RMV?"},
+                {"id": "btn_empadronamiento", "title": "Inscription"},
+                {"id": "btn_salud", "title": "Carte sanitaire"},
+            ],
+        },
+        "ar": {
+            "body": "مرحبا، أنا كلارا. كيف يمكنني مساعدتك؟",
+            "buttons": [
+                {"id": "btn_imv", "title": "ما هو الحد الأدنى؟"},
+                {"id": "btn_empadronamiento", "title": "التسجيل البلدي"},
+                {"id": "btn_salud", "title": "البطاقة الصحية"},
+            ],
+        },
+    }
+
+    menu = menus.get(language, menus["es"])
+
+    payload = {
+        "messaging_product": "whatsapp",
+        "to": to_number,
+        "type": "interactive",
+        "interactive": {
+            "type": "button",
+            "body": {"text": menu["body"]},
+            "action": {
+                "buttons": [
+                    {"type": "reply", "reply": btn}
+                    for btn in menu["buttons"]
+                ],
+            },
+        },
+    }
+
+    try:
+        resp = requests.post(url, json=payload, headers=headers, timeout=10)
+        resp.raise_for_status()
+        return True
+    except Exception as e:
+        log_error("send_interactive_menu", str(e))
+        return False
+
+
 def fetch_media_meta(media_id: str) -> bytes | None:
     """Download media from Meta Cloud API using media ID.
 

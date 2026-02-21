@@ -40,6 +40,43 @@ def process(msg: IncomingMessage) -> None:
     ctx = get_context()
 
     try:
+        # --- COMMAND DETECTION (menu, reiniciar, etc.) ---
+        cmd_text = text.strip().lower().replace("/", "")
+        if cmd_text in ("menu", "inicio", "start", "hola", "reiniciar", "clear", "borrar"):
+            if config.WHATSAPP_PROVIDER == "meta":
+                from src.core.skills.send_response_meta import send_interactive_menu
+                lang_detected = detect_language(text, phone=msg.from_number) if text else "es"
+                send_interactive_menu(msg.from_number, lang_detected)
+                return
+            else:
+                # Twilio: send text menu
+                elapsed_ms = int((time.time() - start) * 1000)
+                menu_text = (
+                    "Hola, soy Clara. ¿En qué puedo ayudarte?\n\n"
+                    "1️⃣ ¿Qué es el IMV?\n"
+                    "2️⃣ Empadronamiento\n"
+                    "3️⃣ Tarjeta sanitaria\n"
+                    "4️⃣ NIE/TIE\n\n"
+                    "Escribe tu pregunta o elige un número."
+                )
+                response = FinalResponse(
+                    to_number=msg.from_number,
+                    body=menu_text,
+                    source="menu",
+                    total_ms=elapsed_ms,
+                )
+                send_final_message(response)
+                return
+
+        # --- INTERACTIVE BUTTON REPLIES (Meta) ---
+        if text.startswith("btn_"):
+            button_map = {
+                "btn_imv": "¿Qué es el IMV?",
+                "btn_empadronamiento": "¿Cómo me empadrono?",
+                "btn_salud": "¿Cómo saco la tarjeta sanitaria?",
+            }
+            text = button_map.get(text, text)
+
         # --- GUARDRAILS PRE-CHECK ---
         if config.GUARDRAILS_ON:
             from src.core.guardrails import pre_check

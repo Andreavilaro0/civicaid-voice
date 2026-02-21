@@ -177,6 +177,19 @@ def _extract_messages(data: dict) -> list[dict]:
                         "input_type": InputType.IMAGE,
                     })
 
+                elif msg_type == "interactive":
+                    # Button reply from interactive menu
+                    interactive = msg.get("interactive", {})
+                    button_reply = interactive.get("button_reply", {})
+                    button_id = button_reply.get("id", "")
+                    results.append({
+                        "from_number": from_number,
+                        "body": button_id,
+                        "media_url": None,
+                        "media_type": None,
+                        "input_type": InputType.TEXT,
+                    })
+
                 else:
                     # Unsupported type (sticker, location, etc.) — treat as text
                     logger.info("[META-WEBHOOK] Unsupported message type: %s", msg_type)
