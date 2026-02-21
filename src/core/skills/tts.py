@@ -2,6 +2,7 @@
 
 import hashlib
 import os
+import re
 import wave
 
 from src.core.config import config
@@ -10,40 +11,54 @@ from src.utils.timing import timed
 
 _CACHE_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "..", "data", "cache")
 
-# Clara voice persona — detailed style prompts (Gemini treats these as core constraints)
+# ---------------------------------------------------------------------------
+# Clara voice persona — "directorial" system instructions (Google best practice)
+# Format: Audio Profile → Scene → Director's Notes → Pacing
+# ---------------------------------------------------------------------------
 _GEMINI_VOICE_STYLE = {
     "es": (
-        "Eres Clara, una mujer espanola de 30 anos que trabaja como coordinadora "
-        "de apoyo social. Habla con un tono calido, pausado y tranquilizador. "
-        "Ralentiza en las partes empaticas y cuando explicas terminos tecnicos. "
-        "Tu voz transmite cercanía — como una amiga que te explica algo importante "
-        "con calma. Nunca suenes burocratica, apresurada ni condescendiente. "
-        "Haz micro-pausas despues de cada paso numerado."
+        "Audio profile: Mujer espanola, 30 anos, voz media-grave, calida. "
+        "Escena: Clara esta sentada con un amigo en una cafeteria tranquila, "
+        "explicandole un tramite con calma. No hay prisa. "
+        "Direccion: Habla despacio, con pausas naturales entre ideas. "
+        "El tono es cercano y tranquilizador, como una amiga de confianza. "
+        "Baja la velocidad en las partes empaticas. "
+        "Nunca suenes burocratica ni apresurada. "
+        "El tempo es lento y liquido, cada frase respira."
     ),
     "fr": (
-        "Tu es Clara, une femme chaleureuse d'une trentaine d'annees qui travaille "
-        "comme coordinatrice d'aide sociale. Parle avec un ton empathique, calme "
-        "et rassurant. Ralentis sur les parties emotionnelles et les explications "
-        "techniques. Ta voix doit transmettre de la proximite — comme une amie. "
-        "Ne sois jamais bureaucratique ni condescendante."
+        "Audio profile: Femme francaise, 30 ans, voix douce et chaleureuse. "
+        "Scene: Clara est assise avec un ami dans un cafe calme, "
+        "lui expliquant une demarche administrative. "
+        "Direction: Parle lentement, avec des pauses naturelles. "
+        "Le ton est chaleureux et rassurant, comme une amie de confiance. "
+        "Ralentis sur les parties empathiques. "
+        "Ne sois jamais bureaucratique. Le tempo est lent et fluide."
     ),
     "en": (
-        "You are Clara, a warm woman in her early thirties who works as a social "
-        "support coordinator. Speak gently, slowly, and reassuringly. Slow down "
-        "on empathetic parts and technical explanations. Your voice should feel "
-        "like a friend explaining something important calmly. Never sound "
-        "bureaucratic, rushed, or condescending."
+        "Audio profile: Warm woman, early thirties, gentle mid-range voice. "
+        "Scene: Clara is sitting with a friend in a quiet coffee shop, "
+        "calmly explaining a government process. No rush. "
+        "Direction: Speak slowly with natural pauses between thoughts. "
+        "The tone is warm and reassuring, like a trusted friend. "
+        "Slow down on empathetic parts. "
+        "Never sound bureaucratic or rushed. The tempo is slow and fluid."
     ),
     "pt": (
-        "Tu es a Clara, uma mulher calorosa nos seus trinta anos que trabalha como "
-        "coordenadora de apoio social. Fala com um tom calmo, pausado e "
-        "tranquilizador. A tua voz deve transmitir proximidade — como uma amiga "
-        "que explica algo importante com calma. Nunca soes burocratica."
+        "Audio profile: Mulher calorosa, trinta anos, voz media e suave. "
+        "Cena: Clara esta sentada com um amigo num cafe tranquilo, "
+        "a explicar um processo com calma. "
+        "Direcao: Fala devagar, com pausas naturais entre ideias. "
+        "O tom e proximo e tranquilizador, como uma amiga de confianca. "
+        "Nunca soes burocratica. O tempo e lento e fluido."
     ),
     "ar": (
-        "You are Clara, a warm woman in her early thirties who works as a social "
-        "support coordinator. Speak gently and reassuringly in Arabic. Your voice "
-        "should feel like a caring friend. Never sound bureaucratic or rushed."
+        "Audio profile: Warm woman, early thirties, gentle mid-range voice. "
+        "Scene: Clara is sitting with a friend in a quiet place, "
+        "calmly explaining a process. No rush. "
+        "Direction: Speak slowly and gently in Arabic. "
+        "The tone is warm and caring, like a trusted friend. "
+        "Never sound bureaucratic. The tempo is slow and fluid."
     ),
 }
 
@@ -55,20 +70,57 @@ _GEMINI_VOICE_NAME = {
     "ar": "Sulafat",  # Warm
 }
 
+# Max words to send to TTS — keeps audio under ~30 seconds
+_TTS_MAX_WORDS = 80
+
+
+def _strip_formatting(text: str) -> str:
+    """Remove WhatsApp formatting that sounds bad when spoken aloud."""
+    # Remove *bold* markers
+    result = re.sub(r'\*([^*]+)\*', r'\1', text)
+    # Remove URLs
+    result = re.sub(r'https?://\S+', '', result)
+    # Remove phone numbers like 060, 900 xxx xxx
+    result = re.sub(r'\b\d{3}[\s-]?\d{3}[\s-]?\d{3}\b', '', result)
+    # Remove standalone short numbers (like "060") at end of sentences
+    result = re.sub(r'\b060\b', 'cero sesenta', result)
+    # Remove [C1], [C2] citation markers
+    result = re.sub(r'\[C\d+\]', '', result)
+    # Clean up numbered list formatting: "1. " → "Primero, "
+    result = re.sub(r'^\s*\d+\.\s*', '', result, flags=re.MULTILINE)
+    # Remove multiple spaces and blank lines
+    result = re.sub(r'\n{2,}', '. ', result)
+    result = re.sub(r'\s{2,}', ' ', result)
+    return result.strip()
+
+
+def _truncate_for_tts(text: str) -> str:
+    """Keep only the first ~80 words for TTS.
+
+    Clara's responses follow E-V-I pattern (Empathy-Validate-Inform).
+    We keep the empathy + validation + first few steps, which is the
+    most important part for audio. Full details are in the text message.
+    """
+    words = text.split()
+    if len(words) <= _TTS_MAX_WORDS:
+        return text
+    # Cut at word boundary, add natural closing
+    truncated = " ".join(words[:_TTS_MAX_WORDS])
+    # Try to end at a sentence boundary
+    last_period = truncated.rfind(".")
+    last_question = truncated.rfind("?")
+    cut_point = max(last_period, last_question)
+    if cut_point > len(truncated) // 2:
+        truncated = truncated[:cut_point + 1]
+    return truncated
+
 
 def _prepare_text_for_tts(text: str) -> str:
-    """Pre-process text for more natural TTS output.
-
-    Research-backed: shorter sentences, explicit pauses, and
-    conversational punctuation improve AI voice naturalness.
-    """
-    import re
+    """Pre-process text for natural TTS: strip formatting, truncate, add pauses."""
+    result = _strip_formatting(text)
+    result = _truncate_for_tts(result)
     # Add micro-pause before parenthetical explanations
-    result = re.sub(r'\(', '... (', text)
-    # Ensure numbered steps have pause after number
-    result = re.sub(r'(\d+)\.\s', r'\1. ... ', result)
-    # Break very long sentences (>25 words) at conjunctions
-    # (Gemini TTS handles this contextually, but explicit breaks help)
+    result = re.sub(r'\(', '... (', result)
     return result
 
 
@@ -99,7 +151,10 @@ def _pcm_to_wav(pcm_data: bytes, sample_rate: int = 24000) -> bytes:
 
 
 def _synthesize_gemini(text: str, language: str) -> bytes | None:
-    """Call Gemini TTS. Returns WAV bytes or None on failure."""
+    """Call Gemini TTS. Returns WAV bytes or None on failure.
+
+    Expects pre-processed text (already stripped and truncated).
+    """
     if not config.GEMINI_API_KEY:
         return None
 
@@ -109,11 +164,10 @@ def _synthesize_gemini(text: str, language: str) -> bytes | None:
         client = genai.Client(api_key=config.GEMINI_API_KEY)
         voice_name = _GEMINI_VOICE_NAME.get(language, "Sulafat")
         style = _GEMINI_VOICE_STYLE.get(language, _GEMINI_VOICE_STYLE["es"])
-        prepared_text = _prepare_text_for_tts(text)
 
         response = client.models.generate_content(
             model="gemini-2.5-flash-preview-tts",
-            contents=prepared_text,
+            contents=text,
             config=genai.types.GenerateContentConfig(
                 response_modalities=["AUDIO"],
                 speech_config=genai.types.SpeechConfig(
@@ -162,6 +216,9 @@ def _synthesize_gtts(text: str, language: str) -> str | None:
 def text_to_audio(text: str, language: str = "es") -> str | None:
     """Convert text to audio. Returns public URL or None on failure.
 
+    Text is automatically stripped of WhatsApp formatting and truncated
+    to ~80 words before synthesis (keeps audio under ~30s).
+
     Engine selection via TTS_ENGINE env var:
     - "gemini": Gemini TTS (warm Clara voice) with gTTS fallback
     - "gtts": Original gTTS (default, backward compatible)
@@ -169,30 +226,33 @@ def text_to_audio(text: str, language: str = "es") -> str | None:
     if not config.AUDIO_BASE_URL:
         return None
 
+    # Prepare text ONCE — strip formatting + truncate for all engines
+    prepared = _prepare_text_for_tts(text)
+    if not prepared or len(prepared.strip()) < 5:
+        return None
+
     # --- Gemini TTS path ---
     if config.TTS_ENGINE == "gemini":
-        filepath, filename = _cache_path(text, language, "wav")
+        filepath, filename = _cache_path(prepared, language, "wav")
 
-        # Return cached file if exists
         if os.path.exists(filepath):
             return _build_url(filename)
 
-        wav_bytes = _synthesize_gemini(text, language)
+        wav_bytes = _synthesize_gemini(prepared, language)
         if wav_bytes:
             with open(filepath, "wb") as f:
                 f.write(wav_bytes)
             return _build_url(filename)
 
-        # Fallback to gTTS if Gemini fails
         log_error("tts", "Gemini TTS failed, falling back to gTTS")
 
     # --- gTTS path (default or fallback) ---
-    filepath, filename = _cache_path(text, language, "mp3")
+    filepath, filename = _cache_path(prepared, language, "mp3")
 
     if os.path.exists(filepath):
         return _build_url(filename)
 
-    result_path = _synthesize_gtts(text, language)
+    result_path = _synthesize_gtts(prepared, language)
     if result_path:
         return _build_url(filename)
     return None
