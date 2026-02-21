@@ -1,6 +1,26 @@
 """Response templates by type: greeting, tramite, error, fallback."""
 
+_GREETING_WORDS = {
+    "hola", "hello", "hi", "hey", "buenas", "buenos dias", "buenas tardes",
+    "buenas noches", "que tal", "ey", "ola", "bonjour", "salut", "bonsoir",
+    "join", "empezar", "start", "ayuda", "help",
+}
+
+
+def is_greeting(text: str) -> bool:
+    """Check if message is a greeting/first contact."""
+    words = text.lower().strip().split()
+    if len(words) <= 4:
+        return any(w in _GREETING_WORDS for w in words) or text.lower().strip() in _GREETING_WORDS
+    return False
+
+
 TEMPLATES = {
+    "ack_greeting": {
+        "es": "Hola! Soy Clara, tu amiga para tramites. Dame un segundo...",
+        "fr": "Bonjour ! Je suis Clara, votre amie pour les demarches. Un instant...",
+        "en": "Hi! I'm Clara, your friend for government procedures. One moment...",
+    },
     "ack_text": {
         "es": "Dame un momento, estoy buscando esa informacion.",
         "fr": "Un instant, je cherche cette information.",
