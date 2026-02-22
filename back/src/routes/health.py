@@ -66,7 +66,7 @@ def debug_meta_test():
     # Test 1: verify token by calling /me endpoint
     try:
         r = http_req.get(
-            "https://graph.facebook.com/v21.0/me",
+            "https://graph.facebook.com/v22.0/me",
             headers={"Authorization": f"Bearer {config.META_WHATSAPP_TOKEN}"},
             timeout=5,
         )
@@ -78,7 +78,7 @@ def debug_meta_test():
     if config.META_PHONE_NUMBER_ID:
         try:
             r = http_req.get(
-                f"https://graph.facebook.com/v21.0/{config.META_PHONE_NUMBER_ID}",
+                f"https://graph.facebook.com/v22.0/{config.META_PHONE_NUMBER_ID}",
                 headers={"Authorization": f"Bearer {config.META_WHATSAPP_TOKEN}"},
                 timeout=5,
             )
@@ -102,7 +102,7 @@ def debug_send_test():
     if not config.META_WHATSAPP_TOKEN or not config.META_PHONE_NUMBER_ID:
         return jsonify({"error": "META_WHATSAPP_TOKEN or META_PHONE_NUMBER_ID not set"}), 400
 
-    url = f"https://graph.facebook.com/v21.0/{config.META_PHONE_NUMBER_ID}/messages"
+    url = f"https://graph.facebook.com/v22.0/{config.META_PHONE_NUMBER_ID}/messages"
     headers = {
         "Authorization": f"Bearer {config.META_WHATSAPP_TOKEN}",
         "Content-Type": "application/json",

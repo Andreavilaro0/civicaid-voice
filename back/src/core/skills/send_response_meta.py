@@ -6,7 +6,7 @@ from src.core.config import config
 from src.utils.logger import log_rest, log_error
 from src.utils.timing import timed
 
-META_API_URL = "https://graph.facebook.com/v21.0"
+META_API_URL = "https://graph.facebook.com/v22.0"
 
 
 def _headers():
