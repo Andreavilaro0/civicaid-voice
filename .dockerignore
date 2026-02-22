@@ -1,0 +1,42 @@
+# Git
+.git
+.gitignore
+
+# CI/CD
+.github
+
+# Documentation
+docs
+
+# Tests
+tests
+
+# Python artifacts
+__pycache__
+*.pyc
+*.pyo
+*.egg-info
+.pytest_cache
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode
+.idea
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Virtual environments
+.venv
+.venv-*
+.auditvenv
+.ruff_cache
+
+# Claude
+.claude

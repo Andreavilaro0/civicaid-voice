@@ -1,0 +1,67 @@
+{
+  "project": "CivicAid Voice / Clara",
+  "hackathon": "OdiseIA4Good — UDIT",
+  "final_date": "2026-02-23",
+
+  "notion": {
+    "workspace": "CivicAid OS",
+    "databases": {
+      "backlog": {
+        "name": "Backlog / Issues",
+        "id": "304c5a0f-372a-81de-92a8-f54c03b391c0",
+        "fields": ["Titulo", "Estado", "Gate", "Owner", "Prioridad", "Horas est.", "DoD", "Depende de", "GitHub Issue", "Dia"]
+      },
+      "kb_tramites": {
+        "name": "KB Tramites",
+        "id": "304c5a0f-372a-81ff-9d45-c785e69f7335",
+        "fields": ["Tramite", "Campo", "Valor", "Fuente URL", "Organismo", "Estado", "Fecha verificacion", "Notas"]
+      },
+      "demo_testing": {
+        "name": "Demo & Testing",
+        "id": "304c5a0f-372a-810d-8767-d77efbd46bb2",
+        "fields": ["Test", "Tipo", "Input", "Output esperado", "Output real", "Latencia (ms)", "Resultado", "Gate", "Fecha", "Notas"]
+      }
+    },
+    "setup_checklist": [
+      "1. Ir a https://www.notion.so/my-integrations",
+      "2. Click 'New integration' → nombre: 'CivicAid Clara' → workspace: tu workspace",
+      "3. Copiar el Internal Integration Secret (empieza con ntn_)",
+      "4. Pegar en .env como NOTION_TOKEN=ntn_xxx",
+      "5. Pegar en ~/.mcp.json → notionApi → env → NOTION_TOKEN",
+      "6. En Notion: crear pagina 'CivicAid OS' → Share → Invite → seleccionar la integracion",
+      "7. Crear las 3 DBs dentro de esa pagina",
+      "8. Para cada DB: abrir → copiar ID de la URL (32 chars hex despues del ultimo /)",
+      "9. Pegar IDs en .env y en este archivo project-settings.json",
+      "10. Verificar: reiniciar Claude Code y probar 'lista las bases de datos de Notion'"
+    ]
+  },
+
+  "twilio": {
+    "sandbox_number": "whatsapp:+14155238886",
+    "webhook_path": "/webhook",
+    "webhook_method": "POST"
+  },
+
+  "render": {
+    "service_name": "civicaid-voice",
+    "region": "frankfurt",
+    "plan": "free",
+    "docker": true,
+    "health_endpoint": "/health",
+    "cron_interval_min": 8
+  },
+
+  "gates": {
+    "G0": "Tooling Ready (MCPs + skills + subagents + .env)",
+    "G1": "Texto OK (WA texto → cache hit → respuesta)",
+    "G2": "Audio OK (WA audio → Whisper → cache/LLM → respuesta + audio)",
+    "G3": "Demo Ready (fallbacks + rehearsal + video backup)"
+  },
+
+  "subagents": {
+    "notion-ops": ".claude/agents/notion-ops.md",
+    "devops-engineer": "~/.claude/agents/devops-engineer.md",
+    "ci-bot": ".claude/agents/ci-bot.md",
+    "twilio-integrator": ".claude/agents/twilio-integrator.md"
+  }
+}
