@@ -87,3 +87,42 @@ def debug_meta_test():
             results["phone_id_check"] = {"error": str(e)}
 
     return jsonify(results), 200
+
+
+@health_bp.route("/debug/send-test", methods=["GET"])
+def debug_send_test():
+    """Send a test message to a phone number via Meta API. Usage: /debug/send-test?to=34XXXXXXXXX"""
+    import requests as http_req
+    from flask import request as flask_req
+
+    to_number = flask_req.args.get("to", "")
+    if not to_number:
+        return jsonify({"error": "Pass ?to=34XXXXXXXXX (no + prefix)"}), 400
+
+    if not config.META_WHATSAPP_TOKEN or not config.META_PHONE_NUMBER_ID:
+        return jsonify({"error": "META_WHATSAPP_TOKEN or META_PHONE_NUMBER_ID not set"}), 400
+
+    url = f"https://graph.facebook.com/v21.0/{config.META_PHONE_NUMBER_ID}/messages"
+    headers = {
+        "Authorization": f"Bearer {config.META_WHATSAPP_TOKEN}",
+        "Content-Type": "application/json",
+    }
+    payload = {
+        "messaging_product": "whatsapp",
+        "to": to_number,
+        "type": "text",
+        "text": {"body": "Hola, soy Clara. Este es un mensaje de prueba."},
+    }
+
+    try:
+        r = http_req.post(url, json=payload, headers=headers, timeout=10)
+        return jsonify({"status": r.status_code, "response": r.json()}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@health_bp.route("/debug/webhook-log", methods=["GET"])
+def debug_webhook_log():
+    """Show recent webhook activity (last 20 entries)."""
+    from src.routes.webhook_meta import _webhook_log
+    return jsonify({"entries": list(_webhook_log)}), 200

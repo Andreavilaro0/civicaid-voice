@@ -5,6 +5,7 @@ import time
 import threading
 import hmac
 import hashlib
+from collections import deque
 from flask import Blueprint, request, jsonify, abort
 from src.core.config import config
 from src.core.models import IncomingMessage, InputType
@@ -14,6 +15,9 @@ from src.utils.logger import log_ack
 logger = logging.getLogger("clara")
 
 webhook_meta_bp = Blueprint("webhook_meta", __name__)
+
+# Debug: keep last 20 webhook events for /debug/webhook-log
+_webhook_log: deque = deque(maxlen=20)
 
 
 # ─── GET /webhook/meta — verification challenge ───────────────────────
@@ -41,15 +45,18 @@ def receive():
 
     data = request.get_json(silent=True)
     if not data:
+        _webhook_log.append({"ts": time.time(), "event": "no_data"})
         return jsonify({"status": "no_data"}), 200
 
     # Meta sends a complex nested payload — extract messages
     messages = _extract_messages(data)
     if not messages:
         # Could be a status update (delivered, read, etc.) — ACK silently
+        _webhook_log.append({"ts": time.time(), "event": "status_update", "object": data.get("object", "?")})
         return jsonify({"status": "ok"}), 200
 
     for msg_data in messages:
+        _webhook_log.append({"ts": time.time(), "event": "message", "from": msg_data.get("from_number", "?"), "body": (msg_data.get("body", "") or "")[:50], "type": msg_data.get("input_type", "?").value if hasattr(msg_data.get("input_type", "?"), "value") else str(msg_data.get("input_type", "?"))})
         from_number = msg_data.get("from_number", "")
         body = msg_data.get("body", "")
         media_url = msg_data.get("media_url")
