@@ -49,3 +49,41 @@ def health():
         health_data["components"]["memory"] = {"status": "disabled"}
 
     return jsonify(health_data)
+
+
+@health_bp.route("/debug/meta-test", methods=["GET"])
+def debug_meta_test():
+    """Quick diagnostic: verify Meta WhatsApp token + phone_number_id work."""
+    import requests as http_req
+
+    results = {"token_set": bool(config.META_WHATSAPP_TOKEN),
+               "phone_id_set": bool(config.META_PHONE_NUMBER_ID)}
+
+    if not config.META_WHATSAPP_TOKEN:
+        results["error"] = "META_WHATSAPP_TOKEN not configured"
+        return jsonify(results), 200
+
+    # Test 1: verify token by calling /me endpoint
+    try:
+        r = http_req.get(
+            "https://graph.facebook.com/v21.0/me",
+            headers={"Authorization": f"Bearer {config.META_WHATSAPP_TOKEN}"},
+            timeout=5,
+        )
+        results["token_check"] = {"status": r.status_code, "body": r.json()}
+    except Exception as e:
+        results["token_check"] = {"error": str(e)}
+
+    # Test 2: verify phone_number_id exists
+    if config.META_PHONE_NUMBER_ID:
+        try:
+            r = http_req.get(
+                f"https://graph.facebook.com/v21.0/{config.META_PHONE_NUMBER_ID}",
+                headers={"Authorization": f"Bearer {config.META_WHATSAPP_TOKEN}"},
+                timeout=5,
+            )
+            results["phone_id_check"] = {"status": r.status_code, "body": r.json()}
+        except Exception as e:
+            results["phone_id_check"] = {"error": str(e)}
+
+    return jsonify(results), 200
