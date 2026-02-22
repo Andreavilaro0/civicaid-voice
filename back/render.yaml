@@ -37,7 +37,7 @@ services:
       - key: GUARDRAILS_ON
         value: "true"
       - key: TTS_ENGINE
-        value: "gemini"
+        value: "elevenlabs"
       - key: ELEVENLABS_API_KEY
         sync: false
       - key: FRONTEND_URL
