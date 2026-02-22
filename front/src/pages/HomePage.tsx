@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Language } from "@/lib/types";
 import { SUGGESTIONS, PROMPT_PLACEHOLDER, MENU_ITEMS, SECOND_CTA } from "@/lib/i18n";
-import { cdn } from "@/lib/constants";
+
 import PromptBar from "@/components/welcome/PromptBar";
 import SuggestionChips from "@/components/welcome/SuggestionChips";
 import LanguageBar from "@/components/welcome/LanguageBar";
@@ -19,57 +19,17 @@ type Lang = Language;
 
 let _currentAudio: HTMLAudioElement | null = null;
 
-/** CDN-hosted per-language welcome audio (ElevenLabs Sara Martin / Charlotte) */
-const ELEVENLABS_WELCOME: Partial<Record<Lang, string>> = {
-  es: cdn("/audio/welcome-es.mp3"),
-  fr: cdn("/audio/welcome-fr.mp3"),
-  ar: cdn("/audio/welcome-ar.mp3"),
-};
-
-/** Local fallback — multilingual welcome in public/audio/ */
-const WELCOME_AUDIO_LOCAL = `${import.meta.env.BASE_URL}audio/welcome-multilingual.mp3`;
+/** Single multilingual welcome audio (ES + FR + AR in one clip, Sara Martin voice) */
+const WELCOME_AUDIO_URL = `${import.meta.env.BASE_URL}audio/welcome-multilingual.mp3`;
 
 async function speak(text: string, lang: Lang, useWelcome = false) {
   if (_currentAudio) { _currentAudio.pause(); _currentAudio = null; }
   try { window.speechSynthesis?.cancel(); } catch { /* noop */ }
 
-  // 1. Pre-recorded CDN audio per language (fastest, no backend needed)
-  if (useWelcome) {
-    const cdnUrl = ELEVENLABS_WELCOME[lang];
-    if (cdnUrl) {
-      try {
-        const audio = new Audio(cdnUrl);
-        audio.preload = "auto";
-        _currentAudio = audio;
-        await new Promise<void>((resolve, reject) => {
-          audio.oncanplaythrough = () => { audio.play().then(resolve).catch(reject); };
-          audio.onerror = reject;
-        });
-        return;
-      } catch { /* fall through */ }
-    }
-  }
-
-  // 2. Backend TTS (ElevenLabs Sara Martin — misma voz calida que WhatsApp)
-  try {
-    const { generateTTS } = await import("@/lib/api");
-    const audioUrl = await generateTTS(text, lang);
-    if (audioUrl) {
-      const audio = new Audio(audioUrl);
-      audio.preload = "auto";
-      _currentAudio = audio;
-      await new Promise<void>((resolve, reject) => {
-        audio.oncanplaythrough = () => { audio.play().then(resolve).catch(reject); };
-        audio.onerror = reject;
-      });
-      return;
-    }
-  } catch { /* fall through to local file */ }
-
-  // 3. Fallback: local multilingual welcome MP3
+  // 1. Multilingual welcome MP3 (ES + FR + AR in one clip — Sara Martin voice)
   if (useWelcome) {
     try {
-      const audio = new Audio(WELCOME_AUDIO_LOCAL);
+      const audio = new Audio(WELCOME_AUDIO_URL);
       audio.preload = "auto";
       _currentAudio = audio;
       await new Promise<void>((resolve, reject) => {
@@ -80,7 +40,7 @@ async function speak(text: string, lang: Lang, useWelcome = false) {
     } catch { /* fall through */ }
   }
 
-  // 4. Last resort: browser Speech API
+  // 2. Browser Speech API fallback
   _speakBrowser(text, lang);
 }
 
@@ -237,8 +197,7 @@ export default function HomePage() {
     };
     // Try autoplay first (works if browser allows it)
     const timer = setTimeout(() => {
-      const testUrl = ELEVENLABS_WELCOME[lang] || WELCOME_AUDIO_LOCAL;
-      const audio = new Audio(testUrl);
+      const audio = new Audio(WELCOME_AUDIO_URL);
       audio.play().then(() => {
         audio.pause();
         audio.currentTime = 0;
@@ -283,7 +242,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════════ */}
       {/* SECTION 1: HERO (above the fold) — mantener actual            */}
       {/* ═══════════════════════════════════════════════════════════════ */}
-      <section className="relative flex flex-col items-center justify-center min-h-screen px-6 py-4
+      <section className="relative flex flex-col items-center justify-center min-h-screen px-6 pt-[64px] pb-4
                           bg-gradient-to-b from-clara-bg via-[#F0F7FA] to-[#E8F1F5] overflow-hidden">
         {/* Atmospheric decorative circles */}
         <div className="absolute top-[20%] -left-[100px] w-[300px] h-[300px] rounded-full pointer-events-none"
@@ -291,17 +250,29 @@ export default function HomePage() {
         <div className="absolute bottom-[15%] -right-[80px] w-[250px] h-[250px] rounded-full pointer-events-none"
              style={{ background: "radial-gradient(circle, rgba(212,106,30,0.03) 0%, transparent 70%)" }} aria-hidden="true" />
 
-        <div className="absolute top-0 left-0 right-0 w-full max-w-3xl mx-auto flex items-center justify-between px-6 pt-4 pb-2 z-10">
-          <button onClick={() => setMenuOpen(true)} aria-label="Abrir menu"
-            className="w-touch-sm h-touch-sm flex items-center justify-center rounded-xl
-                       hover:bg-white/60 dark:hover:bg-[#2a2f36] transition-colors">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M3 12h18" /><path d="M3 6h18" /><path d="M3 18h18" />
-            </svg>
-          </button>
-          <LanguageBar lang={lang} onChangeLang={handleLangChange} />
-        </div>
+        <header className="fixed top-0 left-0 right-0 z-20 bg-white/70 dark:bg-[#0f1419]/70 backdrop-blur-md border-b border-clara-border/30 dark:border-[#2a2f36]/30">
+          <div className="max-w-3xl mx-auto flex items-center justify-between px-4 h-[56px] sm:h-[60px]">
+            <button onClick={() => setMenuOpen(true)} aria-label="Abrir menu"
+              className="w-10 h-10 sm:w-touch-sm sm:h-touch-sm flex items-center justify-center rounded-xl
+                         hover:bg-white/60 dark:hover:bg-[#2a2f36] transition-colors">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M3 12h18" /><path d="M3 6h18" /><path d="M3 18h18" />
+              </svg>
+            </button>
+
+            <div className="flex items-center gap-2">
+              <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+                <path d="M 28 23 A 20 20 0 0 1 28 57" stroke="#1B5E7B" strokeWidth="4.5" strokeLinecap="round" fill="none" opacity="0.65" />
+                <path d="M 28 32 A 10 10 0 0 1 28 48" stroke="#1B5E7B" strokeWidth="4.5" strokeLinecap="round" fill="none" />
+                <circle cx="28" cy="40" r="4" fill="#D46A1E" />
+              </svg>
+              <span className="font-display font-bold text-[15px] sm:text-[17px] text-clara-text dark:text-[#e8e8ee]">Clara</span>
+            </div>
+
+            <LanguageBar lang={lang} onChangeLang={handleLangChange} />
+          </div>
+        </header>
 
         <HamburgerMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} items={MENU_ITEMS[lang]} lang={lang} />
 

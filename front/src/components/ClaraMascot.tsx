@@ -5,17 +5,14 @@ import { useMascotState } from "@/hooks/useMascotState";
 const SCENE_URL =
   "https://prod.spline.design/GkUXdIfFXTwByQ30/scene.splinecode";
 
-// Render at native resolution, CSS-scale + overflow-crop to widget size.
+// Spline canvas renders at native resolution, then CSS-scale + overflow-crop.
 const RENDER_W = 1920;
 const RENDER_H = 1080;
-const SCALE = 0.4;
-const OFFSET_X = -(RENDER_W * SCALE) / 2;
-const OFFSET_Y = -(RENDER_H * SCALE) / 2 + 20;
 
 /** Responsive widget size based on viewport width and route */
 function useWidgetSize(isChat: boolean) {
   const getSize = useCallback((w: number) => {
-    if (isChat) return w < 1024 ? 100 : 130;
+    if (isChat) return w < 640 ? 100 : w < 1024 ? 120 : 130;
     return w < 640 ? 120 : w < 1024 ? 160 : 200;
   }, [isChat]);
 
@@ -29,6 +26,20 @@ function useWidgetSize(isChat: boolean) {
   }, [getSize]);
 
   return size;
+}
+
+/**
+ * Adaptive scale + offset so the character fills the widget at any size.
+ * Larger widgets → lower scale (see more scene). Smaller → zoom in.
+ */
+function getScaleAndOffset(widgetSize: number) {
+  // Scale proportional to widget: 200px → 0.4, 120px → 0.5, 100px → 0.55
+  const scale = Math.max(0.35, Math.min(0.6, 0.25 + (200 - widgetSize) * 0.0015));
+  const scaledW = RENDER_W * scale;
+  const scaledH = RENDER_H * scale;
+  const ox = -scaledW / 2 + widgetSize / 2;
+  const oy = -scaledH / 2 + widgetSize / 2 + 10;
+  return { scale, ox, oy };
 }
 
 /** CSS animation class per mascot state */
@@ -46,7 +57,7 @@ export default function ClaraMascot() {
   const { state } = useMascotState();
   const [routeBounce, setRouteBounce] = useState(false);
   const prevPath = useRef(location.pathname);
-  const isMobile = widgetSize <= 120;
+  const isMobile = widgetSize <= 100;
 
   // Bounce on route change
   useEffect(() => {
@@ -65,9 +76,7 @@ export default function ClaraMascot() {
     ? "animate-[bounce_0.6s_ease-in-out]"
     : stateAnimations[state] ?? stateAnimations.idle;
 
-  // Center offsets depend on widget size
-  const ox = OFFSET_X + widgetSize / 2;
-  const oy = OFFSET_Y + widgetSize / 2;
+  const { scale, ox, oy } = getScaleAndOffset(widgetSize);
 
   return (
     <div
@@ -77,24 +86,26 @@ export default function ClaraMascot() {
         height: widgetSize,
         overflow: "hidden",
         borderRadius: "1.25rem",
-        opacity: isChat ? 0.8 : 1,
+        opacity: isChat ? 0.85 : 1,
       }}
     >
       <div
         style={{
           width: RENDER_W,
           height: RENDER_H,
-          transform: `scale(${SCALE})`,
+          transform: `scale(${scale})`,
           transformOrigin: "top left",
           marginLeft: ox,
           marginTop: oy,
+          pointerEvents: "none",
         }}
       >
         <spline-viewer
           url={SCENE_URL}
           background="rgba(0,0,0,0)"
           loading="eager"
-          style={{ width: RENDER_W, height: RENDER_H, display: "block" }}
+          events-target="none"
+          style={{ width: RENDER_W, height: RENDER_H, display: "block", pointerEvents: "none" }}
         />
       </div>
     </div>
