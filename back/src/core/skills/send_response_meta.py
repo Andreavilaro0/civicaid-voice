@@ -20,13 +20,21 @@ def _url():
     return f"{META_API_URL}/{config.META_PHONE_NUMBER_ID}/messages"
 
 
+def _normalize_mx_number(phone: str) -> str:
+    """Fix Mexican numbers: Meta webhooks send 521XXXXXXXXXX but API needs 52XXXXXXXXXX."""
+    if phone.startswith("521") and len(phone) == 13:
+        return "52" + phone[3:]
+    return phone
+
+
 @timed("send_response_meta")
 def send_final_message_meta(response: FinalResponse) -> bool:
     """Send text + optional media to user via Meta Cloud API. Returns True on success."""
     try:
+        to_number = _normalize_mx_number(response.to_number)
         payload = {
             "messaging_product": "whatsapp",
-            "to": response.to_number,
+            "to": to_number,
             "type": "text",
             "text": {"body": response.body},
         }
@@ -44,7 +52,7 @@ def send_final_message_meta(response: FinalResponse) -> bool:
         try:
             payload = {
                 "messaging_product": "whatsapp",
-                "to": response.to_number,
+                "to": to_number,
                 "type": "text",
                 "text": {"body": response.body},
             }
@@ -59,9 +67,10 @@ def send_final_message_meta(response: FinalResponse) -> bool:
 def _send_media(response: FinalResponse) -> None:
     """Send audio/media as a separate WhatsApp message."""
     try:
+        to_number = _normalize_mx_number(response.to_number)
         payload = {
             "messaging_product": "whatsapp",
-            "to": response.to_number,
+            "to": to_number,
             "type": "audio",
             "audio": {"link": response.media_url},
         }
@@ -74,6 +83,7 @@ def _send_media(response: FinalResponse) -> None:
 def send_audio_only(to_number: str, audio_url: str) -> bool:
     """Send just an audio message (used for async TTS after text is already sent)."""
     try:
+        to_number = _normalize_mx_number(to_number)
         payload = {
             "messaging_product": "whatsapp",
             "to": to_number,
@@ -224,6 +234,7 @@ WELCOME = {
 def send_welcome(to_number: str, language: str = "es") -> bool:
     """Send welcome text immediately, then audio in background thread."""
     import threading
+    to_number = _normalize_mx_number(to_number)
     w = WELCOME.get(language, WELCOME["es"])
 
     # 1. Send welcome text IMMEDIATELY
@@ -318,6 +329,7 @@ FOLLOWUP_BUTTONS = {
 def send_followup(to_number: str, language: str = "es") -> bool:
     """Send follow-up after inactivity: buttons first, audio in background."""
     import threading
+    to_number = _normalize_mx_number(to_number)
     text = FOLLOWUP.get(language, FOLLOWUP["es"])
     buttons = FOLLOWUP_BUTTONS.get(language, FOLLOWUP_BUTTONS["es"])
 
