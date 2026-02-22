@@ -181,7 +181,7 @@ function TickerStrip({
               border: "1px solid rgba(255,255,255,0.12)",
               boxShadow: "0 4px 24px rgba(0,0,0,0.25)",
               borderRadius: 20,
-              minWidth: 480,
+              minWidth: "min(480px, 85vw)",
               maxWidth: 560,
               display: "grid",
               gridTemplateColumns: "1fr 1fr",

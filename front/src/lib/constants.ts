@@ -20,10 +20,13 @@ export const cdn = (path: string) => `${CDN_BASE}${path}`;
 
 /**
  * URL base del backend Flask.
- * Dev: http://localhost:5000 | Prod: VITE_API_URL en Render/Vercel
+ * Dev: http://localhost:5000 | Prod: Render (auto-detected from hostname)
  */
 export const API_BASE_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:5000";
+  import.meta.env.VITE_API_URL ||
+  (typeof window !== "undefined" && window.location.hostname !== "localhost"
+    ? "https://civicaid-voice.onrender.com"
+    : "http://localhost:5000");
 
 /** Timeout para requests al backend (ms). Generoso para conexiones lentas */
 export const API_TIMEOUT_MS = 30_000;

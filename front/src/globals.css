@@ -63,6 +63,12 @@
   }
 }
 
+/* Prevent horizontal scroll on all pages — decorative elements can extend */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 /* Max line width para legibilidad optima */
 p, li, dd {
   max-width: 70ch;

@@ -41,7 +41,7 @@ services:
       - key: ELEVENLABS_API_KEY
         sync: false
       - key: FRONTEND_URL
-        value: "http://localhost:5173,https://clara-web.vercel.app,https://clara-web.onrender.com"
+        value: "http://localhost:5173,https://clara-web.vercel.app,https://clara-web.onrender.com,https://andreavilaro0.github.io"
       - key: VISION_ENABLED
         value: "true"
       - key: RAG_ENABLED

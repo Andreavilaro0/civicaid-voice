@@ -19,13 +19,38 @@ type Lang = Language;
 
 let _currentAudio: HTMLAudioElement | null = null;
 
-const WELCOME_AUDIO_URL = "/audio/welcome-multilingual.mp3";
+/** CDN-hosted per-language welcome audio (ElevenLabs Sara Martin / Charlotte) */
+const ELEVENLABS_WELCOME: Partial<Record<Lang, string>> = {
+  es: cdn("/audio/welcome-es.mp3"),
+  fr: cdn("/audio/welcome-fr.mp3"),
+  ar: cdn("/audio/welcome-ar.mp3"),
+};
+
+/** Local fallback — multilingual welcome in public/audio/ */
+const WELCOME_AUDIO_LOCAL = `${import.meta.env.BASE_URL}audio/welcome-multilingual.mp3`;
 
 async function speak(text: string, lang: Lang, useWelcome = false) {
   if (_currentAudio) { _currentAudio.pause(); _currentAudio = null; }
   try { window.speechSynthesis?.cancel(); } catch { /* noop */ }
 
-  // 1. Backend TTS (Gemini — misma voz calida que WhatsApp)
+  // 1. Pre-recorded CDN audio per language (fastest, no backend needed)
+  if (useWelcome) {
+    const cdnUrl = ELEVENLABS_WELCOME[lang];
+    if (cdnUrl) {
+      try {
+        const audio = new Audio(cdnUrl);
+        audio.preload = "auto";
+        _currentAudio = audio;
+        await new Promise<void>((resolve, reject) => {
+          audio.oncanplaythrough = () => { audio.play().then(resolve).catch(reject); };
+          audio.onerror = reject;
+        });
+        return;
+      } catch { /* fall through */ }
+    }
+  }
+
+  // 2. Backend TTS (ElevenLabs Sara Martin — misma voz calida que WhatsApp)
   try {
     const { generateTTS } = await import("@/lib/api");
     const audioUrl = await generateTTS(text, lang);
@@ -39,12 +64,12 @@ async function speak(text: string, lang: Lang, useWelcome = false) {
       });
       return;
     }
-  } catch { /* fall through to pre-recorded */ }
+  } catch { /* fall through to local file */ }
 
-  // 2. Fallback: pre-recorded multilingual welcome MP3
+  // 3. Fallback: local multilingual welcome MP3
   if (useWelcome) {
     try {
-      const audio = new Audio(WELCOME_AUDIO_URL);
+      const audio = new Audio(WELCOME_AUDIO_LOCAL);
       audio.preload = "auto";
       _currentAudio = audio;
       await new Promise<void>((resolve, reject) => {
@@ -55,7 +80,7 @@ async function speak(text: string, lang: Lang, useWelcome = false) {
     } catch { /* fall through */ }
   }
 
-  // 3. Last resort: browser Speech API
+  // 4. Last resort: browser Speech API
   _speakBrowser(text, lang);
 }
 
@@ -212,7 +237,8 @@ export default function HomePage() {
     };
     // Try autoplay first (works if browser allows it)
     const timer = setTimeout(() => {
-      const audio = new Audio(WELCOME_AUDIO_URL);
+      const testUrl = ELEVENLABS_WELCOME[lang] || WELCOME_AUDIO_LOCAL;
+      const audio = new Audio(testUrl);
       audio.play().then(() => {
         audio.pause();
         audio.currentTime = 0;
@@ -253,7 +279,7 @@ export default function HomePage() {
   const secondCta = SECOND_CTA[lang];
 
   return (
-    <div className="flex flex-col min-h-screen overflow-x-hidden">
+    <div className="flex flex-col min-h-screen overflow-x-hidden w-full max-w-[100vw]">
       {/* ═══════════════════════════════════════════════════════════════ */}
       {/* SECTION 1: HERO (above the fold) — mantener actual            */}
       {/* ═══════════════════════════════════════════════════════════════ */}
