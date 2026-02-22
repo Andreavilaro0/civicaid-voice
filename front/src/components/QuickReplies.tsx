@@ -38,7 +38,12 @@ interface QuickRepliesProps {
 
 const QUICK_REPLIES: Record<Language, string[]> = {
   es: ["Ayuda de dinero", "Registrarme en mi ciudad", "Ir al médico"],
+  en: ["Financial help", "Register in my city", "See a doctor"],
   fr: ["Aide financière", "M'inscrire dans ma ville", "Aller chez le médecin"],
+  pt: ["Ajuda financeira", "Registar-me na minha cidade", "Ir ao médico"],
+  ro: ["Ajutor financiar", "Înregistrare în orașul meu", "Mergi la doctor"],
+  ca: ["Ajuda econòmica", "Registrar-me a la meva ciutat", "Anar al metge"],
+  zh: ["经济援助", "在我的城市注册", "看医生"],
   ar: ["مساعدة مالية", "التسجيل في مدينتي", "الذهاب للطبيب"],
 };
 
@@ -55,16 +60,19 @@ export default function QuickReplies({
 
   const chips = QUICK_REPLIES[language];
 
+  const navLabels: Record<Language, string> = {
+    es: "Sugerencias rápidas",
+    en: "Quick suggestions",
+    fr: "Suggestions rapides",
+    pt: "Sugestões rápidas",
+    ro: "Sugestii rapide",
+    ca: "Suggeriments ràpids",
+    zh: "快速建议",
+    ar: "اقتراحات سريعة",
+  };
+
   return (
-    <nav
-      aria-label={
-        language === "ar"
-          ? "اقتراحات سريعة"
-          : language === "fr"
-          ? "Suggestions rapides"
-          : "Sugerencias rápidas"
-      }
-    >
+    <nav aria-label={navLabels[language]}>
       <div
         className="flex flex-wrap gap-2 px-4 py-2 justify-center"
         style={{ animation: "fadeInUp 0.4s ease-out both" }}

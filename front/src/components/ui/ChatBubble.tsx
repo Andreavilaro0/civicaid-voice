@@ -1,31 +1,119 @@
+/**
+ * ChatBubble — Clara / User message bubble
+ *
+ * Usage:
+ *   <ChatBubble sender="clara" timestamp="10:42">
+ *     Hola, soy Clara. ¿En qué te puedo ayudar hoy?
+ *   </ChatBubble>
+ *
+ *   <ChatBubble sender="user" timestamp="10:43">
+ *     Necesito información sobre el IMV.
+ *   </ChatBubble>
+ */
+
 interface ChatBubbleProps {
   sender: "clara" | "user";
   children: React.ReactNode;
   timestamp?: string;
 }
 
+/** 28 × 28 circular Clara avatar with a white voice-arc SVG */
+function ClaraAvatar() {
+  return (
+    <div
+      className="flex-shrink-0 w-7 h-7 rounded-full bg-clara-blue flex items-center justify-center"
+      aria-hidden="true"
+    >
+      {/* Voice arc — three concentric arcs growing outward from a mic dot */}
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        {/* Center dot */}
+        <circle cx="8" cy="8" r="1.5" fill="white" />
+        {/* Inner arc */}
+        <path
+          d="M5.5 8 A2.5 2.5 0 0 1 10.5 8"
+          stroke="white"
+          strokeWidth="1.2"
+          strokeLinecap="round"
+          fill="none"
+        />
+        {/* Outer arc */}
+        <path
+          d="M3.5 8 A4.5 4.5 0 0 1 12.5 8"
+          stroke="white"
+          strokeWidth="1.2"
+          strokeLinecap="round"
+          fill="none"
+          opacity="0.65"
+        />
+      </svg>
+    </div>
+  );
+}
+
 export default function ChatBubble({ sender, children, timestamp }: ChatBubbleProps) {
   const isClara = sender === "clara";
 
-  return (
-    <div className={`flex ${isClara ? "justify-start" : "justify-end"} mb-4`}>
-      <div
-        className={`
-          max-w-[85%] px-4 py-3 rounded-bubble text-body-sm
-          ${isClara
-            ? "bg-clara-info text-clara-text rounded-bl-sm"
-            : "bg-clara-blue text-white rounded-br-sm"
-          }
-        `}
-      >
-        {isClara && (
-          <p className="font-display font-bold text-label text-clara-blue mb-1">
+  if (isClara) {
+    return (
+      <div className="flex items-start gap-2 justify-start mb-4">
+        {/* Avatar sits at the top-left, aligned with the bubble top */}
+        <ClaraAvatar />
+
+        <div className="flex flex-col items-start max-w-[85%] md:max-w-[70%]">
+          {/* Sender label */}
+          <span className="text-clara-blue font-display font-bold text-[14px] mb-1 ml-1">
             Clara
-          </p>
-        )}
-        <div className="space-y-2">{children}</div>
+          </span>
+
+          {/* Bubble */}
+          <div
+            className="
+              bg-white border border-clara-border/60 shadow-sm
+              rounded-2xl rounded-tl-sm
+              px-4 py-3
+              dark:bg-[#1a1f26] dark:border-[#2a2f36]
+            "
+            role="article"
+            aria-label="Clara message"
+          >
+            <div className="text-clara-text text-body-sm space-y-2 dark:text-white/90">
+              {children}
+            </div>
+
+            {timestamp && (
+              <p className="text-[13px] text-clara-text-secondary mt-2 text-right select-none dark:text-white/40">
+                {timestamp}
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  /* ── User bubble ─────────────────────────────────────────── */
+  return (
+    <div className="flex justify-end mb-4">
+      <div
+        className="
+          bg-clara-blue text-white
+          rounded-2xl rounded-tr-sm
+          px-4 py-3
+          max-w-[85%] md:max-w-[70%]
+        "
+        role="article"
+        aria-label="Your message"
+      >
+        <div className="text-body-sm space-y-2">{children}</div>
+
         {timestamp && (
-          <p className="text-[14px] text-clara-text-secondary mt-2 text-right">
+          <p className="text-[13px] text-white/60 mt-2 text-right select-none">
             {timestamp}
           </p>
         )}

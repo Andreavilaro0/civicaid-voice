@@ -188,58 +188,52 @@ export function getErrorMessage(
     actionLabel: string;
   }>> = {
     es: {
-      network: {
-        message: "Parece que no hay conexion. Revisa tu wifi o datos moviles.",
-        actionLabel: "Reintentar",
-      },
-      timeout: {
-        message: "Esta tardando mas de lo normal. Un momento...",
-        actionLabel: "Esperar",
-      },
-      audio: {
-        message: "No he podido entender el audio. Puedes repetir o escribir?",
-        actionLabel: "Escribir",
-      },
-      server: {
-        message: "Algo ha salido mal. Intenta de nuevo.",
-        actionLabel: "Reintentar",
-      },
+      network: { message: "Parece que no hay conexion. Revisa tu wifi o datos moviles.", actionLabel: "Reintentar" },
+      timeout: { message: "Esta tardando mas de lo normal. Un momento...", actionLabel: "Esperar" },
+      audio: { message: "No he podido entender el audio. Puedes repetir o escribir?", actionLabel: "Escribir" },
+      server: { message: "Algo ha salido mal. Intenta de nuevo.", actionLabel: "Reintentar" },
     },
     fr: {
-      network: {
-        message: "Il semble qu'il n'y ait pas de connexion. Verifie ton wifi.",
-        actionLabel: "Reessayer",
-      },
-      timeout: {
-        message: "Cela prend plus de temps que prevu. Un moment...",
-        actionLabel: "Attendre",
-      },
-      audio: {
-        message: "Je n'ai pas pu comprendre l'audio. Peux-tu repeter ou ecrire?",
-        actionLabel: "Ecrire",
-      },
-      server: {
-        message: "Quelque chose s'est mal passe. Reessaie.",
-        actionLabel: "Reessayer",
-      },
+      network: { message: "Il semble qu'il n'y ait pas de connexion. Verifie ton wifi.", actionLabel: "Reessayer" },
+      timeout: { message: "Cela prend plus de temps que prevu. Un moment...", actionLabel: "Attendre" },
+      audio: { message: "Je n'ai pas pu comprendre l'audio. Peux-tu repeter ou ecrire?", actionLabel: "Ecrire" },
+      server: { message: "Quelque chose s'est mal passe. Reessaie.", actionLabel: "Reessayer" },
     },
     ar: {
-      network: {
-        message: "يبدو أنه لا يوجد اتصال. تحقق من الواي فاي أو بيانات الهاتف.",
-        actionLabel: "إعادة المحاولة",
-      },
-      timeout: {
-        message: "يستغرق الأمر وقتاً أطول من المعتاد. لحظة...",
-        actionLabel: "انتظار",
-      },
-      audio: {
-        message: "لم أتمكن من فهم الصوت. هل يمكنك الإعادة أو الكتابة؟",
-        actionLabel: "كتابة",
-      },
-      server: {
-        message: "حدث خطأ ما. حاول مرة أخرى.",
-        actionLabel: "إعادة المحاولة",
-      },
+      network: { message: "يبدو أنه لا يوجد اتصال. تحقق من الواي فاي أو بيانات الهاتف.", actionLabel: "إعادة المحاولة" },
+      timeout: { message: "يستغرق الأمر وقتاً أطول من المعتاد. لحظة...", actionLabel: "انتظار" },
+      audio: { message: "لم أتمكن من فهم الصوت. هل يمكنك الإعادة أو الكتابة؟", actionLabel: "كتابة" },
+      server: { message: "حدث خطأ ما. حاول مرة أخرى.", actionLabel: "إعادة المحاولة" },
+    },
+    en: {
+      network: { message: "Looks like there's no connection. Check your wifi or mobile data.", actionLabel: "Retry" },
+      timeout: { message: "This is taking longer than usual. One moment...", actionLabel: "Wait" },
+      audio: { message: "I couldn't understand the audio. Can you repeat or type?", actionLabel: "Type instead" },
+      server: { message: "Something went wrong. Try again.", actionLabel: "Retry" },
+    },
+    pt: {
+      network: { message: "Parece que nao ha conexao. Verifica o teu wifi ou dados moveis.", actionLabel: "Tentar de novo" },
+      timeout: { message: "Esta a demorar mais do que o normal. Um momento...", actionLabel: "Esperar" },
+      audio: { message: "Nao consegui entender o audio. Podes repetir ou escrever?", actionLabel: "Escrever" },
+      server: { message: "Algo correu mal. Tenta outra vez.", actionLabel: "Tentar de novo" },
+    },
+    ro: {
+      network: { message: "Se pare ca nu exista conexiune. Verifica wifi-ul sau datele mobile.", actionLabel: "Reincearca" },
+      timeout: { message: "Dureaza mai mult decat de obicei. Un moment...", actionLabel: "Asteapta" },
+      audio: { message: "Nu am putut intelege audio. Poti repeta sau scrie?", actionLabel: "Scrie" },
+      server: { message: "Ceva nu a mers bine. Incearca din nou.", actionLabel: "Reincearca" },
+    },
+    ca: {
+      network: { message: "Sembla que no hi ha connexio. Revisa el teu wifi o dades mobils.", actionLabel: "Reintentar" },
+      timeout: { message: "Esta trigant mes del normal. Un moment...", actionLabel: "Esperar" },
+      audio: { message: "No he pogut entendre l'audio. Pots repetir o escriure?", actionLabel: "Escriure" },
+      server: { message: "Alguna cosa no ha anat be. Torna-ho a provar.", actionLabel: "Reintentar" },
+    },
+    zh: {
+      network: { message: "好像没有网络连接。请检查你的WiFi或移动数据。", actionLabel: "重试" },
+      timeout: { message: "这比平时花的时间长。请稍等...", actionLabel: "等待" },
+      audio: { message: "我无法理解音频。你能重复一下或者打字吗？", actionLabel: "打字" },
+      server: { message: "出了点问题。请再试一次。", actionLabel: "重试" },
     },
   };
 

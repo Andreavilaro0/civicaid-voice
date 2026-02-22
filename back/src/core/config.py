@@ -25,6 +25,7 @@ class Config:
     META_WHATSAPP_TOKEN: str = field(default_factory=lambda: os.getenv("META_WHATSAPP_TOKEN", ""))
     META_PHONE_NUMBER_ID: str = field(default_factory=lambda: os.getenv("META_PHONE_NUMBER_ID", ""))
     META_VERIFY_TOKEN: str = field(default_factory=lambda: os.getenv("META_VERIFY_TOKEN", "clara_verify_2026"))
+    META_APP_SECRET: str = field(default_factory=lambda: os.getenv("META_APP_SECRET", ""))
 
     # --- Gemini ---
     GEMINI_API_KEY: str = field(default_factory=lambda: os.getenv("GEMINI_API_KEY", ""))

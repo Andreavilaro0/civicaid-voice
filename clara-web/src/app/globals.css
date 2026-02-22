@@ -226,30 +226,40 @@ body::after {
 .quick-chip {
   display: inline-flex;
   padding: 10px 18px;
-  border-radius: 20px;
-  border: 2px solid #E0E0E0;
+  border-radius: 24px;
+  border: 1.5px solid #E0E0E0;
   background: white;
-  font-size: 16px;
+  font-size: 15px;
   font-family: var(--font-body, 'Inter', sans-serif);
   color: #1B5E7B;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   min-height: 44px;
   align-items: center;
+  box-shadow: 0 1px 3px rgba(27,94,123,0.06);
 }
 .quick-chip:hover {
   border-color: #1B5E7B;
-  background: rgba(27,94,123,0.04);
+  background: rgba(27,94,123,0.06);
+  box-shadow: 0 2px 8px rgba(27,94,123,0.1);
+  transform: translateY(-1px);
 }
 .quick-chip:active {
-  transform: scale(0.96);
+  transform: scale(0.96) translateY(0);
 }
 @media (prefers-color-scheme: dark) {
   .quick-chip {
     background: #1a1f26;
     border-color: #2a2f36;
     color: #a0c4d4;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   }
+}
+
+/* ── Dark mode: chat header & input bar ── */
+@media (prefers-color-scheme: dark) {
+  header { background: rgba(15, 20, 25, 0.8) !important; border-color: #2a2f36 !important; }
+  .sticky.bottom-0 { background: rgba(15, 20, 25, 0.8) !important; border-color: #2a2f36 !important; }
 }
 
 /* ── RTL adjustments ── */

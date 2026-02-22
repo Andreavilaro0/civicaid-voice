@@ -86,13 +86,15 @@ const INITIAL_STATE: PlayerState = {
 /*  Hook                                                              */
 /* ------------------------------------------------------------------ */
 
-export function useAudioPlayer(src: string) {
+export function useAudioPlayer(src: string, options?: { autoPlay?: boolean }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [state, setState] = useState<PlayerState>(INITIAL_STATE);
   const speedIdxRef = useRef(1); // indice en SPEEDS
+  const autoPlayedRef = useRef(false);
 
   // Crear audio element una sola vez
   useEffect(() => {
+    autoPlayedRef.current = false;
     const audio = new Audio();
     audio.preload = "metadata";
     audio.src = src;
@@ -163,6 +165,19 @@ export function useAudioPlayer(src: string) {
     audio.addEventListener("error", onError);
     audio.addEventListener("waiting", onWaiting);
     audio.addEventListener("canplay", onCanPlay);
+
+    // Auto-play: misma experiencia que WhatsApp (Clara habla automaticamente)
+    if (options?.autoPlay && !autoPlayedRef.current) {
+      const onCanPlayThrough = () => {
+        if (autoPlayedRef.current) return;
+        autoPlayedRef.current = true;
+        claimPlayback(audio, () => {
+          setState((s) => ({ ...s, isPlaying: false }));
+        });
+        audio.play().catch(() => { /* browser blocked autoplay */ });
+      };
+      audio.addEventListener("canplaythrough", onCanPlayThrough, { once: true });
+    }
 
     return () => {
       audio.pause();

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 
-type Lang = "es" | "fr" | "ar";
+import type { Language } from "@/lib/types";
 
 interface MenuItem {
   href: string;
@@ -14,7 +14,7 @@ interface HamburgerMenuProps {
   isOpen: boolean;
   onClose: () => void;
   items: MenuItem[];
-  lang: Lang;
+  lang: Language;
 }
 
 export default function HamburgerMenu({

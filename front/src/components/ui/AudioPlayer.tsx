@@ -20,6 +20,17 @@ const labels = {
     loading: "Cargando audio...",
     progress: "Progreso del audio",
   },
+  en: {
+    play: "Listen to response",
+    playWithDuration: (d: string) => `Listen to response, ${d}`,
+    pause: "Pause audio",
+    resume: "Resume audio",
+    replay: "Listen again",
+    speed: (s: number) => `Speed ${s}x`,
+    error: "Audio not available",
+    loading: "Loading audio...",
+    progress: "Audio progress",
+  },
   fr: {
     play: "Ecouter la reponse",
     playWithDuration: (d: string) => `Ecouter la reponse, ${d}`,
@@ -30,6 +41,50 @@ const labels = {
     error: "Audio non disponible",
     loading: "Chargement de l'audio...",
     progress: "Progression de l'audio",
+  },
+  pt: {
+    play: "Ouvir resposta",
+    playWithDuration: (d: string) => `Ouvir resposta, ${d}`,
+    pause: "Pausar áudio",
+    resume: "Continuar áudio",
+    replay: "Ouvir novamente",
+    speed: (s: number) => `Velocidade ${s}x`,
+    error: "Áudio não disponível",
+    loading: "A carregar áudio...",
+    progress: "Progresso do áudio",
+  },
+  ro: {
+    play: "Ascultă răspunsul",
+    playWithDuration: (d: string) => `Ascultă răspunsul, ${d}`,
+    pause: "Pauză audio",
+    resume: "Continuă audio",
+    replay: "Ascultă din nou",
+    speed: (s: number) => `Viteză ${s}x`,
+    error: "Audio indisponibil",
+    loading: "Se încarcă audio...",
+    progress: "Progresul audio",
+  },
+  ca: {
+    play: "Escoltar resposta",
+    playWithDuration: (d: string) => `Escoltar resposta, ${d}`,
+    pause: "Pausar àudio",
+    resume: "Continuar àudio",
+    replay: "Tornar a escoltar",
+    speed: (s: number) => `Velocitat ${s}x`,
+    error: "Àudio no disponible",
+    loading: "Carregant àudio...",
+    progress: "Progrés de l'àudio",
+  },
+  zh: {
+    play: "收听回复",
+    playWithDuration: (d: string) => `收听回复，${d}`,
+    pause: "暂停音频",
+    resume: "继续音频",
+    replay: "重新收听",
+    speed: (s: number) => `速度 ${s}倍`,
+    error: "音频不可用",
+    loading: "正在加载音频...",
+    progress: "音频进度",
   },
   ar: {
     play: "استمع للرد",
@@ -64,13 +119,15 @@ interface AudioPlayerProps {
   src: string;
   /** Idioma para labels bilingues */
   language: Language;
+  /** Auto-reproducir al cargar (misma experiencia que WhatsApp) */
+  autoPlay?: boolean;
 }
 
 /* ------------------------------------------------------------------ */
 /*  Componente                                                        */
 /* ------------------------------------------------------------------ */
 
-export default function AudioPlayer({ src, language }: AudioPlayerProps) {
+export default function AudioPlayer({ src, language, autoPlay }: AudioPlayerProps) {
   const {
     isPlaying,
     isLoading,
@@ -83,7 +140,7 @@ export default function AudioPlayer({ src, language }: AudioPlayerProps) {
     togglePlay,
     seek,
     cycleSpeed,
-  } = useAudioPlayer(src);
+  } = useAudioPlayer(src, { autoPlay });
 
   const progressBarRef = useRef<HTMLDivElement>(null);
   const l = labels[language];

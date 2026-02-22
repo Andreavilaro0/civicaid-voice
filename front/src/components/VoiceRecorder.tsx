@@ -19,7 +19,7 @@ interface VoiceRecorderProps {
 /*  Labels bilingues                                                   */
 /* ------------------------------------------------------------------ */
 
-const labels = {
+const labels: Record<Language, { speak: string; cancel: string; send: string; warning: string; tap_start: string; tap_stop: string; mic_error: string; try_again: string; use_text: string }> = {
   es: {
     speak: "Habla ahora...",
     cancel: "Cancelar",
@@ -32,6 +32,18 @@ const labels = {
     try_again: "Probar de nuevo",
     use_text: "Escribir en su lugar",
   },
+  en: {
+    speak: "Speak now...",
+    cancel: "Cancel",
+    send: "Send",
+    warning: "Few seconds left",
+    tap_start: "Tap to record",
+    tap_stop: "Tap to stop",
+    mic_error:
+      "Could not access the microphone. Make sure to grant permission in your browser.",
+    try_again: "Try again",
+    use_text: "Type instead",
+  },
   fr: {
     speak: "Parle maintenant...",
     cancel: "Annuler",
@@ -43,6 +55,54 @@ const labels = {
       "Impossible d'acceder au micro. Assure-toi de donner la permission dans ton navigateur.",
     try_again: "Reessayer",
     use_text: "Ecrire a la place",
+  },
+  pt: {
+    speak: "Fala agora...",
+    cancel: "Cancelar",
+    send: "Enviar",
+    warning: "Restam poucos segundos",
+    tap_start: "Toca para gravar",
+    tap_stop: "Toca para parar",
+    mic_error:
+      "Não foi possível aceder ao microfone. Certifica-te de dar permissão no teu navegador.",
+    try_again: "Tentar novamente",
+    use_text: "Escrever em vez disso",
+  },
+  ro: {
+    speak: "Vorbește acum...",
+    cancel: "Anulează",
+    send: "Trimite",
+    warning: "Mai sunt puține secunde",
+    tap_start: "Apasă pentru a înregistra",
+    tap_stop: "Apasă pentru a opri",
+    mic_error:
+      "Nu s-a putut accesa microfonul. Asigură-te că ai acordat permisiunea în browser.",
+    try_again: "Încearcă din nou",
+    use_text: "Scrie în schimb",
+  },
+  ca: {
+    speak: "Parla ara...",
+    cancel: "Cancel·lar",
+    send: "Enviar",
+    warning: "Queden pocs segons",
+    tap_start: "Toca per gravar",
+    tap_stop: "Toca per aturar",
+    mic_error:
+      "No s'ha pogut accedir al micròfon. Assegura't de donar permís al teu navegador.",
+    try_again: "Tornar a provar",
+    use_text: "Escriure en lloc d'això",
+  },
+  zh: {
+    speak: "请说话...",
+    cancel: "取消",
+    send: "发送",
+    warning: "剩余时间不多",
+    tap_start: "点击录音",
+    tap_stop: "点击停止",
+    mic_error:
+      "无法访问麦克风。请确保在浏览器中授予权限。",
+    try_again: "再试一次",
+    use_text: "改为打字",
   },
   ar: {
     speak: "تحدث الآن...",

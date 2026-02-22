@@ -19,6 +19,26 @@ const brandStory: Record<Language, { title: string; body: string }> = {
     title: "قصة كلارا",
     body: "وُلدت كلارا في هاكاثون OdiseIA4Good بمهمة واحدة: ألا يُحرم أي شخص من المساعدات الاجتماعية لأنه لا يفهم اللغة أو البيروقراطية. نحن فريق من 5 أشخاص يؤمنون بأن التكنولوجيا يجب أن تخدم من يحتاجها أكثر.",
   },
+  en: {
+    title: "The story of Clara",
+    body: "Clara was born at an OdiseIA4Good hackathon with one mission: that no one should miss out on social aid because they don't understand the language or the bureaucracy. We are a team of 5 people who believe technology should serve those who need it most.",
+  },
+  pt: {
+    title: "A história de Clara",
+    body: "Clara nasceu num hackathon OdiseIA4Good com uma missão: que ninguém fique sem aceder a uma ajuda social por não entender o idioma ou a burocracia. Somos uma equipa de 5 pessoas que acreditam que a tecnologia deve servir quem mais precisa.",
+  },
+  ro: {
+    title: "Povestea Clarei",
+    body: "Clara s-a născut la un hackathon OdiseIA4Good cu o misiune: nimeni să nu fie privat de ajutor social pentru că nu înțelege limba sau birocrația. Suntem o echipă de 5 persoane care cred că tehnologia trebuie să îi servească pe cei care au cea mai mare nevoie.",
+  },
+  ca: {
+    title: "La història de Clara",
+    body: "Clara va néixer en un hackathon d'OdiseIA4Good amb una missió: que ningú es quedi sense accedir a una ajuda social per no entendre l'idioma o la burocràcia. Som un equip de 5 persones que creuen que la tecnologia ha de servir a qui més la necessita.",
+  },
+  zh: {
+    title: "Clara的故事",
+    body: "Clara诞生于OdiseIA4Good黑客马拉松，带着一个使命：不让任何人因为语言障碍或繁琐的行政流程而错失社会援助。我们是一个5人团队，坚信技术应当服务于最需要它的人。",
+  },
 };
 
 export default function QuienesSomosPage() {

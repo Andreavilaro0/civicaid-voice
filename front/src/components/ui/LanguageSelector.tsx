@@ -1,16 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import type { Language } from "@/lib/types";
 
 interface LanguageSelectorProps {
-  defaultLang?: "es" | "fr" | "ar";
-  onChange?: (lang: "es" | "fr" | "ar") => void;
+  defaultLang?: Language;
+  onChange?: (lang: Language) => void;
 }
 
-const languages = [
-  { code: "es" as const, label: "Espanol", short: "ES" },
-  { code: "fr" as const, label: "Francais", short: "FR" },
-  { code: "ar" as const, label: "\u0639\u0631\u0628\u064A", short: "AR" },
+const languages: { code: Language; label: string; short: string }[] = [
+  { code: "es", label: "Español", short: "ES" },
+  { code: "en", label: "English", short: "EN" },
+  { code: "fr", label: "Français", short: "FR" },
+  { code: "pt", label: "Português", short: "PT" },
+  { code: "ro", label: "Română", short: "RO" },
+  { code: "ca", label: "Català", short: "CA" },
+  { code: "zh", label: "中文", short: "中文" },
+  { code: "ar", label: "عربي", short: "AR" },
 ];
 
 export default function LanguageSelector({
@@ -19,7 +25,7 @@ export default function LanguageSelector({
 }: LanguageSelectorProps) {
   const [selected, setSelected] = useState(defaultLang);
 
-  function handleSelect(code: "es" | "fr" | "ar") {
+  function handleSelect(code: Language) {
     setSelected(code);
     onChange?.(code);
   }

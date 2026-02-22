@@ -1,16 +1,21 @@
 "use client";
 
-type Lang = "es" | "fr" | "ar";
+import type { Language } from "@/lib/types";
 
-const languages: { code: Lang; label: string; short: string }[] = [
-  { code: "es", label: "Espanol", short: "ES" },
-  { code: "fr", label: "Francais", short: "FR" },
+const languages: { code: Language; label: string; short: string }[] = [
+  { code: "es", label: "Español", short: "ES" },
+  { code: "fr", label: "Français", short: "FR" },
   { code: "ar", label: "\u0639\u0631\u0628\u064A", short: "AR" },
+  { code: "en", label: "English", short: "EN" },
+  { code: "pt", label: "Português", short: "PT" },
+  { code: "ro", label: "Română", short: "RO" },
+  { code: "ca", label: "Català", short: "CA" },
+  { code: "zh", label: "\u4E2D\u6587", short: "ZH" },
 ];
 
 interface LanguageBarProps {
-  lang: Lang;
-  onChangeLang: (lang: Lang) => void;
+  lang: Language;
+  onChangeLang: (lang: Language) => void;
 }
 
 export default function LanguageBar({ lang, onChangeLang }: LanguageBarProps) {

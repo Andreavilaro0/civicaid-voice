@@ -7,8 +7,8 @@
 /*  Primitivos                                                        */
 /* ------------------------------------------------------------------ */
 
-/** Idiomas soportados en Fase 1 */
-export type Language = "es" | "fr" | "ar";
+/** Idiomas soportados */
+export type Language = "es" | "en" | "fr" | "pt" | "ro" | "ca" | "zh" | "ar";
 
 /** Modos de entrada — concepto UI (lo que el usuario elige) */
 export type InputMode = "text" | "voice" | "image";

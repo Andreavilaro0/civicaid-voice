@@ -50,15 +50,20 @@ def create_app() -> Flask:
     from src.routes.webhook_meta import webhook_meta_bp
     app.register_blueprint(webhook_meta_bp)
 
-    # CORS for web frontend API
+    # CORS for web frontend API + static audio
     import os
     from flask_cors import CORS
-    frontend_origins = os.getenv("FRONTEND_URL", "http://localhost:3000").split(",")
-    CORS(app, resources={r"/api/*": {"origins": frontend_origins}})
+    frontend_origins = os.getenv("FRONTEND_URL", "http://localhost:5173").split(",")
+    CORS(app, resources={
+        r"/api/*": {"origins": frontend_origins},
+        r"/static/*": {"origins": frontend_origins},
+    })
 
     return app
 
 
 if __name__ == "__main__":
+    import os
+    port = int(os.getenv("FLASK_PORT", "5001"))
     app = create_app()
-    app.run(host="0.0.0.0", port=5000, debug=(config.FLASK_ENV == "development"))
+    app.run(host="0.0.0.0", port=port, debug=(config.FLASK_ENV == "development"))

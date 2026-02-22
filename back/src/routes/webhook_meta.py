@@ -85,16 +85,19 @@ def receive():
 # ─── Helpers ───────────────────────────────────────────────────────────
 
 def _validate_signature(req):
-    """Validate X-Hub-Signature-256 from Meta. Skip if no token configured."""
-    app_secret = config.META_WHATSAPP_TOKEN
+    """Validate X-Hub-Signature-256 from Meta.
+
+    Uses META_APP_SECRET (the Facebook App Secret from App Settings),
+    NOT the access token. If no App Secret is configured, skip validation.
+    """
+    app_secret = config.META_APP_SECRET
     if not app_secret:
-        logger.warning("[META-WEBHOOK] Signature validation skipped — no token configured")
+        # No App Secret configured — skip validation (common in dev/hackathon)
         return
 
     signature = req.headers.get("X-Hub-Signature-256", "")
     if not signature.startswith("sha256="):
         logger.warning("[META-WEBHOOK] Missing or invalid signature header")
-        # In production, abort(403). For development, log and continue.
         return
 
     expected = hmac.new(
@@ -105,7 +108,7 @@ def _validate_signature(req):
 
     received = signature[7:]  # Strip "sha256=" prefix
     if not hmac.compare_digest(expected, received):
-        logger.warning("[META-WEBHOOK] Signature mismatch")
+        logger.warning("[META-WEBHOOK] Signature mismatch — check META_APP_SECRET")
         abort(403)
 
 

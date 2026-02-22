@@ -9,7 +9,7 @@ import type { AudioFeedbackParams } from "./types";
 /* ------------------------------------------------------------------ */
 
 /** Base URL para archivos media en ImageKit CDN */
-export const CDN_BASE = "https://ik.imagekit.io/xwvrhiauz/hackaton/front/public";
+export const CDN_BASE = "https://ik.imagekit.io/xwvrhiauz/clara";
 
 /** Construye URL CDN a partir de ruta local (e.g. "/media/hero.png") */
 export const cdn = (path: string) => `${CDN_BASE}${path}`;

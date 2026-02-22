@@ -7,9 +7,10 @@ import LanguageBar from "./LanguageBar";
 interface SubPageLayoutProps {
   slug: string;
   children: (lang: Language) => React.ReactNode;
+  fullBleed?: boolean;
 }
 
-export default function SubPageLayout({ slug, children }: SubPageLayoutProps) {
+export default function SubPageLayout({ slug, children, fullBleed }: SubPageLayoutProps) {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const initialLang = (searchParams.get("lang") as Language) || "es";
@@ -46,7 +47,7 @@ export default function SubPageLayout({ slug, children }: SubPageLayoutProps) {
           <LanguageBar lang={lang} onChangeLang={setLang} />
         </div>
       </header>
-      <main className="max-w-3xl mx-auto px-6 py-8">
+      <main className={fullBleed ? "" : "max-w-3xl mx-auto px-6 py-8"}>
         {children(lang)}
       </main>
       <footer className="text-center py-6 text-label text-clara-text-secondary/60">

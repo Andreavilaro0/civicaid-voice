@@ -168,6 +168,37 @@ export function resolveAudioUrl(audioUrl: string | null): string | null {
 }
 
 /**
+ * Genera audio TTS desde el backend (misma voz Gemini que WhatsApp).
+ * Llama a POST /api/tts — el backend usa el cascade ElevenLabs → Gemini → gTTS.
+ *
+ * @example
+ * const url = await generateTTS("Hola, soy Clara", "es");
+ * if (url) new Audio(url).play();
+ */
+export async function generateTTS(
+  text: string,
+  language: Language,
+): Promise<string | null> {
+  try {
+    const res = await fetchWithTimeout(
+      `${API_BASE_URL}/api/tts`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text, language }),
+      },
+      15_000,
+    );
+
+    if (!res.ok) return null;
+    const data = await res.json();
+    return resolveAudioUrl(data.audio_url);
+  } catch {
+    return null;
+  }
+}
+
+/**
  * Traduce un ApiError a mensaje humano en el idioma del usuario.
  * Q6 llama esto en el catch de sendMessage().
  *
@@ -204,6 +235,24 @@ export function getErrorMessage(
         actionLabel: "Reintentar",
       },
     },
+    en: {
+      network: {
+        message: "It seems there's no connection. Check your wifi or mobile data.",
+        actionLabel: "Retry",
+      },
+      timeout: {
+        message: "This is taking longer than usual. One moment...",
+        actionLabel: "Wait",
+      },
+      audio: {
+        message: "I couldn't understand the audio. Can you repeat or type?",
+        actionLabel: "Type",
+      },
+      server: {
+        message: "Something went wrong. Try again.",
+        actionLabel: "Retry",
+      },
+    },
     fr: {
       network: {
         message: "Il semble qu'il n'y ait pas de connexion. Verifie ton wifi.",
@@ -220,6 +269,78 @@ export function getErrorMessage(
       server: {
         message: "Quelque chose s'est mal passe. Reessaie.",
         actionLabel: "Reessayer",
+      },
+    },
+    pt: {
+      network: {
+        message: "Parece que não há conexão. Verifica o teu wifi ou dados móveis.",
+        actionLabel: "Tentar novamente",
+      },
+      timeout: {
+        message: "Está a demorar mais do que o normal. Um momento...",
+        actionLabel: "Esperar",
+      },
+      audio: {
+        message: "Não consegui entender o áudio. Podes repetir ou escrever?",
+        actionLabel: "Escrever",
+      },
+      server: {
+        message: "Algo correu mal. Tenta novamente.",
+        actionLabel: "Tentar novamente",
+      },
+    },
+    ro: {
+      network: {
+        message: "Se pare că nu există conexiune. Verifică wifi-ul sau datele mobile.",
+        actionLabel: "Reîncearcă",
+      },
+      timeout: {
+        message: "Durează mai mult decât de obicei. Un moment...",
+        actionLabel: "Așteaptă",
+      },
+      audio: {
+        message: "Nu am putut înțelege audio-ul. Poți repeta sau scrie?",
+        actionLabel: "Scrie",
+      },
+      server: {
+        message: "Ceva nu a mers bine. Încearcă din nou.",
+        actionLabel: "Reîncearcă",
+      },
+    },
+    ca: {
+      network: {
+        message: "Sembla que no hi ha connexió. Revisa el teu wifi o dades mòbils.",
+        actionLabel: "Reintentar",
+      },
+      timeout: {
+        message: "Està trigant més del normal. Un moment...",
+        actionLabel: "Esperar",
+      },
+      audio: {
+        message: "No he pogut entendre l'àudio. Pots repetir o escriure?",
+        actionLabel: "Escriure",
+      },
+      server: {
+        message: "Alguna cosa ha anat malament. Torna-ho a provar.",
+        actionLabel: "Reintentar",
+      },
+    },
+    zh: {
+      network: {
+        message: "似乎没有网络连接。请检查你的WiFi或移动数据。",
+        actionLabel: "重试",
+      },
+      timeout: {
+        message: "这比平常花费的时间更长。请稍等...",
+        actionLabel: "等待",
+      },
+      audio: {
+        message: "我无法理解音频。你能重复一遍或者打字吗？",
+        actionLabel: "打字",
+      },
+      server: {
+        message: "出了点问题。请再试一次。",
+        actionLabel: "重试",
       },
     },
     ar: {

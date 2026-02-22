@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import Header from "@/components/Header";
 import MessageList from "@/components/MessageList";
@@ -7,6 +7,7 @@ import VoiceRecorder from "@/components/VoiceRecorder";
 import DocumentUpload from "@/components/DocumentUpload";
 import QuickReplies from "@/components/QuickReplies";
 import { useChat } from "@/hooks/useChat";
+import { useMascotState } from "@/hooks/useMascotState.ts";
 import type { Language } from "@/lib/types";
 
 export default function ChatContent() {
@@ -16,8 +17,26 @@ export default function ChatContent() {
   const [documentActive, setDocumentActive] = useState(false);
   const [showQuickReplies, setShowQuickReplies] = useState(true);
   const { messages, isLoading, language, setLanguage, send, addWelcome, retryLast, getLoadingMessage } = useChat(initialLang);
+  const { setState: setMascotState } = useMascotState();
+  const prevMsgCountRef = useRef(messages.length);
 
   useEffect(() => { addWelcome(); }, []);
+
+  // Sync mascot state with chat loading
+  useEffect(() => {
+    if (isLoading) {
+      setMascotState("thinking");
+    } else if (messages.length > prevMsgCountRef.current) {
+      // New message arrived — show talking, then idle
+      setMascotState("talking");
+      const timer = setTimeout(() => setMascotState("idle"), 2000);
+      prevMsgCountRef.current = messages.length;
+      return () => clearTimeout(timer);
+    } else {
+      setMascotState("idle");
+    }
+    prevMsgCountRef.current = messages.length;
+  }, [isLoading, messages.length]);
 
   return (
     <div className="flex flex-col h-screen bg-clara-bg">

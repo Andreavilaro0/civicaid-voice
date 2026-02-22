@@ -35,7 +35,7 @@ export default function ChatContent() {
   }, []);
 
   return (
-    <div className="flex flex-col h-screen bg-clara-bg">
+    <div className="flex flex-col h-screen bg-gradient-to-b from-clara-bg to-[#F0F4F8] dark:from-[#0f1419] dark:to-[#131a22]">
       <Header language={language} onLanguageChange={setLanguage} />
 
       <MessageList

@@ -28,9 +28,10 @@ def chat():
     language = data.get("language", "es")
     input_type_str = data.get("input_type", "text")
     audio_b64 = data.get("audio_base64")
+    image_b64 = data.get("image_base64")
 
-    if not text and not audio_b64:
-        return jsonify({"error": "text or audio_base64 required"}), 400
+    if not text and not audio_b64 and not image_b64:
+        return jsonify({"error": "text, audio_base64, or image_base64 required"}), 400
 
     start = time.time()
 
@@ -48,6 +49,44 @@ def chat():
         except Exception as e:
             logger.error("API audio error: %s", e)
             return jsonify({"error": "audio_processing_error"}), 500
+
+    # --- Image analysis (si envian imagen/documento desde el frontend) ---
+    if input_type_str == "image" and image_b64:
+        try:
+            from src.core.skills.analyze_image import analyze_image
+            image_bytes = base64.b64decode(image_b64)
+            result = analyze_image(image_bytes, "image/jpeg", language)
+            if result.success and result.text:
+                elapsed = int((time.time() - start) * 1000)
+                # Generate TTS for the analysis
+                audio_url = None
+                try:
+                    from src.core.skills.tts import text_to_audio
+                    audio_url = text_to_audio(result.text, language)
+                except Exception:
+                    pass
+                return jsonify({
+                    "response": result.text,
+                    "source": "llm",
+                    "language": language,
+                    "duration_ms": elapsed,
+                    "audio_url": audio_url,
+                    "sources": [],
+                })
+            else:
+                elapsed = int((time.time() - start) * 1000)
+                fallback = get_template("vision_fail", language)
+                return jsonify({
+                    "response": fallback,
+                    "source": "fallback",
+                    "language": language,
+                    "duration_ms": elapsed,
+                    "audio_url": None,
+                    "sources": [],
+                })
+        except Exception as e:
+            logger.error("API image error: %s", e)
+            return jsonify({"error": "image_processing_error"}), 500
 
     # --- Guardrails pre-check ---
     if config.GUARDRAILS_ON:

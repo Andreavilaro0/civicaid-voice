@@ -11,7 +11,8 @@ import HamburgerMenu from "@/components/welcome/HamburgerMenu";
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
 /* ------------------------------------------------------------------ */
-type Lang = "es" | "fr" | "ar";
+import type { Language } from "@/lib/types";
+type Lang = Language;
 
 /* ------------------------------------------------------------------ */
 /*  Speak helper — ElevenLabs static → Web Speech API                  */
@@ -19,7 +20,7 @@ type Lang = "es" | "fr" | "ar";
 let _currentAudio: HTMLAudioElement | null = null;
 
 /* Pre-generated ElevenLabs audio (Charlotte, Multilingual v2) */
-const ELEVENLABS_WELCOME: Record<Lang, string> = {
+const ELEVENLABS_WELCOME: Partial<Record<Lang, string>> = {
   es: "/audio/welcome-es.mp3",
   fr: "/audio/welcome-fr.mp3",
   ar: "/audio/welcome-ar.mp3",
@@ -35,7 +36,7 @@ async function speak(text: string, lang: Lang, useWelcome = false) {
   /* 1. ElevenLabs pre-generated welcome audio (instant, best quality) */
   if (useWelcome && ELEVENLABS_WELCOME[lang]) {
     try {
-      const audio = new Audio(ELEVENLABS_WELCOME[lang]);
+      const audio = new Audio(ELEVENLABS_WELCOME[lang]!);
       audio.preload = "auto";
       _currentAudio = audio;
       await new Promise<void>((resolve, reject) => {
@@ -52,11 +53,18 @@ async function speak(text: string, lang: Lang, useWelcome = false) {
   _speakBrowser(text, lang);
 }
 
-const LANG_MAP: Record<Lang, string> = { es: "es-ES", fr: "fr-FR", ar: "ar-SA" };
+const LANG_MAP: Record<Lang, string> = {
+  es: "es-ES", fr: "fr-FR", ar: "ar-SA", en: "en-US", pt: "pt-PT", ro: "ro-RO", ca: "ca-ES", zh: "zh-CN",
+};
 const PREFERRED_VOICES: Record<string, string[]> = {
   "es-ES": ["Mónica", "Monica", "Paulina", "Google español"],
   "fr-FR": ["Amélie", "Amelie", "Audrey", "Google français"],
   "ar-SA": ["Maged", "Lana", "Google العربية"],
+  "en-US": ["Samantha", "Google US English", "Alex"],
+  "pt-PT": ["Joana", "Google português"],
+  "ro-RO": ["Ioana", "Google română"],
+  "ca-ES": ["Montse", "Google català"],
+  "zh-CN": ["Ting-Ting", "Google 普通话"],
 };
 
 function _speakBrowser(text: string, lang: Lang) {
@@ -107,11 +115,41 @@ const content: Record<Lang, {
     welcome_speech: "مرحبا، أنا كلارا. أنا هنا لمساعدتك. تحدث أو اكتب بلغتك.",
     footer: "مجاني · سري · بلغتك",
   },
+  en: {
+    description: "I help you with social services in Spain. Speak or type in your language.",
+    welcome_speech: "Hi, I'm Clara. I'm here to help you with any procedure. Speak or type, in your language.",
+    footer: "Free · Confidential · In your language",
+  },
+  pt: {
+    description: "Ajudo-te com tramites sociais em Espanha. Fala ou escreve na tua lingua.",
+    welcome_speech: "Ola, sou a Clara. Estou aqui para te ajudar. Fala ou escreve na tua lingua.",
+    footer: "Gratuito · Confidencial · Na tua lingua",
+  },
+  ro: {
+    description: "Te ajut cu procedurile sociale din Spania. Vorbeste sau scrie in limba ta.",
+    welcome_speech: "Buna, sunt Clara. Sunt aici sa te ajut. Vorbeste sau scrie in limba ta.",
+    footer: "Gratuit · Confidential · In limba ta",
+  },
+  ca: {
+    description: "T'ajudo amb tramits socials a Espanya. Parla o escriu en la teva llengua.",
+    welcome_speech: "Hola, soc la Clara. Soc aqui per ajudar-te. Parla o escriu en la teva llengua.",
+    footer: "Gratuit · Confidencial · En la teva llengua",
+  },
+  zh: {
+    description: "我帮助你办理西班牙的社会事务。用你的语言说话或打字。",
+    welcome_speech: "你好，我是Clara。我在这里帮助你办理任何手续。用你的语言说话或打字。",
+    footer: "免费 · 保密 · 用你的语言",
+  },
 };
 
 const CYCLE_GREETINGS: { text: string; tagline: [string, string]; mic: string; lang: Lang }[] = [
   { text: "Hola, soy Clara", tagline: ["Tu voz", "tiene poder"], mic: "Pulsa para hablar", lang: "es" },
+  { text: "Hi, I'm Clara", tagline: ["Your voice", "has power"], mic: "Tap to speak", lang: "en" },
   { text: "Bonjour, je suis Clara", tagline: ["Ta voix", "a du pouvoir"], mic: "Appuie pour parler", lang: "fr" },
+  { text: "Olá, sou a Clara", tagline: ["A tua voz", "tem poder"], mic: "Toca para falar", lang: "pt" },
+  { text: "Bună, sunt Clara", tagline: ["Vocea ta", "are putere"], mic: "Apasă pentru a vorbi", lang: "ro" },
+  { text: "Hola, soc la Clara", tagline: ["La teva veu", "té poder"], mic: "Toca per parlar", lang: "ca" },
+  { text: "你好，我是Clara", tagline: ["你的声音", "有力量"], mic: "点击说话", lang: "zh" },
   { text: "مرحبا، أنا كلارا", tagline: ["صوتك", "له قوة"], mic: "اضغط للتحدث", lang: "ar" },
 ];
 
@@ -348,7 +386,7 @@ export default function WelcomePage() {
         style={{ animation: "fadeInUp 0.4s ease-out both", animationDelay: "0.5s" }}
       >
         <PromptBar
-          placeholders={[PROMPT_PLACEHOLDER.es, PROMPT_PLACEHOLDER.fr, PROMPT_PLACEHOLDER.ar]}
+          placeholders={CYCLE_GREETINGS.map((g) => PROMPT_PLACEHOLDER[g.lang])}
           cycleIdx={cycleIdx}
           cycleFade={cycleFade}
           onSubmitText={(text) => goToChat("text", text)}

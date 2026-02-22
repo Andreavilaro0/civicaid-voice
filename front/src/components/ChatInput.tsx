@@ -1,7 +1,14 @@
-"use client";
-
 import { useState, useRef } from "react";
 import type { Language } from "@/lib/types";
+
+// Usage:
+// <ChatInput
+//   onSendText={(text) => console.log(text)}
+//   onStartVoice={() => console.log("voice")}
+//   onOpenCamera={() => console.log("camera")}
+//   disabled={false}
+//   language="es"
+// />
 
 interface ChatInputProps {
   onSendText: (text: string) => void;
@@ -14,14 +21,24 @@ interface ChatInputProps {
 
 const placeholders: Record<Language, string> = {
   es: "Escribe tu pregunta...",
-  fr: "Ecris ta question...",
+  en: "Type your question...",
+  fr: "Écris ta question...",
+  pt: "Escreve a tua pergunta...",
+  ro: "Scrie întrebarea ta...",
+  ca: "Escriu la teva pregunta...",
+  zh: "输入你的问题...",
   ar: "اكتب سؤالك...",
 };
 
-const modeLabels: Record<Language, { write: string; voice: string; photo: string; send: string }> = {
-  es: { write: "Escribir", voice: "Voz", photo: "Foto", send: "Enviar" },
-  fr: { write: "Ecrire", voice: "Voix", photo: "Photo", send: "Envoyer" },
-  ar: { write: "كتابة", voice: "صوت", photo: "صورة", send: "إرسال" },
+const ariaLabels: Record<Language, { send: string; voice: string; photo: string }> = {
+  es: { send: "Enviar", voice: "Grabar voz", photo: "Subir foto" },
+  en: { send: "Send", voice: "Record voice", photo: "Upload photo" },
+  fr: { send: "Envoyer", voice: "Enregistrer", photo: "Photo" },
+  pt: { send: "Enviar", voice: "Gravar voz", photo: "Foto" },
+  ro: { send: "Trimite", voice: "Înregistrează", photo: "Foto" },
+  ca: { send: "Enviar", voice: "Gravar veu", photo: "Foto" },
+  zh: { send: "发送", voice: "录音", photo: "照片" },
+  ar: { send: "إرسال", voice: "تسجيل صوتي", photo: "صورة" },
 };
 
 export default function ChatInput({
@@ -34,7 +51,8 @@ export default function ChatInput({
 }: ChatInputProps) {
   const [text, setText] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
-  const l = modeLabels[language];
+  const labels = ariaLabels[language];
+  const hasText = text.trim().length > 0;
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -46,30 +64,39 @@ export default function ChatInput({
   }
 
   return (
-    <div className="sticky bottom-0 bg-white border-t border-clara-border px-4 py-3 space-y-3">
-      {/* Linea 1: Input + Enviar */}
-      <form onSubmit={handleSubmit} className="flex gap-2">
-        <input
-          ref={inputRef}
-          type="text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder={placeholders[language]}
-          disabled={disabled}
-          aria-label={placeholders[language]}
-          className="flex-1 h-[56px] px-4 border-2 border-clara-border rounded-xl
-                     text-body-sm font-body bg-white
-                     focus:border-clara-blue focus:outline-none
-                     disabled:opacity-50 disabled:cursor-not-allowed"
-        />
+    <div
+      className={[
+        "sticky bottom-0 px-4 py-3",
+        "bg-white/80 dark:bg-[#0f1419]/80",
+        "backdrop-blur-lg",
+        "border-t border-clara-border/50 dark:border-[#2a2f36]/50",
+      ].join(" ")}
+    >
+      <form
+        onSubmit={handleSubmit}
+        className={[
+          "flex items-center",
+          "border-2 border-clara-border dark:border-[#2a2f36]",
+          "rounded-2xl",
+          "transition-[border-color,box-shadow] duration-150",
+          "focus-within:border-clara-blue focus-within:shadow-[0_0_0_3px_rgba(27,94,123,0.1)]",
+          disabled ? "opacity-50" : "",
+        ].join(" ")}
+      >
+        {/* Camera button — left */}
         <button
-          type="submit"
-          disabled={disabled || !text.trim()}
-          aria-label={l.send}
-          className="min-w-touch min-h-touch bg-clara-blue text-white rounded-xl
-                     flex items-center justify-center
-                     hover:bg-[#164d66] transition-colors duration-150
-                     disabled:opacity-50 disabled:cursor-not-allowed"
+          type="button"
+          onClick={onOpenCamera}
+          disabled={disabled}
+          aria-label={labels.photo}
+          className={[
+            "flex-none flex items-center justify-center",
+            "w-10 h-10 ml-1",
+            "rounded-xl",
+            "text-clara-text-secondary hover:text-clara-blue",
+            "transition-colors duration-150",
+            "disabled:cursor-not-allowed",
+          ].join(" ")}
         >
           <svg
             width="24"
@@ -78,90 +105,84 @@ export default function ChatInput({
             fill="currentColor"
             aria-hidden="true"
           >
-            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-          </svg>
-        </button>
-      </form>
-
-      {/* Linea 2: 3 botones de modo */}
-      <div className="flex gap-3 justify-center">
-        {/* Escribir — focus al input, muestra estado activo */}
-        <button
-          type="button"
-          onClick={() => inputRef.current?.focus()}
-          disabled={disabled}
-          aria-label={l.write}
-          aria-pressed={activeMode === "text"}
-          className={`flex flex-col items-center justify-center min-w-touch min-h-touch rounded-xl
-                     border-2 transition-colors duration-150
-                     disabled:opacity-50 disabled:cursor-not-allowed
-                     ${activeMode === "text"
-                       ? "border-clara-blue text-clara-blue bg-clara-blue/5 font-medium"
-                       : "border-clara-border text-clara-text-secondary hover:border-clara-blue hover:text-clara-blue"
-                     }`}
-        >
-          <svg
-            width="28"
-            height="28"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path d="M20 5H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-1 2H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm0-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z" />
-          </svg>
-          <span className="text-label mt-1">{l.write}</span>
-        </button>
-
-        {/* Voz — stub para Q7 */}
-        <button
-          type="button"
-          onClick={onStartVoice}
-          disabled={disabled}
-          aria-label={l.voice}
-          className="flex flex-col items-center justify-center min-w-touch min-h-touch rounded-xl
-                     border-2 border-clara-orange text-clara-orange
-                     hover:bg-clara-orange hover:text-white
-                     transition-colors duration-150
-                     disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          <svg
-            width="28"
-            height="28"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" />
-            <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" />
-          </svg>
-          <span className="text-label mt-1">{l.voice}</span>
-        </button>
-
-        {/* Foto — stub para Q9 */}
-        <button
-          type="button"
-          onClick={onOpenCamera}
-          disabled={disabled}
-          aria-label={l.photo}
-          className="flex flex-col items-center justify-center min-w-touch min-h-touch rounded-xl
-                     border-2 border-clara-border text-clara-text-secondary
-                     hover:border-clara-blue hover:text-clara-blue
-                     transition-colors duration-150
-                     disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          <svg
-            width="28"
-            height="28"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            aria-hidden="true"
-          >
             <path d="M12 12m-3.2 0a3.2 3.2 0 1 0 6.4 0a3.2 3.2 0 1 0-6.4 0" />
             <path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z" />
           </svg>
-          <span className="text-label mt-1">{l.photo}</span>
         </button>
-      </div>
+
+        {/* Text input — middle */}
+        <input
+          ref={inputRef}
+          type="text"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder={placeholders[language]}
+          disabled={disabled}
+          aria-label={placeholders[language]}
+          dir={language === "ar" ? "rtl" : "ltr"}
+          className={[
+            "flex-1 h-[48px] px-3",
+            "bg-transparent border-none outline-none",
+            "text-body-sm font-body",
+            "text-clara-text placeholder:text-clara-text-secondary",
+            "disabled:cursor-not-allowed",
+          ].join(" ")}
+        />
+
+        {/* Voice or Send button — right */}
+        {hasText ? (
+          <button
+            type="submit"
+            disabled={disabled}
+            aria-label={labels.send}
+            className={[
+              "flex-none flex items-center justify-center",
+              "w-10 h-10 mr-1",
+              "rounded-xl",
+              "bg-clara-blue text-white",
+              "hover:bg-[#164d66]",
+              "transition-colors duration-150",
+              "disabled:cursor-not-allowed disabled:opacity-50",
+            ].join(" ")}
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+            </svg>
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={onStartVoice}
+            disabled={disabled}
+            aria-label={labels.voice}
+            className={[
+              "flex-none flex items-center justify-center",
+              "w-10 h-10 mr-1",
+              "rounded-xl",
+              "text-clara-text-secondary hover:text-clara-blue",
+              "transition-colors duration-150",
+              "disabled:cursor-not-allowed",
+            ].join(" ")}
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" />
+              <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" />
+            </svg>
+          </button>
+        )}
+      </form>
     </div>
   );
 }

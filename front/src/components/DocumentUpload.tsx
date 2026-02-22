@@ -19,7 +19,18 @@ interface DocumentUploadProps {
 /*  Labels bilingues                                                   */
 /* ------------------------------------------------------------------ */
 
-const labels = {
+const labels: Record<Language, {
+  title: string;
+  desc: string;
+  camera: string;
+  gallery: string;
+  cancel: string;
+  send: string;
+  preview: string;
+  change: string;
+  error_read: string;
+  error_size: string;
+}> = {
   es: {
     title: "Subir documento",
     desc: "Sube una foto de tu documento o carta. Clara te explicara que dice.",
@@ -32,6 +43,18 @@ const labels = {
     error_read: "No se pudo leer la imagen. Prueba con otra foto.",
     error_size: "La imagen es muy grande. Prueba con una foto mas pequena.",
   },
+  en: {
+    title: "Upload document",
+    desc: "Upload a photo of your document or letter. Clara will explain what it says.",
+    camera: "Take photo",
+    gallery: "Choose from gallery",
+    cancel: "Cancel",
+    send: "Send to Clara",
+    preview: "Document preview",
+    change: "Change photo",
+    error_read: "Could not read the image. Try another photo.",
+    error_size: "The image is too large. Try a smaller photo.",
+  },
   fr: {
     title: "Envoyer un document",
     desc: "Envoie une photo de ton document ou courrier. Clara t'expliquera ce qu'il dit.",
@@ -43,6 +66,54 @@ const labels = {
     change: "Changer la photo",
     error_read: "Impossible de lire l'image. Essaie avec une autre photo.",
     error_size: "L'image est trop grande. Essaie avec une photo plus petite.",
+  },
+  pt: {
+    title: "Enviar documento",
+    desc: "Envia uma foto do teu documento ou carta. Clara vai explicar-te o que diz.",
+    camera: "Tirar foto",
+    gallery: "Escolher da galeria",
+    cancel: "Cancelar",
+    send: "Enviar à Clara",
+    preview: "Pré-visualização do documento",
+    change: "Mudar foto",
+    error_read: "Não foi possível ler a imagem. Tenta com outra foto.",
+    error_size: "A imagem é muito grande. Tenta com uma foto mais pequena.",
+  },
+  ro: {
+    title: "Încarcă document",
+    desc: "Încarcă o fotografie a documentului sau scrisorii tale. Clara îți va explica ce scrie.",
+    camera: "Fă o fotografie",
+    gallery: "Alege din galerie",
+    cancel: "Anulează",
+    send: "Trimite la Clara",
+    preview: "Previzualizare document",
+    change: "Schimbă fotografia",
+    error_read: "Nu s-a putut citi imaginea. Încearcă cu altă fotografie.",
+    error_size: "Imaginea este prea mare. Încearcă cu o fotografie mai mică.",
+  },
+  ca: {
+    title: "Pujar document",
+    desc: "Puja una foto del teu document o carta. Clara t'explicarà què diu.",
+    camera: "Fer foto",
+    gallery: "Triar de la galeria",
+    cancel: "Cancel·lar",
+    send: "Enviar a Clara",
+    preview: "Vista prèvia del document",
+    change: "Canviar foto",
+    error_read: "No s'ha pogut llegir la imatge. Prova amb una altra foto.",
+    error_size: "La imatge és massa gran. Prova amb una foto més petita.",
+  },
+  zh: {
+    title: "上传文件",
+    desc: "上传你的文件或信件的照片。Clara会为你解释内容。",
+    camera: "拍照",
+    gallery: "从相册选择",
+    cancel: "取消",
+    send: "发送给Clara",
+    preview: "文件预览",
+    change: "更换照片",
+    error_read: "无法读取图片。请尝试其他照片。",
+    error_size: "图片太大。请尝试较小的照片。",
   },
   ar: {
     title: "رفع مستند",

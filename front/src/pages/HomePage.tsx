@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import type { Language } from "@/lib/types";
 import { SUGGESTIONS, PROMPT_PLACEHOLDER, MENU_ITEMS, SECOND_CTA } from "@/lib/i18n";
 import { cdn } from "@/lib/constants";
 import PromptBar from "@/components/welcome/PromptBar";
@@ -12,12 +13,13 @@ import GuideSection from "@/components/welcome/GuideSection";
 import PlanSection from "@/components/welcome/PlanSection";
 import SuccessSection from "@/components/welcome/SuccessSection";
 import FooterSection from "@/components/welcome/FooterSection";
+import { useMascotState } from "@/hooks/useMascotState.ts";
 
-type Lang = "es" | "fr" | "ar";
+type Lang = Language;
 
 let _currentAudio: HTMLAudioElement | null = null;
 
-const ELEVENLABS_WELCOME: Record<Lang, string> = {
+const ELEVENLABS_WELCOME: Partial<Record<Lang, string>> = {
   es: cdn("/audio/welcome-es.mp3"),
   fr: cdn("/audio/welcome-fr.mp3"),
   ar: cdn("/audio/welcome-ar.mp3"),
@@ -26,6 +28,24 @@ const ELEVENLABS_WELCOME: Record<Lang, string> = {
 async function speak(text: string, lang: Lang, useWelcome = false) {
   if (_currentAudio) { _currentAudio.pause(); _currentAudio = null; }
   try { window.speechSynthesis?.cancel(); } catch { /* noop */ }
+
+  // 1. Backend TTS (Gemini — misma voz calida que WhatsApp)
+  try {
+    const { generateTTS } = await import("@/lib/api");
+    const audioUrl = await generateTTS(text, lang);
+    if (audioUrl) {
+      const audio = new Audio(audioUrl);
+      audio.preload = "auto";
+      _currentAudio = audio;
+      await new Promise<void>((resolve, reject) => {
+        audio.oncanplaythrough = () => { audio.play().then(resolve).catch(reject); };
+        audio.onerror = reject;
+      });
+      return;
+    }
+  } catch { /* fall through to pre-recorded */ }
+
+  // 2. Fallback: pre-recorded ElevenLabs MP3s
   if (useWelcome && ELEVENLABS_WELCOME[lang]) {
     try {
       const audio = new Audio(ELEVENLABS_WELCOME[lang]);
@@ -38,13 +58,23 @@ async function speak(text: string, lang: Lang, useWelcome = false) {
       return;
     } catch { /* fall through */ }
   }
+
+  // 3. Last resort: browser Speech API
   _speakBrowser(text, lang);
 }
 
-const LANG_MAP: Record<Lang, string> = { es: "es-ES", fr: "fr-FR", ar: "ar-SA" };
+const LANG_MAP: Record<Lang, string> = {
+  es: "es-ES", en: "en-US", fr: "fr-FR", pt: "pt-PT",
+  ro: "ro-RO", ca: "ca-ES", zh: "zh-CN", ar: "ar-SA",
+};
 const PREFERRED_VOICES: Record<string, string[]> = {
   "es-ES": ["Monica", "Paulina", "Google español"],
+  "en-US": ["Samantha", "Alex", "Google US English"],
   "fr-FR": ["Amelie", "Audrey", "Google français"],
+  "pt-PT": ["Joana", "Google português"],
+  "ro-RO": ["Ioana", "Google română"],
+  "ca-ES": ["Montse", "Google català"],
+  "zh-CN": ["Ting-Ting", "Google 中文"],
   "ar-SA": ["Maged", "Lana", "Google العربية"],
 };
 
@@ -77,10 +107,35 @@ const content: Record<Lang, { description: string; welcome_speech: string; foote
     welcome_speech: "Hola, soy Clara. Estoy aqui para ayudarte con cualquier tramite. Habla o escribe, en tu idioma.",
     footer: "Gratis · Confidencial · En tu idioma",
   },
+  en: {
+    description: "I help you with social procedures in Spain. Speak or write in your language.",
+    welcome_speech: "Hi, I'm Clara. I'm here to help you with any procedure. Speak or write, in your language.",
+    footer: "Free · Confidential · In your language",
+  },
   fr: {
     description: "Je t'aide avec les demarches sociales en Espagne. Parle ou ecris dans ta langue.",
     welcome_speech: "Bonjour, je suis Clara. Je suis la pour t'aider. Parle ou ecris dans ta langue.",
     footer: "Gratuit · Confidentiel · Dans ta langue",
+  },
+  pt: {
+    description: "Ajudo-te com trâmites sociais em Espanha. Fala ou escreve no teu idioma.",
+    welcome_speech: "Olá, sou Clara. Estou aqui para te ajudar com qualquer trâmite. Fala ou escreve, no teu idioma.",
+    footer: "Gratuito · Confidencial · No teu idioma",
+  },
+  ro: {
+    description: "Te ajut cu proceduri sociale în Spania. Vorbește sau scrie în limba ta.",
+    welcome_speech: "Bună, sunt Clara. Sunt aici să te ajut cu orice procedură. Vorbește sau scrie, în limba ta.",
+    footer: "Gratuit · Confidențial · În limba ta",
+  },
+  ca: {
+    description: "T'ajudo amb tràmits socials a Espanya. Parla o escriu en el teu idioma.",
+    welcome_speech: "Hola, soc Clara. Soc aquí per ajudar-te amb qualsevol tràmit. Parla o escriu, en el teu idioma.",
+    footer: "Gratuït · Confidencial · En el teu idioma",
+  },
+  zh: {
+    description: "我帮你处理西班牙的社会事务。用你的语言说话或写字。",
+    welcome_speech: "你好，我是Clara。我在这里帮你处理任何手续。用你的语言说话或写字。",
+    footer: "免费 · 保密 · 用你的语言",
   },
   ar: {
     description: "أساعدك في الإجراءات الاجتماعية في إسبانيا. تحدث أو اكتب بلغتك.",
@@ -91,7 +146,12 @@ const content: Record<Lang, { description: string; welcome_speech: string; foote
 
 const CYCLE_GREETINGS: { text: string; tagline: [string, string]; mic: string; lang: Lang }[] = [
   { text: "Hola, soy Clara", tagline: ["Tu voz", "tiene poder"], mic: "Pulsa para hablar", lang: "es" },
+  { text: "Hi, I'm Clara", tagline: ["Your voice", "has power"] as [string, string], mic: "Tap to speak", lang: "en" as Lang },
   { text: "Bonjour, je suis Clara", tagline: ["Ta voix", "a du pouvoir"], mic: "Appuie pour parler", lang: "fr" },
+  { text: "Olá, sou Clara", tagline: ["A tua voz", "tem poder"] as [string, string], mic: "Toca para falar", lang: "pt" as Lang },
+  { text: "Bună, sunt Clara", tagline: ["Vocea ta", "are putere"] as [string, string], mic: "Apasă pentru a vorbi", lang: "ro" as Lang },
+  { text: "Hola, soc Clara", tagline: ["La teva veu", "té poder"] as [string, string], mic: "Toca per parlar", lang: "ca" as Lang },
+  { text: "你好，我是Clara", tagline: ["你的声音", "有力量"] as [string, string], mic: "点击说话", lang: "zh" as Lang },
   { text: "مرحبا، أنا كلارا", tagline: ["صوتك", "له قوة"], mic: "اضغط للتحدث", lang: "ar" },
 ];
 
@@ -102,6 +162,14 @@ export default function HomePage() {
   const navigate = useNavigate();
   const [lang, setLang] = useState<Lang>("es");
   const hasSpokenRef = useRef(false);
+  const { setState: setMascotState } = useMascotState();
+
+  // Greeting animation on mount
+  useEffect(() => {
+    setMascotState("greeting");
+    const timer = setTimeout(() => setMascotState("idle"), 2000);
+    return () => clearTimeout(timer);
+  }, []);
   const [cycleIdx, setCycleIdx] = useState(0);
   const [cycleFade, setCycleFade] = useState(true);
   const cycleTimerRef = useRef<ReturnType<typeof setInterval>>(undefined);
@@ -138,9 +206,35 @@ export default function HomePage() {
 
   useEffect(() => {
     if (hasSpokenRef.current) return;
-    hasSpokenRef.current = true;
-    const timer = setTimeout(() => { speak(content[lang].welcome_speech, lang, true); }, 600);
-    return () => clearTimeout(timer);
+    const playWelcome = () => {
+      if (hasSpokenRef.current) return;
+      hasSpokenRef.current = true;
+      speak(content[lang].welcome_speech, lang, true);
+      document.removeEventListener("click", playWelcome);
+      document.removeEventListener("touchstart", playWelcome);
+      document.removeEventListener("keydown", playWelcome);
+    };
+    // Try autoplay first (works if browser allows it)
+    const timer = setTimeout(() => {
+      const audio = new Audio(ELEVENLABS_WELCOME[lang] ?? "");
+      audio.play().then(() => {
+        audio.pause();
+        audio.currentTime = 0;
+        playWelcome();
+      }).catch(() => {
+        // Autoplay blocked — wait for first user interaction
+        document.addEventListener("click", playWelcome, { once: false });
+        document.addEventListener("touchstart", playWelcome, { once: false });
+        document.addEventListener("keydown", playWelcome, { once: false });
+      });
+    }, 600);
+    return () => {
+      clearTimeout(timer);
+      hasSpokenRef.current = false;
+      document.removeEventListener("click", playWelcome);
+      document.removeEventListener("touchstart", playWelcome);
+      document.removeEventListener("keydown", playWelcome);
+    };
   }, []);
 
   useEffect(() => {
@@ -239,7 +333,7 @@ export default function HomePage() {
         </div>
 
         <div className="w-full flex justify-center mb-4" style={{ animation: "fadeInUp 0.4s ease-out both", animationDelay: "0.5s" }}>
-          <PromptBar placeholders={[PROMPT_PLACEHOLDER.es, PROMPT_PLACEHOLDER.fr, PROMPT_PLACEHOLDER.ar]} cycleIdx={cycleIdx} cycleFade={cycleFade} onSubmitText={(text) => goToChat("text", text)} onMicTap={() => goToChat("voice")} />
+          <PromptBar placeholders={[PROMPT_PLACEHOLDER.es, PROMPT_PLACEHOLDER.en, PROMPT_PLACEHOLDER.fr, PROMPT_PLACEHOLDER.pt, PROMPT_PLACEHOLDER.ro, PROMPT_PLACEHOLDER.ca, PROMPT_PLACEHOLDER.zh, PROMPT_PLACEHOLDER.ar]} cycleIdx={cycleIdx} cycleFade={cycleFade} onSubmitText={(text) => goToChat("text", text)} onMicTap={() => goToChat("voice")} />
         </div>
 
         <p className="text-label text-clara-text-secondary/80 text-center tracking-wider"
@@ -286,30 +380,73 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════════ */}
       {/* SECTION 7: SEGUNDO CTA                                        */}
       {/* ═══════════════════════════════════════════════════════════════ */}
-      <section className="relative w-full py-16 px-6 bg-gradient-to-b from-[#F0F7FA] to-[#E8F1F5] dark:from-[#141a20] dark:to-[#0f1419] overflow-hidden">
-        {/* Decorative background arcs */}
+      <section className="section-viewport section-dark section-grain relative w-full flex flex-col items-center justify-center px-6
+                          bg-gradient-to-b from-[#0f1419] via-[#1B5E7B]/20 to-[#0f1419] overflow-hidden">
+        {/* Radar arcs — decorative concentric circles */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" aria-hidden="true">
-          <div className="voice-arc voice-arc--animated" style={{ width: 300, height: 300 }} />
-          <div className="voice-arc" style={{ width: 400, height: 400, opacity: 0.08 }} />
+          {[
+            { size: 200, opacity: 0.12, delay: "0s" },
+            { size: 300, opacity: 0.09, delay: "0.4s" },
+            { size: 400, opacity: 0.07, delay: "0.8s" },
+            { size: 500, opacity: 0.05, delay: "1.2s" },
+            { size: 600, opacity: 0.04, delay: "1.6s" },
+          ].map(({ size, opacity, delay }) => (
+            <div
+              key={size}
+              className="radar-arc"
+              style={{
+                width: size,
+                height: size,
+                opacity,
+                animationDelay: delay,
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+              }}
+            />
+          ))}
         </div>
 
-        <div className="relative max-w-3xl mx-auto flex flex-col items-center gap-6">
-          <h2 className="font-display font-bold text-h1 text-clara-text dark:text-[#e8e8ee] text-center">
+        <div className="relative max-w-3xl mx-auto flex flex-col items-center gap-6 py-16">
+          <h2 className="cta-headline-glow font-display font-bold text-[32px] md:text-[44px] text-white text-center">
             {secondCta.headline}
           </h2>
 
-          <button onClick={() => goToChat("voice")} aria-label={secondCta.mic_label}
-            className="w-[80px] h-[80px] md:w-[100px] md:h-[100px] bg-gradient-to-br from-clara-blue to-[#134a5f]
-                       rounded-full flex items-center justify-center shadow-xl shadow-clara-blue/30
-                       hover:shadow-2xl hover:shadow-clara-blue/40 active:scale-95 transition-all duration-200"
-            style={{ animation: "gentlePulse 3s ease-in-out infinite" }}>
-            <svg className="w-[40px] h-[40px] md:w-[48px] md:h-[48px]" viewBox="0 0 24 24" fill="white" aria-hidden="true">
-              <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" />
-              <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" />
-            </svg>
-          </button>
+          {/* Mic button with ripple rings */}
+          <div
+            className="relative flex items-center justify-center"
+            style={{ animation: "ctaMicEntrance 0.7s cubic-bezier(0.22,1,0.36,1) both" }}
+          >
+            {/* Triple ripple rings */}
+            <div className="cta-ripple-ring" aria-hidden="true" />
+            <div className="cta-ripple-ring" aria-hidden="true" style={{ animationDelay: "0.6s" }} />
+            <div className="cta-ripple-ring" aria-hidden="true" style={{ animationDelay: "1.2s" }} />
 
-          <p className="text-body-sm text-clara-text-secondary font-medium">
+            <button
+              onClick={() => goToChat("voice")}
+              aria-label={secondCta.mic_label}
+              className="relative z-10 w-[120px] h-[120px] md:w-[160px] md:h-[160px]
+                         bg-gradient-to-br from-clara-blue to-[#134a5f]
+                         rounded-full flex items-center justify-center
+                         shadow-xl shadow-clara-blue/30
+                         hover:shadow-2xl hover:shadow-clara-blue/40
+                         active:scale-95 transition-all duration-200"
+              style={{ animation: "gentlePulse 3s ease-in-out infinite" }}
+            >
+              <svg
+                className="w-[56px] h-[56px] md:w-[72px] md:h-[72px]"
+                viewBox="0 0 24 24"
+                fill="white"
+                aria-hidden="true"
+              >
+                <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" />
+                <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" />
+              </svg>
+            </button>
+          </div>
+
+          <p className="text-body-sm text-white font-medium">
             {secondCta.mic_label}
           </p>
 

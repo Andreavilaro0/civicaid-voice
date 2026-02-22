@@ -19,7 +19,7 @@ services:
       - key: LLM_LIVE
         value: "true"
       - key: WHISPER_ON
-        value: "false"
+        value: "true"
       - key: LLM_TIMEOUT
         value: "6"
       - key: WHISPER_TIMEOUT
@@ -35,6 +35,14 @@ services:
       - key: STRUCTURED_OUTPUT_ON
         value: "false"
       - key: GUARDRAILS_ON
+        value: "true"
+      - key: TTS_ENGINE
+        value: "gemini"
+      - key: ELEVENLABS_API_KEY
+        sync: false
+      - key: FRONTEND_URL
+        value: "http://localhost:5173,https://clara-web.vercel.app,https://clara-web.onrender.com"
+      - key: VISION_ENABLED
         value: "true"
       - key: RAG_ENABLED
         value: "false"

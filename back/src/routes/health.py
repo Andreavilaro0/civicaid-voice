@@ -29,6 +29,11 @@ def health():
             "cache_entries": cache.get_entry_count(),
             "demo_mode": config.DEMO_MODE,
             "llm_live": config.LLM_LIVE,
+            "whatsapp_provider": config.WHATSAPP_PROVIDER,
+            "meta_token_set": bool(config.META_WHATSAPP_TOKEN),
+            "meta_phone_id_set": bool(config.META_PHONE_NUMBER_ID),
+            "tts_engine": config.TTS_ENGINE,
+            "vision_enabled": config.VISION_ENABLED,
         },
     }
 
