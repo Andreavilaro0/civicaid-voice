@@ -355,7 +355,7 @@ export default function VoiceRecorder({
           </p>
           <div className="flex gap-3 justify-center">
             <button
-              onClick={() => start()}
+              onClick={() => void start()}
               className="px-4 min-h-touch-sm bg-clara-blue text-white rounded-lg
                          text-body-sm font-medium hover:bg-[#164d66]
                          transition-colors duration-150

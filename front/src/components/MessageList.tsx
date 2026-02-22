@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useCallback, useMemo } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import ChatBubble from "@/components/ui/ChatBubble";
 import LoadingState from "@/components/ui/LoadingState";
 import AudioPlayer from "@/components/ui/AudioPlayer";
@@ -35,18 +35,19 @@ export default function MessageList({
   const bottomRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const userScrolledRef = useRef(false);
+  const [autoPlayId, setAutoPlayId] = useState<string | null>(null);
   const autoPlayedIdsRef = useRef(new Set<string>());
 
-  // Detectar el ultimo mensaje de Clara con audio que aun no se auto-reprodujo
-  const autoPlayId = useMemo(() => {
+  useEffect(() => {
     for (let i = messages.length - 1; i >= 0; i--) {
       const m = messages[i];
       if (m.sender === "clara" && m.audio?.url && !m.loading && !autoPlayedIdsRef.current.has(m.id)) {
         autoPlayedIdsRef.current.add(m.id);
-        return m.id;
+        setAutoPlayId(m.id);
+        return;
       }
     }
-    return null;
+    setAutoPlayId(null);
   }, [messages]);
 
   // Detectar si el usuario scrolleo hacia arriba manualmente

@@ -264,7 +264,7 @@ export function useChat(initialLang: Language = "es"): UseChatReturn {
   const retryLast = useCallback(() => {
     if (lastRequestRef.current) {
       const { text, audioBase64, imageBase64 } = lastRequestRef.current;
-      send(text, audioBase64, imageBase64);
+      void send(text, audioBase64, imageBase64);
     }
   }, [send]);
 

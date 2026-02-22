@@ -19,11 +19,7 @@ type Lang = Language;
 
 let _currentAudio: HTMLAudioElement | null = null;
 
-const ELEVENLABS_WELCOME: Partial<Record<Lang, string>> = {
-  es: cdn("/audio/welcome-es.mp3"),
-  fr: cdn("/audio/welcome-fr.mp3"),
-  ar: cdn("/audio/welcome-ar.mp3"),
-};
+const WELCOME_AUDIO_URL = "/audio/welcome-multilingual.mp3";
 
 async function speak(text: string, lang: Lang, useWelcome = false) {
   if (_currentAudio) { _currentAudio.pause(); _currentAudio = null; }
@@ -45,10 +41,10 @@ async function speak(text: string, lang: Lang, useWelcome = false) {
     }
   } catch { /* fall through to pre-recorded */ }
 
-  // 2. Fallback: pre-recorded ElevenLabs MP3s
-  if (useWelcome && ELEVENLABS_WELCOME[lang]) {
+  // 2. Fallback: pre-recorded multilingual welcome MP3
+  if (useWelcome) {
     try {
-      const audio = new Audio(ELEVENLABS_WELCOME[lang]);
+      const audio = new Audio(WELCOME_AUDIO_URL);
       audio.preload = "auto";
       _currentAudio = audio;
       await new Promise<void>((resolve, reject) => {
@@ -216,7 +212,7 @@ export default function HomePage() {
     };
     // Try autoplay first (works if browser allows it)
     const timer = setTimeout(() => {
-      const audio = new Audio(ELEVENLABS_WELCOME[lang] ?? "");
+      const audio = new Audio(WELCOME_AUDIO_URL);
       audio.play().then(() => {
         audio.pause();
         audio.currentTime = 0;

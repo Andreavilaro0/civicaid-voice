@@ -12,7 +12,9 @@ import type { Language } from "@/lib/types";
 
 export default function ChatContent() {
   const [searchParams] = useSearchParams();
-  const initialLang = (searchParams.get("lang") as Language) || "es";
+  const VALID_LANGS: Language[] = ["es", "en", "fr", "pt", "ro", "ca", "zh", "ar"];
+  const rawLang = searchParams.get("lang");
+  const initialLang: Language = VALID_LANGS.includes(rawLang as Language) ? (rawLang as Language) : "es";
   const [voiceActive, setVoiceActive] = useState(false);
   const [documentActive, setDocumentActive] = useState(false);
   const [showQuickReplies, setShowQuickReplies] = useState(true);
@@ -20,7 +22,7 @@ export default function ChatContent() {
   const { setState: setMascotState } = useMascotState();
   const prevMsgCountRef = useRef(messages.length);
 
-  useEffect(() => { addWelcome(); }, []);
+  useEffect(() => { addWelcome(); }, [addWelcome]);
 
   // Sync mascot state with chat loading
   useEffect(() => {
@@ -36,7 +38,7 @@ export default function ChatContent() {
       setMascotState("idle");
     }
     prevMsgCountRef.current = messages.length;
-  }, [isLoading, messages.length]);
+  }, [isLoading, messages.length, setMascotState]);
 
   return (
     <div className="flex flex-col h-screen bg-clara-bg">

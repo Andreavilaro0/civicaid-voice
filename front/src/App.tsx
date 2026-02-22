@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ChatPage from "./pages/ChatPage";
 import ComoUsarPage from "./pages/ComoUsarPage";
@@ -14,10 +14,12 @@ export default function App() {
   return (
     <>
       <div
-        className="fixed bottom-4 right-4 z-40 pointer-events-auto cursor-pointer hover:scale-105 transition-transform duration-300"
+        className={`fixed right-4 z-40 pointer-events-auto cursor-pointer hover:scale-105 transition-all duration-300 ${isChat ? "bottom-24" : "bottom-4"}`}
         onClick={() => { if (!isChat) navigate("/chat"); }}
         role={isChat ? undefined : "link"}
         aria-label={isChat ? undefined : "Abrir chat con Clara"}
+        tabIndex={isChat ? undefined : 0}
+        onKeyDown={(e) => { if (!isChat && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); navigate("/chat"); } }}
       >
         <ClaraMascot />
       </div>
@@ -27,6 +29,7 @@ export default function App() {
         <Route path="/como-usar" element={<ComoUsarPage />} />
         <Route path="/quienes-somos" element={<QuienesSomosPage />} />
         <Route path="/futuro" element={<FuturoPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>
   );

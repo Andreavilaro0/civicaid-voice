@@ -46,6 +46,7 @@ function playClickFeedback(): void {
     osc.connect(gain).connect(ctx.destination);
     osc.start();
     osc.stop(ctx.currentTime + 0.08);
+    osc.onended = () => ctx.close();
   } catch { /* silent fail — no audio context available */ }
 }
 

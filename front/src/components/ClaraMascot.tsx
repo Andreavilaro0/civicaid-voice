@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import { useMascotState } from "@/hooks/useMascotState";
 
@@ -12,20 +12,21 @@ const SCALE = 0.4;
 const OFFSET_X = -(RENDER_W * SCALE) / 2;
 const OFFSET_Y = -(RENDER_H * SCALE) / 2 + 20;
 
-/** Responsive widget size based on viewport width */
-function useWidgetSize() {
-  const [size, setSize] = useState(() =>
-    window.innerWidth < 640 ? 120 : window.innerWidth < 1024 ? 160 : 200,
-  );
+/** Responsive widget size based on viewport width and route */
+function useWidgetSize(isChat: boolean) {
+  const getSize = useCallback((w: number) => {
+    if (isChat) return w < 1024 ? 100 : 130;
+    return w < 640 ? 120 : w < 1024 ? 160 : 200;
+  }, [isChat]);
+
+  const [size, setSize] = useState(() => getSize(window.innerWidth));
 
   useEffect(() => {
-    const onResize = () => {
-      const w = window.innerWidth;
-      setSize(w < 640 ? 120 : w < 1024 ? 160 : 200);
-    };
+    setSize(getSize(window.innerWidth));
+    const onResize = () => setSize(getSize(window.innerWidth));
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
-  }, []);
+  }, [getSize]);
 
   return size;
 }
@@ -39,12 +40,12 @@ const stateAnimations: Record<string, string> = {
 };
 
 export default function ClaraMascot() {
-  const widgetSize = useWidgetSize();
-  const { state } = useMascotState();
   const location = useLocation();
+  const isChat = location.pathname === "/chat";
+  const widgetSize = useWidgetSize(isChat);
+  const { state } = useMascotState();
   const [routeBounce, setRouteBounce] = useState(false);
   const prevPath = useRef(location.pathname);
-  const isChat = location.pathname === "/chat";
   const isMobile = widgetSize <= 120;
 
   // Bounce on route change
@@ -76,10 +77,7 @@ export default function ClaraMascot() {
         height: widgetSize,
         overflow: "hidden",
         borderRadius: "1.25rem",
-        // Slightly smaller & more transparent on chat page
-        opacity: isChat ? 0.85 : 1,
-        transform: isChat ? "scale(0.75)" : undefined,
-        transformOrigin: "bottom right",
+        opacity: isChat ? 0.8 : 1,
       }}
     >
       <div
