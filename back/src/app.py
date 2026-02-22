@@ -54,6 +54,10 @@ def create_app() -> Flask:
     import os
     from flask_cors import CORS
     frontend_origins = os.getenv("FRONTEND_URL", "http://localhost:5173").split(",")
+    # Always include GitHub Pages origin for the deployed frontend
+    gh_pages = "https://andreavilaro0.github.io"
+    if gh_pages not in frontend_origins:
+        frontend_origins.append(gh_pages)
     CORS(app, resources={
         r"/api/*": {"origins": frontend_origins},
         r"/static/*": {"origins": frontend_origins},
