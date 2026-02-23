@@ -1,6 +1,6 @@
 """Tests for system_prompt.py — multi-language tone injection and prompt building."""
 
-from src.core.prompts.system_prompt import build_prompt, _LANGUAGE_TONES, SYSTEM_PROMPT
+from src.core.prompts.system_prompt import build_prompt, _LANGUAGE_TONES
 
 
 class TestLanguageTones:
