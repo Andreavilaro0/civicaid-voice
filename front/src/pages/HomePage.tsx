@@ -20,108 +20,54 @@ type Lang = Language;
 
 let _currentAudio: HTMLAudioElement | null = null;
 
-/** Single multilingual welcome audio (ES + FR + AR in one clip, Sara Martin voice) */
+/** Single multilingual welcome audio (ES + FR + AR in one clip) */
 const WELCOME_AUDIO_URL = `${import.meta.env.BASE_URL}audio/welcome-multilingual.mp3`;
 
-async function speak(text: string, lang: Lang, useWelcome = false) {
+/** Play only the multilingual welcome MP3 — no browser TTS fallback */
+async function playWelcomeAudio() {
   if (_currentAudio) { _currentAudio.pause(); _currentAudio = null; }
-  try { window.speechSynthesis?.cancel(); } catch { /* noop */ }
-
-  // 1. Multilingual welcome MP3 (ES + FR + AR in one clip — Sara Martin voice)
-  if (useWelcome) {
-    try {
-      const audio = new Audio(WELCOME_AUDIO_URL);
-      audio.preload = "auto";
-      _currentAudio = audio;
-      await new Promise<void>((resolve, reject) => {
-        audio.oncanplaythrough = () => { audio.play().then(resolve).catch(reject); };
-        audio.onerror = reject;
-      });
-      return;
-    } catch { /* fall through */ }
-  }
-
-  // 2. Browser Speech API fallback
-  _speakBrowser(text, lang);
-}
-
-const LANG_MAP: Record<Lang, string> = {
-  es: "es-ES", en: "en-US", fr: "fr-FR", pt: "pt-PT",
-  ro: "ro-RO", ca: "ca-ES", zh: "zh-CN", ar: "ar-SA",
-};
-const PREFERRED_VOICES: Record<string, string[]> = {
-  "es-ES": ["Monica", "Paulina", "Google español"],
-  "en-US": ["Samantha", "Alex", "Google US English"],
-  "fr-FR": ["Amelie", "Audrey", "Google français"],
-  "pt-PT": ["Joana", "Google português"],
-  "ro-RO": ["Ioana", "Google română"],
-  "ca-ES": ["Montse", "Google català"],
-  "zh-CN": ["Ting-Ting", "Google 中文"],
-  "ar-SA": ["Maged", "Lana", "Google العربية"],
-};
-
-function _speakBrowser(text: string, lang: Lang) {
   try {
-    const synth = window.speechSynthesis;
-    if (!synth) return;
-    const langCode = LANG_MAP[lang];
-    const msg = new SpeechSynthesisUtterance(text);
-    msg.lang = langCode;
-    msg.rate = 0.88;
-    msg.pitch = 1.05;
-    const voices = synth.getVoices();
-    const preferred = PREFERRED_VOICES[langCode] ?? [];
-    for (const name of preferred) {
-      const match = voices.find((v) => v.name.includes(name));
-      if (match) { msg.voice = match; break; }
-    }
-    if (!msg.voice) {
-      const fallback = voices.find((v) => v.lang.startsWith(langCode.slice(0, 2)));
-      if (fallback) msg.voice = fallback;
-    }
-    synth.speak(msg);
-  } catch { /* noop */ }
+    const audio = new Audio(WELCOME_AUDIO_URL);
+    audio.preload = "auto";
+    _currentAudio = audio;
+    await new Promise<void>((resolve, reject) => {
+      audio.oncanplaythrough = () => { audio.play().then(resolve).catch(reject); };
+      audio.onerror = reject;
+    });
+  } catch { /* autoplay blocked or network error — silently skip */ }
 }
 
-const content: Record<Lang, { description: string; welcome_speech: string; footer: string }> = {
+const content: Record<Lang, { description: string; footer: string }> = {
   es: {
     description: "Te ayudo con tramites sociales en Espana. Habla o escribe en tu idioma.",
-    welcome_speech: "Nadie deberia quedarse solo ante un tramite. Soy Clara, una inteligencia artificial que te escucha. Cuentame, en tu idioma.",
     footer: "Gratis · Confidencial · En tu idioma",
   },
   en: {
     description: "I help you with social procedures in Spain. Speak or write in your language.",
-    welcome_speech: "Nobody should face a procedure alone. I'm Clara, an artificial intelligence that listens to you. Tell me, in your language.",
     footer: "Free · Confidential · In your language",
   },
   fr: {
     description: "Je t'aide avec les demarches sociales en Espagne. Parle ou ecris dans ta langue.",
-    welcome_speech: "Personne ne devrait rester seul face a une demarche. Je suis Clara, une intelligence artificielle qui t'ecoute. Raconte-moi, dans ta langue.",
     footer: "Gratuit · Confidentiel · Dans ta langue",
   },
   pt: {
     description: "Ajudo-te com trâmites sociais em Espanha. Fala ou escreve no teu idioma.",
-    welcome_speech: "Ninguem deveria ficar sozinho perante um tramite. Sou Clara, uma inteligencia artificial que te ouve. Conta-me, no teu idioma.",
     footer: "Gratuito · Confidencial · No teu idioma",
   },
   ro: {
     description: "Te ajut cu proceduri sociale în Spania. Vorbește sau scrie în limba ta.",
-    welcome_speech: "Nimeni nu ar trebui sa fie singur in fata unei proceduri. Sunt Clara, o inteligenta artificiala care te asculta. Spune-mi, in limba ta.",
     footer: "Gratuit · Confidențial · În limba ta",
   },
   ca: {
     description: "T'ajudo amb tràmits socials a Espanya. Parla o escriu en el teu idioma.",
-    welcome_speech: "Ningu hauria de quedar-se sol davant un tramit. Soc Clara, una intelligencia artificial que t'escolta. Explica'm, en el teu idioma.",
     footer: "Gratuït · Confidencial · En el teu idioma",
   },
   zh: {
     description: "我帮你处理西班牙的社会事务。用你的语言说话或写字。",
-    welcome_speech: "没有人应该独自面对一项手续。我是Clara，一个倾听你的人工智能。告诉我，用你的语言。",
     footer: "免费 · 保密 · 用你的语言",
   },
   ar: {
     description: "أساعدك في الإجراءات الاجتماعية في إسبانيا. تحدث أو اكتب بلغتك.",
-    welcome_speech: "لا أحد يجب أن يواجه إجراء وحده. أنا كلارا، ذكاء اصطناعي يسمعك. أخبرني، بلغتك.",
     footer: "مجاني · سري · بلغتك",
   },
 };
@@ -180,36 +126,29 @@ export default function HomePage() {
   }, [lang]);
 
   useEffect(() => {
-    window.speechSynthesis?.getVoices();
-    const handleVoices = () => window.speechSynthesis?.getVoices();
-    window.speechSynthesis?.addEventListener?.("voiceschanged", handleVoices);
-    return () => window.speechSynthesis?.removeEventListener?.("voiceschanged", handleVoices);
-  }, []);
-
-  useEffect(() => {
     if (hasSpokenRef.current) return;
-    const playWelcome = () => {
+    const triggerWelcome = () => {
       if (hasSpokenRef.current) return;
       hasSpokenRef.current = true;
-      speak(content[lang].welcome_speech, lang, true);
-      document.removeEventListener("click", playWelcome);
-      document.removeEventListener("touchstart", playWelcome);
-      document.removeEventListener("keydown", playWelcome);
+      playWelcomeAudio();
+      document.removeEventListener("click", triggerWelcome);
+      document.removeEventListener("touchstart", triggerWelcome);
+      document.removeEventListener("keydown", triggerWelcome);
     };
-    // Try autoplay directly (no test audio — avoids double playback)
+    // Try autoplay directly
     const timer = setTimeout(() => {
-      playWelcome();
+      triggerWelcome();
     }, 600);
     // If autoplay was blocked, wait for first user interaction
-    document.addEventListener("click", playWelcome, { once: false });
-    document.addEventListener("touchstart", playWelcome, { once: false });
-    document.addEventListener("keydown", playWelcome, { once: false });
+    document.addEventListener("click", triggerWelcome, { once: false });
+    document.addEventListener("touchstart", triggerWelcome, { once: false });
+    document.addEventListener("keydown", triggerWelcome, { once: false });
     return () => {
       clearTimeout(timer);
       hasSpokenRef.current = false;
-      document.removeEventListener("click", playWelcome);
-      document.removeEventListener("touchstart", playWelcome);
-      document.removeEventListener("keydown", playWelcome);
+      document.removeEventListener("click", triggerWelcome);
+      document.removeEventListener("touchstart", triggerWelcome);
+      document.removeEventListener("keydown", triggerWelcome);
     };
   }, []);
 
