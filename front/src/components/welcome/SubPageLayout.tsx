@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import type { Language } from "@/lib/types";
 import { SUB_PAGE_TITLES } from "@/lib/i18n";
 import LanguageBar from "./LanguageBar";
+import { ThemeToggleCompact } from "@/components/ui/ThemeToggle";
 
 interface SubPageLayoutProps {
   slug: string;
@@ -24,14 +25,14 @@ export default function SubPageLayout({ slug, children, fullBleed }: SubPageLayo
   const title = SUB_PAGE_TITLES[lang]?.[slug] ?? slug;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-clara-bg via-[#F0F7FA] to-[#E8F1F5]">
-      <header className="sticky top-0 z-10 bg-white/80 dark:bg-[#0f1419]/80 backdrop-blur-md border-b border-clara-border dark:border-[#2a2f36]">
+    <div className="min-h-screen hero-gradient">
+      <header className="sticky top-0 z-10 bg-clara-bg/80 backdrop-blur-md border-b border-clara-border">
         <div className="max-w-3xl mx-auto flex items-center justify-between px-4 py-3">
           <button
             onClick={() => navigate(`/?lang=${lang}`)}
             aria-label="Volver al inicio"
             className="w-touch-sm h-touch-sm flex items-center justify-center rounded-xl
-                       hover:bg-clara-card dark:hover:bg-[#2a2f36] transition-colors
+                       hover:bg-clara-hover transition-colors
                        focus-visible:outline focus-visible:outline-[3px]
                        focus-visible:outline-clara-blue focus-visible:outline-offset-2"
           >
@@ -41,10 +42,13 @@ export default function SubPageLayout({ slug, children, fullBleed }: SubPageLayo
               <path d="M12 19l-7-7 7-7" />
             </svg>
           </button>
-          <h1 className="font-display font-bold text-h2 text-clara-text dark:text-[#e8e8ee] text-center flex-1">
+          <h1 className="font-display font-bold text-h2 text-clara-text text-center flex-1">
             {title}
           </h1>
-          <LanguageBar lang={lang} onChangeLang={setLang} />
+          <div className="flex items-center gap-1">
+            <ThemeToggleCompact />
+            <LanguageBar lang={lang} onChangeLang={setLang} />
+          </div>
         </div>
       </header>
       <main className={fullBleed ? "" : "max-w-3xl mx-auto px-6 py-8"}>

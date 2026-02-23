@@ -14,9 +14,9 @@ interface ButtonProps extends Omit<AriaButtonProps, "children"> {
 
 const variantStyles: Record<Variant, string> = {
   primary:
-    "bg-clara-blue text-white data-[hovered]:bg-[#164d66] data-[pressed]:bg-[#123f54]",
+    "bg-clara-blue text-white data-[hovered]:bg-[var(--color-clara-blue-hover)] data-[pressed]:bg-[var(--color-clara-blue-pressed)]",
   secondary:
-    "bg-white text-clara-text border-2 border-clara-border data-[hovered]:border-clara-blue data-[pressed]:bg-clara-card",
+    "bg-clara-card text-clara-text border-2 border-clara-border data-[hovered]:border-clara-blue data-[pressed]:bg-clara-hover",
   ghost:
     "bg-transparent text-clara-blue data-[hovered]:bg-clara-info data-[pressed]:bg-clara-card",
 };

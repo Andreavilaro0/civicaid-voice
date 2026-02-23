@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import type { Language } from "@/lib/types";
+import { ThemeToggleCompact } from "@/components/ui/ThemeToggle";
 
 interface HeaderProps {
   language: Language;
@@ -33,14 +34,14 @@ export default function Header({ language, onLanguageChange }: HeaderProps) {
   const labels = ariaLabels[language];
 
   return (
-    <header className="sticky top-0 z-10 bg-white/80 dark:bg-[#0f1419]/80 backdrop-blur-lg border-b border-clara-border/50 dark:border-[#2a2f36]/50">
+    <header className="sticky top-0 z-10 bg-clara-bg/80 backdrop-blur-lg border-b border-clara-border/50">
       <div className="flex items-center justify-between px-4 h-[64px]">
         {/* Back button */}
         <button
           onClick={() => navigate("/")}
           aria-label={labels.back}
           className="min-w-[48px] min-h-[48px] flex items-center justify-center rounded-full
-                     text-clara-text hover:bg-clara-card dark:hover:bg-[#1a1f26] transition-colors duration-150"
+                     text-clara-text hover:bg-clara-card transition-colors duration-150"
         >
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -59,29 +60,32 @@ export default function Header({ language, onLanguageChange }: HeaderProps) {
                       strokeLinecap="round" fill="none" opacity="0.65" />
                 <path d="M 28 32 A 10 10 0 0 1 28 48" stroke="white" strokeWidth="4.5"
                       strokeLinecap="round" fill="none" opacity="1" />
-                <circle cx="28" cy="40" r="5" fill="#D46A1E" />
+                <circle cx="28" cy="40" r="5" style={{ fill: "var(--color-clara-orange)" }} />
               </svg>
             </div>
             {/* Online indicator */}
             <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-clara-green
-                            rounded-full border-2 border-white dark:border-[#0f1419]" />
+                            rounded-full border-2 border-clara-bg" />
           </div>
           <div>
-            <h1 className="font-display font-bold text-[17px] text-clara-text dark:text-[#e8e8ee] leading-tight">Clara</h1>
+            <h1 className="font-display font-bold text-[17px] text-clara-text leading-tight">Clara</h1>
             <p className="text-[13px] text-clara-green font-medium leading-tight">Online</p>
           </div>
         </div>
 
-        {/* Language selector */}
+        {/* Theme toggle + Language selector */}
+        <div className="flex items-center gap-1">
+        <ThemeToggleCompact />
+        <div className="relative">
         <select
           value={language}
           onChange={(e) => onLanguageChange(e.target.value as Language)}
           aria-label={labels.lang}
-          className="bg-clara-card dark:bg-[#1a1f26] text-clara-text dark:text-[#e8e8ee] border border-clara-border dark:border-[#2a2f36] rounded-full
+          className="bg-clara-card text-clara-text border border-clara-border rounded-full
                      px-3 py-1.5 text-[14px] font-medium min-h-[48px]
                      focus:outline focus:outline-[3px] focus:outline-clara-blue focus:outline-offset-2
                      appearance-none cursor-pointer transition-colors duration-150"
-          style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='%234A4A5A'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E\")", backgroundRepeat: "no-repeat", backgroundPosition: "right 8px center", paddingRight: "28px" }}
+          style={{ backgroundRepeat: "no-repeat", backgroundPosition: "right 8px center", paddingRight: "28px" }}
         >
           {LANG_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value}>
@@ -89,6 +93,17 @@ export default function Header({ language, onLanguageChange }: HeaderProps) {
             </option>
           ))}
         </select>
+        <svg
+          className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-clara-text-secondary"
+          width="16" height="16" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" strokeWidth="2.5"
+          strokeLinecap="round" strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+        </div>
+        </div>
       </div>
     </header>
   );

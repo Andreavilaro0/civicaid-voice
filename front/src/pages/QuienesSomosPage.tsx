@@ -254,12 +254,12 @@ export default function QuienesSomosPage() {
             </section>
 
             {/* ══════════ 02 VALIDAR — light ══════════ */}
-            <section className="section-viewport bg-white dark:bg-[#1a1f26]">
+            <section className="section-viewport bg-clara-card">
               <SectionMarker n="02" />
 
               <div className="max-w-2xl mx-auto w-full text-center">
                 <RevealCSS variant="slide-left">
-                  <h2 className="font-display font-bold text-[40px] md:text-[56px] leading-[1.08] heading-tight text-clara-text dark:text-[#e8e8ee] mb-5">
+                  <h2 className="font-display font-bold text-[40px] md:text-[56px] leading-[1.08] heading-tight text-clara-text mb-5">
                     {t.validar.title}
                   </h2>
                 </RevealCSS>
@@ -280,7 +280,7 @@ export default function QuienesSomosPage() {
             </section>
 
             {/* ══════════ 03 EL MOMENTO — light alt ══════════ */}
-            <section className="section-viewport bg-[#F0F7FA] dark:bg-[#141a20]">
+            <section className="section-viewport bg-clara-surface-1">
               <SectionMarker n="03" />
 
               {/* Decorative arcs — bottom left */}
@@ -343,7 +343,7 @@ export default function QuienesSomosPage() {
             </section>
 
             {/* ══════════ 04 EQUIPO — light ══════════ */}
-            <section className="section-viewport bg-clara-bg dark:bg-[#0f1419]">
+            <section className="section-viewport bg-clara-bg">
               <SectionMarker n="04" />
 
               <div className="max-w-2xl mx-auto w-full">
@@ -354,7 +354,7 @@ export default function QuienesSomosPage() {
                 </RevealUp>
 
                 <RevealCSS variant="scale" delay={0.1}>
-                  <h2 className="font-display font-bold text-[44px] md:text-[64px] leading-[1.05] heading-tight text-clara-text dark:text-[#e8e8ee] mb-4 text-center">
+                  <h2 className="font-display font-bold text-[44px] md:text-[64px] leading-[1.05] heading-tight text-clara-text mb-4 text-center">
                     {t.equipo.title}
                   </h2>
                 </RevealCSS>
@@ -374,7 +374,7 @@ export default function QuienesSomosPage() {
                         {member.name[0]}
                       </span>
                       <div className="flex-1 min-w-0">
-                        <p className="font-display font-bold text-[22px] text-clara-text dark:text-[#e8e8ee]">
+                        <p className="font-display font-bold text-[22px] text-clara-text">
                           {member.name}
                         </p>
                         <p className="text-[18px] text-clara-text-secondary">

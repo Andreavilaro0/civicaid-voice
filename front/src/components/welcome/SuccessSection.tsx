@@ -32,7 +32,7 @@ export default function SuccessSection({ lang }: SuccessSectionProps) {
     <section
       ref={sectionRef}
       className="section-viewport"
-      style={{ background: "#F0F7FA" }}
+      style={{ background: "var(--color-clara-surface-1)" }}
       aria-labelledby="success-quote"
     >
       {/* ── Floating voice arcs (consistent with Guide/Personas sections) ── */}
@@ -85,11 +85,11 @@ export default function SuccessSection({ lang }: SuccessSectionProps) {
             style={{
               opacity: visible ? undefined : 0,
               position: "relative",
-              background: "white",
+              background: "var(--color-clara-card)",
               borderRadius: "20px",
               borderLeft: "4px solid #D46A1E",
               padding: "clamp(24px, 4vw, 36px) clamp(24px, 4vw, 32px)",
-              boxShadow: "0 2px 16px rgba(0,0,0,0.04), 0 0 0 1px rgba(27,94,123,0.04)",
+              boxShadow: "0 2px 16px rgba(0,0,0,0.04), 0 0 0 1px rgba(var(--clara-blue-rgb),0.04)",
             }}
             aria-label="Before Clara"
           >
@@ -104,7 +104,7 @@ export default function SuccessSection({ lang }: SuccessSectionProps) {
                 fontSize: "clamp(80px, 12vw, 120px)",
                 fontWeight: 800,
                 lineHeight: 1,
-                color: "rgba(212,106,30,0.07)",
+                color: "rgba(var(--clara-orange-rgb),0.07)",
                 pointerEvents: "none",
                 userSelect: "none",
               }}
@@ -150,11 +150,11 @@ export default function SuccessSection({ lang }: SuccessSectionProps) {
             style={{
               opacity: visible ? undefined : 0,
               position: "relative",
-              background: "white",
+              background: "var(--color-clara-card)",
               borderRadius: "20px",
               borderLeft: "4px solid #2E7D4F",
               padding: "clamp(24px, 4vw, 36px) clamp(24px, 4vw, 32px)",
-              boxShadow: "0 2px 16px rgba(0,0,0,0.04), 0 0 0 1px rgba(27,94,123,0.04)",
+              boxShadow: "0 2px 16px rgba(0,0,0,0.04), 0 0 0 1px rgba(var(--clara-blue-rgb),0.04)",
             }}
             aria-label="After Clara"
           >
@@ -169,7 +169,7 @@ export default function SuccessSection({ lang }: SuccessSectionProps) {
                 fontSize: "clamp(80px, 12vw, 120px)",
                 fontWeight: 800,
                 lineHeight: 1,
-                color: "rgba(46,125,79,0.07)",
+                color: "rgba(var(--clara-green-rgb),0.07)",
                 pointerEvents: "none",
                 userSelect: "none",
               }}
@@ -241,7 +241,7 @@ export default function SuccessSection({ lang }: SuccessSectionProps) {
               fontSize: "clamp(100px, 16vw, 160px)",
               fontWeight: 800,
               lineHeight: 1,
-              color: "rgba(27,94,123,0.08)",
+              color: "rgba(var(--clara-blue-rgb),0.08)",
               pointerEvents: "none",
               userSelect: "none",
             }}

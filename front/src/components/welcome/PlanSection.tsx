@@ -60,7 +60,7 @@ export default function PlanSection({ lang }: PlanSectionProps) {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-20 px-6 bg-white dark:bg-[#1a1f26] overflow-hidden"
+      className="relative w-full py-20 px-6 bg-clara-card overflow-hidden"
       aria-labelledby="plan-title"
     >
       {/* Decorative voice arcs — reinforcing Clara's sonic identity */}
@@ -84,7 +84,7 @@ export default function PlanSection({ lang }: PlanSectionProps) {
         {/* Section title */}
         <h2
           id="plan-title"
-          className="font-display font-bold text-h1 text-clara-text dark:text-[#e8e8ee] text-center heading-tight"
+          className="font-display font-bold text-h1 text-clara-text text-center heading-tight"
           style={{
             opacity: visible ? 1 : 0,
             transform: visible ? "translateY(0)" : "translateY(20px)",
@@ -145,7 +145,7 @@ export default function PlanSection({ lang }: PlanSectionProps) {
 
                 {/* Card body */}
                 <div className="glass-card w-full p-6 flex flex-col items-center gap-3">
-                  <p className="text-body text-clara-text dark:text-[#e8e8ee] leading-snug">
+                  <p className="text-body text-clara-text leading-snug">
                     {step.text}
                   </p>
                 </div>
@@ -177,7 +177,7 @@ export default function PlanSection({ lang }: PlanSectionProps) {
               <span className="text-clara-blue flex-shrink-0">
                 {AGREEMENT_ICONS[agreement.icon]}
               </span>
-              <span className="text-body-sm font-medium text-clara-text dark:text-[#e8e8ee]">
+              <span className="text-body-sm font-medium text-clara-text">
                 {agreement.text}
               </span>
             </div>

@@ -24,7 +24,7 @@ function StatRing({ value, label, fill, visible, delay }: StatRingProps) {
   const ringRef = useRef<SVGCircleElement>(null);
 
   // Compute stroke color based on index position via fill fraction
-  const strokeColor = fill >= 0.85 ? "#2E7D4F" : "#1B5E7B";
+  const strokeColor = fill >= 0.85 ? "var(--color-clara-green)" : "var(--color-clara-blue)";
 
   return (
     <div className="flex flex-col items-center gap-2">
@@ -46,8 +46,8 @@ function StatRing({ value, label, fill, visible, delay }: StatRingProps) {
             fill="none"
             stroke="currentColor"
             strokeWidth="4"
-            className="text-[#1B5E7B]/10 dark:text-white/10"
-            style={{ color: "rgba(27,94,123,0.1)" }}
+            className="text-clara-blue/10"
+            style={{ color: "rgba(var(--clara-blue-rgb),0.1)" }}
           />
           {/* Progress circle — animated by .stat-ring.revealed via CSS ringDraw */}
           <circle
@@ -80,7 +80,7 @@ function StatRing({ value, label, fill, visible, delay }: StatRingProps) {
           }}
         >
           <span
-            className="font-display font-bold text-clara-blue dark:text-[#a0c4d4] leading-none"
+            className="font-display font-bold text-clara-blue leading-none"
             style={{ fontSize: 28 }}
             aria-label={value}
           >
@@ -91,7 +91,7 @@ function StatRing({ value, label, fill, visible, delay }: StatRingProps) {
 
       {/* Label below ring */}
       <span
-        className="uppercase tracking-widest text-clara-text-secondary dark:text-[#a0a0b0] text-center"
+        className="uppercase tracking-widest text-clara-text-secondary text-center"
         style={{
           fontSize: 12,
           opacity: visible ? 1 : 0,
@@ -131,7 +131,7 @@ export default function GuideSection({ lang }: GuideSectionProps) {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-20 px-6 bg-[#F0F7FA] dark:bg-[#141a20] overflow-hidden"
+      className="relative w-full py-20 px-6 bg-clara-surface-1 overflow-hidden"
       aria-labelledby="guide-title"
     >
       {/* Watermark — giant Clara voice arcs SVG, 5% opacity, slowly rotating */}
@@ -174,7 +174,7 @@ export default function GuideSection({ lang }: GuideSectionProps) {
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] pointer-events-none"
         style={{
           background:
-            "radial-gradient(circle, rgba(27,94,123,0.07) 0%, transparent 65%)",
+            "radial-gradient(circle, rgba(var(--clara-blue-rgb),0.07) 0%, transparent 65%)",
           zIndex: 0,
         }}
       />
@@ -225,7 +225,7 @@ export default function GuideSection({ lang }: GuideSectionProps) {
 
             {/* Empathy quote — italic, muted */}
             <p
-              className="italic text-clara-text-secondary dark:text-[#a0a0b0] leading-relaxed"
+              className="italic text-clara-text-secondary leading-relaxed"
               style={{ fontSize: "clamp(16px, 2vw, 20px)", maxWidth: "42ch" }}
             >
               &ldquo;{t.empathy}&rdquo;
@@ -270,11 +270,11 @@ export default function GuideSection({ lang }: GuideSectionProps) {
           <div
             aria-hidden="true"
             className="mx-auto mb-8 h-px w-24 rounded-full"
-            style={{ background: "rgba(27,94,123,0.15)" }}
+            style={{ background: "rgba(var(--clara-blue-rgb),0.15)" }}
           />
 
           <p
-            className="text-clara-text dark:text-[#e8e8ee] leading-relaxed mx-auto"
+            className="text-clara-text leading-relaxed mx-auto"
             style={{
               fontSize: "clamp(16px, 2vw, 20px)",
               maxWidth: "52ch",

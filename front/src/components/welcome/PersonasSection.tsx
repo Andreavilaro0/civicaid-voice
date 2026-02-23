@@ -66,7 +66,7 @@ function TypewriterQuote({
 
   return (
     <p
-      className="italic leading-snug text-clara-text-secondary dark:text-[#a0a0b0] text-[20px] md:text-[24px]"
+      className="italic leading-snug text-clara-text-secondary text-[20px] md:text-[24px]"
       aria-label={text}
       style={{ fontSize: "clamp(20px, 2.5vw, 28px)", lineHeight: 1.5 }}
     >
@@ -140,8 +140,8 @@ function TiltCard({
             : "transform 0.4s ease-out",
           transformStyle: "preserve-3d",
           boxShadow: hovering
-            ? `${tilt.y * -1.5}px ${tilt.x * 1.5}px 40px rgba(27,94,123,0.18), 0 0 24px rgba(27,94,123,0.10)`
-            : "0 4px 24px rgba(27,94,123,0.06)",
+            ? `${tilt.y * -1.5}px ${tilt.x * 1.5}px 40px rgba(var(--clara-blue-rgb),0.18), 0 0 24px rgba(var(--clara-blue-rgb),0.10)`
+            : "0 4px 24px rgba(var(--clara-blue-rgb),0.06)",
           borderRadius: "20px",
         }}
       >
@@ -174,19 +174,19 @@ function FloatingArcs() {
       >
         <path
           d="M 20 110 A 90 90 0 0 1 200 110"
-          stroke="rgba(27,94,123,0.18)"
+          style={{ stroke: "rgba(var(--clara-blue-rgb), 0.18)" }}
           strokeWidth="2"
           strokeLinecap="round"
         />
         <path
           d="M 40 110 A 70 70 0 0 1 180 110"
-          stroke="rgba(27,94,123,0.12)"
+          style={{ stroke: "rgba(var(--clara-blue-rgb), 0.12)" }}
           strokeWidth="1.5"
           strokeLinecap="round"
         />
         <path
           d="M 60 110 A 50 50 0 0 1 160 110"
-          stroke="rgba(27,94,123,0.08)"
+          style={{ stroke: "rgba(var(--clara-blue-rgb), 0.08)" }}
           strokeWidth="1"
           strokeLinecap="round"
         />
@@ -209,13 +209,13 @@ function FloatingArcs() {
       >
         <path
           d="M 90 160 A 75 75 0 0 0 90 20"
-          stroke="rgba(212,106,30,0.14)"
+          style={{ stroke: "rgba(var(--clara-orange-rgb), 0.14)" }}
           strokeWidth="2"
           strokeLinecap="round"
         />
         <path
           d="M 90 140 A 55 55 0 0 0 90 40"
-          stroke="rgba(212,106,30,0.09)"
+          style={{ stroke: "rgba(var(--clara-orange-rgb), 0.09)" }}
           strokeWidth="1.5"
           strokeLinecap="round"
         />
@@ -238,13 +238,13 @@ function FloatingArcs() {
       >
         <path
           d="M 10 60 A 50 50 0 0 1 110 60"
-          stroke="rgba(46,125,79,0.15)"
+          style={{ stroke: "rgba(var(--clara-green-rgb),0.15)" }}
           strokeWidth="2"
           strokeLinecap="round"
         />
         <path
           d="M 24 60 A 36 36 0 0 1 96 60"
-          stroke="rgba(46,125,79,0.09)"
+          style={{ stroke: "rgba(var(--clara-green-rgb),0.09)" }}
           strokeWidth="1"
           strokeLinecap="round"
         />
@@ -262,21 +262,21 @@ const accentColors: Record<
 > = {
   maria: {
     border: "border-l-clara-orange",
-    glow: "rgba(212,106,30,0.10)",
-    ring: "rgba(212,106,30,0.2)",
-    quoteColor: "rgba(212,106,30,0.15)",
+    glow: "rgba(var(--clara-orange-rgb),0.10)",
+    ring: "rgba(var(--clara-orange-rgb),0.2)",
+    quoteColor: "rgba(var(--clara-orange-rgb),0.15)",
   },
   ahmed: {
     border: "border-l-clara-blue",
-    glow: "rgba(27,94,123,0.10)",
-    ring: "rgba(27,94,123,0.2)",
-    quoteColor: "rgba(27,94,123,0.15)",
+    glow: "rgba(var(--clara-blue-rgb),0.10)",
+    ring: "rgba(var(--clara-blue-rgb),0.2)",
+    quoteColor: "rgba(var(--clara-blue-rgb),0.15)",
   },
   fatima: {
     border: "border-l-clara-green",
-    glow: "rgba(46,125,79,0.10)",
-    ring: "rgba(46,125,79,0.2)",
-    quoteColor: "rgba(46,125,79,0.15)",
+    glow: "rgba(var(--clara-green-rgb),0.10)",
+    ring: "rgba(var(--clara-green-rgb),0.2)",
+    quoteColor: "rgba(var(--clara-green-rgb),0.15)",
   },
 };
 
@@ -321,7 +321,7 @@ export default function PersonasSection({ lang }: PersonasSectionProps) {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-20 px-6 bg-[#FAFAFA] dark:bg-[#0f1419] overflow-hidden section-bleed-dark-to-light"
+      className="relative w-full py-20 px-6 bg-clara-bg overflow-hidden section-bleed-dark-to-light"
       aria-label={SECTION_TITLES[lang]}
     >
       {/* Floating decorative voice arcs */}
@@ -355,7 +355,7 @@ export default function PersonasSection({ lang }: PersonasSectionProps) {
               <div
                 className={`persona-chip border-l-4 ${colors.border}`}
                 style={{
-                  background: `linear-gradient(135deg, white 0%, ${colors.glow} 100%)`,
+                  background: `linear-gradient(135deg, var(--color-clara-card) 0%, ${colors.glow} 100%)`,
                   padding: "24px 28px",
                   borderRadius: "20px",
                   position: "relative",
@@ -405,7 +405,7 @@ export default function PersonasSection({ lang }: PersonasSectionProps) {
                   className="flex-1 min-w-0"
                   style={{ transform: "translateZ(10px)", zIndex: 1 }}
                 >
-                  <p className="font-display font-bold text-body text-clara-text dark:text-[#e8e8ee] mb-2">
+                  <p className="font-display font-bold text-body text-clara-text mb-2">
                     {persona.name}
                   </p>
                   <TypewriterQuote text={quoteText} active={visible} />

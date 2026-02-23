@@ -39,8 +39,8 @@ export default function PromptBar({
       onSubmit={handleSubmit}
       className="prompt-bar w-full max-w-[560px] md:max-w-[640px]
                  flex items-center gap-2 px-4 py-3
-                 bg-white dark:bg-[#1a1f26] rounded-2xl
-                 border-2 border-clara-border dark:border-[#2a2f36]
+                 bg-clara-card rounded-2xl
+                 border-2 border-clara-border
                  shadow-warm transition-all duration-200"
     >
       <input
@@ -50,7 +50,7 @@ export default function PromptBar({
         onChange={(e) => setValue(e.target.value)}
         placeholder={currentPlaceholder}
         aria-label={currentPlaceholder}
-        className="flex-1 bg-transparent text-body-sm text-clara-text dark:text-[#e8e8ee]
+        className="flex-1 bg-transparent text-body-sm text-clara-text
                    placeholder:text-clara-text-secondary/50 outline-none min-w-0
                    transition-opacity duration-300"
         style={{
@@ -64,7 +64,7 @@ export default function PromptBar({
           aria-label="Enviar"
           className="flex-shrink-0 w-touch-sm h-touch-sm flex items-center justify-center
                      rounded-full bg-clara-blue text-white
-                     hover:bg-[#134a5f] active:scale-95 transition-all duration-150
+                     hover:bg-[var(--color-clara-blue-hover)] active:scale-95 transition-all duration-150
                      focus-visible:outline focus-visible:outline-[3px]
                      focus-visible:outline-clara-blue focus-visible:outline-offset-2"
         >

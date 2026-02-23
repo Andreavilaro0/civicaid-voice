@@ -74,20 +74,19 @@ export default function ChatBubble({ sender, children, timestamp }: ChatBubblePr
           {/* Bubble */}
           <div
             className="
-              bg-white border border-clara-border/60 shadow-sm
+              clara-bubble bg-clara-card border border-clara-border/60 shadow-sm
               rounded-2xl rounded-tl-sm
               px-4 py-3
-              dark:bg-[#1a1f26] dark:border-[#2a2f36]
             "
             role="article"
             aria-label="Clara message"
           >
-            <div className="text-clara-text text-body-sm space-y-2 dark:text-white/90">
+            <div className="text-clara-text text-body-sm space-y-2">
               {children}
             </div>
 
             {timestamp && (
-              <p className="text-[13px] text-clara-text-secondary mt-2 text-right select-none dark:text-white/40">
+              <p className="text-[13px] text-clara-text-secondary mt-2 text-right select-none">
                 {timestamp}
               </p>
             )}

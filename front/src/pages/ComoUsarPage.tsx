@@ -73,7 +73,7 @@ function ComoUsarContent({ lang }: { lang: Language }) {
         </div>
 
         <h2
-          className="font-display font-bold text-clara-text dark:text-[#e8e8ee] leading-tight"
+          className="font-display font-bold text-clara-text leading-tight"
           style={{
             fontSize: "clamp(26px, 5vw, 36px)",
             letterSpacing: "-0.02em",
@@ -86,7 +86,7 @@ function ComoUsarContent({ lang }: { lang: Language }) {
         </h2>
 
         <p
-          className="text-clara-text-secondary dark:text-[#a0a0b0] leading-relaxed"
+          className="text-clara-text-secondary leading-relaxed"
           style={{
             fontSize: "clamp(16px, 2.5vw, 19px)",
             maxWidth: "44ch",
@@ -101,7 +101,7 @@ function ComoUsarContent({ lang }: { lang: Language }) {
       {/* ══ Steps — illustration-first cards ══ */}
       <div ref={stepsView.ref} className="flex flex-col gap-3">
         <h3
-          className="font-display font-bold text-clara-text dark:text-[#e8e8ee] text-center mb-4"
+          className="font-display font-bold text-clara-text text-center mb-4"
           style={{
             fontSize: "clamp(22px, 4vw, 28px)",
             opacity: stepsView.visible ? 1 : 0,
@@ -134,11 +134,11 @@ function ComoUsarContent({ lang }: { lang: Language }) {
 
               {/* Step number badge */}
               <div
+                className="brand-gradient"
                 style={{
                   width: 32,
                   height: 32,
                   borderRadius: "50%",
-                  background: "linear-gradient(135deg, #1B5E7B, #134a5f)",
                   color: "white",
                   display: "flex",
                   alignItems: "center",
@@ -154,10 +154,10 @@ function ComoUsarContent({ lang }: { lang: Language }) {
               </div>
 
               {/* Text — supporting */}
-              <p className="font-display font-bold text-clara-text dark:text-[#e8e8ee]" style={{ fontSize: 16 }}>
+              <p className="font-display font-bold text-clara-text" style={{ fontSize: 16 }}>
                 {step.title}
               </p>
-              <p className="text-clara-text-secondary dark:text-[#a0a0b0] leading-snug" style={{ fontSize: 14 }}>
+              <p className="text-clara-text-secondary leading-snug" style={{ fontSize: 14 }}>
                 {step.desc}
               </p>
             </div>
@@ -168,7 +168,7 @@ function ComoUsarContent({ lang }: { lang: Language }) {
       {/* ══ Example questions — icon + text ══ */}
       <div ref={examples.ref} className="flex flex-col gap-4">
         <h3
-          className="font-display font-bold text-clara-text dark:text-[#e8e8ee] text-center"
+          className="font-display font-bold text-clara-text text-center"
           style={{
             fontSize: "clamp(20px, 4vw, 26px)",
             opacity: examples.visible ? 1 : 0,
@@ -189,7 +189,7 @@ function ComoUsarContent({ lang }: { lang: Language }) {
                          focus-visible:outline-clara-blue focus-visible:outline-offset-2"
               style={{
                 borderRadius: 16,
-                border: "1px solid rgba(27,94,123,0.1)",
+                border: "1px solid rgba(var(--clara-blue-rgb),0.1)",
                 opacity: examples.visible ? 1 : 0,
                 transform: examples.visible ? "translateY(0)" : "translateY(12px)",
                 transition: `all 0.5s ease-out ${i * 80}ms`,
@@ -199,7 +199,7 @@ function ComoUsarContent({ lang }: { lang: Language }) {
               <div style={{ opacity: 0.8 }}>
                 {EXAMPLE_ICONS[i]}
               </div>
-              <span className="text-clara-text dark:text-[#e8e8ee] leading-snug" style={{ fontSize: 14 }}>
+              <span className="text-clara-text leading-snug" style={{ fontSize: 14 }}>
                 {q}
               </span>
             </button>
@@ -214,15 +214,15 @@ function ComoUsarContent({ lang }: { lang: Language }) {
             key={i}
             className="flex flex-col items-center text-center gap-2 p-4 rounded-2xl"
             style={{
-              background: "rgba(27,94,123,0.03)",
-              border: "1px solid rgba(27,94,123,0.08)",
+              background: "rgba(var(--clara-blue-rgb),0.03)",
+              border: "1px solid rgba(var(--clara-blue-rgb),0.08)",
               opacity: guarantees.visible ? 1 : 0,
               transform: guarantees.visible ? "translateY(0)" : "translateY(10px)",
               transition: `opacity 0.45s ease-out ${150 + i * 80}ms, transform 0.45s ease-out ${150 + i * 80}ms`,
             }}
           >
             {LARGE_GUARANTEE_ICONS[g.icon]}
-            <span className="font-medium text-clara-text dark:text-[#e8e8ee]" style={{ fontSize: 14 }}>
+            <span className="font-medium text-clara-text" style={{ fontSize: 14 }}>
               {g.text}
             </span>
           </div>
@@ -232,7 +232,7 @@ function ComoUsarContent({ lang }: { lang: Language }) {
       {/* ══ CTA ══ */}
       <div ref={cta.ref} className="flex flex-col items-center gap-4 text-center py-6">
         <h3
-          className="font-display font-bold text-clara-text dark:text-[#e8e8ee]"
+          className="font-display font-bold text-clara-text"
           style={{
             fontSize: "clamp(22px, 5vw, 30px)",
             opacity: cta.visible ? 1 : 0,
@@ -242,7 +242,7 @@ function ComoUsarContent({ lang }: { lang: Language }) {
           {t.cta_headline}
         </h3>
         <p
-          className="text-clara-text-secondary dark:text-[#a0a0b0]"
+          className="text-clara-text-secondary"
           style={{
             fontSize: "clamp(15px, 2vw, 18px)",
             opacity: cta.visible ? 1 : 0,
@@ -253,14 +253,13 @@ function ComoUsarContent({ lang }: { lang: Language }) {
         </p>
         <button
           onClick={() => navigate(`/chat?lang=${lang}`)}
-          className="font-display font-bold text-white rounded-full
+          className="brand-gradient font-display font-bold text-white rounded-full
                      focus-visible:outline focus-visible:outline-[3px]
                      focus-visible:outline-clara-blue focus-visible:outline-offset-2"
           style={{
-            background: "linear-gradient(135deg, #1B5E7B, #134a5f)",
             padding: "14px 36px",
             fontSize: 18,
-            boxShadow: "0 4px 20px rgba(27,94,123,0.3)",
+            boxShadow: "0 4px 20px rgba(var(--clara-blue-rgb),0.3)",
             opacity: cta.visible ? 1 : 0,
             transform: cta.visible ? "scale(1)" : "scale(0.9)",
             transition: "opacity 0.5s ease-out 0.2s, transform 0.5s cubic-bezier(0.22,1,0.36,1) 0.2s",

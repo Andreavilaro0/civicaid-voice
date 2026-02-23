@@ -23,10 +23,10 @@ export default function SuggestionChips({
           key={text}
           onClick={() => onChipTap(text)}
           className="flex-shrink-0 min-h-touch-sm px-4 py-2
-                     rounded-full border-2 border-clara-border dark:border-[#2a2f36]
-                     bg-white dark:bg-[#1a1f26]
+                     rounded-full border-2 border-clara-border
+                     bg-clara-card
                      text-body-sm text-clara-blue font-medium whitespace-nowrap
-                     hover:border-clara-blue/50 hover:bg-clara-info dark:hover:bg-[#1a2a3a]
+                     hover:border-clara-blue/50 hover:bg-clara-info
                      active:scale-95 transition-all duration-150
                      focus-visible:outline focus-visible:outline-[3px]
                      focus-visible:outline-clara-blue focus-visible:outline-offset-2"

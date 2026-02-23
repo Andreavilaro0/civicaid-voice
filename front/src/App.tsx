@@ -4,6 +4,7 @@ import ChatPage from "./pages/ChatPage";
 import ComoUsarPage from "./pages/ComoUsarPage";
 import QuienesSomosPage from "./pages/QuienesSomosPage";
 import FuturoPage from "./pages/FuturoPage";
+import InfoLegalPage from "./pages/InfoLegalPage";
 import ClaraMascot from "./components/ClaraMascot.tsx";
 
 export default function App() {
@@ -29,6 +30,7 @@ export default function App() {
         <Route path="/como-usar" element={<ComoUsarPage />} />
         <Route path="/quienes-somos" element={<QuienesSomosPage />} />
         <Route path="/futuro" element={<FuturoPage />} />
+        <Route path="/info-legal" element={<InfoLegalPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>

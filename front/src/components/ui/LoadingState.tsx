@@ -82,9 +82,8 @@ export default function LoadingState({
         className="
           max-w-[85%]
           px-4 py-3
-          bg-white border border-clara-border/60 shadow-sm
+          bg-clara-card border border-clara-border/60 shadow-sm
           rounded-2xl rounded-tl-sm
-          dark:bg-[#1a1f26] dark:border-[#2a2f36]
           flex flex-col gap-2
         "
       >

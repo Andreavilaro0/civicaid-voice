@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
-@theme inline {
+/* Enable class-based dark mode for Tailwind's dark: variant */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
   /* Clara palette — WCAG AAA validated + colorblind safe */
   --color-clara-blue: #1B5E7B;
   --color-clara-orange: #D46A1E;
@@ -13,6 +16,11 @@
   --color-clara-info: #E3F2FD;
   --color-clara-card: #F5F5F5;
   --color-clara-border: #E0E0E0;
+  --color-clara-surface-1: #F0F7FA;
+  --color-clara-hover: #F0F0F0;
+  --color-clara-blue-hover: #164d66;
+  --color-clara-blue-pressed: #123f54;
+  --color-clara-green-hover: #256940;
 
   /* Typography — Atkinson Hyperlegible (Braille Institute) + Inter */
   --font-display: "Atkinson Hyperlegible", system-ui, sans-serif;
@@ -45,6 +53,9 @@
   --color-clara-blue: #1B5E7B;
   --color-clara-orange: #D46A1E;
   --color-clara-green: #2E7D4F;
+  --clara-blue-rgb: 27, 94, 123;
+  --clara-orange-rgb: 212, 106, 30;
+  --clara-green-rgb: 46, 125, 79;
   --focus-ring: 3px solid var(--color-clara-blue);
 }
 
@@ -203,20 +214,54 @@ body::after {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
 }
 
-/* ── Dark Mode ── */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-clara-bg: #0f1419;
-    --color-clara-text: #e8e8ee;
-    --color-clara-text-secondary: #a0a0b0;
-    --color-clara-card: #1a1f26;
-    --color-clara-border: #2a2f36;
-    --color-clara-info: #1a2a3a;
-  }
-  body {
-    background: #0f1419;
-    color: #e8e8ee;
-  }
+/* ── Dark Mode (class-based: html.dark) ── */
+/* Palette: Civic Meridians — "atmospheric darkness with infinite structure" */
+/* All brand colors adjusted for WCAG AAA (7:1+) on #1A1A2E background */
+.dark {
+  --color-clara-bg: #1A1A2E;
+  --color-clara-text: #FFFFFF;
+  --color-clara-text-secondary: #C8C8D8;
+  --color-clara-card: #2A2A50;
+  --color-clara-border: #4A4A70;
+  --color-clara-info: #1E2E4A;
+  --color-clara-blue: #6BBFE0;
+  --color-clara-orange: #E8934E;
+  --color-clara-green: #6EC08D;
+  --color-clara-error: #EF8A8A;
+  --color-clara-warning: #F0C066;
+  --color-clara-surface-1: #20203A;
+  --color-clara-hover: #3A3A60;
+  --color-clara-blue-hover: #8ED0E8;
+  --color-clara-blue-pressed: #A5DDF0;
+  --color-clara-green-hover: #8ED4A5;
+  --clara-blue-rgb: 107, 191, 224;
+  --clara-orange-rgb: 232, 147, 78;
+  --clara-green-rgb: 110, 192, 141;
+  --focus-ring: 3px solid #6BBFE0;
+  color-scheme: dark;
+}
+.dark body {
+  background: var(--color-clara-bg);
+  color: var(--color-clara-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Anti-halation: heavier weight + wider spacing reduces text blooming */
+.dark p, .dark li, .dark dd, .dark span, .dark td {
+  letter-spacing: 0.015em;
+  font-weight: 450;
+}
+
+/* Headings: bump weight for dark mode crispness */
+.dark h1, .dark h2, .dark h3 {
+  font-weight: 750;
+  letter-spacing: -0.005em;
+}
+
+/* Line-height bump — text lines separate better on dark backgrounds */
+.dark p, .dark li {
+  line-height: 1.65;
 }
 
 /* ── Persona chip ── */
@@ -226,7 +271,7 @@ body::after {
   gap: 12px;
   padding: 12px 16px;
   border-radius: 16px;
-  background: white;
+  background: var(--color-clara-card);
   box-shadow: 0 2px 20px rgba(27,94,123,0.06);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -234,9 +279,7 @@ body::after {
   transform: translateY(-2px);
   box-shadow: 0 8px 30px rgba(27,94,123,0.1);
 }
-@media (prefers-color-scheme: dark) {
-  .persona-chip { background: #1a1f26; }
-}
+.dark .persona-chip { background: var(--color-clara-card); }
 
 /* ── Before/After comparison grid ── */
 .before-after-grid {
@@ -260,15 +303,15 @@ body::after {
   font-size: 16px;
   line-height: 1.5;
 }
-.before-cell strong { color: #D46A1E; }
-.after-cell strong { color: #2E7D4F; }
+.before-cell strong { color: var(--color-clara-orange); }
+.after-cell strong { color: var(--color-clara-green); }
 
 /* ── Impact section ── */
 .impact-counter {
   font-family: var(--font-display, 'Atkinson Hyperlegible', sans-serif);
   font-size: 48px;
   font-weight: 700;
-  color: #1B5E7B;
+  color: var(--color-clara-blue);
   line-height: 1;
 }
 
@@ -277,35 +320,37 @@ body::after {
   display: inline-flex;
   padding: 10px 18px;
   border-radius: 20px;
-  border: 2px solid #E0E0E0;
-  background: white;
+  border: 2px solid var(--color-clara-border);
+  background: var(--color-clara-card);
   font-size: 16px;
   font-family: var(--font-body, 'Inter', sans-serif);
-  color: #1B5E7B;
+  color: var(--color-clara-blue);
   cursor: pointer;
   transition: all 0.15s ease;
   min-height: 44px;
   align-items: center;
 }
 .quick-chip:hover {
-  border-color: #1B5E7B;
+  border-color: var(--color-clara-blue);
   background: rgba(27,94,123,0.04);
 }
 .quick-chip:active {
   transform: scale(0.96);
 }
-@media (prefers-color-scheme: dark) {
-  .quick-chip {
-    background: #1a1f26;
-    border-color: #2a2f36;
-    color: #a0c4d4;
-  }
+.dark .quick-chip {
+  background: var(--color-clara-card);
+  border-color: var(--color-clara-border);
+  color: #FFFFFF;
+}
+.dark .quick-chip:hover {
+  border-color: var(--color-clara-blue);
+  background: rgba(var(--clara-blue-rgb), 0.15);
 }
 
 /* ── RTL adjustments ── */
 [dir="rtl"] .persona-chip { flex-direction: row-reverse; }
-[dir="rtl"] .before-cell { border-left: none; border-right: 3px solid #D46A1E; }
-[dir="rtl"] .after-cell { border-left: none; border-right: 3px solid #2E7D4F; }
+[dir="rtl"] .before-cell { border-left: none; border-right: 3px solid var(--color-clara-orange); }
+[dir="rtl"] .after-cell { border-left: none; border-right: 3px solid var(--color-clara-green); }
 
 /* ── RTL: Chat bubble tails ── */
 [dir="rtl"] .chat-bubble-user { border-radius: 16px 4px 16px 16px; }
@@ -353,11 +398,11 @@ body::after {
   font-family: var(--font-display, 'Atkinson Hyperlegible', sans-serif);
   font-size: 28px;
   font-weight: 700;
-  color: #1B5E7B;
+  color: var(--color-clara-blue);
 }
 .stat-label {
   font-size: 16px;
-  color: #4A4A5A;
+  color: var(--color-clara-text-secondary);
 }
 
 /* ── Decorative voice arcs (Clara's identity: concentric waves) ── */
@@ -393,12 +438,10 @@ body::after {
   border-radius: 20px;
   box-shadow: 0 4px 24px rgba(27,94,123,0.06), 0 1px 0 rgba(255,255,255,0.8) inset;
 }
-@media (prefers-color-scheme: dark) {
-  .glass-card {
-    background: rgba(26,31,38,0.7);
-    border: 1px solid rgba(42,47,54,0.5);
-    box-shadow: 0 4px 24px rgba(0,0,0,0.2), 0 1px 0 rgba(42,47,54,0.5) inset;
-  }
+.dark .glass-card {
+  background: rgba(37,37,66,0.7);
+  border: 1px solid rgba(58,58,96,0.5);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3), 0 1px 0 rgba(58,58,96,0.3) inset;
 }
 
 /* ── Step connector line ── */
@@ -430,7 +473,7 @@ body::after {
   font-family: var(--font-display, 'Atkinson Hyperlegible', sans-serif);
   font-size: 64px;
   font-weight: 700;
-  color: #1B5E7B;
+  color: var(--color-clara-blue);
   line-height: 1;
   letter-spacing: -1px;
 }
@@ -478,8 +521,8 @@ body::after {
   transform: translateY(-2px);
   box-shadow: 0 4px 16px rgba(46,125,79,0.08);
 }
-.before-cell-enhanced strong { color: #D46A1E; }
-.after-cell-enhanced strong { color: #2E7D4F; }
+.before-cell-enhanced strong { color: var(--color-clara-orange); }
+.after-cell-enhanced strong { color: var(--color-clara-green); }
 
 [dir="rtl"] .before-cell-enhanced { border-left: none; border-right: 3px solid #D46A1E; }
 [dir="rtl"] .after-cell-enhanced { border-left: none; border-right: 3px solid #2E7D4F; }
@@ -503,11 +546,9 @@ body::after {
   transform: translateY(-3px);
   box-shadow: 0 8px 24px rgba(27,94,123,0.1);
 }
-@media (prefers-color-scheme: dark) {
-  .stat-card {
-    background: rgba(26,31,38,0.6);
-    border: 1px solid rgba(42,47,54,0.5);
-  }
+.dark .stat-card {
+  background: rgba(37,37,66,0.6);
+  border: 1px solid rgba(58,58,96,0.5);
 }
 
 /* ── Section marker (dtampe "01" style) ── */
@@ -579,9 +620,7 @@ body::after {
   background: var(--color-clara-blue);
   color: #ffffff;
 }
-@media (prefers-color-scheme: dark) {
-  .section-dark { background: #134a5f; }
-}
+.dark .section-dark { background: #1E2240; }
 .section-dark .section-marker { color: rgba(255,255,255,0.12); }
 
 /* ── Stats in dark section ── */
@@ -699,7 +738,7 @@ body::after {
   padding: 8px 20px;
   border-radius: 24px;
   background: rgba(27,94,123,0.04);
-  color: #1B5E7B;
+  color: var(--color-clara-blue);
   font-size: 16px;
   font-family: var(--font-body, 'Inter', sans-serif);
   font-weight: 500;
@@ -711,14 +750,12 @@ body::after {
   background: rgba(27,94,123,0.1);
   transform: translateY(-1px);
 }
-@media (prefers-color-scheme: dark) {
-  .footer-link-pill {
-    background: rgba(27,94,123,0.1);
-    color: #a0c4d4;
-  }
-  .footer-link-pill:hover {
-    background: rgba(27,94,123,0.18);
-  }
+.dark .footer-link-pill {
+  background: rgba(107,191,224,0.15);
+  color: #FFFFFF;
+}
+.dark .footer-link-pill:hover {
+  background: rgba(107,191,224,0.25);
 }
 
 /* ══════════════════════════════════════════════════════════════════════ */
@@ -897,11 +934,9 @@ body::after {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(27,94,123,0.12);
 }
-@media (prefers-color-scheme: dark) {
-  .guarantee-badge {
-    background: rgba(26,31,38,0.7);
-    border: 1px solid rgba(42,47,54,0.5);
-  }
+.dark .guarantee-badge {
+  background: rgba(37,37,66,0.7);
+  border: 1px solid rgba(58,58,96,0.5);
 }
 
 /* ══════════════════════════════════════════════════════════════════════ */
@@ -997,6 +1032,9 @@ body::after {
   transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
 }
 .footer-link-pill:hover::before { transform: translateX(100%); }
+.dark .footer-link-pill::before {
+  background: linear-gradient(90deg, transparent, rgba(var(--clara-blue-rgb),0.12), transparent);
+}
 
 /* Footer logo shimmer */
 @keyframes logoShimmer {
@@ -1082,18 +1120,14 @@ body::after {
   left: 0;
   right: 0;
   height: 80px;
-  background: linear-gradient(to bottom, #FAFAFA, transparent);
+  background: linear-gradient(to bottom, var(--color-clara-bg), transparent);
   pointer-events: none;
   z-index: 1;
 }
-@media (prefers-color-scheme: dark) {
-  .section-bleed-dark-to-light::before {
-    background: linear-gradient(to bottom, #134a5f, transparent);
-  }
-  .section-bleed-light-to-dark::before {
-    background: linear-gradient(to bottom, #0f1419, transparent);
-  }
+.dark .section-bleed-dark-to-light::before {
+  background: linear-gradient(to bottom, #1E2240, transparent);
 }
+/* .dark override no longer needed — var(--color-clara-bg) auto-adapts */
 
 /* ══════════════════════════════════════════════════════════════════════ */
 /*  MEJORA 4: Voice arcs identity — reusable decorative SVG arcs        */
@@ -1109,5 +1143,202 @@ body::after {
   pointer-events: none;
   user-select: none;
   animation: arcPulseSubtle 6s ease-in-out infinite;
+}
+
+/* ══════════════════════════════════════════════════════════════════════ */
+/*  DARK MODE: Shadows, glows, decorative element adaptations           */
+/*  Civic Meridians: "luminous lines against atmospheric depth"         */
+/* ══════════════════════════════════════════════════════════════════════ */
+
+/* Warm shadows — dark mode */
+.dark .shadow-warm {
+  box-shadow: 0 2px 20px rgba(0,0,0,0.3), 0 0 0 1px rgba(58,58,96,0.5);
+}
+.dark .shadow-warm-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4), 0 0 0 1px rgba(58,58,96,0.5);
+}
+
+/* Card elevation — visible border + inner highlight for depth perception */
+.dark .bg-clara-card,
+.dark .persona-chip {
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.06),
+    0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Surface-1 areas — subtle distinction */
+.dark .bg-clara-surface-1 {
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+/* Persona chip — warm shadows in dark */
+.dark .persona-chip {
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.05),
+    0 2px 16px rgba(0, 0, 0, 0.35);
+}
+.dark .persona-chip:hover {
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
+    0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Footer link pills — glow effect in dark */
+.dark .footer-link-pill {
+  border: 1px solid rgba(107, 191, 224, 0.08);
+}
+.dark .footer-link-pill:hover {
+  border-color: rgba(107, 191, 224, 0.15);
+  box-shadow: 0 0 12px rgba(107, 191, 224, 0.08);
+}
+
+/* ── Chat dark mode: make bubbles, input, and borders clearly visible ── */
+
+/* Chat input form — visible border in dark */
+.dark .chat-form {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+.dark .chat-form:focus-within {
+  border-color: var(--color-clara-blue);
+  box-shadow: 0 0 0 3px rgba(107, 191, 224, 0.25);
+}
+
+/* Clara bubble — stronger contrast in dark */
+.dark .clara-bubble {
+  background: #2E2E58;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Voice arcs — more visible in dark */
+.dark .voice-arc {
+  border-color: rgba(107,191,224,0.12);
+}
+
+/* Glow dot — brighter in dark */
+.dark .glow-dot {
+  background: var(--color-clara-orange);
+  box-shadow: 0 0 16px rgba(232,147,78,0.5), 0 0 6px rgba(232,147,78,0.7);
+}
+
+/* Counter glow — adjusted orange */
+.dark .counter-glow {
+  color: var(--color-clara-orange);
+  text-shadow: 0 0 20px rgba(232,147,78,0.4), 0 0 60px rgba(232,147,78,0.15);
+}
+
+/* CTA headline glow — adjusted blue */
+.dark .cta-headline-glow {
+  text-shadow: 0 0 10px rgba(107,191,224,0.5), 0 0 30px rgba(107,191,224,0.2);
+}
+
+/* Radar arcs — adjusted blue */
+.dark .radar-arc {
+  border-color: rgba(107,191,224,0.12);
+}
+
+/* Step number mega — lighter gradient in dark */
+.dark .step-number-mega {
+  background: linear-gradient(135deg, var(--color-clara-blue), #5BB0D4);
+  box-shadow: 0 4px 20px rgba(107,191,224,0.3), 0 0 40px rgba(107,191,224,0.1);
+}
+
+/* Prompt bar focus — dark mode */
+.dark .prompt-bar:focus-within {
+  border-color: var(--color-clara-blue);
+  box-shadow: 0 0 0 3px rgba(107,191,224,0.2), 0 2px 20px rgba(107,191,224,0.15);
+}
+
+/* Body grain overlay — reduce in dark mode */
+.dark body::after { opacity: 0.015; }
+
+/* Text gradient warm — dark mode */
+.dark .text-gradient-warm {
+  background: linear-gradient(135deg, var(--color-clara-blue) 0%, var(--color-clara-green) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Before/after cells — dark mode */
+.dark .before-cell { background: rgba(232,147,78,0.08); }
+.dark .after-cell { background: rgba(110,192,141,0.08); }
+.dark .before-cell-enhanced { background: rgba(232,147,78,0.06); }
+.dark .after-cell-enhanced { background: rgba(110,192,141,0.06); }
+
+/* ── Hero gradient — adapts to dark mode ── */
+.hero-gradient {
+  background: linear-gradient(to bottom, var(--color-clara-bg), #F0F7FA, #E8F1F5);
+}
+.dark .hero-gradient {
+  background: linear-gradient(to bottom, var(--color-clara-bg), #1E2240, #1A2545);
+}
+
+/* Voice arc decorative — dark mode */
+.dark .voice-arc-decorative {
+  opacity: 0.08;
+}
+
+/* SVG stroke override — decorative illustrations adapt to dark palette */
+.dark svg [stroke="#1B5E7B"] { stroke: #6BBFE0; }
+.dark svg [stroke="#2E7D4F"] { stroke: #6EC08D; }
+.dark svg [stroke="#D46A1E"] { stroke: #E8934E; }
+.dark svg [fill="#1B5E7B"] { fill: #6BBFE0; }
+
+/* Gradient utility — brand blue gradient adapts to dark mode */
+.brand-gradient {
+  background: linear-gradient(135deg, #1B5E7B, #134a5f);
+}
+.dark .brand-gradient {
+  background: linear-gradient(135deg, #6BBFE0, #5BB0D4);
+}
+
+/* CTA dark gradient — decorative section background */
+.cta-dark-gradient {
+  background: linear-gradient(to bottom, #0f1419, rgba(27,94,123,0.2), #0f1419);
+}
+.dark .cta-dark-gradient {
+  background: linear-gradient(to bottom, #12122A, rgba(107,191,224,0.15), #12122A);
+}
+
+/* ══════════════════════════════════════════════════════════════════════ */
+/*  FINAL POLISH: Atmospheric depth, placeholders, subtle details       */
+/*  Civic Meridians: "night sky holding infinite structure"             */
+/* ══════════════════════════════════════════════════════════════════════ */
+
+/* Placeholder text — more visible in dark mode */
+.dark ::placeholder {
+  color: var(--color-clara-text-secondary);
+  opacity: 0.55;
+}
+
+/* Atmospheric body glow — teal + amber halos (Civic Meridians "luminous pathways") */
+.dark body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(107, 191, 224, 0.025) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(232, 147, 78, 0.015) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Selection color — brand blue tint in dark mode */
+.dark ::selection {
+  background: rgba(107, 191, 224, 0.3);
+  color: #FFFFFF;
+}
+
+/* Scrollbar — subtle in dark mode */
+.dark ::-webkit-scrollbar { width: 8px; }
+.dark ::-webkit-scrollbar-track { background: transparent; }
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 

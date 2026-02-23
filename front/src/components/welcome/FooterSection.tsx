@@ -10,14 +10,14 @@ export default function FooterSection({ lang }: FooterSectionProps) {
   const t = FOOTER_SECTION[lang];
 
   return (
-    <footer className="relative w-full bg-white dark:bg-[#1a1f26]">
+    <footer className="relative w-full bg-clara-card">
       {/* Wave separator */}
       <div className="section-wave" aria-hidden="true">
         <svg viewBox="0 0 1200 48" preserveAspectRatio="none">
           <path
             d="M0 24 C 200 0, 400 48, 600 24 C 800 0, 1000 48, 1200 24 L1200 48 L0 48 Z"
             fill="currentColor"
-            className="text-white dark:text-[#1a1f26]"
+            className="text-clara-card"
           />
         </svg>
       </div>

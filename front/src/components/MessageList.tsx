@@ -92,10 +92,7 @@ export default function MessageList({
             })}
           >
             {/* Texto del mensaje — leading-relaxed para legibilidad, balance en Clara */}
-            <p
-              className="whitespace-pre-wrap leading-relaxed"
-              style={msg.sender === "clara" ? { textWrap: "balance" } : undefined}
-            >
+            <p className="whitespace-pre-wrap leading-relaxed">
               {msg.text}
             </p>
 
@@ -105,7 +102,7 @@ export default function MessageList({
                 onClick={onRetry}
                 className="mt-3 px-4 py-2 bg-clara-blue text-white rounded-lg
                            text-label font-medium min-h-touch-sm
-                           hover:bg-[#164d66] transition-colors duration-150
+                           hover:bg-[var(--color-clara-blue-hover)] transition-colors duration-150
                            focus:outline focus:outline-[3px] focus:outline-clara-blue focus:outline-offset-2"
               >
                 {msg.error.actionLabel}

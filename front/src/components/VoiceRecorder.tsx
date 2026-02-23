@@ -301,7 +301,7 @@ export default function VoiceRecorder({
         className="w-touch-lg h-touch-lg rounded-full flex items-center justify-center mb-10
                    focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-clara-blue focus-visible:outline-offset-2"
         style={{
-          backgroundColor: isRecording ? "#C62828" : "#1B5E7B",
+          backgroundColor: isRecording ? "var(--color-clara-error)" : "var(--color-clara-blue)",
           transition: "background-color 300ms cubic-bezier(0.16, 1, 0.3, 1)",
           animation: isRecording
             ? "gentlePulse 2s ease-in-out infinite"
@@ -325,7 +325,7 @@ export default function VoiceRecorder({
         <button
           onClick={handleCancel}
           aria-label={t.cancel}
-          className="flex-1 h-touch bg-white border-2 border-clara-border rounded-xl
+          className="flex-1 h-touch bg-clara-card border-2 border-clara-border rounded-xl
                      text-button font-medium text-clara-text-secondary
                      hover:border-clara-text hover:text-clara-text
                      transition-colors duration-150
@@ -338,7 +338,7 @@ export default function VoiceRecorder({
             onClick={handleSend}
             aria-label={t.send}
             className="flex-1 h-touch bg-clara-green text-white rounded-xl
-                       text-button font-medium hover:bg-[#256940]
+                       text-button font-medium hover:bg-[var(--color-clara-green-hover)]
                        transition-colors duration-150
                        focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-clara-green focus-visible:outline-offset-2"
           >
@@ -357,7 +357,7 @@ export default function VoiceRecorder({
             <button
               onClick={() => void start()}
               className="px-4 min-h-touch-sm bg-clara-blue text-white rounded-lg
-                         text-body-sm font-medium hover:bg-[#164d66]
+                         text-body-sm font-medium hover:bg-[var(--color-clara-blue-hover)]
                          transition-colors duration-150
                          focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-clara-blue focus-visible:outline-offset-2"
             >

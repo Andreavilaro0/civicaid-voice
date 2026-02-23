@@ -30,10 +30,10 @@ function useInView(threshold = 0.1) {
 
 /* ── Status badge colors (reused across languages) ── */
 const STATUS_COLORS: Record<string, { bg: string; text: string; border: string }> = {
-  green: { bg: "rgba(46,125,79,0.08)", text: "#2E7D4F", border: "#2E7D4F" },
-  blue: { bg: "rgba(27,94,123,0.08)", text: "#1B5E7B", border: "#1B5E7B" },
-  orange: { bg: "rgba(212,106,30,0.08)", text: "#D46A1E", border: "#D46A1E" },
-  muted: { bg: "rgba(74,74,90,0.06)", text: "#4A4A5A", border: "#4A4A5A" },
+  green: { bg: "rgba(var(--clara-green-rgb),0.08)", text: "var(--color-clara-green)", border: "var(--color-clara-green)" },
+  blue: { bg: "rgba(var(--clara-blue-rgb),0.08)", text: "var(--color-clara-blue)", border: "var(--color-clara-blue)" },
+  orange: { bg: "rgba(var(--clara-orange-rgb),0.08)", text: "var(--color-clara-orange)", border: "var(--color-clara-orange)" },
+  muted: { bg: "rgba(74,74,90,0.06)", text: "var(--color-clara-text-secondary)", border: "var(--color-clara-text-secondary)" },
 };
 const STATUS_ORDER = ["green", "blue", "orange", "muted"] as const;
 
@@ -104,7 +104,7 @@ function FuturoContent({ lang }: { lang: Language }) {
         </div>
 
         <h2
-          className="font-display font-bold text-clara-text dark:text-[#e8e8ee] leading-tight"
+          className="font-display font-bold text-clara-text leading-tight"
           style={{
             fontSize: "clamp(26px, 5vw, 36px)",
             letterSpacing: "-0.02em",
@@ -117,7 +117,7 @@ function FuturoContent({ lang }: { lang: Language }) {
         </h2>
 
         <p
-          className="text-clara-text-secondary dark:text-[#a0a0b0] leading-relaxed"
+          className="text-clara-text-secondary leading-relaxed"
           style={{
             fontSize: "clamp(16px, 2.5vw, 19px)",
             maxWidth: "48ch",
@@ -132,7 +132,7 @@ function FuturoContent({ lang }: { lang: Language }) {
       {/* ══ Roadmap — benefit-first cards (Guide + Plan) ══ */}
       <div ref={roadmapView.ref} className="flex flex-col gap-3">
         <h3
-          className="font-display font-bold text-clara-text dark:text-[#e8e8ee] text-center mb-4"
+          className="font-display font-bold text-clara-text text-center mb-4"
           style={{
             fontSize: "clamp(22px, 4vw, 28px)",
             opacity: roadmapView.visible ? 1 : 0,
@@ -150,11 +150,11 @@ function FuturoContent({ lang }: { lang: Language }) {
               <div
                 key={item.title}
                 style={{
-                  background: "white",
+                  background: "var(--color-clara-card)",
                   borderRadius: "20px",
                   borderLeft: `4px solid ${colors.border}`,
                   padding: "clamp(20px, 3vw, 28px)",
-                  boxShadow: "0 2px 16px rgba(0,0,0,0.04), 0 0 0 1px rgba(27,94,123,0.04)",
+                  boxShadow: "0 2px 16px rgba(0,0,0,0.04), 0 0 0 1px rgba(var(--clara-blue-rgb),0.04)",
                   opacity: roadmapView.visible ? 1 : 0,
                   transform: roadmapView.visible ? "translateY(0)" : "translateY(20px)",
                   transition: `opacity 0.6s ease-out ${150 + i * 120}ms, transform 0.6s cubic-bezier(0.22,1,0.36,1) ${150 + i * 120}ms`,
@@ -173,7 +173,7 @@ function FuturoContent({ lang }: { lang: Language }) {
 
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-2 flex-wrap">
-                      <h4 className="font-display font-bold text-clara-text dark:text-[#e8e8ee]" style={{ fontSize: "clamp(17px, 2.5vw, 20px)" }}>
+                      <h4 className="font-display font-bold text-clara-text" style={{ fontSize: "clamp(17px, 2.5vw, 20px)" }}>
                         {item.title}
                       </h4>
                       <span
@@ -191,7 +191,7 @@ function FuturoContent({ lang }: { lang: Language }) {
                       </span>
                     </div>
                     <p
-                      className="text-clara-text-secondary dark:text-[#a0a0b0] leading-relaxed"
+                      className="text-clara-text-secondary leading-relaxed"
                       style={{ fontSize: "clamp(15px, 2vw, 17px)", margin: 0 }}
                     >
                       {item.benefit}
@@ -219,7 +219,7 @@ function FuturoContent({ lang }: { lang: Language }) {
         />
 
         <h3
-          className="font-display font-bold text-clara-text dark:text-[#e8e8ee]"
+          className="font-display font-bold text-clara-text"
           style={{
             fontSize: "clamp(22px, 4.5vw, 30px)",
             opacity: vision.visible ? 1 : 0,
@@ -231,7 +231,7 @@ function FuturoContent({ lang }: { lang: Language }) {
         </h3>
 
         <p
-          className="text-clara-text-secondary dark:text-[#a0a0b0] leading-relaxed"
+          className="text-clara-text-secondary leading-relaxed"
           style={{
             fontSize: "clamp(16px, 2.5vw, 19px)",
             maxWidth: "44ch",
@@ -247,7 +247,7 @@ function FuturoContent({ lang }: { lang: Language }) {
       {/* ══ CTA — call to action (SB7 #5) ══ */}
       <div ref={cta.ref} className="flex flex-col items-center gap-4 text-center py-4">
         <h3
-          className="font-display font-bold text-clara-text dark:text-[#e8e8ee]"
+          className="font-display font-bold text-clara-text"
           style={{
             fontSize: "clamp(22px, 5vw, 30px)",
             opacity: cta.visible ? 1 : 0,
@@ -257,7 +257,7 @@ function FuturoContent({ lang }: { lang: Language }) {
           {t.cta_headline}
         </h3>
         <p
-          className="text-clara-text-secondary dark:text-[#a0a0b0]"
+          className="text-clara-text-secondary"
           style={{
             fontSize: "clamp(15px, 2vw, 18px)",
             maxWidth: "40ch",
@@ -269,14 +269,13 @@ function FuturoContent({ lang }: { lang: Language }) {
         </p>
         <button
           onClick={() => navigate(`/chat?lang=${lang}`)}
-          className="font-display font-bold text-white rounded-full
+          className="brand-gradient font-display font-bold text-white rounded-full
                      focus-visible:outline focus-visible:outline-[3px]
                      focus-visible:outline-clara-blue focus-visible:outline-offset-2"
           style={{
-            background: "linear-gradient(135deg, #1B5E7B, #134a5f)",
             padding: "14px 36px",
             fontSize: 18,
-            boxShadow: "0 4px 20px rgba(27,94,123,0.3)",
+            boxShadow: "0 4px 20px rgba(var(--clara-blue-rgb),0.3)",
             opacity: cta.visible ? 1 : 0,
             transform: cta.visible ? "scale(1)" : "scale(0.9)",
             transition: "opacity 0.5s ease-out 0.2s, transform 0.5s cubic-bezier(0.22,1,0.36,1) 0.2s",

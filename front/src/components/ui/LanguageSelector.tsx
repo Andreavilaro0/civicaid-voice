@@ -44,7 +44,7 @@ export default function LanguageSelector({
             border-2 transition-colors duration-150
             ${selected === lang.code
               ? "border-clara-blue bg-clara-info text-clara-blue"
-              : "border-clara-border bg-white text-clara-text-secondary"
+              : "border-clara-border bg-clara-card text-clara-text-secondary"
             }
           `}
         >

@@ -224,7 +224,7 @@ export default function AudioPlayer({ src, language, autoPlay }: AudioPlayerProp
         aria-label={playButtonLabel}
         className="min-w-[48px] min-h-[48px] flex items-center justify-center
                    bg-clara-green text-white rounded-full shrink-0
-                   hover:bg-[#256B42] active:scale-95
+                   hover:bg-[var(--color-clara-green-hover)] active:scale-95
                    transition-[background-color,transform] duration-150
                    [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]
                    focus-visible:outline focus-visible:outline-[3px]

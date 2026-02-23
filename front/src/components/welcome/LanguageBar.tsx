@@ -37,7 +37,7 @@ export default function LanguageBar({ lang, onChangeLang }: LanguageBarProps) {
             ${
               lang === l.code
                 ? "bg-clara-blue text-white border-clara-blue"
-                : "bg-white dark:bg-[#1a1f26] text-clara-text-secondary border-clara-border dark:border-[#2a2f36] hover:border-clara-blue/40"
+                : "bg-clara-card text-clara-text-secondary border-clara-border hover:border-clara-blue/40"
             }
           `}
         >

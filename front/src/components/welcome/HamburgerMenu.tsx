@@ -1,6 +1,7 @@
 import { useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import type { Language } from "@/lib/types";
+import { ThemeToggleFull } from "@/components/ui/ThemeToggle";
 
 interface MenuItem {
   href: string;
@@ -61,16 +62,16 @@ export default function HamburgerMenu({ isOpen, onClose, items, lang }: Hamburge
       <div
         ref={panelRef}
         className="menu-panel absolute top-0 start-0 h-full w-[300px] max-w-[80vw]
-                   bg-white dark:bg-[#1a1f26] shadow-2xl flex flex-col"
+                   bg-clara-card shadow-2xl flex flex-col"
         style={{ animation: "menuSlideIn 0.25s ease-out" }}
       >
-        <div className="flex items-center justify-between p-4 border-b border-clara-border dark:border-[#2a2f36]">
+        <div className="flex items-center justify-between p-4 border-b border-clara-border">
           <span className="font-display font-bold text-h2 text-clara-blue">Clara</span>
           <button
             onClick={onClose}
             aria-label="Cerrar menu"
             className="w-touch-sm h-touch-sm flex items-center justify-center rounded-xl
-                       hover:bg-clara-card dark:hover:bg-[#2a2f36] transition-colors
+                       hover:bg-clara-hover transition-colors
                        focus-visible:outline focus-visible:outline-[3px]
                        focus-visible:outline-clara-blue focus-visible:outline-offset-2"
           >
@@ -81,6 +82,9 @@ export default function HamburgerMenu({ isOpen, onClose, items, lang }: Hamburge
             </svg>
           </button>
         </div>
+        <div className="px-4 py-3 border-b border-clara-border">
+          <ThemeToggleFull />
+        </div>
         <nav className="flex-1 p-4">
           <ul className="flex flex-col gap-2">
             {items.map((item, i) => (
@@ -90,8 +94,8 @@ export default function HamburgerMenu({ isOpen, onClose, items, lang }: Hamburge
                   to={`${item.href}?lang=${lang}`}
                   onClick={onClose}
                   className="flex items-center gap-3 px-4 py-3 min-h-touch-sm
-                             rounded-xl text-body text-clara-text dark:text-[#e8e8ee]
-                             hover:bg-clara-card dark:hover:bg-[#2a2f36] transition-colors
+                             rounded-xl text-body text-clara-text
+                             hover:bg-clara-hover transition-colors
                              focus-visible:outline focus-visible:outline-[3px]
                              focus-visible:outline-clara-blue focus-visible:outline-offset-2"
                 >
@@ -101,13 +105,13 @@ export default function HamburgerMenu({ isOpen, onClose, items, lang }: Hamburge
             ))}
           </ul>
         </nav>
-        <div className="p-4 border-t border-clara-border dark:border-[#2a2f36]">
+        <div className="p-4 border-t border-clara-border">
           <Link
             to={`/?lang=${lang}`}
             onClick={onClose}
             className="flex items-center gap-2 px-4 py-3 min-h-touch-sm
                        rounded-xl text-body-sm text-clara-text-secondary
-                       hover:bg-clara-card dark:hover:bg-[#2a2f36] transition-colors
+                       hover:bg-clara-hover transition-colors
                        focus-visible:outline focus-visible:outline-[3px]
                        focus-visible:outline-clara-blue focus-visible:outline-offset-2"
           >

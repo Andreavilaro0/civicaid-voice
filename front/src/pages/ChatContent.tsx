@@ -14,8 +14,10 @@ export default function ChatContent() {
   const [searchParams] = useSearchParams();
   const VALID_LANGS: Language[] = ["es", "en", "fr", "pt", "ro", "ca", "zh", "ar"];
   const rawLang = searchParams.get("lang");
+  const rawMode = searchParams.get("mode");       // "voice" | "text" | null
+  const rawTopic = searchParams.get("topic");     // text from homepage PromptBar
   const initialLang: Language = VALID_LANGS.includes(rawLang as Language) ? (rawLang as Language) : "es";
-  const [voiceActive, setVoiceActive] = useState(false);
+  const [voiceActive, setVoiceActive] = useState(rawMode === "voice");
   const [documentActive, setDocumentActive] = useState(false);
   const [showQuickReplies, setShowQuickReplies] = useState(true);
   const { messages, isLoading, language, setLanguage, send, addWelcome, retryLast, getLoadingMessage } = useChat(initialLang);
@@ -23,6 +25,15 @@ export default function ChatContent() {
   const prevMsgCountRef = useRef(messages.length);
 
   useEffect(() => { addWelcome(); }, [addWelcome]);
+
+  // Auto-send topic text from homepage PromptBar/SuggestionChips
+  const topicSentRef = useRef(false);
+  useEffect(() => {
+    if (rawTopic && !topicSentRef.current && messages.length > 0) {
+      topicSentRef.current = true;
+      send(rawTopic);
+    }
+  }, [rawTopic, send, messages.length]);
 
   // Sync mascot state with chat loading
   useEffect(() => {

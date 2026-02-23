@@ -67,19 +67,19 @@ export default function ChatInput({
     <div
       className={[
         "sticky bottom-0 px-4 py-3",
-        "bg-white/80 dark:bg-[#0f1419]/80",
+        "bg-clara-bg/80",
         "backdrop-blur-lg",
-        "border-t border-clara-border/50 dark:border-[#2a2f36]/50",
+        "border-t border-clara-border/50",
       ].join(" ")}
     >
       <form
         onSubmit={handleSubmit}
         className={[
-          "flex items-center",
-          "border-2 border-clara-border dark:border-[#2a2f36]",
+          "chat-form flex items-center",
+          "border-2 border-clara-border",
           "rounded-2xl",
           "transition-[border-color,box-shadow] duration-150",
-          "focus-within:border-clara-blue focus-within:shadow-[0_0_0_3px_rgba(27,94,123,0.1)]",
+          "focus-within:border-clara-blue focus-within:shadow-[0_0_0_3px_rgba(var(--clara-blue-rgb),0.1)]",
           disabled ? "opacity-50" : "",
         ].join(" ")}
       >
@@ -140,7 +140,7 @@ export default function ChatInput({
               "w-10 h-10 mr-1",
               "rounded-xl",
               "bg-clara-blue text-white",
-              "hover:bg-[#164d66]",
+              "hover:bg-[var(--color-clara-blue-hover)]",
               "transition-colors duration-150",
               "disabled:cursor-not-allowed disabled:opacity-50",
             ].join(" ")}

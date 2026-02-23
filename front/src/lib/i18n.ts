@@ -479,41 +479,49 @@ export const MENU_ITEMS: Record<Language, { href: string; label: string }[]> = {
     { href: "/como-usar", label: "Cómo usar Clara" },
     { href: "/quienes-somos", label: "Quiénes somos" },
     { href: "/futuro", label: "El futuro de Clara" },
+    { href: "/info-legal", label: "Info legal" },
   ],
   en: [
     { href: "/como-usar", label: "How to use Clara" },
     { href: "/quienes-somos", label: "About us" },
     { href: "/futuro", label: "The future of Clara" },
+    { href: "/info-legal", label: "Legal info" },
   ],
   fr: [
     { href: "/como-usar", label: "Comment utiliser Clara" },
     { href: "/quienes-somos", label: "Qui sommes-nous" },
     { href: "/futuro", label: "L'avenir de Clara" },
+    { href: "/info-legal", label: "Infos légales" },
   ],
   pt: [
     { href: "/como-usar", label: "Como usar Clara" },
     { href: "/quienes-somos", label: "Quem somos" },
     { href: "/futuro", label: "O futuro da Clara" },
+    { href: "/info-legal", label: "Info legal" },
   ],
   ro: [
     { href: "/como-usar", label: "Cum folosești Clara" },
     { href: "/quienes-somos", label: "Cine suntem" },
     { href: "/futuro", label: "Viitorul Clarei" },
+    { href: "/info-legal", label: "Info legale" },
   ],
   ca: [
     { href: "/como-usar", label: "Com usar Clara" },
     { href: "/quienes-somos", label: "Qui som" },
     { href: "/futuro", label: "El futur de Clara" },
+    { href: "/info-legal", label: "Info legal" },
   ],
   zh: [
     { href: "/como-usar", label: "如何使用Clara" },
     { href: "/quienes-somos", label: "关于我们" },
     { href: "/futuro", label: "Clara的未来" },
+    { href: "/info-legal", label: "法律信息" },
   ],
   ar: [
     { href: "/como-usar", label: "كيف تستخدم كلارا" },
     { href: "/quienes-somos", label: "من نحن" },
     { href: "/futuro", label: "مستقبل كلارا" },
+    { href: "/info-legal", label: "المعلومات القانونية" },
   ],
 };
 
@@ -840,6 +848,7 @@ export const FOOTER_SECTION: Record<Language, {
       { href: "/como-usar", label: "Cómo usar" },
       { href: "/quienes-somos", label: "Quiénes somos" },
       { href: "/futuro", label: "Futuro" },
+      { href: "/info-legal", label: "Info legal" },
     ],
   },
   en: {
@@ -848,6 +857,7 @@ export const FOOTER_SECTION: Record<Language, {
       { href: "/como-usar", label: "How to use" },
       { href: "/quienes-somos", label: "About us" },
       { href: "/futuro", label: "Future" },
+      { href: "/info-legal", label: "Legal info" },
     ],
   },
   fr: {
@@ -856,6 +866,7 @@ export const FOOTER_SECTION: Record<Language, {
       { href: "/como-usar", label: "Comment utiliser" },
       { href: "/quienes-somos", label: "Qui sommes-nous" },
       { href: "/futuro", label: "Avenir" },
+      { href: "/info-legal", label: "Infos légales" },
     ],
   },
   pt: {
@@ -864,6 +875,7 @@ export const FOOTER_SECTION: Record<Language, {
       { href: "/como-usar", label: "Como usar" },
       { href: "/quienes-somos", label: "Quem somos" },
       { href: "/futuro", label: "Futuro" },
+      { href: "/info-legal", label: "Info legal" },
     ],
   },
   ro: {
@@ -872,6 +884,7 @@ export const FOOTER_SECTION: Record<Language, {
       { href: "/como-usar", label: "Cum folosești" },
       { href: "/quienes-somos", label: "Cine suntem" },
       { href: "/futuro", label: "Viitor" },
+      { href: "/info-legal", label: "Info legale" },
     ],
   },
   ca: {
@@ -880,6 +893,7 @@ export const FOOTER_SECTION: Record<Language, {
       { href: "/como-usar", label: "Com usar" },
       { href: "/quienes-somos", label: "Qui som" },
       { href: "/futuro", label: "Futur" },
+      { href: "/info-legal", label: "Info legal" },
     ],
   },
   zh: {
@@ -888,6 +902,7 @@ export const FOOTER_SECTION: Record<Language, {
       { href: "/como-usar", label: "如何使用" },
       { href: "/quienes-somos", label: "关于我们" },
       { href: "/futuro", label: "未来" },
+      { href: "/info-legal", label: "法律信息" },
     ],
   },
   ar: {
@@ -896,6 +911,7 @@ export const FOOTER_SECTION: Record<Language, {
       { href: "/como-usar", label: "كيف تستخدم" },
       { href: "/quienes-somos", label: "من نحن" },
       { href: "/futuro", label: "المستقبل" },
+      { href: "/info-legal", label: "المعلومات القانونية" },
     ],
   },
 };
@@ -1528,40 +1544,607 @@ export const SUB_PAGE_TITLES: Record<Language, Record<string, string>> = {
     "como-usar": "Cómo usar Clara",
     "quienes-somos": "Quiénes somos",
     "futuro": "El futuro de Clara",
+    "info-legal": "Info legal",
   },
   en: {
     "como-usar": "How to use Clara",
     "quienes-somos": "About us",
     "futuro": "The future of Clara",
+    "info-legal": "Legal info",
   },
   fr: {
     "como-usar": "Comment utiliser Clara",
     "quienes-somos": "Qui sommes-nous",
     "futuro": "L'avenir de Clara",
+    "info-legal": "Infos légales",
   },
   pt: {
     "como-usar": "Como usar Clara",
     "quienes-somos": "Quem somos",
     "futuro": "O futuro da Clara",
+    "info-legal": "Info legal",
   },
   ro: {
     "como-usar": "Cum folosești Clara",
     "quienes-somos": "Cine suntem",
     "futuro": "Viitorul Clarei",
+    "info-legal": "Info legale",
   },
   ca: {
     "como-usar": "Com usar Clara",
     "quienes-somos": "Qui som",
     "futuro": "El futur de Clara",
+    "info-legal": "Info legal",
   },
   zh: {
     "como-usar": "如何使用Clara",
     "quienes-somos": "关于我们",
     "futuro": "Clara的未来",
+    "info-legal": "法律信息",
   },
   ar: {
     "como-usar": "كيف تستخدم كلارا",
     "quienes-somos": "من نحن",
     "futuro": "مستقبل كلارا",
+    "info-legal": "المعلومات القانونية",
+  },
+};
+
+/* ------------------------------------------------------------------ */
+/*  Legal page — EU AI Act Art. 50 + GDPR transparency                */
+/* ------------------------------------------------------------------ */
+
+export const LEGAL_PAGE: Record<Language, {
+  intro: string;
+  last_updated: string;
+  sections: {
+    icon: string;
+    heading: string;
+    paragraphs: string[];
+  }[];
+}> = {
+  es: {
+    intro: "Clara se compromete con la transparencia. Aqui explicamos como funciona nuestra inteligencia artificial y como protegemos tus datos.",
+    last_updated: "Ultima actualizacion: febrero 2026",
+    sections: [
+      {
+        icon: "ai",
+        heading: "Clara es inteligencia artificial",
+        paragraphs: [
+          "Soy un sistema de inteligencia artificial, no una persona. Mis respuestas son generadas automaticamente por modelos de lenguaje.",
+          "La informacion que proporciono es orientativa y no sustituye el asesoramiento profesional de abogados, trabajadores sociales u organismos oficiales.",
+          "Un equipo humano supervisa mi funcionamiento y actualiza mi base de conocimiento periodicamente.",
+        ],
+      },
+      {
+        icon: "data",
+        heading: "Que datos procesamos",
+        paragraphs: [
+          "Procesamos el texto y audio que nos envias unicamente para generar respuestas a tus consultas.",
+          "No almacenamos documentos de identidad (DNI, NIE, pasaporte) ni datos bancarios.",
+          "Las sesiones de conversacion son temporales y no se vinculan a perfiles permanentes.",
+        ],
+      },
+      {
+        icon: "services",
+        heading: "Servicios de terceros",
+        paragraphs: [
+          "Utilizamos Google (Gemini) para procesamiento de lenguaje, ElevenLabs para sintesis de voz, y Meta para la comunicacion por WhatsApp.",
+          "Solo compartimos los datos minimos necesarios para que estos servicios funcionen.",
+          "Puedes consultar sus politicas de privacidad en sus respectivos sitios web.",
+        ],
+      },
+      {
+        icon: "clock",
+        heading: "Conservacion de datos",
+        paragraphs: [
+          "El audio que envias se procesa de forma transitoria y no se almacena permanentemente.",
+          "No creamos perfiles permanentes de usuarios ni historiales de conversacion a largo plazo.",
+          "No utilizamos cookies de seguimiento ni tecnologias de rastreo publicitario.",
+        ],
+      },
+      {
+        icon: "rights",
+        heading: "Tus derechos",
+        paragraphs: [
+          "Puedes dejar de usar Clara en cualquier momento sin necesidad de justificacion.",
+          "Tienes derecho a solicitar informacion sobre el tratamiento de tus datos.",
+          "Puedes reclamar ante la Agencia Espanola de Proteccion de Datos (AEPD) si consideras que tus derechos han sido vulnerados.",
+        ],
+      },
+      {
+        icon: "handshake",
+        heading: "Consentimiento",
+        paragraphs: [
+          "Al usar Clara, aceptas el procesamiento de datos descrito en esta pagina para poder ofrecerte respuestas.",
+          "Puedes retirar tu consentimiento en cualquier momento simplemente dejando de usar el servicio.",
+        ],
+      },
+      {
+        icon: "shield",
+        heading: "Proteccion especial",
+        paragraphs: [
+          "Clara esta disenada pensando en personas en situacion de vulnerabilidad.",
+          "No realizamos perfilado de usuarios ni tomamos decisiones automatizadas con efectos legales.",
+          "Nuestro desarrollo sigue los principios de OdiseIA4Good para una IA responsable e inclusiva.",
+        ],
+      },
+    ],
+  },
+  en: {
+    intro: "Clara is committed to transparency. Here we explain how our artificial intelligence works and how we protect your data.",
+    last_updated: "Last updated: February 2026",
+    sections: [
+      {
+        icon: "ai",
+        heading: "Clara is artificial intelligence",
+        paragraphs: [
+          "I am an artificial intelligence system, not a person. My responses are automatically generated by language models.",
+          "The information I provide is for guidance only and does not replace professional advice from lawyers, social workers, or official bodies.",
+          "A human team oversees my operation and periodically updates my knowledge base.",
+        ],
+      },
+      {
+        icon: "data",
+        heading: "What data we process",
+        paragraphs: [
+          "We process the text and audio you send us solely to generate responses to your queries.",
+          "We do not store identity documents (DNI, NIE, passport) or banking details.",
+          "Conversation sessions are temporary and are not linked to permanent profiles.",
+        ],
+      },
+      {
+        icon: "services",
+        heading: "Third-party services",
+        paragraphs: [
+          "We use Google (Gemini) for language processing, ElevenLabs for voice synthesis, and Meta for WhatsApp communication.",
+          "We only share the minimum data necessary for these services to function.",
+          "You can consult their privacy policies on their respective websites.",
+        ],
+      },
+      {
+        icon: "clock",
+        heading: "Data retention",
+        paragraphs: [
+          "Audio you send is processed transiently and is not permanently stored.",
+          "We do not create permanent user profiles or long-term conversation histories.",
+          "We do not use tracking cookies or advertising tracking technologies.",
+        ],
+      },
+      {
+        icon: "rights",
+        heading: "Your rights",
+        paragraphs: [
+          "You can stop using Clara at any time without needing to justify it.",
+          "You have the right to request information about the processing of your data.",
+          "You can file a complaint with the Spanish Data Protection Agency (AEPD) if you believe your rights have been violated.",
+        ],
+      },
+      {
+        icon: "handshake",
+        heading: "Consent",
+        paragraphs: [
+          "By using Clara, you accept the data processing described on this page in order to receive responses.",
+          "You can withdraw your consent at any time simply by stopping use of the service.",
+        ],
+      },
+      {
+        icon: "shield",
+        heading: "Special protection",
+        paragraphs: [
+          "Clara is designed with vulnerable people in mind.",
+          "We do not profile users or make automated decisions with legal effects.",
+          "Our development follows OdiseIA4Good principles for responsible and inclusive AI.",
+        ],
+      },
+    ],
+  },
+  fr: {
+    intro: "Clara s'engage pour la transparence. Nous expliquons ici comment fonctionne notre intelligence artificielle et comment nous protegeons vos donnees.",
+    last_updated: "Derniere mise a jour : fevrier 2026",
+    sections: [
+      {
+        icon: "ai",
+        heading: "Clara est une intelligence artificielle",
+        paragraphs: [
+          "Je suis un systeme d'intelligence artificielle, pas une personne. Mes reponses sont generees automatiquement par des modeles de langage.",
+          "Les informations que je fournis sont indicatives et ne remplacent pas les conseils professionnels d'avocats, de travailleurs sociaux ou d'organismes officiels.",
+          "Une equipe humaine supervise mon fonctionnement et met a jour ma base de connaissances periodiquement.",
+        ],
+      },
+      {
+        icon: "data",
+        heading: "Quelles donnees nous traitons",
+        paragraphs: [
+          "Nous traitons le texte et l'audio que vous nous envoyez uniquement pour generer des reponses a vos questions.",
+          "Nous ne stockons pas les documents d'identite (DNI, NIE, passeport) ni les coordonnees bancaires.",
+          "Les sessions de conversation sont temporaires et ne sont pas liees a des profils permanents.",
+        ],
+      },
+      {
+        icon: "services",
+        heading: "Services tiers",
+        paragraphs: [
+          "Nous utilisons Google (Gemini) pour le traitement du langage, ElevenLabs pour la synthese vocale, et Meta pour la communication WhatsApp.",
+          "Nous ne partageons que les donnees minimales necessaires au fonctionnement de ces services.",
+          "Vous pouvez consulter leurs politiques de confidentialite sur leurs sites respectifs.",
+        ],
+      },
+      {
+        icon: "clock",
+        heading: "Conservation des donnees",
+        paragraphs: [
+          "L'audio que vous envoyez est traite de maniere transitoire et n'est pas stocke de maniere permanente.",
+          "Nous ne creons pas de profils d'utilisateurs permanents ni d'historiques de conversation a long terme.",
+          "Nous n'utilisons pas de cookies de suivi ni de technologies de tracage publicitaire.",
+        ],
+      },
+      {
+        icon: "rights",
+        heading: "Vos droits",
+        paragraphs: [
+          "Vous pouvez cesser d'utiliser Clara a tout moment sans avoir a vous justifier.",
+          "Vous avez le droit de demander des informations sur le traitement de vos donnees.",
+          "Vous pouvez deposer une plainte aupres de l'Agence espagnole de protection des donnees (AEPD) si vous estimez que vos droits ont ete violes.",
+        ],
+      },
+      {
+        icon: "handshake",
+        heading: "Consentement",
+        paragraphs: [
+          "En utilisant Clara, vous acceptez le traitement des donnees decrit sur cette page afin de recevoir des reponses.",
+          "Vous pouvez retirer votre consentement a tout moment en cessant simplement d'utiliser le service.",
+        ],
+      },
+      {
+        icon: "shield",
+        heading: "Protection speciale",
+        paragraphs: [
+          "Clara est concue en pensant aux personnes en situation de vulnerabilite.",
+          "Nous ne profilons pas les utilisateurs et ne prenons pas de decisions automatisees ayant des effets juridiques.",
+          "Notre developpement suit les principes d'OdiseIA4Good pour une IA responsable et inclusive.",
+        ],
+      },
+    ],
+  },
+  pt: {
+    intro: "Clara compromete-se com a transparencia. Aqui explicamos como funciona a nossa inteligencia artificial e como protegemos os teus dados.",
+    last_updated: "Ultima atualizacao: fevereiro 2026",
+    sections: [
+      {
+        icon: "ai",
+        heading: "Clara e inteligencia artificial",
+        paragraphs: [
+          "Sou um sistema de inteligencia artificial, nao uma pessoa. As minhas respostas sao geradas automaticamente por modelos de linguagem.",
+          "A informacao que forneco e orientativa e nao substitui o aconselhamento profissional de advogados, assistentes sociais ou organismos oficiais.",
+          "Uma equipa humana supervisiona o meu funcionamento e atualiza a minha base de conhecimento periodicamente.",
+        ],
+      },
+      {
+        icon: "data",
+        heading: "Que dados processamos",
+        paragraphs: [
+          "Processamos o texto e audio que nos envias unicamente para gerar respostas as tuas consultas.",
+          "Nao armazenamos documentos de identidade (DNI, NIE, passaporte) nem dados bancarios.",
+          "As sessoes de conversacao sao temporarias e nao estao vinculadas a perfis permanentes.",
+        ],
+      },
+      {
+        icon: "services",
+        heading: "Servicos de terceiros",
+        paragraphs: [
+          "Utilizamos Google (Gemini) para processamento de linguagem, ElevenLabs para sintese de voz, e Meta para comunicacao por WhatsApp.",
+          "So partilhamos os dados minimos necessarios para o funcionamento destes servicos.",
+          "Podes consultar as suas politicas de privacidade nos respetivos sites.",
+        ],
+      },
+      {
+        icon: "clock",
+        heading: "Conservacao de dados",
+        paragraphs: [
+          "O audio que envias e processado de forma transitoria e nao e armazenado permanentemente.",
+          "Nao criamos perfis permanentes de utilizadores nem historicos de conversacao a longo prazo.",
+          "Nao utilizamos cookies de rastreamento nem tecnologias de rastreio publicitario.",
+        ],
+      },
+      {
+        icon: "rights",
+        heading: "Os teus direitos",
+        paragraphs: [
+          "Podes deixar de usar Clara a qualquer momento sem necessidade de justificacao.",
+          "Tens o direito de solicitar informacao sobre o tratamento dos teus dados.",
+          "Podes reclamar junto da Agencia Espanhola de Protecao de Dados (AEPD) se consideras que os teus direitos foram violados.",
+        ],
+      },
+      {
+        icon: "handshake",
+        heading: "Consentimento",
+        paragraphs: [
+          "Ao usar Clara, aceitas o processamento de dados descrito nesta pagina para receber respostas.",
+          "Podes retirar o teu consentimento a qualquer momento simplesmente deixando de usar o servico.",
+        ],
+      },
+      {
+        icon: "shield",
+        heading: "Protecao especial",
+        paragraphs: [
+          "Clara foi desenhada a pensar em pessoas em situacao de vulnerabilidade.",
+          "Nao realizamos perfilagem de utilizadores nem tomamos decisoes automatizadas com efeitos legais.",
+          "O nosso desenvolvimento segue os principios da OdiseIA4Good para uma IA responsavel e inclusiva.",
+        ],
+      },
+    ],
+  },
+  ro: {
+    intro: "Clara se angajeaza pentru transparenta. Aici explicam cum functioneaza inteligenta noastra artificiala si cum protejam datele tale.",
+    last_updated: "Ultima actualizare: februarie 2026",
+    sections: [
+      {
+        icon: "ai",
+        heading: "Clara este inteligenta artificiala",
+        paragraphs: [
+          "Sunt un sistem de inteligenta artificiala, nu o persoana. Raspunsurile mele sunt generate automat de modele de limbaj.",
+          "Informatiile pe care le ofer sunt orientative si nu inlocuiesc consilierea profesionala a avocatilor, asistentilor sociali sau organismelor oficiale.",
+          "O echipa umana supravegheaza functionarea mea si actualizeaza periodic baza mea de cunostinte.",
+        ],
+      },
+      {
+        icon: "data",
+        heading: "Ce date procesam",
+        paragraphs: [
+          "Procesam textul si audio-ul pe care ni le trimiti exclusiv pentru a genera raspunsuri la intrebarile tale.",
+          "Nu stocam documente de identitate (DNI, NIE, pasaport) sau date bancare.",
+          "Sesiunile de conversatie sunt temporare si nu sunt legate de profiluri permanente.",
+        ],
+      },
+      {
+        icon: "services",
+        heading: "Servicii terte",
+        paragraphs: [
+          "Folosim Google (Gemini) pentru procesarea limbajului, ElevenLabs pentru sinteza vocala si Meta pentru comunicarea WhatsApp.",
+          "Partajam doar datele minime necesare functionarii acestor servicii.",
+          "Poti consulta politicile lor de confidentialitate pe site-urile respective.",
+        ],
+      },
+      {
+        icon: "clock",
+        heading: "Pastrarea datelor",
+        paragraphs: [
+          "Audio-ul pe care il trimiti este procesat tranzitoriu si nu este stocat permanent.",
+          "Nu cream profiluri permanente de utilizatori si nici istorice de conversatii pe termen lung.",
+          "Nu folosim cookie-uri de urmarire sau tehnologii de urmarire publicitara.",
+        ],
+      },
+      {
+        icon: "rights",
+        heading: "Drepturile tale",
+        paragraphs: [
+          "Poti inceta sa folosesti Clara oricand fara a fi nevoie de justificare.",
+          "Ai dreptul de a solicita informatii despre prelucrarea datelor tale.",
+          "Poti depune o plangere la Agentia Spaniola de Protectie a Datelor (AEPD) daca consideri ca drepturile tale au fost incalcate.",
+        ],
+      },
+      {
+        icon: "handshake",
+        heading: "Consimtamant",
+        paragraphs: [
+          "Prin utilizarea Clara, accepti prelucrarea datelor descrisa pe aceasta pagina pentru a primi raspunsuri.",
+          "Poti retrage consimtamantul oricand, pur si simplu incetand sa folosesti serviciul.",
+        ],
+      },
+      {
+        icon: "shield",
+        heading: "Protectie speciala",
+        paragraphs: [
+          "Clara este conceputa avand in vedere persoanele aflate in situatii vulnerabile.",
+          "Nu profilam utilizatorii si nu luam decizii automate cu efecte juridice.",
+          "Dezvoltarea noastra urmeaza principiile OdiseIA4Good pentru o IA responsabila si incluziva.",
+        ],
+      },
+    ],
+  },
+  ca: {
+    intro: "Clara es compromet amb la transparencia. Aqui expliquem com funciona la nostra intelligencia artificial i com protegim les teves dades.",
+    last_updated: "Ultima actualitzacio: febrer 2026",
+    sections: [
+      {
+        icon: "ai",
+        heading: "Clara es intelligencia artificial",
+        paragraphs: [
+          "Soc un sistema d'intelligencia artificial, no una persona. Les meves respostes son generades automaticament per models de llenguatge.",
+          "La informacio que proporciono es orientativa i no substitueix l'assessorament professional d'advocats, treballadors socials o organismes oficials.",
+          "Un equip huma supervisa el meu funcionament i actualitza la meva base de coneixement periodicament.",
+        ],
+      },
+      {
+        icon: "data",
+        heading: "Quines dades processem",
+        paragraphs: [
+          "Processem el text i l'audio que ens envies unicament per generar respostes a les teves consultes.",
+          "No emmagatzemem documents d'identitat (DNI, NIE, passaport) ni dades bancaries.",
+          "Les sessions de conversacio son temporals i no estan vinculades a perfils permanents.",
+        ],
+      },
+      {
+        icon: "services",
+        heading: "Serveis de tercers",
+        paragraphs: [
+          "Utilitzem Google (Gemini) per al processament del llenguatge, ElevenLabs per a la sintesi de veu, i Meta per a la comunicacio per WhatsApp.",
+          "Nomes compartim les dades minimes necessaries perque aquests serveis funcionin.",
+          "Pots consultar les seves politiques de privacitat als seus respectius llocs web.",
+        ],
+      },
+      {
+        icon: "clock",
+        heading: "Conservacio de dades",
+        paragraphs: [
+          "L'audio que envies es processa de manera transitoria i no s'emmagatzema permanentment.",
+          "No creem perfils permanents d'usuaris ni historials de conversacio a llarg termini.",
+          "No utilitzem galetes de seguiment ni tecnologies de rastrejament publicitari.",
+        ],
+      },
+      {
+        icon: "rights",
+        heading: "Els teus drets",
+        paragraphs: [
+          "Pots deixar d'utilitzar Clara en qualsevol moment sense necessitat de justificacio.",
+          "Tens dret a sollicitar informacio sobre el tractament de les teves dades.",
+          "Pots reclamar davant l'Agencia Espanyola de Proteccio de Dades (AEPD) si consideres que els teus drets han estat vulnerats.",
+        ],
+      },
+      {
+        icon: "handshake",
+        heading: "Consentiment",
+        paragraphs: [
+          "En utilitzar Clara, acceptes el processament de dades descrit en aquesta pagina per poder rebre respostes.",
+          "Pots retirar el teu consentiment en qualsevol moment simplement deixant d'utilitzar el servei.",
+        ],
+      },
+      {
+        icon: "shield",
+        heading: "Proteccio especial",
+        paragraphs: [
+          "Clara esta dissenyada pensant en persones en situacio de vulnerabilitat.",
+          "No realitzem perfilatge d'usuaris ni prenem decisions automatitzades amb efectes legals.",
+          "El nostre desenvolupament segueix els principis d'OdiseIA4Good per a una IA responsable i inclusiva.",
+        ],
+      },
+    ],
+  },
+  zh: {
+    intro: "Clara致力于透明度。在这里我们解释我们的人工智能如何工作以及我们如何保护您的数据。",
+    last_updated: "最后更新：2026年2月",
+    sections: [
+      {
+        icon: "ai",
+        heading: "Clara是人工智能",
+        paragraphs: [
+          "我是一个人工智能系统，不是真人。我的回答由语言模型自动生成。",
+          "我提供的信息仅供参考，不能替代律师、社工或官方机构的专业建议。",
+          "一个人工团队监督我的运行并定期更新我的知识库。",
+        ],
+      },
+      {
+        icon: "data",
+        heading: "我们处理哪些数据",
+        paragraphs: [
+          "我们处理您发送的文字和音频，仅用于生成对您咨询的回答。",
+          "我们不存储身份证件（DNI、NIE、护照）或银行信息。",
+          "对话会话是临时的，不会与永久个人资料关联。",
+        ],
+      },
+      {
+        icon: "services",
+        heading: "第三方服务",
+        paragraphs: [
+          "我们使用Google（Gemini）进行语言处理，ElevenLabs进行语音合成，Meta用于WhatsApp通信。",
+          "我们只共享这些服务运行所需的最少数据。",
+          "您可以在各自的网站上查阅它们的隐私政策。",
+        ],
+      },
+      {
+        icon: "clock",
+        heading: "数据保留",
+        paragraphs: [
+          "您发送的音频会被临时处理，不会被永久存储。",
+          "我们不创建永久用户档案或长期对话记录。",
+          "我们不使用跟踪cookie或广告跟踪技术。",
+        ],
+      },
+      {
+        icon: "rights",
+        heading: "您的权利",
+        paragraphs: [
+          "您可以随时停止使用Clara，无需任何理由。",
+          "您有权要求了解您的数据处理情况。",
+          "如果您认为您的权利受到侵犯，可以向西班牙数据保护局（AEPD）投诉。",
+        ],
+      },
+      {
+        icon: "handshake",
+        heading: "同意",
+        paragraphs: [
+          "使用Clara即表示您接受本页所述的数据处理以获得回答。",
+          "您可以随时通过停止使用服务来撤回同意。",
+        ],
+      },
+      {
+        icon: "shield",
+        heading: "特殊保护",
+        paragraphs: [
+          "Clara的设计考虑到了弱势群体的需求。",
+          "我们不进行用户画像，也不做出具有法律效力的自动化决定。",
+          "我们的开发遵循OdiseIA4Good的负责任和包容性AI原则。",
+        ],
+      },
+    ],
+  },
+  ar: {
+    intro: "تلتزم كلارا بالشفافية. نشرح هنا كيف يعمل ذكاؤنا الاصطناعي وكيف نحمي بياناتك.",
+    last_updated: "آخر تحديث: فبراير 2026",
+    sections: [
+      {
+        icon: "ai",
+        heading: "كلارا ذكاء اصطناعي",
+        paragraphs: [
+          "أنا نظام ذكاء اصطناعي، لست شخصاً حقيقياً. إجاباتي يتم إنشاؤها تلقائياً بواسطة نماذج لغوية.",
+          "المعلومات التي أقدمها إرشادية ولا تحل محل الاستشارة المهنية من المحامين أو الأخصائيين الاجتماعيين أو الجهات الرسمية.",
+          "فريق بشري يشرف على عملي ويحدث قاعدة معارفي بشكل دوري.",
+        ],
+      },
+      {
+        icon: "data",
+        heading: "ما هي البيانات التي نعالجها",
+        paragraphs: [
+          "نعالج النص والصوت الذي ترسله فقط لإنشاء ردود على استفساراتك.",
+          "لا نخزن وثائق الهوية (DNI، NIE، جواز السفر) أو البيانات المصرفية.",
+          "جلسات المحادثة مؤقتة ولا ترتبط بملفات تعريف دائمة.",
+        ],
+      },
+      {
+        icon: "services",
+        heading: "خدمات الطرف الثالث",
+        paragraphs: [
+          "نستخدم Google (Gemini) لمعالجة اللغة، وElevenLabs لتوليد الصوت، وMeta للتواصل عبر WhatsApp.",
+          "نشارك فقط الحد الأدنى من البيانات اللازمة لعمل هذه الخدمات.",
+          "يمكنك الاطلاع على سياسات الخصوصية الخاصة بهم على مواقعهم.",
+        ],
+      },
+      {
+        icon: "clock",
+        heading: "الاحتفاظ بالبيانات",
+        paragraphs: [
+          "الصوت الذي ترسله يُعالج بشكل مؤقت ولا يُخزن بشكل دائم.",
+          "لا ننشئ ملفات تعريف دائمة للمستخدمين أو سجلات محادثات طويلة الأمد.",
+          "لا نستخدم ملفات تعريف الارتباط للتتبع أو تقنيات التتبع الإعلاني.",
+        ],
+      },
+      {
+        icon: "rights",
+        heading: "حقوقك",
+        paragraphs: [
+          "يمكنك التوقف عن استخدام كلارا في أي وقت دون الحاجة إلى تبرير.",
+          "لديك الحق في طلب معلومات حول معالجة بياناتك.",
+          "يمكنك تقديم شكوى لدى وكالة حماية البيانات الإسبانية (AEPD) إذا كنت تعتقد أن حقوقك قد انتُهكت.",
+        ],
+      },
+      {
+        icon: "handshake",
+        heading: "الموافقة",
+        paragraphs: [
+          "باستخدام كلارا، فإنك توافق على معالجة البيانات الموصوفة في هذه الصفحة لتلقي الردود.",
+          "يمكنك سحب موافقتك في أي وقت ببساطة عن طريق التوقف عن استخدام الخدمة.",
+        ],
+      },
+      {
+        icon: "shield",
+        heading: "حماية خاصة",
+        paragraphs: [
+          "تم تصميم كلارا مع مراعاة الأشخاص في أوضاع هشة.",
+          "لا نقوم بتصنيف المستخدمين ولا نتخذ قرارات آلية ذات آثار قانونية.",
+          "يتبع تطويرنا مبادئ OdiseIA4Good من أجل ذكاء اصطناعي مسؤول وشامل.",
+        ],
+      },
+    ],
   },
 };

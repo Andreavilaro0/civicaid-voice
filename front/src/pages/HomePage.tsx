@@ -13,6 +13,7 @@ import GuideSection from "@/components/welcome/GuideSection";
 import PlanSection from "@/components/welcome/PlanSection";
 import SuccessSection from "@/components/welcome/SuccessSection";
 import FooterSection from "@/components/welcome/FooterSection";
+import { ThemeToggleCompact } from "@/components/ui/ThemeToggle";
 import { useMascotState } from "@/hooks/useMascotState.ts";
 
 type Lang = Language;
@@ -85,42 +86,42 @@ function _speakBrowser(text: string, lang: Lang) {
 const content: Record<Lang, { description: string; welcome_speech: string; footer: string }> = {
   es: {
     description: "Te ayudo con tramites sociales en Espana. Habla o escribe en tu idioma.",
-    welcome_speech: "Hola, soy Clara. Estoy aqui para ayudarte con cualquier tramite. Habla o escribe, en tu idioma.",
+    welcome_speech: "Nadie deberia quedarse solo ante un tramite. Soy Clara, una inteligencia artificial que te escucha. Cuentame, en tu idioma.",
     footer: "Gratis · Confidencial · En tu idioma",
   },
   en: {
     description: "I help you with social procedures in Spain. Speak or write in your language.",
-    welcome_speech: "Hi, I'm Clara. I'm here to help you with any procedure. Speak or write, in your language.",
+    welcome_speech: "Nobody should face a procedure alone. I'm Clara, an artificial intelligence that listens to you. Tell me, in your language.",
     footer: "Free · Confidential · In your language",
   },
   fr: {
     description: "Je t'aide avec les demarches sociales en Espagne. Parle ou ecris dans ta langue.",
-    welcome_speech: "Bonjour, je suis Clara. Je suis la pour t'aider. Parle ou ecris dans ta langue.",
+    welcome_speech: "Personne ne devrait rester seul face a une demarche. Je suis Clara, une intelligence artificielle qui t'ecoute. Raconte-moi, dans ta langue.",
     footer: "Gratuit · Confidentiel · Dans ta langue",
   },
   pt: {
     description: "Ajudo-te com trâmites sociais em Espanha. Fala ou escreve no teu idioma.",
-    welcome_speech: "Olá, sou Clara. Estou aqui para te ajudar com qualquer trâmite. Fala ou escreve, no teu idioma.",
+    welcome_speech: "Ninguem deveria ficar sozinho perante um tramite. Sou Clara, uma inteligencia artificial que te ouve. Conta-me, no teu idioma.",
     footer: "Gratuito · Confidencial · No teu idioma",
   },
   ro: {
     description: "Te ajut cu proceduri sociale în Spania. Vorbește sau scrie în limba ta.",
-    welcome_speech: "Bună, sunt Clara. Sunt aici să te ajut cu orice procedură. Vorbește sau scrie, în limba ta.",
+    welcome_speech: "Nimeni nu ar trebui sa fie singur in fata unei proceduri. Sunt Clara, o inteligenta artificiala care te asculta. Spune-mi, in limba ta.",
     footer: "Gratuit · Confidențial · În limba ta",
   },
   ca: {
     description: "T'ajudo amb tràmits socials a Espanya. Parla o escriu en el teu idioma.",
-    welcome_speech: "Hola, soc Clara. Soc aquí per ajudar-te amb qualsevol tràmit. Parla o escriu, en el teu idioma.",
+    welcome_speech: "Ningu hauria de quedar-se sol davant un tramit. Soc Clara, una intelligencia artificial que t'escolta. Explica'm, en el teu idioma.",
     footer: "Gratuït · Confidencial · En el teu idioma",
   },
   zh: {
     description: "我帮你处理西班牙的社会事务。用你的语言说话或写字。",
-    welcome_speech: "你好，我是Clara。我在这里帮你处理任何手续。用你的语言说话或写字。",
+    welcome_speech: "没有人应该独自面对一项手续。我是Clara，一个倾听你的人工智能。告诉我，用你的语言。",
     footer: "免费 · 保密 · 用你的语言",
   },
   ar: {
     description: "أساعدك في الإجراءات الاجتماعية في إسبانيا. تحدث أو اكتب بلغتك.",
-    welcome_speech: "مرحبا، أنا كلارا. أنا هنا لمساعدتك. تحدث أو اكتب بلغتك.",
+    welcome_speech: "لا أحد يجب أن يواجه إجراء وحده. أنا كلارا، ذكاء اصطناعي يسمعك. أخبرني، بلغتك.",
     footer: "مجاني · سري · بلغتك",
   },
 };
@@ -243,18 +244,18 @@ export default function HomePage() {
       {/* SECTION 1: HERO (above the fold) — mantener actual            */}
       {/* ═══════════════════════════════════════════════════════════════ */}
       <section className="relative flex flex-col items-center justify-center min-h-screen px-6 pt-[64px] pb-4
-                          bg-gradient-to-b from-clara-bg via-[#F0F7FA] to-[#E8F1F5] overflow-hidden">
+                          hero-gradient overflow-hidden">
         {/* Atmospheric decorative circles */}
         <div className="absolute top-[20%] -left-[100px] w-[300px] h-[300px] rounded-full pointer-events-none"
-             style={{ background: "radial-gradient(circle, rgba(27,94,123,0.04) 0%, transparent 70%)" }} aria-hidden="true" />
+             style={{ background: "radial-gradient(circle, rgba(var(--clara-blue-rgb),0.04) 0%, transparent 70%)" }} aria-hidden="true" />
         <div className="absolute bottom-[15%] -right-[80px] w-[250px] h-[250px] rounded-full pointer-events-none"
-             style={{ background: "radial-gradient(circle, rgba(212,106,30,0.03) 0%, transparent 70%)" }} aria-hidden="true" />
+             style={{ background: "radial-gradient(circle, rgba(var(--clara-orange-rgb),0.03) 0%, transparent 70%)" }} aria-hidden="true" />
 
-        <header className="fixed top-0 left-0 right-0 z-20 bg-white/70 dark:bg-[#0f1419]/70 backdrop-blur-md border-b border-clara-border/30 dark:border-[#2a2f36]/30">
+        <header className="fixed top-0 left-0 right-0 z-20 bg-clara-bg/70 backdrop-blur-md border-b border-clara-border/30">
           <div className="max-w-3xl mx-auto flex items-center justify-between px-4 h-[56px] sm:h-[60px]">
             <button onClick={() => setMenuOpen(true)} aria-label="Abrir menu"
               className="w-10 h-10 sm:w-touch-sm sm:h-touch-sm flex items-center justify-center rounded-xl
-                         hover:bg-white/60 dark:hover:bg-[#2a2f36] transition-colors">
+                         hover:bg-clara-hover transition-colors">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M3 12h18" /><path d="M3 6h18" /><path d="M3 18h18" />
@@ -267,10 +268,13 @@ export default function HomePage() {
                 <path d="M 28 32 A 10 10 0 0 1 28 48" stroke="#1B5E7B" strokeWidth="4.5" strokeLinecap="round" fill="none" />
                 <circle cx="28" cy="40" r="4" fill="#D46A1E" />
               </svg>
-              <span className="font-display font-bold text-[15px] sm:text-[17px] text-clara-text dark:text-[#e8e8ee]">Clara</span>
+              <span className="font-display font-bold text-[15px] sm:text-[17px] text-clara-text">Clara</span>
             </div>
 
-            <LanguageBar lang={lang} onChangeLang={handleLangChange} />
+            <div className="flex items-center gap-1">
+              <ThemeToggleCompact />
+              <LanguageBar lang={lang} onChangeLang={handleLangChange} />
+            </div>
           </div>
         </header>
 
@@ -306,7 +310,7 @@ export default function HomePage() {
         </p>
 
         <button onClick={() => goToChat("voice")} aria-label={cycled.mic}
-          className="w-[80px] h-[80px] md:w-[120px] md:h-[120px] bg-gradient-to-br from-clara-blue to-[#134a5f]
+          className="w-[80px] h-[80px] md:w-[120px] md:h-[120px] brand-gradient
                      rounded-full flex items-center justify-center shadow-xl shadow-clara-blue/30
                      hover:shadow-2xl hover:shadow-clara-blue/40 active:scale-95 transition-all duration-200 mb-2"
           style={{ animation: "scaleIn 0.4s ease-out 0.3s both, gentlePulse 3s ease-in-out 0.7s infinite" }}>
@@ -374,7 +378,7 @@ export default function HomePage() {
       {/* SECTION 7: SEGUNDO CTA                                        */}
       {/* ═══════════════════════════════════════════════════════════════ */}
       <section className="section-viewport section-dark section-grain relative w-full flex flex-col items-center justify-center px-6
-                          bg-gradient-to-b from-[#0f1419] via-[#1B5E7B]/20 to-[#0f1419] overflow-hidden">
+                          cta-dark-gradient overflow-hidden">
         {/* Radar arcs — decorative concentric circles */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" aria-hidden="true">
           {[
@@ -420,7 +424,7 @@ export default function HomePage() {
               onClick={() => goToChat("voice")}
               aria-label={secondCta.mic_label}
               className="relative z-10 w-[120px] h-[120px] md:w-[160px] md:h-[160px]
-                         bg-gradient-to-br from-clara-blue to-[#134a5f]
+                         brand-gradient
                          rounded-full flex items-center justify-center
                          shadow-xl shadow-clara-blue/30
                          hover:shadow-2xl hover:shadow-clara-blue/40

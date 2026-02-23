@@ -64,7 +64,7 @@ function AnimatedCounter({
           left: "50%",
           transform: "translate(-50%, -50%)",
           background:
-            "radial-gradient(ellipse at center, rgba(212,106,30,0.22) 0%, rgba(212,106,30,0.06) 45%, transparent 70%)",
+            "radial-gradient(ellipse at center, rgba(var(--clara-orange-rgb),0.22) 0%, rgba(var(--clara-orange-rgb),0.06) 45%, transparent 70%)",
           borderRadius: "50%",
         }}
         aria-hidden="true"
@@ -80,7 +80,7 @@ function AnimatedCounter({
           style={{
             width: 200,
             height: 200,
-            border: "1.5px solid rgba(212,106,30,0.18)",
+            border: "1.5px solid rgba(var(--clara-orange-rgb),0.18)",
           }}
         />
         <div
@@ -88,7 +88,7 @@ function AnimatedCounter({
           style={{
             width: 280,
             height: 280,
-            border: "1.5px solid rgba(212,106,30,0.10)",
+            border: "1.5px solid rgba(var(--clara-orange-rgb),0.10)",
             animationDelay: "1s",
           }}
         />
@@ -97,7 +97,7 @@ function AnimatedCounter({
           style={{
             width: 360,
             height: 360,
-            border: "1px solid rgba(212,106,30,0.06)",
+            border: "1px solid rgba(var(--clara-orange-rgb),0.06)",
             animationDelay: "2s",
           }}
         />
@@ -149,8 +149,8 @@ function AnimatedCounter({
 //     is visually seamless without a JS-based loop reset.
 //
 // Card layout: each item is a two-column grid inside a `glass-card` wrapper.
-//   - "Before" cell: orange left border (#D46A1E), bg rgba(212,106,30,0.12)
-//   - "After" cell: green left border (#2E7D4F), bg rgba(46,125,79,0.12)
+//   - "Before" cell: orange left border (#D46A1E), bg rgba(var(--clara-orange-rgb),0.12)
+//   - "After" cell: green left border (#2E7D4F), bg rgba(var(--clara-green-rgb),0.12)
 //
 // RTL: `.ticker-strip` gets `animation-direction: reverse` via CSS selector
 //       `[dir="rtl"] .ticker-strip` already defined in globals.css.
@@ -195,9 +195,9 @@ function TickerStrip({
             <div
               style={{
                 padding: "20px 24px",
-                background: "rgba(212,106,30,0.10)",
-                borderLeft: isRTL ? "none" : "3px solid #D46A1E",
-                borderRight: isRTL ? "3px solid #D46A1E" : "none",
+                background: "rgba(var(--clara-orange-rgb),0.10)",
+                borderLeft: isRTL ? "none" : "3px solid var(--color-clara-orange)",
+                borderRight: isRTL ? "3px solid var(--color-clara-orange)" : "none",
                 fontSize: 15,
                 lineHeight: 1.55,
                 color: "rgba(255,255,255,0.82)",
@@ -227,9 +227,9 @@ function TickerStrip({
             <div
               style={{
                 padding: "20px 24px",
-                background: "rgba(46,125,79,0.12)",
-                borderLeft: isRTL ? "none" : "3px solid #2E7D4F",
-                borderRight: isRTL ? "3px solid #2E7D4F" : "none",
+                background: "rgba(var(--clara-green-rgb),0.12)",
+                borderLeft: isRTL ? "none" : "3px solid var(--color-clara-green)",
+                borderRight: isRTL ? "3px solid var(--color-clara-green)" : "none",
                 fontSize: 15,
                 lineHeight: 1.55,
                 color: "rgba(255,255,255,0.82)",
@@ -277,7 +277,7 @@ function TickerStrip({
             width: 80,
             height: "100%",
             background:
-              "linear-gradient(to right, var(--color-clara-blue, #1B5E7B), transparent)",
+              "linear-gradient(to right, var(--color-clara-blue), transparent)",
             zIndex: 2,
             pointerEvents: "none",
           }}
@@ -291,7 +291,7 @@ function TickerStrip({
             width: 80,
             height: "100%",
             background:
-              "linear-gradient(to left, var(--color-clara-blue, #1B5E7B), transparent)",
+              "linear-gradient(to left, var(--color-clara-blue), transparent)",
             zIndex: 2,
             pointerEvents: "none",
           }}
@@ -388,7 +388,7 @@ export default function ProblemSection({ lang }: ProblemSectionProps) {
           style={{
             width: "min(500px, 90vw)",
             height: "min(500px, 90vw)",
-            border: "1px solid rgba(212,106,30,0.07)",
+            border: "1px solid rgba(var(--clara-orange-rgb),0.07)",
             position: "absolute",
           }}
         />
@@ -397,7 +397,7 @@ export default function ProblemSection({ lang }: ProblemSectionProps) {
           style={{
             width: "min(700px, 120vw)",
             height: "min(700px, 120vw)",
-            border: "1px solid rgba(212,106,30,0.04)",
+            border: "1px solid rgba(var(--clara-orange-rgb),0.04)",
             animationDelay: "1.5s",
             position: "absolute",
           }}
@@ -407,7 +407,7 @@ export default function ProblemSection({ lang }: ProblemSectionProps) {
           style={{
             width: "min(900px, 150vw)",
             height: "min(900px, 150vw)",
-            border: "1px solid rgba(212,106,30,0.025)",
+            border: "1px solid rgba(var(--clara-orange-rgb),0.025)",
             animationDelay: "3s",
             position: "absolute",
           }}
@@ -542,7 +542,7 @@ export default function ProblemSection({ lang }: ProblemSectionProps) {
                   height: 8,
                   borderRadius: "50%",
                   background: "#D46A1E",
-                  boxShadow: "0 0 8px rgba(212,106,30,0.6)",
+                  boxShadow: "0 0 8px rgba(var(--clara-orange-rgb),0.6)",
                   flexShrink: 0,
                   display: "inline-block",
                 }}
@@ -582,7 +582,7 @@ export default function ProblemSection({ lang }: ProblemSectionProps) {
                   height: 8,
                   borderRadius: "50%",
                   background: "#2E7D4F",
-                  boxShadow: "0 0 8px rgba(46,125,79,0.6)",
+                  boxShadow: "0 0 8px rgba(var(--clara-green-rgb),0.6)",
                   flexShrink: 0,
                   display: "inline-block",
                 }}
