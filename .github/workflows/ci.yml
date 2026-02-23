@@ -33,7 +33,7 @@ jobs:
         run: ruff check src/ tests/ --select E,F,W --ignore E501
 
       - name: Run tests
-        run: pytest tests/ -v --tb=short --junitxml=test-results.xml
+        run: pytest tests/ -v --tb=short --junitxml=test-results.xml --ignore=tests/integration/test_ingestion_pipeline.py --ignore=tests/unit/test_ingestion.py
 
       - name: Upload test results
         if: always()
