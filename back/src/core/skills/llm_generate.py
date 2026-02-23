@@ -152,7 +152,7 @@ def llm_generate(
         from google import genai
         client = genai.Client(api_key=config.GEMINI_API_KEY)
         response = client.models.generate_content(
-            model="gemini-2.5-flash",
+            model="gemini-2.5-flash-lite",
             contents=user_message,
             config=genai.types.GenerateContentConfig(
                 system_instruction=system,
@@ -161,7 +161,16 @@ def llm_generate(
             ),
         )
         elapsed = int((time.time() - start) * 1000)
-        text = response.text.strip()
+        raw_text = getattr(response, "text", None)
+        if not raw_text:
+            log_llm(False, elapsed, "gemini")
+            log_error("llm_generate", "Empty response from Gemini")
+            fallback = get_template("llm_fail", language)
+            return LLMResponse(
+                text=fallback, language=language, duration_ms=elapsed,
+                from_cache=False, success=False, error="Empty response"
+            )
+        text = raw_text.strip()
         log_llm(True, elapsed, "gemini")
         return LLMResponse(
             text=text, language=language, duration_ms=elapsed,
