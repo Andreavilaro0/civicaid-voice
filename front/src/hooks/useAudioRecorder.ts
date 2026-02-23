@@ -100,16 +100,35 @@ export function useAudioRecorder() {
     return cleanup;
   }, [cleanup]);
 
+  // Track which mimeType was actually used — needed for correct Blob assembly
+  const mimeTypeRef = useRef<string>("audio/webm");
+
   /* ---- Start: pide microfono, inicia grabacion ---- */
   const start = useCallback(async () => {
     try {
       chunksRef.current = [];
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const recorder = new MediaRecorder(stream, {
-        mimeType: MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
-          ? "audio/webm;codecs=opus"
-          : "audio/webm",
-      });
+
+      // Choose best supported format: WebM Opus (Chrome/Firefox) → MP4 (Safari) → default
+      let chosenMime = "";
+      for (const mime of [
+        "audio/webm;codecs=opus",
+        "audio/webm",
+        "audio/mp4",
+        "audio/aac",
+        "audio/ogg;codecs=opus",
+      ]) {
+        if (MediaRecorder.isTypeSupported(mime)) {
+          chosenMime = mime;
+          break;
+        }
+      }
+      mimeTypeRef.current = chosenMime || "audio/webm";
+
+      const recorderOptions: MediaRecorderOptions = chosenMime
+        ? { mimeType: chosenMime }
+        : {}; // Let browser pick default if none supported
+      const recorder = new MediaRecorder(stream, recorderOptions);
       mediaRecorderRef.current = recorder;
 
       recorder.ondataavailable = (e) => {
@@ -178,7 +197,7 @@ export function useAudioRecorder() {
       recorder.onstop = async () => {
         try {
           if (timerRef.current) clearInterval(timerRef.current);
-          const blob = new Blob(chunksRef.current, { type: "audio/webm" });
+          const blob = new Blob(chunksRef.current, { type: mimeTypeRef.current });
           const buffer = await blob.arrayBuffer();
           const base64 = btoa(
             new Uint8Array(buffer).reduce(

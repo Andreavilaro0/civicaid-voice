@@ -1,0 +1,115 @@
+{
+  "keywords": [
+    "aide insertion",
+    "ajuda insercio",
+    "ayuda comunidad madrid",
+    "ayuda insercion",
+    "ayuda madrid",
+    "ayuda social",
+    "complemento imv",
+    "exclusion social",
+    "insercion",
+    "insertion",
+    "minimum income madrid",
+    "no tengo ingresos",
+    "no tengo nada",
+    "pobreza",
+    "poverty",
+    "programa insercion",
+    "renda insercio",
+    "renta insercion",
+    "renta minima",
+    "renta minima insercion",
+    "revenu insertion",
+    "rmi",
+    "rmi madrid",
+    "sin ingresos",
+    "sin recursos",
+    "social aid",
+    "social welfare",
+    "subsidio",
+    "subsidio madrid",
+    "vulnerability",
+    "vulnerable",
+    "إدماج",
+    "مساعدة اجتماعية",
+    "低保",
+    "社会救助",
+    "最低收入保障"
+  ],
+  "tramite": "renta_minima_insercion",
+  "nombre": "Renta Mínima de Inserción (RMI) de la Comunidad de Madrid",
+  "organismo": "Comunidad de Madrid — Consejería de Familia, Juventud y Asuntos Sociales",
+  "descripcion": "Prestación económica mensual de carácter subsidiario dirigida a personas y familias en situación de exclusión social o riesgo de estarlo, que residan en la Comunidad de Madrid y carezcan de recursos económicos suficientes. Es complementaria y subsidiaria al Ingreso Mínimo Vital (IMV): solo se concede si no se tiene derecho al IMV o si el IMV no cubre la situación. Incluye el compromiso obligatorio de participar en un Programa Individual de Inserción.",
+  "requisitos": [
+    "Estar empadronado y tener residencia efectiva en cualquier municipio de la Comunidad de Madrid durante al menos 1 año inmediatamente anterior a la solicitud",
+    "Tener entre 25 y 65 años (excepciones: menores de 25 con menores a cargo, huérfanos absolutos, víctimas de violencia de género o trata)",
+    "Carecer de recursos económicos suficientes: ingresos mensuales inferiores a la cuantía de la RMI que correspondería",
+    "Haber solicitado previamente el Ingreso Mínimo Vital (IMV) y que le haya sido denegado, o que la cuantía del IMV sea inferior a la RMI (en cuyo caso se complementa)",
+    "Haber solicitado todas las prestaciones y pensiones a las que se pudiera tener derecho (desempleo, pensiones, etc.)",
+    "No disponer de bienes patrimoniales suficientes (salvo la vivienda habitual)",
+    "Comprometerse a participar en un Programa Individual de Inserción (PII) diseñado por los servicios sociales",
+    "No estar interno en un centro penitenciario o residencial con manutención completa"
+  ],
+  "cuantias": {
+    "cuantia_basica": "Cuantía básica individual: aproximadamente 400-469 €/mes (actualizada anualmente según IPREM)",
+    "suplemento_por_miembro": "Suplemento por cada miembro adicional de la unidad de convivencia: entre 100-130 €/mes por persona",
+    "cuantia_maxima": "La cuantía total no puede superar el 70% del SMI (Salario Mínimo Interprofesional) vigente",
+    "complemento_imv": "Si se percibe IMV, la RMI complementa la diferencia hasta la cuantía que correspondería por la RMI",
+    "nota": "Las cuantías exactas se actualizan anualmente. Consultar la convocatoria vigente."
+  },
+  "documentos": [
+    "DNI o NIE en vigor de todos los miembros de la unidad de convivencia",
+    "Certificado de empadronamiento colectivo con fecha de antigüedad (mínimo 1 año)",
+    "Libro de familia o certificado de nacimiento de los menores a cargo",
+    "Declaración de la Renta del último ejercicio o certificado de no obligación de declarar (de todos los miembros mayores de 16 años)",
+    "Vida laboral actualizada de todos los miembros en edad laboral",
+    "Certificado del SEPE de prestaciones y subsidios (o certificado de no percepción)",
+    "Resolución de denegación del Ingreso Mínimo Vital (IMV) o certificado de cuantía percibida",
+    "Certificado bancario de todas las cuentas a nombre de los miembros de la unidad",
+    "Informe social del Centro de Servicios Sociales municipal de referencia",
+    "Documento bancario con IBAN para el cobro de la prestación"
+  ],
+  "como_solicitar": [
+    {
+      "via": "Presencial (recomendado)",
+      "detalle": "Centros de Servicios Sociales municipales del ayuntamiento correspondiente. El trabajador social elaborará el informe social y orientará en la tramitación.",
+      "requisito": "Cita previa con servicios sociales del ayuntamiento"
+    },
+    {
+      "via": "Online",
+      "detalle": "Sede electrónica de la Comunidad de Madrid: sede.comunidad.madrid — buscar 'Renta Mínima de Inserción'",
+      "requisito": "Certificado digital, cl@ve o DNI electrónico"
+    },
+    {
+      "via": "Presencial (registro)",
+      "detalle": "Oficinas de Registro de la Comunidad de Madrid o en cualquier registro de la Administración General del Estado",
+      "requisito": "Formulario cumplimentado y documentación completa"
+    },
+    {
+      "via": "Teléfono información",
+      "detalle": "012 (Comunidad de Madrid) o 91 580 42 60 (Consejería de Familia, Juventud y Asuntos Sociales)",
+      "requisito": "Ninguno"
+    }
+  ],
+  "plazos": {
+    "resolucion": "3 meses desde la presentación de la solicitud completa",
+    "silencio_administrativo": "Desestimatorio (si no hay resolución en 3 meses, se entiende denegada)",
+    "duracion_prestacion": "Se concede inicialmente por 12 meses, renovable anualmente mientras se mantengan los requisitos y se cumpla el Programa Individual de Inserción",
+    "revision": "La Comunidad de Madrid revisa periódicamente el cumplimiento de requisitos y del programa de inserción",
+    "recurso": "1 mes desde la notificación de denegación para interponer recurso de alzada"
+  },
+  "datos_importantes": [
+    "La RMI es subsidiaria al IMV: primero debes solicitar el Ingreso Mínimo Vital. Si te lo deniegan o la cuantía es insuficiente, entonces puedes solicitar la RMI.",
+    "El primer paso es acudir a los Servicios Sociales de tu ayuntamiento (Centro de Servicios Sociales municipal). El trabajador social es imprescindible para iniciar el expediente.",
+    "Es obligatorio participar en un Programa Individual de Inserción (PII): actividades de formación, búsqueda de empleo, talleres, etc. Si no se cumple, se puede suspender la prestación.",
+    "La RMI es compatible con ingresos de trabajo a tiempo parcial, pero se reduce proporcionalmente según los ingresos obtenidos.",
+    "Si eres víctima de violencia de género, hay vía preferente y se flexibilizan requisitos (edad mínima y tiempo de empadronamiento).",
+    "La cuantía aumenta por cada miembro adicional de la unidad de convivencia, pero tiene un tope máximo.",
+    "Si la situación mejora (encuentras empleo, suben ingresos), debes comunicarlo. El incumplimiento puede suponer devolución de cantidades y sanción."
+  ],
+  "fuente_url": "https://www.comunidad.madrid/servicios/asuntos-sociales/renta-minima-insercion",
+  "telefono": "012 (Comunidad de Madrid) / 91 580 42 60",
+  "verificado": true,
+  "fecha_verificacion": "2026-02-23"
+}

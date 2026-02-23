@@ -1,0 +1,108 @@
+{
+  "keywords": [
+    "pension no contributiva",
+    "pensiones no contributivas",
+    "pnc",
+    "pension invalidez",
+    "pension jubilacion no contributiva",
+    "pension discapacidad",
+    "pension sin cotizar",
+    "no he cotizado",
+    "jubilacion sin pension",
+    "invalidez",
+    "discapacidad pension",
+    "minusvalia",
+    "imserso",
+    "pension asistencial",
+    "pension vejez",
+    "65 anos pension",
+    "mayor sin pension",
+    "non contributory pension",
+    "disability pension",
+    "pension without contributions",
+    "pension non contributive",
+    "pension invalidite",
+    "retraite non contributive",
+    "pensao nao contributiva",
+    "pensao invalidez",
+    "pensio no contributiva",
+    "pensio invalidesa",
+    "pensio jubilacio",
+    "非缴费型养老金",
+    "残疾养老金",
+    "养老金",
+    "معاش غير اشتراكي",
+    "معاش الإعاقة",
+    "معاش التقاعد",
+    "pensiune necontributiva",
+    "pensie invaliditate"
+  ],
+  "tramite": "pension_no_contributiva",
+  "nombre": "Pensiones No Contributivas (Jubilación e Invalidez)",
+  "organismo": "IMSERSO / Comunidades Autónomas",
+  "descripcion": "Prestaciones económicas para personas que no han cotizado lo suficiente para acceder a una pensión contributiva. Existen dos modalidades: jubilación (para mayores de 65 años) e invalidez (para personas entre 18 y 65 años con discapacidad igual o superior al 65%). Garantizan un nivel mínimo de ingresos a personas en situación de necesidad.",
+  "requisitos": [
+    "Residencia legal en España",
+    "Carecer de ingresos suficientes (ingresos anuales inferiores a 8.803,20€ en 2026)",
+    "JUBILACIÓN: Tener 65 años o más",
+    "JUBILACIÓN: Haber residido legalmente en territorio español durante 10 años entre los 16 años y la edad de devengo, de los cuales 2 deben ser consecutivos e inmediatamente anteriores a la solicitud",
+    "INVALIDEZ: Tener entre 18 y 65 años",
+    "INVALIDEZ: Residir legalmente en España durante 5 años, de los cuales 2 deben ser consecutivos e inmediatamente anteriores a la solicitud",
+    "INVALIDEZ: Tener reconocido un grado de discapacidad igual o superior al 65%",
+    "No tener derecho a una pensión contributiva de la Seguridad Social ni de otros regímenes públicos"
+  ],
+  "cuantias": {
+    "pension_integra_2026": "8.803,20€/año (628,80€/mes en 14 pagas)",
+    "pension_minima_25_por_ciento": "2.200,80€/año (157,20€/mes en 14 pagas)",
+    "complemento_alquiler": "525€/año adicionales si el beneficiario reside en vivienda alquilada",
+    "complemento_necesidad_tercera_persona": "4.401,60€/año adicionales si discapacidad ≥75% y necesita ayuda de otra persona",
+    "compatibilidad": "La cuantía se reduce si hay más de un beneficiario PNC en la misma unidad económica de convivencia",
+    "nota": "Cuantías actualizadas para 2026 (revalorización del 11,4%). Se paga en 14 mensualidades (12 meses + 2 pagas extra)."
+  },
+  "documentos": [
+    "DNI o NIE en vigor de todos los miembros de la unidad económica de convivencia",
+    "Certificado de empadronamiento histórico (que acredite residencia en España)",
+    "Certificado de discapacidad con grado reconocido (para invalidez)",
+    "Declaración de la renta o certificado de no obligación de declarar",
+    "Certificado de convivencia o estado civil",
+    "Justificante de ingresos de todos los miembros de la unidad económica de convivencia",
+    "Certificado negativo de pensiones (expedido por la Seguridad Social)"
+  ],
+  "como_solicitar": [
+    {
+      "via": "Presencial",
+      "detalle": "Servicios Sociales de la Comunidad Autónoma correspondiente o en las oficinas del IMSERSO",
+      "requisito": "Pedir cita en los Servicios Sociales de tu comunidad autónoma"
+    },
+    {
+      "via": "Online",
+      "detalle": "Algunas comunidades autónomas permiten la solicitud telemática a través de su sede electrónica",
+      "requisito": "Certificado digital, cl@ve o DNI electrónico"
+    },
+    {
+      "via": "Teléfono",
+      "detalle": "IMSERSO: 901 109 899. También puede llamar a los Servicios Sociales de su comunidad autónoma",
+      "requisito": "Ninguno"
+    }
+  ],
+  "plazos": {
+    "solicitud": "Se puede solicitar en cualquier momento una vez se cumplan los requisitos",
+    "resolucion": "90 días desde la solicitud (3 meses)",
+    "silencio_administrativo": "Desestimatorio (si no se recibe respuesta en 90 días, se entiende denegada)",
+    "revision_anual": "Los beneficiarios deben presentar declaración anual de ingresos y situación familiar antes del 31 de marzo",
+    "recurso": "30 días desde la notificación de la resolución"
+  },
+  "datos_importantes": [
+    "Aunque no hayas cotizado nunca, puedes tener derecho a una pensión no contributiva si cumples los requisitos de residencia e ingresos.",
+    "La pensión de invalidez no contributiva se convierte automáticamente en pensión de jubilación no contributiva al cumplir 65 años.",
+    "Si tu discapacidad es del 75% o más y necesitas ayuda de tercera persona, la pensión se incrementa en un 50%.",
+    "Cada año debes comunicar tus ingresos y la composición de tu hogar. Si no lo haces, pueden suspender la pensión.",
+    "La pensión no contributiva es compatible con el trabajo remunerado bajo ciertas condiciones (se reduce la cuantía proporcionalmente).",
+    "Las comunidades autónomas gestionan estas pensiones; los requisitos documentales pueden variar ligeramente.",
+    "Si resides en vivienda alquilada y no tienes vivienda en propiedad, puedes solicitar un complemento de 525€/año."
+  ],
+  "fuente_url": "https://www.imserso.es/el-imserso/prestaciones-economicas/pensiones-no-contributivas",
+  "telefono": "901 109 899 (IMSERSO)",
+  "verificado": true,
+  "fecha_verificacion": "2026-02-23"
+}

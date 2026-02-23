@@ -44,12 +44,14 @@ def chat():
             if transcript.success and transcript.text:
                 text = transcript.text
                 # Use transcription language if confidently detected (not default "es"),
-                # otherwise re-detect from transcribed text for better accuracy
+                # otherwise trust the frontend's language choice (user selected it in the UI)
                 if transcript.language and transcript.language != "es":
                     language = transcript.language
-                else:
+                elif language == "es":
+                    # Both Whisper and frontend say "es" — re-detect for accuracy
                     detected = detect_language(text)
                     language = detected
+                # else: frontend sent non-"es" (e.g. "en") — keep it
             else:
                 return jsonify({"error": "audio_transcription_failed"}), 422
         except Exception as e:
@@ -112,7 +114,9 @@ def chat():
             })
 
     # --- Detect language ---
-    if input_type_str == "text":
+    # Only auto-detect when frontend sends default "es" (ambiguous).
+    # If user explicitly selected a language (en, fr, etc.), respect it.
+    if input_type_str == "text" and language == "es":
         language = detect_language(text)
 
     # --- Cache match ---
@@ -189,7 +193,7 @@ def tts():
     text = (data.get("text") or "").strip()
     language = data.get("language", "es")
 
-    if not text or len(text) > 300:
+    if not text or len(text) > 500:
         return jsonify({"audio_url": None}), 200
 
     try:

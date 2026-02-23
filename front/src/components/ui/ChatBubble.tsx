@@ -17,17 +17,17 @@ interface ChatBubbleProps {
   timestamp?: string;
 }
 
-/** 28 × 28 circular Clara avatar with a white voice-arc SVG */
+/** 32 × 32 circular Clara avatar with a white voice-arc SVG */
 function ClaraAvatar() {
   return (
     <div
-      className="flex-shrink-0 w-7 h-7 rounded-full bg-clara-blue flex items-center justify-center"
+      className="flex-shrink-0 w-8 h-8 rounded-full bg-clara-blue flex items-center justify-center"
       aria-hidden="true"
     >
       {/* Voice arc — three concentric arcs growing outward from a mic dot */}
       <svg
-        width="16"
-        height="16"
+        width="18"
+        height="18"
         viewBox="0 0 16 16"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -61,11 +61,11 @@ export default function ChatBubble({ sender, children, timestamp }: ChatBubblePr
 
   if (isClara) {
     return (
-      <div className="flex items-start gap-2 justify-start mb-4">
+      <div className="flex items-start gap-2.5 justify-start mb-3">
         {/* Avatar sits at the top-left, aligned with the bubble top */}
         <ClaraAvatar />
 
-        <div className="flex flex-col items-start max-w-[85%] md:max-w-[70%]">
+        <div className="flex flex-col items-start max-w-[82%] md:max-w-[70%]">
           {/* Sender label */}
           <span className="text-clara-blue font-display font-bold text-[14px] mb-1 ml-1">
             Clara
@@ -81,12 +81,12 @@ export default function ChatBubble({ sender, children, timestamp }: ChatBubblePr
             role="article"
             aria-label="Clara message"
           >
-            <div className="text-clara-text text-body-sm space-y-2">
+            <div className="text-clara-text text-[16px] leading-relaxed space-y-2">
               {children}
             </div>
 
             {timestamp && (
-              <p className="text-[13px] text-clara-text-secondary mt-2 text-right select-none">
+              <p className="text-[12px] text-clara-text-secondary mt-2 text-right select-none">
                 {timestamp}
               </p>
             )}
@@ -98,21 +98,21 @@ export default function ChatBubble({ sender, children, timestamp }: ChatBubblePr
 
   /* ── User bubble ─────────────────────────────────────────── */
   return (
-    <div className="flex justify-end mb-4">
+    <div className="flex justify-end mb-3">
       <div
         className="
           bg-clara-blue text-white
           rounded-2xl rounded-tr-sm
           px-4 py-3
-          max-w-[85%] md:max-w-[70%]
+          max-w-[82%] md:max-w-[70%]
         "
         role="article"
         aria-label="Your message"
       >
-        <div className="text-body-sm space-y-2">{children}</div>
+        <div className="text-[16px] leading-relaxed space-y-2">{children}</div>
 
         {timestamp && (
-          <p className="text-[13px] text-white/60 mt-2 text-right select-none">
+          <p className="text-[12px] text-white/60 mt-2 text-right select-none">
             {timestamp}
           </p>
         )}

@@ -1,32 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import type { Language } from "@/lib/types";
 import { ThemeToggleCompact } from "@/components/ui/ThemeToggle";
+import LanguageBar from "@/components/welcome/LanguageBar";
 
 interface HeaderProps {
   language: Language;
   onLanguageChange: (lang: Language) => void;
 }
 
-const LANG_OPTIONS: { value: Language; label: string }[] = [
-  { value: "es", label: "ES" },
-  { value: "en", label: "EN" },
-  { value: "fr", label: "FR" },
-  { value: "pt", label: "PT" },
-  { value: "ro", label: "RO" },
-  { value: "ca", label: "CA" },
-  { value: "zh", label: "中文" },
-  { value: "ar", label: "AR" },
-];
-
-const ariaLabels: Record<Language, { back: string; lang: string }> = {
-  es: { back: "Volver al inicio", lang: "Idioma" },
-  en: { back: "Back to home", lang: "Language" },
-  fr: { back: "Retour a l'accueil", lang: "Langue" },
-  pt: { back: "Voltar ao inicio", lang: "Idioma" },
-  ro: { back: "Inapoi la pagina principala", lang: "Limba" },
-  ca: { back: "Tornar a l'inici", lang: "Idioma" },
-  zh: { back: "返回首页", lang: "语言" },
-  ar: { back: "العودة إلى الرئيسية", lang: "اللغة" },
+const ariaLabels: Record<Language, { back: string }> = {
+  es: { back: "Volver al inicio" },
+  en: { back: "Back to home" },
+  fr: { back: "Retour a l'accueil" },
+  pt: { back: "Voltar ao inicio" },
+  ro: { back: "Inapoi la pagina principala" },
+  ca: { back: "Tornar a l'inici" },
+  zh: { back: "返回首页" },
+  ar: { back: "العودة إلى الرئيسية" },
 };
 
 export default function Header({ language, onLanguageChange }: HeaderProps) {
@@ -35,13 +25,13 @@ export default function Header({ language, onLanguageChange }: HeaderProps) {
 
   return (
     <header className="sticky top-0 z-10 bg-clara-bg/80 backdrop-blur-lg border-b border-clara-border/50">
-      <div className="flex items-center justify-between px-4 h-[64px]">
+      <div className="flex items-center justify-between px-3 h-[56px]">
         {/* Back button */}
         <button
           onClick={() => navigate("/")}
           aria-label={labels.back}
           className="min-w-[48px] min-h-[48px] flex items-center justify-center rounded-full
-                     text-clara-text hover:bg-clara-card transition-colors duration-150"
+                     text-clara-text hover:bg-clara-card transition-colors duration-150 flex-shrink-0"
         >
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -51,7 +41,7 @@ export default function Header({ language, onLanguageChange }: HeaderProps) {
         </button>
 
         {/* Clara identity — avatar + name + status */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-shrink-0">
           <div className="relative">
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-clara-blue to-[#2980B9]
                             flex items-center justify-center shadow-sm">
@@ -73,36 +63,10 @@ export default function Header({ language, onLanguageChange }: HeaderProps) {
           </div>
         </div>
 
-        {/* Theme toggle + Language selector */}
-        <div className="flex items-center gap-1">
-        <ThemeToggleCompact />
-        <div className="relative">
-        <select
-          value={language}
-          onChange={(e) => onLanguageChange(e.target.value as Language)}
-          aria-label={labels.lang}
-          className="bg-clara-card text-clara-text border border-clara-border rounded-full
-                     px-3 py-1.5 text-[14px] font-medium min-h-[48px]
-                     focus:outline focus:outline-[3px] focus:outline-clara-blue focus:outline-offset-2
-                     appearance-none cursor-pointer transition-colors duration-150"
-          style={{ backgroundRepeat: "no-repeat", backgroundPosition: "right 8px center", paddingRight: "28px" }}
-        >
-          {LANG_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
-        <svg
-          className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-clara-text-secondary"
-          width="16" height="16" viewBox="0 0 24 24"
-          fill="none" stroke="currentColor" strokeWidth="2.5"
-          strokeLinecap="round" strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <polyline points="6 9 12 15 18 9" />
-        </svg>
-        </div>
+        {/* Theme toggle + Language bar */}
+        <div className="flex items-center gap-1 flex-shrink-0">
+          <ThemeToggleCompact />
+          <LanguageBar lang={language} onChangeLang={onLanguageChange} compact />
         </div>
       </div>
     </header>

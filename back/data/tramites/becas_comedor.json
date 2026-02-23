@@ -1,0 +1,101 @@
+{
+  "keywords": [
+    "aide cantine",
+    "aide repas",
+    "ajuda alimentacao",
+    "ajuda cantina",
+    "ajut menjador",
+    "almuerzo escolar",
+    "ayuda comedor",
+    "beca comedor",
+    "beca comedor escolar",
+    "cantine scolaire",
+    "cantina escolar",
+    "comedor",
+    "comedor colegio",
+    "comedor escolar",
+    "comer colegio",
+    "food aid school",
+    "free lunch",
+    "free meals",
+    "menjador escolar",
+    "menu escolar",
+    "meal assistance",
+    "refeicao escolar",
+    "school canteen",
+    "school lunch",
+    "school meals",
+    "طعام مدرسي",
+    "مقصف مدرسي",
+    "وجبة مدرسة",
+    "学校午餐",
+    "学校食堂",
+    "免费餐"
+  ],
+  "tramite": "becas_comedor",
+  "nombre": "Becas de Comedor Escolar (Comunidad de Madrid)",
+  "organismo": "Comunidad de Madrid — Consejería de Educación, Ciencia y Universidades",
+  "descripcion": "Ayudas económicas destinadas a sufragar total o parcialmente el coste del servicio de comedor escolar en centros educativos sostenidos con fondos públicos de la Comunidad de Madrid. Dirigidas a familias con rentas bajas y a colectivos en situación de vulnerabilidad, cubriendo los niveles de Educación Infantil (2.º ciclo), Educación Primaria y Educación Secundaria Obligatoria (ESO).",
+  "niveles_cubiertos": [
+    "Educación Infantil — 2.º ciclo (3 a 6 años)",
+    "Educación Primaria (6 a 12 años)",
+    "Educación Secundaria Obligatoria — ESO (12 a 16 años)"
+  ],
+  "tipos_ayuda": {
+    "concesion_directa": "Exención total del precio del comedor. Se concede automáticamente a familias que cumplen determinados supuestos (acogimiento residencial, víctimas de violencia de género, renta mínima de inserción/IMV, etc.)",
+    "solicitud_general": "Reducción parcial o total del precio del comedor en función de la renta per cápita familiar y el número de miembros de la unidad familiar"
+  },
+  "requisitos": [
+    "Que el alumno esté matriculado en un centro público o concertado de la Comunidad de Madrid que ofrezca servicio de comedor escolar",
+    "Que el alumno curse Educación Infantil (2.º ciclo), Educación Primaria o ESO",
+    "Que la renta per cápita anual de la unidad familiar no supere el umbral establecido (aprox. 8.400 € anuales por miembro)",
+    "Estar empadronado en la Comunidad de Madrid",
+    "Para concesión directa: acreditar situación especial (acogimiento residencial, víctima de violencia de género, beneficiario de RMI/IMV, familia en situación de emergencia social certificada por servicios sociales)"
+  ],
+  "documentos": [
+    "DNI o NIE de los padres/tutores y del alumno (si tiene)",
+    "Libro de familia o documento acreditativo de la filiación",
+    "Certificado de empadronamiento colectivo de la unidad familiar",
+    "Declaración de la Renta del ejercicio anterior de todos los miembros computables",
+    "Certificado de servicios sociales (para concesión directa por vulnerabilidad)",
+    "Resolución de reconocimiento de RMI o IMV (para concesión directa)",
+    "Acreditación de familia numerosa (si aplica)",
+    "Certificado de discapacidad (si aplica, ≥33 %)"
+  ],
+  "como_solicitar": [
+    {
+      "via": "Online",
+      "detalle": "Sede electrónica de la Comunidad de Madrid: sede.comunidad.madrid — buscar 'Becas comedor escolar'. Cumplimentar formulario durante el plazo de convocatoria.",
+      "requisito": "Certificado digital, cl@ve o DNI electrónico del padre/madre/tutor"
+    },
+    {
+      "via": "A través del centro educativo",
+      "detalle": "El colegio o instituto proporciona impresos de solicitud y recoge la documentación. Consultar en la secretaría del centro.",
+      "requisito": "Entregar documentación en plazo al centro educativo"
+    },
+    {
+      "via": "Teléfono información",
+      "detalle": "012 (Comunidad de Madrid) o 91 580 42 60 (Consejería de Educación)",
+      "requisito": "Ninguno"
+    }
+  ],
+  "plazos": {
+    "convocatoria": "Generalmente en mayo-junio de cada año, para el curso escolar siguiente",
+    "solicitud": "Plazo aproximado de 15-20 días hábiles desde la publicación en el BOCM",
+    "resolucion": "Antes del inicio del curso escolar (septiembre)",
+    "recurso": "Recurso de alzada en el plazo de 1 mes desde la notificación de la resolución"
+  },
+  "datos_importantes": [
+    "Las familias beneficiarias de IMV o Renta Mínima de Inserción obtienen la beca de comedor de forma directa (concesión directa) sin necesidad de evaluación económica adicional.",
+    "Si la familia está en situación de emergencia social, los servicios sociales municipales pueden emitir un informe que da acceso a la concesión directa.",
+    "La beca cubre SOLO los días lectivos en los que el alumno utiliza el servicio de comedor del centro.",
+    "Si cambian las circunstancias económicas de la familia durante el curso (pérdida de empleo, etc.), se puede solicitar una revisión extraordinaria.",
+    "En caso de denegación, es importante presentar recurso de alzada si se cree que la solicitud fue incorrectamente evaluada.",
+    "Los centros privados no concertados NO están incluidos en esta convocatoria.",
+    "El precio máximo del menú escolar en centros públicos de Madrid está regulado y ronda los 4,88 €/día (actualizable cada curso)."
+  ],
+  "fuente_url": "https://www.comunidad.madrid/servicios/educacion/becas-comedor-escolar",
+  "telefono_info": "012 (Comunidad de Madrid) / 91 580 42 60",
+  "verificado": true,
+  "fecha_verificacion": "2026-02-23"
+}

@@ -1,0 +1,102 @@
+{
+  "keywords": [
+    "reagrupacion familiar",
+    "reagrupacion",
+    "traer familia",
+    "traer esposa",
+    "traer esposo",
+    "traer hijos",
+    "traer padres",
+    "reunificacion familiar",
+    "familia extranjero",
+    "familia pais origen",
+    "visado familiar",
+    "conyuge extranjero",
+    "hijos extranjero",
+    "family reunification",
+    "bring family",
+    "bring spouse",
+    "bring children",
+    "family visa",
+    "regroupement familial",
+    "rejoindre famille",
+    "visa familial",
+    "reagrupamento familiar",
+    "trazer familia",
+    "reuniao familiar",
+    "reagrupament familiar",
+    "portar familia",
+    "家庭团聚",
+    "家属签证",
+    "带家人",
+    "لم الشمل",
+    "لم شمل الأسرة",
+    "تأشيرة عائلية",
+    "جلب العائلة",
+    "reintregirea familiei",
+    "visa familie"
+  ],
+  "tramite": "reagrupacion_familiar",
+  "nombre": "Reagrupación Familiar",
+  "organismo": "Ministerio de Inclusión, Seguridad Social y Migraciones / Oficinas de Extranjería",
+  "descripcion": "Procedimiento que permite a los extranjeros residentes legales en España solicitar la entrada y residencia de sus familiares (cónyuge, hijos menores de 18 años, ascendientes mayores de 65 años). El reagrupante debe acreditar al menos 1 año de residencia legal en España y tener autorizada la renovación por al menos otro año más, además de contar con vivienda adecuada y medios económicos suficientes.",
+  "requisitos": [
+    "Ser titular de una autorización de residencia en España en vigor, habiendo residido legalmente al menos 1 año",
+    "Tener autorización para residir al menos 1 año más (renovación concedida o en trámite)",
+    "Disponer de vivienda adecuada para la familia (acreditada mediante informe de la Comunidad Autónoma o Ayuntamiento)",
+    "Contar con medios económicos suficientes: 150% del IPREM para 2 miembros familiares (reagrupante + 1 familiar), más un 50% del IPREM por cada familiar adicional. En 2024: aproximadamente 900€/mes para 2 personas",
+    "Los familiares reagrupables son: cónyuge o pareja de hecho registrada, hijos menores de 18 años (o con discapacidad), ascendientes mayores de 65 años a cargo del reagrupante",
+    "No tener antecedentes penales en España ni en los países de residencia anterior",
+    "Los ascendientes solo pueden reagruparse cuando el reagrupante tenga residencia de larga duración"
+  ],
+  "documentos": [
+    "Solicitud en modelo oficial (EX-02)",
+    "Pasaporte completo del reagrupante y de los familiares (copia compulsada)",
+    "NIE/TIE del reagrupante en vigor",
+    "Documentación acreditativa del vínculo familiar: certificado de matrimonio, libro de familia, certificado de nacimiento (apostillado y traducido)",
+    "Informe de vivienda adecuada emitido por la Comunidad Autónoma o Ayuntamiento (o acta notarial)",
+    "Documentación acreditativa de medios económicos: contrato de trabajo, nóminas últimos 6 meses, declaración de la renta, certificado de vida laboral",
+    "Certificado de antecedentes penales del reagrupante",
+    "Seguro médico público o privado de los familiares (en algunos supuestos)",
+    "Tasa modelo 790 código 052 (abonada)"
+  ],
+  "como_solicitar": [
+    {
+      "via": "Presencial",
+      "detalle": "Oficina de Extranjería de la provincia donde resida el reagrupante — solicitar cita previa en sede.inclusion.gob.es",
+      "requisito": "Cita previa obligatoria en la Oficina de Extranjería"
+    },
+    {
+      "via": "Online",
+      "detalle": "Sede electrónica del Ministerio de Inclusión: sede.inclusion.gob.es — Trámite de autorización de residencia por reagrupación familiar",
+      "requisito": "Certificado digital o cl@ve permanente"
+    },
+    {
+      "via": "Consulado",
+      "detalle": "Una vez concedida la autorización, los familiares deben solicitar el visado en el Consulado de España en su país de origen",
+      "requisito": "Resolución favorable de la reagrupación + documentación consular"
+    }
+  ],
+  "plazos": {
+    "resolucion": "3 meses desde la solicitud completa",
+    "silencio_administrativo": "Estimatorio (si no responden en 3 meses, se entiende concedida)",
+    "visado_consular": "Los familiares tienen 2 meses desde la notificación favorable para solicitar el visado en el Consulado",
+    "entrada_espana": "El familiar debe entrar en España durante la vigencia del visado (generalmente 90 días)",
+    "solicitud_tie": "1 mes desde la entrada en España para solicitar la Tarjeta de Identidad de Extranjero (TIE)",
+    "recurso": "1 mes para recurso de alzada desde la notificación de denegación"
+  },
+  "datos_importantes": [
+    "Para reagrupar a tus padres (ascendientes), necesitas tener la residencia de larga duración (5 años de residencia legal).",
+    "El informe de vivienda adecuada lo puedes solicitar en tu Ayuntamiento o Comunidad Autónoma — suele tardar 1-2 meses.",
+    "Si no puedes obtener el informe de vivienda, una alternativa es un acta notarial que acredite las condiciones de la vivienda.",
+    "Los medios económicos se calculan sumando todos los ingresos del reagrupante: nóminas, rentas, ahorros acreditables.",
+    "Los hijos mayores de 18 años NO pueden ser reagrupados salvo que tengan una discapacidad reconocida y dependan económicamente del reagrupante.",
+    "Si tu cónyuge o pareja viene por reagrupación, obtiene una autorización de residencia y trabajo. Puede trabajar desde el primer día.",
+    "El proceso total (solicitud + visado consular + entrada) suele durar entre 6 y 12 meses. Planifica con tiempo.",
+    "Si te deniegan, puedes presentar recurso de alzada en 1 mes. Consulta con un abogado de extranjería o el turno de oficio."
+  ],
+  "fuente_url": "https://www.inclusion.gob.es/web/migraciones/reagrupacion-familiar",
+  "telefono": "060 (información general administración) / Oficinas de Extranjería (cita: sede.inclusion.gob.es)",
+  "verificado": true,
+  "fecha_verificacion": "2026-02-23"
+}

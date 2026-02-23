@@ -188,25 +188,27 @@ export default function HomePage() {
           <div className="max-w-3xl mx-auto flex items-center justify-between px-4 h-[56px] sm:h-[60px]">
             <button onClick={() => setMenuOpen(true)} aria-label="Abrir menu"
               className="w-10 h-10 sm:w-touch-sm sm:h-touch-sm flex items-center justify-center rounded-xl
-                         hover:bg-clara-hover transition-colors">
+                         hover:bg-clara-hover transition-colors flex-shrink-0">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M3 12h18" /><path d="M3 6h18" /><path d="M3 18h18" />
               </svg>
             </button>
 
-            <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 80 80" fill="none" aria-hidden="true">
-                <path d="M 28 23 A 20 20 0 0 1 28 57" stroke="var(--color-clara-blue)" strokeWidth="4.5" strokeLinecap="round" fill="none" opacity="0.65" />
-                <path d="M 28 32 A 10 10 0 0 1 28 48" stroke="var(--color-clara-blue)" strokeWidth="4.5" strokeLinecap="round" fill="none" />
-                <circle cx="28" cy="40" r="4" fill="var(--color-clara-orange)" />
-              </svg>
-              <span className="font-display font-bold text-[15px] sm:text-[17px] text-clara-text">Clara</span>
+            <div className="flex-1 flex justify-center overflow-hidden mx-2">
+              <LanguageBar lang={lang} onChangeLang={handleLangChange} compact />
             </div>
 
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 flex-shrink-0">
               <ThemeToggleCompact />
-              <LanguageBar lang={lang} onChangeLang={handleLangChange} />
+              <div className="flex items-center gap-1.5">
+                <svg className="w-5 h-5" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+                  <path d="M 28 23 A 20 20 0 0 1 28 57" stroke="var(--color-clara-blue)" strokeWidth="4.5" strokeLinecap="round" fill="none" opacity="0.65" />
+                  <path d="M 28 32 A 10 10 0 0 1 28 48" stroke="var(--color-clara-blue)" strokeWidth="4.5" strokeLinecap="round" fill="none" />
+                  <circle cx="28" cy="40" r="4" fill="var(--color-clara-orange)" />
+                </svg>
+                <span className="font-display font-bold text-[15px] text-clara-text hidden sm:inline">Clara</span>
+              </div>
             </div>
           </div>
         </header>

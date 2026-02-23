@@ -31,15 +31,17 @@ function createId(): string {
 /*  Mensajes de bienvenida                                            */
 /* ------------------------------------------------------------------ */
 
+const LEGAL_PAGE = "https://andreavilaro0.github.io/civicaid-voice/info-legal";
+
 const welcomeMessages: Record<Language, string> = {
-  es: "Hola, soy Clara. Soy una inteligencia artificial, no una persona.\n\nEstoy aqui para ayudarte con tramites del gobierno en Espana, paso a paso, en tu idioma. Mi informacion es orientativa.\n\nNo guardo tus datos personales. Cada conversacion empieza de cero.\n\nPreguntame sobre el Ingreso Minimo Vital, el empadronamiento, la tarjeta sanitaria, el NIE, o lo que necesites.",
-  en: "Hi, I'm Clara. I'm an artificial intelligence, not a person.\n\nI'm here to help you with government procedures in Spain, step by step, in your language. My information is for guidance only.\n\nI don't store your personal data. Each conversation starts from scratch.\n\nAsk me about the Minimum Vital Income, municipal registration, the health card, NIE, or whatever you need.",
-  fr: "Bonjour, je suis Clara. Je suis une intelligence artificielle, pas une personne.\n\nJe suis la pour t'aider avec les demarches administratives en Espagne, etape par etape, dans ta langue. Mes informations sont indicatives.\n\nJe ne conserve pas tes donnees personnelles. Chaque conversation repart de zero.\n\nDemande-moi sur le Revenu Minimum Vital, l'inscription municipale, la carte sanitaire, ou ce dont tu as besoin.",
-  pt: "Olá, sou a Clara. Sou uma inteligência artificial, não uma pessoa.\n\nEstou aqui para te ajudar com trâmites do governo em Espanha, passo a passo, no teu idioma. A minha informação é orientativa.\n\nNão guardo os teus dados pessoais. Cada conversa começa do zero.\n\nPergunta-me sobre o Rendimento Mínimo Vital, o empadronamento, o cartão de saúde, ou o que precisares.",
-  ro: "Bună, sunt Clara. Sunt o inteligență artificială, nu o persoană.\n\nSunt aici să te ajut cu procedurile guvernamentale din Spania, pas cu pas, în limba ta. Informațiile mele sunt orientative.\n\nNu păstrez datele tale personale. Fiecare conversație începe de la zero.\n\nÎntreabă-mă despre Venitul Minim Vital, înregistrarea municipală, cardul de sănătate, sau orice ai nevoie.",
-  ca: "Hola, soc Clara. Soc una intel·ligència artificial, no una persona.\n\nSoc aquí per ajudar-te amb tràmits del govern a Espanya, pas a pas, en el teu idioma. La meva informació és orientativa.\n\nNo guardo les teves dades personals. Cada conversa comença de zero.\n\nPregunta'm sobre l'Ingrés Mínim Vital, l'empadronament, la targeta sanitària, o el que necessitis.",
-  zh: "你好，我是Clara。我是人工智能，不是真人。\n\n我在这里帮你了解西班牙的政府手续，一步一步来，用你的语言。我的信息仅供参考。\n\n我不保存你的个人数据。每次对话都从零开始。\n\n你可以问我关于最低生活保障、市政登记、健康卡、NIE，或其他任何需要的问题。",
-  ar: "\u0645\u0631\u062D\u0628\u0627\u060C \u0623\u0646\u0627 \u0643\u0644\u0627\u0631\u0627. \u0623\u0646\u0627 \u0630\u0643\u0627\u0621 \u0627\u0635\u0637\u0646\u0627\u0639\u064A\u060C \u0644\u0633\u062A \u0634\u062E\u0635\u0627\u064B \u062D\u0642\u064A\u0642\u064A\u0627\u064B.\n\n\u0623\u0646\u0627 \u0647\u0646\u0627 \u0644\u0645\u0633\u0627\u0639\u062F\u062A\u0643 \u0641\u064A \u0627\u0644\u0625\u062C\u0631\u0627\u0621\u0627\u062A \u0627\u0644\u062D\u0643\u0648\u0645\u064A\u0629 \u0641\u064A \u0625\u0633\u0628\u0627\u0646\u064A\u0627. \u0645\u0639\u0644\u0648\u0645\u0627\u062A\u064A \u0625\u0631\u0634\u0627\u062F\u064A\u0629.\n\n\u0644\u0627 \u0623\u062D\u0641\u0638 \u0628\u064A\u0627\u0646\u0627\u062A\u0643 \u0627\u0644\u0634\u062E\u0635\u064A\u0629. \u0643\u0644 \u0645\u062D\u0627\u062F\u062B\u0629 \u062A\u0628\u062F\u0623 \u0645\u0646 \u0627\u0644\u0635\u0641\u0631.\n\n\u064A\u0645\u0643\u0646\u0646\u064A \u0645\u0633\u0627\u0639\u062F\u062A\u0643 \u0641\u064A \u0627\u0644\u062D\u062F \u0627\u0644\u0623\u062F\u0646\u0649 \u0644\u0644\u062F\u062E\u0644\u060C \u0627\u0644\u062A\u0633\u062C\u064A\u0644 \u0627\u0644\u0628\u0644\u062F\u064A\u060C \u0627\u0644\u0628\u0637\u0627\u0642\u0629 \u0627\u0644\u0635\u062D\u064A\u0629\u060C \u0623\u0648 \u0645\u0627 \u062A\u062D\u062A\u0627\u062C.",
+  es: `Hola, soy Clara!\n\nSoy una inteligencia artificial, no una persona. Mi informacion es orientativa y no sustituye asesoramiento profesional.\n\nTe ayudo con mas de 20 tramites sociales en Espana: IMV, empadronamiento, tarjeta sanitaria, NIE, pensiones, bono social electrico, reagrupacion familiar, arraigo, becas, prestaciones por nacimiento y mas.\n\nPuedes hablarme con audio o escribir tu pregunta.\nHablo espanol, frances, ingles, portugues, rumano, catalan, chino y arabe.\nGratis y confidencial.\n\nInfo legal: ${LEGAL_PAGE}?lang=es`,
+  en: `Hi, I'm Clara!\n\nI am an artificial intelligence, not a person. My information is for guidance only and does not replace professional advice.\n\nI help you with over 20 social services in Spain: minimum income, registration, health card, NIE, pensions, electricity social bonus, family reunification, residency, scholarships, parental leave and more.\n\nYou can send me a voice message or type your question.\nI speak Spanish, French, English, Portuguese, Romanian, Catalan, Chinese and Arabic.\nFree and confidential.\n\nLegal info: ${LEGAL_PAGE}?lang=en`,
+  fr: `Salut, je suis Clara!\n\nJe suis une intelligence artificielle, pas une personne. Mes informations sont indicatives et ne remplacent pas un conseil professionnel.\n\nJe t'aide avec plus de 20 demarches sociales en Espagne: RMV, inscription, carte sanitaire, NIE, pensions, bon social electrique, regroupement familial, enracinement, bourses, conge parental et plus.\n\nTu peux m'envoyer un audio ou ecrire ta question.\nJe parle espagnol, francais, anglais, portugais, roumain, catalan, chinois et arabe.\nGratuit et confidentiel.\n\nInfos legales: ${LEGAL_PAGE}?lang=fr`,
+  pt: `Ola, sou a Clara!\n\nSou uma inteligencia artificial, nao uma pessoa. A minha informacao e orientativa e nao substitui aconselhamento profissional.\n\nAjudo-te com mais de 20 tramites sociais em Espanha: rendimento minimo, inscricao, cartao de saude, NIE, pensoes, bonus social eletrico, reagrupamento familiar, arraigo, bolsas, licenca parental e mais.\n\nPodes enviar-me um audio ou escrever a tua pergunta.\nFalo espanhol, frances, ingles, portugues, romeno, catalao, chines e arabe.\nGratuito e confidencial.\n\nInfo legal: ${LEGAL_PAGE}?lang=pt`,
+  ro: `Buna, sunt Clara!\n\nSunt o inteligenta artificiala, nu o persoana. Informatiile mele sunt orientative si nu inlocuiesc consilierea profesionala.\n\nTe ajut cu peste 20 de proceduri sociale din Spania: venitul minim, inregistrarea, cardul de sanatate, NIE, pensii, bonusul social electric, reintregirea familiei, arraigo, burse, concediu parental si altele.\n\nPoti sa trimiti un mesaj vocal sau sa scrii intrebarea ta.\nVorbesc spaniola, franceza, engleza, portugheza, romana, catalana, chineza si araba.\nGratuit si confidential.\n\nInfo legale: ${LEGAL_PAGE}?lang=ro`,
+  ca: `Hola, soc la Clara!\n\nSoc una intel·ligencia artificial, no una persona. La meva informacio es orientativa i no substitueix l'assessorament professional.\n\nT'ajudo amb mes de 20 tramits socials a Espanya: IMV, empadronament, targeta sanitaria, NIE, pensions, bo social electric, reagrupament familiar, arrelament, beques, baixa per naixement i mes.\n\nPots enviar-me un audio o escriure la teva pregunta.\nParlo castella, frances, angles, portugues, romanes, catala, xines i arab.\nGratuit i confidencial.\n\nInfo legal: ${LEGAL_PAGE}?lang=ca`,
+  zh: `你好，我是Clara!\n\n我是人工智能，不是真人。我提供的信息仅供参考，不能替代专业建议。\n\n我帮助你办理西班牙20多项社会事务：最低收入、登记注册、医疗卡、NIE、养老金、电力社会补贴、家庭团聚、扎根居留、奖学金、产假等。\n\n你可以发送语音或输入文字提问。\n我会说西班牙语、法语、英语、葡萄牙语、罗马尼亚语、加泰罗尼亚语、中文和阿拉伯语。\n免费且保密。\n\n法律信息: ${LEGAL_PAGE}?lang=zh`,
+  ar: `مرحبا، أنا كلارا!\n\nأنا ذكاء اصطناعي، لست شخصاً حقيقياً. معلوماتي إرشادية ولا تحل محل الاستشارة المهنية.\n\nأساعدك في أكثر من 20 إجراء اجتماعي في إسبانيا: الحد الأدنى للدخل، التسجيل البلدي، البطاقة الصحية، NIE، المعاشات، المكافأة الاجتماعية للكهرباء، لم شمل الأسرة، الإقامة، المنح، إجازة الولادة والمزيد.\n\nيمكنك إرسال صوت أو كتابة سؤالك.\nأتحدث الإسبانية والفرنسية والإنجليزية والبرتغالية والرومانية والكتالونية والصينية والعربية.\nمجاني وسري.\n\nالمعلومات القانونية: ${LEGAL_PAGE}?lang=ar`,
 };
 
 /* ------------------------------------------------------------------ */
@@ -48,44 +50,44 @@ const welcomeMessages: Record<Language, string> = {
 
 const loadingMessages: Record<Language, Record<LoadingContext, string>> = {
   es: {
-    listening: "Clara esta escuchando tu mensaje...",
-    thinking: "Clara esta buscando informacion...",
-    reading: "Clara esta leyendo tu documento...",
+    listening: "Te escucho. Dame un momento.",
+    thinking: "Buena pregunta. Dame un momento que busco la informacion.",
+    reading: "Voy a mirar tu documento. Dame un segundo.",
   },
   en: {
-    listening: "Clara is listening...",
-    thinking: "Clara is looking for information...",
-    reading: "Clara is reading your document...",
+    listening: "I hear you. Give me a moment.",
+    thinking: "Good question. Give me a moment to look into this.",
+    reading: "Let me look at your document. One second.",
   },
   fr: {
-    listening: "Clara ecoute ton message...",
-    thinking: "Clara cherche des informations...",
-    reading: "Clara lit ton document...",
+    listening: "Je vous ecoute. Un instant.",
+    thinking: "Bonne question. Un instant, je cherche l'information.",
+    reading: "Je regarde votre document. Un instant.",
   },
   pt: {
-    listening: "Clara está a ouvir...",
-    thinking: "Clara está a procurar informação...",
-    reading: "Clara está a ler o teu documento...",
+    listening: "Estou a ouvir-te. Da-me um momento.",
+    thinking: "Boa pergunta. Da-me um momento que procuro a informacao.",
+    reading: "Vou ver o teu documento. Da-me um segundo.",
   },
   ro: {
-    listening: "Clara ascultă...",
-    thinking: "Clara caută informații...",
-    reading: "Clara citește documentul tău...",
+    listening: "Te aud. Da-mi un moment.",
+    thinking: "Intrebare buna. Da-mi un moment sa caut informatia.",
+    reading: "Ma uit la documentul tau. O secunda.",
   },
   ca: {
-    listening: "Clara està escoltant...",
-    thinking: "Clara està buscant informació...",
-    reading: "Clara està llegint el teu document...",
+    listening: "T'escolto. Dona'm un moment.",
+    thinking: "Bona pregunta. Dona'm un moment que busco la informacio.",
+    reading: "Vaig a mirar el teu document. Dona'm un segon.",
   },
   zh: {
-    listening: "Clara正在听...",
-    thinking: "Clara正在查找信息...",
-    reading: "Clara正在阅读你的文件...",
+    listening: "我听到了。请等一下。",
+    thinking: "好问题。请等一下，我查找一下信息。",
+    reading: "让我看看你的文件。请等一下。",
   },
   ar: {
-    listening: "\u0643\u0644\u0627\u0631\u0627 \u062A\u0633\u062A\u0645\u0639 \u0625\u0644\u0649 \u0631\u0633\u0627\u0644\u062A\u0643...",
-    thinking: "\u0643\u0644\u0627\u0631\u0627 \u062A\u0628\u062D\u062B \u0639\u0646 \u0645\u0639\u0644\u0648\u0645\u0627\u062A...",
-    reading: "\u0643\u0644\u0627\u0631\u0627 \u062A\u0642\u0631\u0623 \u0645\u0633\u062A\u0646\u062F\u0643...",
+    listening: "\u0623\u0633\u0645\u0639\u0643. \u0644\u062D\u0638\u0629 \u0645\u0646 \u0641\u0636\u0644\u0643.",
+    thinking: "\u0633\u0624\u0627\u0644 \u062C\u064A\u062F. \u0644\u062D\u0638\u0629\u060C \u0623\u0628\u062D\u062B \u0639\u0646 \u0627\u0644\u0645\u0639\u0644\u0648\u0645\u0627\u062A.",
+    reading: "\u0633\u0623\u0646\u0638\u0631 \u0641\u064A \u0648\u062B\u064A\u0642\u062A\u0643. \u0644\u062D\u0638\u0629 \u0645\u0646 \u0641\u0636\u0644\u0643.",
   },
 };
 
@@ -138,7 +140,9 @@ export function useChat(initialLang: Language = "es"): UseChatReturn {
       },
     ]);
     // Generate TTS for welcome message (best-effort, non-blocking)
-    generateTTS(welcomeText, lang).then((audioUrl) => {
+    // TTS: usar solo primera oracion para no exceder limite del backend
+    const ttsText = welcomeText.split("\n\n")[0];
+    generateTTS(ttsText, lang).then((audioUrl) => {
       if (audioUrl) {
         setMessages((prev) =>
           prev.map((m) =>

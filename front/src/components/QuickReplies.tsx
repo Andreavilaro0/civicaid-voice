@@ -37,14 +37,14 @@ interface QuickRepliesProps {
 /* ------------------------------------------------------------------ */
 
 const QUICK_REPLIES: Record<Language, string[]> = {
-  es: ["Ayuda de dinero", "Registrarme en mi ciudad", "Ir al médico"],
-  en: ["Financial help", "Register in my city", "See a doctor"],
-  fr: ["Aide financière", "M'inscrire dans ma ville", "Aller chez le médecin"],
-  pt: ["Ajuda financeira", "Registar-me na minha cidade", "Ir ao médico"],
-  ro: ["Ajutor financiar", "Înregistrare în orașul meu", "Mergi la doctor"],
-  ca: ["Ajuda econòmica", "Registrar-me a la meva ciutat", "Anar al metge"],
-  zh: ["经济援助", "在我的城市注册", "看医生"],
-  ar: ["مساعدة مالية", "التسجيل في مدينتي", "الذهاب للطبيب"],
+  es: ["¿Qué es el IMV?", "Empadronamiento", "Tarjeta sanitaria"],
+  en: ["What is the IMV?", "Registration", "Health card"],
+  fr: ["Qu'est-ce que le RMV?", "Inscription", "Carte sanitaire"],
+  pt: ["O que é o IMV?", "Inscrição", "Cartão de saúde"],
+  ro: ["Ce este IMV?", "Înregistrare", "Card de sănătate"],
+  ca: ["Què és l'IMV?", "Empadronament", "Targeta sanitària"],
+  zh: ["什么是IMV？", "居民登记", "医疗卡"],
+  ar: ["ما هو الحد الأدنى؟", "التسجيل البلدي", "البطاقة الصحية"],
 };
 
 /* ------------------------------------------------------------------ */

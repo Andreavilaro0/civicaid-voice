@@ -1,0 +1,114 @@
+{
+  "keywords": [
+    "asilo",
+    "refugio",
+    "refugiado",
+    "proteccion internacional",
+    "proteccion subsidiaria",
+    "solicitar asilo",
+    "pedir refugio",
+    "tarjeta roja",
+    "acogida",
+    "sistema acogida",
+    "oar",
+    "oficina asilo",
+    "persecucion",
+    "peligro pais",
+    "huir pais",
+    "guerra",
+    "asylum",
+    "refugee",
+    "international protection",
+    "red card",
+    "asylum seeker",
+    "seek refuge",
+    "asile",
+    "refugie",
+    "demandeur asile",
+    "protection internationale",
+    "carte rouge",
+    "asilo refugio",
+    "refugiado portugal",
+    "protecao internacional",
+    "asil",
+    "refugiat",
+    "proteccio internacional",
+    "庇护",
+    "难民",
+    "国际保护",
+    "寻求庇护",
+    "لجوء",
+    "لاجئ",
+    "حماية دولية",
+    "طلب لجوء",
+    "البطاقة الحمراء",
+    "azil",
+    "refugiat protectie"
+  ],
+  "tramite": "proteccion_internacional",
+  "nombre": "Protección Internacional (Asilo y Refugio)",
+  "organismo": "Ministerio del Interior — Oficina de Asilo y Refugio (OAR)",
+  "descripcion": "Procedimiento para solicitar protección internacional en España, destinado a personas que huyen de persecución, conflicto armado, violencia o violaciones graves de derechos humanos en su país de origen. Incluye el estatuto de refugiado y la protección subsidiaria. La solicitud se puede realizar en el plazo de 1 mes desde la entrada en España. Los solicitantes reciben una tarjeta roja que les permite residir y, tras 6 meses, trabajar en España mientras se resuelve su solicitud.",
+  "requisitos": [
+    "Ser nacional de un país no perteneciente a la UE o ser apátrida",
+    "Tener un temor fundado de persecución por motivos de raza, religión, nacionalidad, opiniones políticas, pertenencia a grupo social, género u orientación sexual",
+    "O estar expuesto a un riesgo real de sufrir daños graves en su país (pena de muerte, tortura, violencia generalizada por conflicto armado)",
+    "Solicitar la protección en el plazo de 1 mes desde la entrada en territorio español (o en cualquier momento si las circunstancias de persecución son sobrevenidas)",
+    "No estar incurso en causas de exclusión (haber cometido crímenes graves, delitos contra la paz, crímenes de guerra)"
+  ],
+  "documentos": [
+    "Pasaporte o documento de identidad (si se dispone de él — NO es obligatorio para solicitar asilo)",
+    "Cualquier documentación que acredite los motivos de persecución o riesgo: informes médicos, denuncias, cartas de amenaza, artículos de prensa, informes de país, etc.",
+    "Fotografías tamaño carnet",
+    "Relato escrito de los motivos de la solicitud (se puede hacer verbalmente en la entrevista)",
+    "Documentación de viaje (billetes, sellos de entrada, etc.) si se dispone de ella",
+    "No se exige documentación completa — la falta de documentos NO impide solicitar asilo"
+  ],
+  "como_solicitar": [
+    {
+      "via": "Presencial — OAR Madrid",
+      "detalle": "Oficina de Asilo y Refugio (OAR): C/ Pradillo 40, 28002 Madrid — sin necesidad de cita previa para la primera manifestación de voluntad",
+      "requisito": "Presentarse personalmente"
+    },
+    {
+      "via": "Presencial — Oficinas de Extranjería",
+      "detalle": "Oficinas de Extranjería de cualquier provincia pueden registrar la solicitud de protección internacional",
+      "requisito": "Presentarse personalmente"
+    },
+    {
+      "via": "Presencial — Comisarías de Policía",
+      "detalle": "Comisarías del Cuerpo Nacional de Policía con servicio de Extranjería. También en puestos fronterizos (aeropuertos, puertos)",
+      "requisito": "Presentarse personalmente"
+    },
+    {
+      "via": "CIE o frontera",
+      "detalle": "Si estás en un Centro de Internamiento de Extranjeros (CIE) o en un puesto fronterizo, puedes solicitar asilo allí mismo",
+      "requisito": "Comunicar la voluntad de solicitar asilo a cualquier funcionario"
+    }
+  ],
+  "plazos": {
+    "solicitud": "1 mes desde la entrada en España. En puestos fronterizos: inmediatamente. En cualquier momento si las circunstancias son sobrevenidas.",
+    "admision_tramite": "1 mes para decidir la admisión a trámite de la solicitud",
+    "resolucion": "6 meses desde la solicitud (puede extenderse a 15-21 meses en casos complejos)",
+    "silencio_administrativo": "Desestimatorio (si no hay resolución en el plazo, se entiende denegada)",
+    "tarjeta_roja_inicial": "Se expide tras la admisión a trámite — válida 6 meses, renovable",
+    "permiso_trabajo": "A los 6 meses desde la solicitud, la tarjeta roja autoriza a trabajar",
+    "recurso": "2 meses para recurso contencioso-administrativo ante la Audiencia Nacional"
+  },
+  "datos_importantes": [
+    "NO necesitas tener pasaporte ni documentos para solicitar asilo en España. La falta de documentación no es motivo de denegación.",
+    "La tarjeta roja es tu documento mientras se tramita el asilo: te permite residir legalmente en España y, tras 6 meses, trabajar.",
+    "Tienes derecho a un intérprete GRATUITO durante todo el procedimiento, en tu idioma.",
+    "Tienes derecho a asistencia jurídica GRATUITA (abogado del turno de oficio especializado en asilo).",
+    "El sistema de acogida (gestionado por Ministerio de Inclusión) proporciona alojamiento, manutención y apoyo social durante la tramitación.",
+    "Organizaciones como ACNUR, CEAR, Cruz Roja y Accem ofrecen orientación y acompañamiento gratuito.",
+    "Si te deniegan el asilo, puedes recurrir ante la Audiencia Nacional en 2 meses. Mientras tanto, no pueden expulsarte si el recurso tiene efecto suspensivo.",
+    "Si eres víctima de trata de seres humanos, tienes protección especial y puedes solicitar asilo por este motivo.",
+    "Las solicitudes en frontera (aeropuertos) tienen un procedimiento acelerado de 4 días — pide asistencia de ACNUR o CEAR inmediatamente.",
+    "Si ya estás en España y tu situación en tu país empeora, puedes solicitar asilo en cualquier momento (no aplica el plazo de 1 mes)."
+  ],
+  "fuente_url": "https://www.interior.gob.es/opencms/es/servicios-al-ciudadano/tramites-y-gestiones/proteccion-internacional/",
+  "telefono": "060 (información general) / OAR: 91 537 15 70 / CEAR: 91 441 55 00 / ACNUR España: 91 556 36 49",
+  "verificado": true,
+  "fecha_verificacion": "2026-02-23"
+}

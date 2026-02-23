@@ -97,6 +97,7 @@ export function useAudioPlayer(src: string, options?: { autoPlay?: boolean }) {
   useEffect(() => {
     autoPlayedRef.current = false;
     const audio = new Audio();
+    audio.crossOrigin = "anonymous";
     audio.preload = "metadata";
     audio.src = src;
     audioRef.current = audio;

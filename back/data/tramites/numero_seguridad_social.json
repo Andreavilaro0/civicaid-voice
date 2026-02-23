@@ -1,0 +1,95 @@
+{
+  "keywords": [
+    "affiliation",
+    "afiliacion",
+    "afiliacion seguridad social",
+    "alta seguridad social",
+    "carte securite sociale",
+    "formulaire ta1",
+    "formulario ta1",
+    "inscription securite sociale",
+    "national insurance",
+    "numero afiliacion",
+    "numero seguridad social",
+    "numero seguros sociales",
+    "nuss",
+    "nuss extranjero",
+    "registrar seguridad social",
+    "seguranca social",
+    "seguridad social",
+    "social security",
+    "social security number",
+    "seguretat social",
+    "ta.1",
+    "ta1",
+    "tesoreria general",
+    "tgss",
+    "trabajar espana",
+    "work permit number",
+    "رقم الضمان الاجتماعي",
+    "ضمان اجتماعي",
+    "تسجيل عمل",
+    "社会保障号",
+    "社保号码",
+    "社会保险"
+  ],
+  "tramite": "numero_seguridad_social",
+  "nombre": "Número de Seguridad Social (NUSS) para Extranjeros",
+  "organismo": "Tesorería General de la Seguridad Social (TGSS)",
+  "descripcion": "El Número de la Seguridad Social (NUSS) es un número personal e intransferible que identifica a cada ciudadano en sus relaciones con la Seguridad Social. Es imprescindible para iniciar cualquier relación laboral, solicitar prestaciones (desempleo, maternidad/paternidad, incapacidad, jubilación) o acceder a determinados servicios públicos. Los extranjeros con NIE pueden obtenerlo antes de empezar a trabajar.",
+  "para_que_sirve": [
+    "Iniciar una relación laboral por cuenta ajena (el empleador lo necesita para dar de alta al trabajador)",
+    "Darse de alta como trabajador autónomo",
+    "Solicitar prestaciones de la Seguridad Social (desempleo, nacimiento/cuidado de menor, incapacidad temporal, jubilación)",
+    "Acceder a asistencia sanitaria pública en determinados supuestos",
+    "Solicitar becas y ayudas que requieran estar dado de alta en la Seguridad Social",
+    "Convenio especial con la Seguridad Social"
+  ],
+  "requisitos": [
+    "Tener DNI o NIE en vigor",
+    "Cumplimentar el formulario TA.1 (Solicitud de Afiliación / Número de Seguridad Social)",
+    "No es necesario tener un contrato de trabajo en el momento de la solicitud, aunque sí es necesario para el alta efectiva como trabajador",
+    "Para extranjeros no comunitarios: tener autorización de residencia o residencia y trabajo en vigor"
+  ],
+  "documentos": [
+    "Formulario TA.1 cumplimentado y firmado (descargable en seg-social.es)",
+    "DNI o NIE en vigor (original y copia)",
+    "Pasaporte (original y copia, especialmente si el NIE es reciente)",
+    "Certificado de empadronamiento (recomendable, no siempre obligatorio)"
+  ],
+  "como_solicitar": [
+    {
+      "via": "Presencial (vía principal)",
+      "detalle": "Acudir a la Dirección Provincial de la Tesorería General de la Seguridad Social (TGSS) o Administración de la Seguridad Social correspondiente a tu domicilio",
+      "requisito": "Cita previa recomendada (no siempre obligatoria). Solicitar en sede.seg-social.gob.es o llamando al 901 50 20 50"
+    },
+    {
+      "via": "Online (con certificado digital)",
+      "detalle": "Sede electrónica de la Seguridad Social: sede.seg-social.gob.es — servicio 'Asignación de Número de Seguridad Social'",
+      "requisito": "Certificado digital o cl@ve permanente"
+    },
+    {
+      "via": "Teléfono información",
+      "detalle": "901 50 20 50 o 91 541 25 30 (Tesorería General de la Seguridad Social)",
+      "requisito": "Ninguno"
+    }
+  ],
+  "plazos": {
+    "resolucion": "Inmediata en la mayoría de los casos. Si se presenta presencialmente con toda la documentación correcta, se asigna el NUSS en el acto.",
+    "online": "24-48 horas si se solicita por sede electrónica",
+    "nota": "No hay plazo límite para solicitarlo, pero se debe obtener ANTES de iniciar cualquier relación laboral"
+  },
+  "datos_importantes": [
+    "El NUSS se debe obtener ANTES de empezar a trabajar. Sin él, el empleador no puede darte de alta en la Seguridad Social.",
+    "El número de Seguridad Social es distinto del NIE. El NIE es un número de identificación de extranjero; el NUSS es el número que te identifica ante la Seguridad Social.",
+    "El NUSS se asigna una sola vez y es para toda la vida. No cambia aunque cambies de trabajo, de ciudad o de situación administrativa.",
+    "Si ya trabajaste en España anteriormente, es posible que ya tengas un NUSS asignado. Puedes comprobarlo en la sede electrónica o llamando al 901 50 20 50.",
+    "Para los trabajadores por cuenta ajena, normalmente es el empleador quien solicita el alta, pero el trabajador puede solicitar la asignación del NUSS por su cuenta antes de tener empleo.",
+    "El formulario TA.1 se puede descargar en: https://www.seg-social.es — sección 'Trámites y gestiones' > 'Formularios'.",
+    "No confundir con el número de afiliación a la Seguridad Social de un trabajador que ya estuvo en alta — es el mismo número, simplemente se reactiva."
+  ],
+  "fuente_url": "https://www.seg-social.es/wps/portal/wss/internet/Trabajadores/Afiliacion/7330",
+  "telefono_info": "901 50 20 50 / 91 541 25 30",
+  "verificado": true,
+  "fecha_verificacion": "2026-02-23"
+}

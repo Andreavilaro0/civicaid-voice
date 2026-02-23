@@ -1,0 +1,122 @@
+{
+  "keywords": [
+    "aide electricite",
+    "ajuda electricitat",
+    "ajuda eletricidade",
+    "bill",
+    "bono electrico",
+    "bono social",
+    "bono social electrico",
+    "bono termico",
+    "calefaccion",
+    "chauffage",
+    "descuento electricidad",
+    "descuento luz",
+    "discount electricity",
+    "electric bill",
+    "electricidad",
+    "electricity",
+    "energy aid",
+    "energy bill",
+    "factura electricidad",
+    "factura luz",
+    "gas",
+    "heating",
+    "light bill",
+    "luz",
+    "no puedo pagar luz",
+    "pobreza energetica",
+    "pvpc",
+    "recibo luz",
+    "suministro electrico",
+    "tarifa social",
+    "vulnerable severo",
+    "كهرباء",
+    "فاتورة",
+    "电费",
+    "电力补贴"
+  ],
+  "tramite": "bono_social_electrico",
+  "nombre": "Bono Social Eléctrico y Bono Social Térmico",
+  "organismo": "Ministerio para la Transición Ecológica y el Reto Demográfico (MITECO)",
+  "descripcion": "Descuento en la factura eléctrica para consumidores vulnerables con tarifa PVPC. El Bono Social Eléctrico aplica un descuento del 42,5% al 100% sobre la factura según el grado de vulnerabilidad (porcentajes actualizados 2025-2026). El Bono Social Térmico es una ayuda adicional automática para cubrir gastos de calefacción, agua caliente y cocina, destinada a los titulares del Bono Social Eléctrico.",
+  "requisitos": [
+    "Ser titular de un contrato de suministro eléctrico en la vivienda habitual",
+    "Tener contratada la tarifa PVPC (Precio Voluntario para el Pequeño Consumidor) con una comercializadora de referencia",
+    "Potencia contratada igual o inferior a 10 kW",
+    "Cumplir al menos una de las condiciones de vulnerabilidad: familia numerosa, todos los miembros pensionistas con cuantía mínima, familia monoparental, o renta anual inferior a los umbrales según IPREM",
+    "Para consumidor vulnerable: renta anual inferior a 1,5 veces el IPREM (con incrementos por menores a cargo)",
+    "Para consumidor vulnerable severo: renta anual inferior a 0,5 veces el IPREM (con incrementos por menores a cargo)",
+    "Para descuento del 100% por riesgo de exclusión social: estar atendido por servicios sociales de una administración autonómica o local"
+  ],
+  "categorias_descuento": {
+    "consumidor_vulnerable": {
+      "descuento": "42,5% sobre el término de energía de la factura (actualizado 2025-2026, anteriormente 25%)",
+      "umbral_renta_sin_menores": "Renta anual inferior a 1,5 veces el IPREM (12.159,42 €/año en 14 pagas)",
+      "umbral_renta_1_menor": "Renta anual inferior a 2 veces el IPREM",
+      "umbral_renta_2_menores": "Renta anual inferior a 2,5 veces el IPREM"
+    },
+    "consumidor_vulnerable_severo": {
+      "descuento": "57,5% sobre el término de energía de la factura (actualizado 2025-2026, anteriormente 40%)",
+      "umbral_renta_sin_menores": "Renta anual inferior a 0,5 veces el IPREM",
+      "umbral_renta_1_menor": "Renta anual inferior a 1 vez el IPREM",
+      "umbral_renta_2_menores": "Renta anual inferior a 1,5 veces el IPREM"
+    },
+    "riesgo_exclusion_social": {
+      "descuento": "100% sobre la factura (suministro gratuito)",
+      "condicion": "Ser atendido por los servicios sociales de una administración autonómica o local, que acredite la situación de riesgo de exclusión social"
+    }
+  },
+  "bono_termico": {
+    "descripcion": "Ayuda económica anual automática para titulares del Bono Social Eléctrico, destinada a compensar gastos de calefacción, agua caliente sanitaria y cocina",
+    "cuantia": "Variable según zona climática y grado de vulnerabilidad (entre 25 € y 123,94 € anuales aproximadamente)",
+    "solicitud": "No requiere solicitud: se concede automáticamente a los titulares del Bono Social Eléctrico",
+    "pago": "Pago único anual, normalmente entre enero y marzo, mediante transferencia bancaria o cheque nominativo"
+  },
+  "documentos": [
+    "DNI o NIE en vigor del titular del contrato eléctrico",
+    "Factura eléctrica reciente (para verificar que es tarifa PVPC y la potencia contratada)",
+    "Certificado de empadronamiento (para acreditar vivienda habitual)",
+    "Libro de familia o certificado de nacimiento de menores a cargo",
+    "Declaración de la Renta del último ejercicio (o certificado de no obligación de declarar)",
+    "Título de familia numerosa (si aplica)",
+    "Certificado de pensionista con cuantía mínima (si aplica, expedido por la Seguridad Social)",
+    "Certificado de servicios sociales acreditando riesgo de exclusión social (si aplica)"
+  ],
+  "como_solicitar": [
+    {
+      "via": "Online",
+      "detalle": "A través de la comercializadora de referencia con la que se tiene el contrato PVPC. Las principales son: Endesa Energía XXI, Iberdrola Comercialización de Último Recurso, Naturgy Iberia, EDP Comercializadora de Último Recurso. Acceder a su web y buscar 'Bono Social'.",
+      "requisito": "Datos del contrato eléctrico y documentación acreditativa"
+    },
+    {
+      "via": "Presencial",
+      "detalle": "Oficinas de atención al cliente de la comercializadora de referencia, o en oficinas de consumo y servicios sociales municipales que facilitan la tramitación",
+      "requisito": "Documentación original y copia"
+    },
+    {
+      "via": "Teléfono información",
+      "detalle": "Teléfono de la comercializadora de referencia (aparece en la factura) o 060 (información general de la Administración)",
+      "requisito": "Número de contrato eléctrico y datos personales"
+    }
+  ],
+  "plazos": {
+    "resolucion": "La comercializadora debe resolver en un máximo de 15 días hábiles desde la solicitud completa",
+    "vigencia": "El Bono Social se concede por 2 años, renovable si se siguen cumpliendo los requisitos",
+    "renovacion": "Se debe solicitar la renovación antes de que expire el plazo de 2 años. La comercializadora suele avisar con antelación.",
+    "bono_termico": "El Bono Térmico se abona automáticamente entre enero y marzo del año siguiente al reconocimiento del Bono Social"
+  },
+  "datos_importantes": [
+    "El Bono Social SOLO se aplica a contratos con tarifa PVPC. Si tienes tarifa de mercado libre, debes cambiar a PVPC primero (llama a tu comercializadora de referencia).",
+    "El cambio de mercado libre a PVPC es gratuito y sin penalización. Puedes hacerlo en cualquier momento.",
+    "Si no sabes cuál es tu comercializadora de referencia, consulta en tu factura o llama al distribuidor (aparece en la factura).",
+    "El Bono Social Térmico NO requiere solicitud aparte: si tienes el Bono Social Eléctrico, lo recibes automáticamente.",
+    "Las familias en riesgo de exclusión social pueden obtener el 100% de descuento, pero necesitan un certificado de servicios sociales.",
+    "Si te cortan la luz y eres vulnerable severo o estás en riesgo de exclusión social, la compañía no puede cortar el suministro sin autorización de servicios sociales.",
+    "Puedes comprobar si tu tarifa es PVPC mirando tu factura: debe poner 'Precio Voluntario para el Pequeño Consumidor' o 'PVPC'."
+  ],
+  "fuente_url": "https://www.miteco.gob.es/es/energia/bono-social.html",
+  "telefono": "060 (información general) / Teléfono de tu comercializadora de referencia (en la factura)",
+  "verificado": true,
+  "fecha_verificacion": "2026-02-23"
+}

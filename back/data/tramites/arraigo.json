@@ -1,0 +1,112 @@
+{
+  "keywords": [
+    "arraigo",
+    "arraigo social",
+    "arraigo sociolaboral",
+    "arraigo familiar",
+    "arraigo socioformativo",
+    "arraigo formativo",
+    "residencia arraigo",
+    "papeles arraigo",
+    "regularizacion",
+    "sin papeles",
+    "irregular",
+    "situacion irregular",
+    "permiso residencia",
+    "quiero papeles",
+    "como regularizarse",
+    "2 anos en espana",
+    "roots permit",
+    "residency irregular",
+    "regularization",
+    "without papers",
+    "undocumented",
+    "regularisation",
+    "sans papiers",
+    "titre sejour arraigo",
+    "regularizacao",
+    "sem papeis",
+    "arrelament",
+    "arrelament social",
+    "sense papers",
+    "扎根居留",
+    "合法化",
+    "非法居留",
+    "无证件",
+    "تسوية الوضع",
+    "إقامة بالتجذر",
+    "بدون أوراق",
+    "وضع غير نظامي",
+    "regularizare",
+    "fara acte"
+  ],
+  "tramite": "arraigo",
+  "nombre": "Autorización de Residencia por Arraigo (Social, Sociolaboral, Familiar, Socioformativo)",
+  "organismo": "Ministerio de Inclusión, Seguridad Social y Migraciones / Oficinas de Extranjería",
+  "descripcion": "Vía de regularización para personas extranjeras en situación irregular que pueden demostrar vinculación con España. Existen varias modalidades: arraigo social (vínculos sociales + oferta de empleo), arraigo sociolaboral (relación laboral demostrable), arraigo familiar (padre/madre de menor español o hijo de progenitor español) y arraigo para la formación o socioformativo (compromiso de formación oficial). La reforma del RD 1155/2024 ha reducido el requisito de permanencia a 2 años continuados.",
+  "requisitos": [
+    "TODOS: Carecer de antecedentes penales en España y en los países de residencia anterior",
+    "TODOS: No tener prohibición de entrada en España ni en el espacio Schengen",
+    "ARRAIGO SOCIAL: Permanencia continuada en España durante al menos 2 años (reforma RD 1155/2024)",
+    "ARRAIGO SOCIAL: Disponer de un informe de arraigo favorable emitido por el Ayuntamiento o Comunidad Autónoma",
+    "ARRAIGO SOCIAL: Contar con una oferta de empleo de al menos 1 año de duración (o acreditar medios económicos suficientes)",
+    "ARRAIGO SOCIOLABORAL: Permanencia continuada en España durante al menos 2 años",
+    "ARRAIGO SOCIOLABORAL: Demostrar una relación laboral de al menos 6 meses (aunque el empleo fuera irregular — vía inspección de trabajo o sentencia judicial)",
+    "ARRAIGO FAMILIAR: Ser padre o madre de un menor de nacionalidad española residente en España, o ser hijo de padre o madre que hubiera sido originariamente español",
+    "ARRAIGO FAMILIAR: No se requiere tiempo mínimo de permanencia en España",
+    "ARRAIGO PARA LA FORMACIÓN: Permanencia continuada en España durante al menos 2 años",
+    "ARRAIGO PARA LA FORMACIÓN: Compromiso de realizar una formación reglada de FP, universidad u otra formación oficial reconocida"
+  ],
+  "documentos": [
+    "Solicitud en modelo oficial (EX-10)",
+    "Pasaporte completo en vigor (o documento de identidad de su país)",
+    "Certificado de antecedentes penales del país de origen (apostillado y traducido, con menos de 3 meses de antigüedad)",
+    "Documentación acreditativa de permanencia continuada en España: empadronamiento histórico, tarjeta sanitaria, informes escolares de hijos, etc.",
+    "ARRAIGO SOCIAL: Informe de arraigo del Ayuntamiento/CCAA + oferta de empleo (contrato firmado de al menos 1 año, jornada completa o equivalente)",
+    "ARRAIGO SOCIOLABORAL: Resolución judicial o acta de la Inspección de Trabajo que acredite la relación laboral",
+    "ARRAIGO FAMILIAR: Certificado de nacimiento del menor español o documentación acreditativa de la filiación",
+    "ARRAIGO PARA LA FORMACIÓN: Preinscripción o matrícula en centro de formación oficial",
+    "Tasa modelo 790 código 052 (abonada)",
+    "Fotografía reciente tamaño carnet"
+  ],
+  "como_solicitar": [
+    {
+      "via": "Presencial",
+      "detalle": "Oficina de Extranjería de la provincia de residencia — cita previa obligatoria en sede.inclusion.gob.es",
+      "requisito": "Cita previa en la Oficina de Extranjería"
+    },
+    {
+      "via": "Online",
+      "detalle": "Sede electrónica del Ministerio de Inclusión: sede.inclusion.gob.es — Autorización de residencia temporal por circunstancias excepcionales (arraigo)",
+      "requisito": "Certificado digital (el solicitante o un representante legal)"
+    },
+    {
+      "via": "Organizaciones de apoyo",
+      "detalle": "ONGs como Cruz Roja, CEAR, Accem o CEPAIM pueden asesorar y ayudar con la solicitud de arraigo de forma gratuita",
+      "requisito": "Ninguno"
+    }
+  ],
+  "plazos": {
+    "resolucion": "3 meses desde la solicitud completa",
+    "silencio_administrativo": "Desestimatorio (si no responden en 3 meses, se entiende denegada)",
+    "informe_arraigo": "El Ayuntamiento tiene 30 días para emitir el informe de arraigo. Si no lo emite, se entiende favorable.",
+    "alta_seguridad_social": "1 mes desde la concesión para darse de alta en la Seguridad Social (si se concede con oferta de empleo)",
+    "solicitud_tie": "1 mes desde la resolución favorable para solicitar la Tarjeta de Identidad de Extranjero (TIE)",
+    "recurso": "1 mes para recurso de alzada desde la notificación de denegación"
+  },
+  "datos_importantes": [
+    "La reforma del RD 1155/2024 ha reducido el requisito de permanencia de 3 a 2 años para arraigo social, sociolaboral y para la formación.",
+    "El informe de arraigo se solicita en el Ayuntamiento o en los Servicios Sociales de tu localidad. Es GRATUITO.",
+    "Si el Ayuntamiento no emite el informe de arraigo en 30 días, se entiende FAVORABLE por silencio administrativo.",
+    "Para arraigo familiar NO necesitas llevar un tiempo mínimo en España si eres padre/madre de un menor español.",
+    "Si has trabajado sin contrato (en negro), puedes regularizarte por arraigo sociolaboral si consigues que la Inspección de Trabajo lo acredite.",
+    "El arraigo para la formación te permite estudiar FP u otra formación oficial y, al terminar, renovar tu autorización como residencia y trabajo.",
+    "Organizaciones como Cruz Roja, CEAR y Accem ofrecen asesoramiento jurídico GRATUITO para tramitar el arraigo.",
+    "Mantén TODAS las pruebas de tu presencia en España: empadronamiento, facturas, tarjeta sanitaria, informes escolares de tus hijos, etc.",
+    "La autorización de arraigo se concede por 1 año. Antes de que expire, debes renovarla acreditando que mantienes la actividad laboral o formativa."
+  ],
+  "fuente_url": "https://www.inclusion.gob.es/web/migraciones/w/autorizacion-residencia-temporal-arraigo",
+  "telefono": "060 (información general administración) / Oficinas de Extranjería (cita: sede.inclusion.gob.es)",
+  "verificado": true,
+  "fecha_verificacion": "2026-02-23"
+}

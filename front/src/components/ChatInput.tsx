@@ -66,11 +66,12 @@ export default function ChatInput({
   return (
     <div
       className={[
-        "sticky bottom-0 px-4 py-3",
+        "px-3 py-3",
         "bg-clara-bg/80",
         "backdrop-blur-lg",
         "border-t border-clara-border/50",
       ].join(" ")}
+      style={{ paddingBottom: "max(12px, env(safe-area-inset-bottom))" }}
     >
       <form
         onSubmit={handleSubmit}
@@ -91,7 +92,7 @@ export default function ChatInput({
           aria-label={labels.photo}
           className={[
             "flex-none flex items-center justify-center",
-            "w-10 h-10 ml-1",
+            "w-12 h-12 ml-1",
             "rounded-xl",
             "text-clara-text-secondary hover:text-clara-blue",
             "transition-colors duration-150",
@@ -121,7 +122,7 @@ export default function ChatInput({
           aria-label={placeholders[language]}
           dir={language === "ar" ? "rtl" : "ltr"}
           className={[
-            "flex-1 h-[48px] px-3",
+            "flex-1 h-12 px-3",
             "bg-transparent border-none outline-none",
             "text-body-sm font-body",
             "text-clara-text placeholder:text-clara-text-secondary",
@@ -137,7 +138,7 @@ export default function ChatInput({
             aria-label={labels.send}
             className={[
               "flex-none flex items-center justify-center",
-              "w-10 h-10 mr-1",
+              "w-12 h-12 mr-1",
               "rounded-xl",
               "bg-clara-blue text-white",
               "hover:bg-[var(--color-clara-blue-hover)]",
@@ -163,7 +164,7 @@ export default function ChatInput({
             aria-label={labels.voice}
             className={[
               "flex-none flex items-center justify-center",
-              "w-10 h-10 mr-1",
+              "w-12 h-12 mr-1",
               "rounded-xl",
               "text-clara-text-secondary hover:text-clara-blue",
               "transition-colors duration-150",

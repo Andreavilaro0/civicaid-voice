@@ -1,0 +1,107 @@
+{
+  "keywords": [
+    "aide enfant",
+    "ajuda fill",
+    "ajuda filhos",
+    "allocation familiale",
+    "asignacion familiar",
+    "asignacion hijo",
+    "ayuda familiar",
+    "ayuda hijo",
+    "ayuda hijos",
+    "ayuda por hijo",
+    "child benefit",
+    "children",
+    "discapacidad hijo",
+    "family aid",
+    "family benefit",
+    "hijo a cargo",
+    "hijo discapacidad",
+    "hijo menor",
+    "hijos",
+    "menor a cargo",
+    "ninos",
+    "paga por hijo",
+    "prestacion familiar",
+    "prestacion hijo",
+    "prestacion por hijo",
+    "subsidio familiar",
+    "tengo hijos",
+    "أطفال",
+    "إعانة عائلية",
+    "儿童补助",
+    "家庭补贴",
+    "子女津贴"
+  ],
+  "tramite": "prestacion_hijo_cargo",
+  "nombre": "Prestación Familiar por Hijo o Menor a Cargo",
+  "organismo": "Instituto Nacional de la Seguridad Social (INSS)",
+  "descripcion": "Prestación económica no contributiva dirigida a familias con hijos menores de 18 años a cargo, o hijos mayores de 18 con discapacidad igual o superior al 65%, que no superen los umbrales de renta establecidos. Incluye cuantías diferenciadas según la situación de discapacidad del hijo y el nivel de ingresos de la familia.",
+  "requisitos": [
+    "Residir legalmente en territorio español (tanto el solicitante como el hijo a cargo)",
+    "Tener a cargo hijos menores de 18 años o hijos mayores de 18 con discapacidad igual o superior al 65%",
+    "No superar el límite de ingresos anuales establecido (varía según número de hijos y composición familiar)",
+    "No tener derecho a prestaciones de esta misma naturaleza en otro régimen público de protección social",
+    "Para hijos mayores de 18 con discapacidad: acreditar grado de discapacidad mediante certificado oficial"
+  ],
+  "cuantias": {
+    "hijo_menor_18_sin_discapacidad": {
+      "general": "341 €/año por hijo (28,42 €/mes)",
+      "pobreza_severa": "588 €/año por hijo si los ingresos familiares son inferiores al umbral de pobreza severa"
+    },
+    "hijo_menor_18_discapacidad_33": "1.000 €/año por hijo con discapacidad reconocida igual o superior al 33%",
+    "hijo_mayor_18_discapacidad_65": "4.747,20 €/año (395,60 €/mes) por hijo mayor de 18 con discapacidad ≥65%",
+    "hijo_mayor_18_discapacidad_75": "7.120,80 €/año (593,40 €/mes) por hijo mayor de 18 con discapacidad ≥75% y necesidad de tercera persona",
+    "limites_renta_2024": {
+      "1_hijo": "12.913 €/año de ingresos máximos",
+      "por_hijo_adicional": "Se incrementa un 15% por cada hijo a cargo adicional",
+      "nota": "Los límites son superiores para familias numerosas y monoparentales"
+    }
+  },
+  "documentos": [
+    "DNI o NIE en vigor del solicitante y del otro progenitor (si lo hay)",
+    "Libro de familia o certificado de nacimiento de los hijos",
+    "Certificado de empadronamiento colectivo",
+    "Declaración de la Renta del ejercicio anterior (o certificado de no obligación de declarar)",
+    "Certificado de discapacidad del hijo (si aplica, emitido por el organismo competente de la CCAA)",
+    "Documento bancario con IBAN para el cobro de la prestación",
+    "En caso de familias monoparentales: libro de familia, sentencia de separación/divorcio o certificado de defunción",
+    "Certificado de convivencia (si el hijo no aparece en el libro de familia)"
+  ],
+  "como_solicitar": [
+    {
+      "via": "Online",
+      "detalle": "Sede electrónica de la Seguridad Social: sede.seg-social.gob.es — buscar 'Prestación familiar por hijo a cargo'",
+      "requisito": "Certificado digital, cl@ve o DNI electrónico"
+    },
+    {
+      "via": "Presencial",
+      "detalle": "Centros de Atención e Información de la Seguridad Social (CAISS)",
+      "requisito": "Cita previa en sede.seg-social.gob.es o llamando al 901 166 565"
+    },
+    {
+      "via": "Teléfono información",
+      "detalle": "901 166 565 (Seguridad Social) o 060 (información general de la Administración)",
+      "requisito": "Ninguno"
+    }
+  ],
+  "plazos": {
+    "solicitud": "Se puede solicitar en cualquier momento. Los efectos económicos se producen desde el día 1 del trimestre natural siguiente a la presentación de la solicitud.",
+    "resolucion": "45 días desde la solicitud",
+    "silencio_administrativo": "Desestimatorio (si no hay resolución en 45 días, se entiende denegada)",
+    "revision_anual": "El INSS revisa anualmente el derecho comprobando los ingresos de la unidad familiar"
+  },
+  "datos_importantes": [
+    "Esta prestación es no contributiva: no hace falta haber cotizado a la Seguridad Social para solicitarla.",
+    "Es compatible con el Ingreso Mínimo Vital (IMV), aunque el IMV incluye un complemento por menor a cargo que puede absorber esta prestación.",
+    "Para hijos mayores de 18 con discapacidad ≥65%, no hay límite de ingresos familiares: se concede independientemente de la renta.",
+    "La cuantía de 341 €/año por hijo sin discapacidad es baja, pero es acumulable con otras ayudas autonómicas por hijo.",
+    "Si la familia está en situación de pobreza severa, la cuantía sube a 588 €/año por hijo.",
+    "El pago se realiza semestralmente (enero y julio), no mensualmente, para la prestación por hijo menor sin discapacidad.",
+    "Los hijos en acogimiento familiar permanente o preadoptivo también dan derecho a esta prestación."
+  ],
+  "fuente_url": "https://www.seg-social.es/wps/portal/wss/internet/Trabajadores/PrestacionesPensionesTrabajadores/10967/27924",
+  "telefono": "901 166 565 (Seguridad Social)",
+  "verificado": true,
+  "fecha_verificacion": "2026-02-23"
+}

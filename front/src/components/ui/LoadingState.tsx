@@ -18,14 +18,14 @@ export default function LoadingState({
       role="status"
       aria-live="polite"
       aria-label={message}
-      className="flex items-end gap-2 justify-start mb-4"
+      className="flex items-end gap-2.5 justify-start mb-3"
     >
       {/* Clara avatar — mirrors ChatBubble's clara-side avatar */}
       <div
         aria-hidden="true"
         className="
           flex-shrink-0
-          w-7 h-7
+          w-8 h-8
           rounded-full
           bg-clara-blue
           flex items-center justify-center
@@ -34,8 +34,8 @@ export default function LoadingState({
       >
         {/* Voice-arc SVG identical to the one used in ChatBubble for Clara */}
         <svg
-          width="16"
-          height="16"
+          width="18"
+          height="18"
           viewBox="0 0 16 16"
           fill="none"
           aria-hidden="true"

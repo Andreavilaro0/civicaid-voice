@@ -1,0 +1,126 @@
+{
+  "keywords": [
+    "aide a domicile",
+    "aide dependance",
+    "ajuda a domicili",
+    "ajuda dependencia",
+    "atencao domiciliaria",
+    "atencion domiciliaria",
+    "ayuda dependencia",
+    "ayuda domicilio",
+    "care",
+    "centro dia",
+    "cuidado familiar",
+    "cuidados",
+    "dependencia",
+    "dependence",
+    "dependency",
+    "dependente",
+    "discapacidad",
+    "elderly care",
+    "grado dependencia",
+    "home care",
+    "imserso",
+    "ley dependencia",
+    "mayor",
+    "necesito ayuda",
+    "no puedo valerme",
+    "persona dependiente",
+    "persona mayor",
+    "prestacion dependencia",
+    "residencia",
+    "saad",
+    "soins a domicile",
+    "valoracion dependencia",
+    "إعالة",
+    "رعاية منزلية",
+    "养老",
+    "护理",
+    "长期护理"
+  ],
+  "tramite": "dependencia",
+  "nombre": "Ley de Dependencia (SAAD — Sistema para la Autonomía y Atención a la Dependencia)",
+  "organismo": "IMSERSO / Comunidades Autónomas",
+  "descripcion": "Sistema de atención a personas en situación de dependencia que necesitan ayuda de otras personas para realizar las actividades básicas de la vida diaria (comer, vestirse, asearse, desplazarse). Reconoce tres grados de dependencia (I, II, III) y da acceso a prestaciones como ayuda a domicilio, centros de día, plazas residenciales o prestación económica para cuidados en el entorno familiar.",
+  "requisitos": [
+    "Encontrarse en situación de dependencia en alguno de los grados establecidos (Grado I: moderada, Grado II: severa, Grado III: gran dependencia)",
+    "Tener nacionalidad española o residencia legal en España durante 5 años, de los cuales 2 deben ser consecutivos e inmediatamente anteriores a la solicitud",
+    "Residir en territorio español y estar empadronado en un municipio español",
+    "Para menores de 3 años: se aplica una escala de valoración específica",
+    "En caso de personas sin residencia de 5 años, las CCAA pueden atender con fondos propios"
+  ],
+  "grados_dependencia": {
+    "grado_I": {
+      "nombre": "Dependencia moderada",
+      "descripcion": "Necesidad de ayuda para realizar varias actividades básicas de la vida diaria al menos una vez al día, o necesidad de apoyo intermitente o limitado"
+    },
+    "grado_II": {
+      "nombre": "Dependencia severa",
+      "descripcion": "Necesidad de ayuda para realizar varias actividades básicas de la vida diaria dos o tres veces al día, pero sin necesidad de apoyo permanente de un cuidador"
+    },
+    "grado_III": {
+      "nombre": "Gran dependencia",
+      "descripcion": "Necesidad de ayuda para realizar varias actividades básicas de la vida diaria varias veces al día y, por su pérdida total de autonomía, necesidad de apoyo indispensable y continuo de otra persona"
+    }
+  },
+  "prestaciones": {
+    "servicios": [
+      "Servicio de Ayuda a Domicilio (SAD): atención personal y doméstica en el propio hogar",
+      "Centro de Día / Centro de Noche: atención diurna o nocturna especializada",
+      "Servicio de Atención Residencial: plaza en residencia pública o concertada",
+      "Servicio de Teleasistencia: dispositivo de atención telefónica 24h"
+    ],
+    "prestaciones_economicas": [
+      "Prestación económica vinculada al servicio: cuando no hay plaza pública disponible, para contratar servicio privado",
+      "Prestación económica para cuidados en el entorno familiar: pago al cuidador familiar no profesional (requiere alta en Seguridad Social del cuidador)",
+      "Prestación económica de asistencia personal: para contratar un asistente personal que facilite la autonomía"
+    ]
+  },
+  "documentos": [
+    "DNI o NIE en vigor del solicitante (y del representante, si lo hay)",
+    "Certificado de empadronamiento",
+    "Tarjeta sanitaria o certificado de afiliación al sistema de salud",
+    "Informe de salud actualizado del médico de atención primaria (describiendo la situación funcional)",
+    "Certificado de discapacidad (si se dispone de él)",
+    "Informe social (lo elabora el trabajador social del centro de servicios sociales municipal)",
+    "Documentación acreditativa de ingresos (declaración de la renta o certificado de pensiones)",
+    "En caso de representante legal: poder notarial o resolución judicial de tutela/curatela"
+  ],
+  "como_solicitar": [
+    {
+      "via": "Presencial (recomendado)",
+      "detalle": "Centros de Servicios Sociales municipales del ayuntamiento correspondiente. El trabajador social orientará y ayudará a iniciar el expediente.",
+      "requisito": "Cita previa con servicios sociales del ayuntamiento"
+    },
+    {
+      "via": "Online (según CCAA)",
+      "detalle": "Sede electrónica de la Comunidad Autónoma. En Madrid: sede.comunidad.madrid — buscar 'solicitud valoración dependencia'",
+      "requisito": "Certificado digital, cl@ve o DNI electrónico"
+    },
+    {
+      "via": "Teléfono información",
+      "detalle": "IMSERSO: 901 109 109. También 012 (Comunidad de Madrid) o el teléfono de servicios sociales de tu ayuntamiento.",
+      "requisito": "Ninguno"
+    }
+  ],
+  "plazos": {
+    "resolucion": "Máximo 6 meses desde la solicitud hasta la resolución del grado de dependencia",
+    "valoracion": "La valoración se realiza en el domicilio del solicitante por un equipo técnico de la Comunidad Autónoma",
+    "pia": "Una vez reconocido el grado, se elabora un Programa Individual de Atención (PIA) que determina las prestaciones. El plazo para el PIA es variable según la CCAA.",
+    "silencio_administrativo": "Positivo: si no hay resolución en 6 meses, se entiende reconocido el grado solicitado",
+    "recurso": "30 días hábiles desde la notificación para reclamar"
+  },
+  "datos_importantes": [
+    "La solicitud se tramita ante la Comunidad Autónoma donde residas, no ante el IMSERSO directamente.",
+    "El primer paso más recomendable es acudir a los Servicios Sociales de tu ayuntamiento: ellos inician el expediente y te acompañan en todo el proceso.",
+    "La valoración del grado se hace mediante visita al domicilio por un equipo especializado. Es importante describir un 'día malo' (el peor día habitual, no el mejor).",
+    "Si la persona dependiente no puede desplazarse, toda la tramitación se puede hacer a través de un representante legal.",
+    "La prestación económica para cuidados familiares exige que el cuidador se dé de alta como cuidador no profesional en la Seguridad Social.",
+    "Los servicios (residencia, centro de día) tienen copago: la persona dependiente aporta un porcentaje según su capacidad económica.",
+    "Si la situación empeora, se puede solicitar revisión del grado en cualquier momento."
+  ],
+  "fuente_url": "https://www.imserso.es/el-saad/informacion-general",
+  "telefono": "901 109 109 (IMSERSO) / 012 (Comunidad de Madrid)",
+  "verificado": true,
+  "fecha_verificacion": "2026-02-23"
+}

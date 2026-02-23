@@ -1,0 +1,109 @@
+{
+  "keywords": [
+    "subsidio",
+    "subsidio desempleo",
+    "subsidio asistencial",
+    "ayuda desempleo",
+    "ayuda paro",
+    "agotamiento paro",
+    "se me acabo el paro",
+    "acabe el paro",
+    "no me queda paro",
+    "sin paro",
+    "cotizaciones insuficientes",
+    "mayores 52",
+    "mayor de 52",
+    "no tengo cotizaciones",
+    "480 euros",
+    "iprem",
+    "sepe subsidio",
+    "prestacion asistencial",
+    "unemployment subsidy",
+    "unemployment benefit",
+    "ran out of unemployment",
+    "no more unemployment",
+    "over 52",
+    "allocation chomage assistancielle",
+    "aide chomage",
+    "fin allocation chomage",
+    "subsidio de desemprego",
+    "ajuda desemprego",
+    "subsidio desempregado",
+    "subsidi atur",
+    "ajut atur",
+    "prestacio atur",
+    "失业补助",
+    "失业救济",
+    "就业补贴",
+    "إعانة البطالة",
+    "مساعدة البطالة",
+    "بدون عمل"
+  ],
+  "tramite": "subsidio_desempleo",
+  "nombre": "Subsidios por Desempleo Asistenciales",
+  "organismo": "SEPE (Servicio Público de Empleo Estatal)",
+  "descripcion": "Prestaciones económicas de nivel asistencial para personas desempleadas que han agotado la prestación contributiva, no tienen cotizaciones suficientes o se encuentran en situaciones específicas de vulnerabilidad. Incluye subsidio por agotamiento de la prestación contributiva, por cotizaciones insuficientes y para mayores de 52 años. La cuantía es del 80% del IPREM (aproximadamente 480€/mes).",
+  "requisitos": [
+    "Estar inscrito como demandante de empleo en el SEPE y mantener la inscripción",
+    "No tener ingresos propios superiores al 75% del SMI (Salario Mínimo Interprofesional)",
+    "Suscribir el compromiso de actividad (búsqueda activa de empleo)",
+    "Subsidio por agotamiento: haber agotado la prestación contributiva y tener responsabilidades familiares (o ser mayor de 45 sin cargas)",
+    "Subsidio por cotizaciones insuficientes: haber cotizado entre 90 y 359 días en los últimos 6 años y encontrarse en situación legal de desempleo",
+    "Subsidio para mayores de 52 años: tener 52 o más años, haber cotizado al menos 6 años en su vida laboral y cumplir todos los requisitos salvo la edad para acceder a una pensión de jubilación contributiva",
+    "No haber sido beneficiario de 3 programas de Renta Activa de Inserción anteriores"
+  ],
+  "cuantias": {
+    "cuantia_mensual": "480€/mes (80% del IPREM)",
+    "duracion_agotamiento_con_cargas": "Hasta 30 meses (según edad y responsabilidades familiares)",
+    "duracion_agotamiento_sin_cargas_mayor_45": "6 meses",
+    "duracion_insuficientes_menos_6_meses_cotizados": "Igual al número de meses cotizados (entre 3 y 5 meses)",
+    "duracion_insuficientes_6_o_mas_meses": "21 meses",
+    "duracion_mayores_52": "Hasta alcanzar la edad de jubilación",
+    "nota": "Cuantías basadas en el IPREM 2024. El SEPE cotiza por jubilación durante el subsidio de mayores de 52."
+  },
+  "documentos": [
+    "DNI o NIE en vigor",
+    "Justificante de inscripción como demandante de empleo (DARDE)",
+    "Documento bancario con número de cuenta (IBAN)",
+    "Declaración de la renta o certificado de no obligación de declarar",
+    "Libro de familia o documento acreditativo de responsabilidades familiares (si aplica)",
+    "Certificado de empresa (para subsidio por cotizaciones insuficientes)",
+    "Resolución de agotamiento de la prestación contributiva (para subsidio por agotamiento)"
+  ],
+  "como_solicitar": [
+    {
+      "via": "Online",
+      "detalle": "Sede electrónica del SEPE: sede.sepe.gob.es — Trámite 'Solicitud de subsidio por desempleo'",
+      "requisito": "Certificado digital, cl@ve permanente o DNI electrónico"
+    },
+    {
+      "via": "Presencial",
+      "detalle": "Oficinas de prestaciones del SEPE — solicitar cita previa en sede.sepe.gob.es o llamando al 919 26 79 70",
+      "requisito": "Cita previa obligatoria"
+    },
+    {
+      "via": "Teléfono",
+      "detalle": "Información y cita previa: 919 26 79 70. Información general: 901 119 999",
+      "requisito": "Ninguno"
+    }
+  ],
+  "plazos": {
+    "solicitud": "15 días hábiles desde la situación legal de desempleo o desde el agotamiento de la prestación contributiva",
+    "resolucion": "15 días desde la solicitud",
+    "espera_tras_agotamiento": "Se puede solicitar al día siguiente de agotar la prestación contributiva (mes de espera eliminado en muchos supuestos)",
+    "penalizacion_fuera_plazo": "Si se solicita fuera de plazo, se pierde un día de subsidio por cada día de retraso"
+  },
+  "datos_importantes": [
+    "Si se te acaba el paro contributivo, puede que tengas derecho al subsidio asistencial. Consulta al SEPE.",
+    "El subsidio para mayores de 52 es especialmente importante: el SEPE cotiza por tu jubilación mientras lo cobras.",
+    "Aunque no hayas cotizado 360 días, si tienes entre 90 y 359 días cotizados puedes pedir el subsidio por insuficiencia de cotizaciones.",
+    "Los ingresos de toda la unidad familiar se tienen en cuenta para calcular si cumples el límite del 75% del SMI.",
+    "Debes renovar la demanda de empleo (sellar el paro) cada 3 meses para no perder el subsidio.",
+    "Si trabajas mientras cobras el subsidio, comunícalo inmediatamente al SEPE para evitar sanciones.",
+    "El subsidio es compatible con algunos trabajos a tiempo parcial bajo ciertas condiciones."
+  ],
+  "fuente_url": "https://www.sepe.es/HomeSepe/prestaciones-desempleo/he-agotado-la-prestacion.html",
+  "telefono": "901 119 999 / 919 26 79 70",
+  "verificado": true,
+  "fecha_verificacion": "2026-02-23"
+}

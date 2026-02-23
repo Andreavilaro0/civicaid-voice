@@ -52,7 +52,7 @@ export default function ChatContent() {
   }, [isLoading, messages.length, setMascotState]);
 
   return (
-    <div className="flex flex-col h-screen bg-clara-bg">
+    <div className="flex flex-col bg-clara-bg" style={{ height: "100dvh" }}>
       <Header language={language} onLanguageChange={setLanguage} />
       <MessageList messages={messages} language={language} getLoadingMessage={getLoadingMessage} onRetry={retryLast} />
       <QuickReplies language={language} visible={showQuickReplies && messages.length <= 2}

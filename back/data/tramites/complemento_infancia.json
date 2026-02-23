@@ -1,0 +1,108 @@
+{
+  "keywords": [
+    "complemento infancia",
+    "capi",
+    "ayuda infancia",
+    "ayuda ninos",
+    "ayuda hijos",
+    "ayuda menores",
+    "ayuda para la infancia",
+    "prestacion por hijo",
+    "ayuda familia",
+    "ayuda familias con hijos",
+    "dinero por hijos",
+    "115 euros",
+    "ayuda bebe",
+    "ayuda menor",
+    "child benefit",
+    "child allowance",
+    "family benefit",
+    "children aid",
+    "allocation enfant",
+    "aide enfance",
+    "aide familiale",
+    "prestation enfant",
+    "subsidio crianca",
+    "ajuda filhos",
+    "ajuda infancia",
+    "complement infancia",
+    "ajut fills",
+    "ajut menors",
+    "儿童补贴",
+    "子女补助",
+    "家庭补助",
+    "إعانة الأطفال",
+    "مساعدة الأسرة",
+    "إعانة الطفولة",
+    "alocatie copii",
+    "ajutor copii",
+    "complemento ayuda infancia"
+  ],
+  "tramite": "complemento_infancia",
+  "nombre": "Complemento de Ayuda para la Infancia (CAPI)",
+  "organismo": "Seguridad Social / Ministerio de Inclusión, Seguridad Social y Migraciones",
+  "descripcion": "Prestación económica mensual por cada menor de 18 años a cargo, destinada a familias en situación de vulnerabilidad económica. Es compatible con otras prestaciones y puede solicitarse sin necesidad de ser beneficiario del Ingreso Mínimo Vital (IMV). La cuantía varía según la edad del menor: 115€/mes para menores de 3 años, 80,50€/mes entre 3 y 6 años, y 57,50€/mes entre 6 y 18 años.",
+  "requisitos": [
+    "Tener uno o más menores de 18 años a cargo",
+    "Estar en situación de vulnerabilidad económica (ingresos y patrimonio por debajo del umbral establecido)",
+    "Residencia legal y efectiva en España",
+    "No es necesario ser beneficiario del Ingreso Mínimo Vital (IMV) — se puede solicitar de forma independiente",
+    "Los menores deben residir en España",
+    "Si se percibe el IMV, el complemento se añade automáticamente si hay menores a cargo"
+  ],
+  "cuantias": {
+    "menores_de_3_anos": "115€/mes por cada menor",
+    "de_3_a_6_anos": "80,50€/mes por cada menor",
+    "de_6_a_18_anos": "57,50€/mes por cada menor",
+    "compatibilidad_imv": "Compatible con el Ingreso Mínimo Vital — se suma a la cuantía del IMV",
+    "compatibilidad_sin_imv": "Se puede percibir sin ser beneficiario del IMV si se cumple el umbral de vulnerabilidad",
+    "ejemplo": "Familia con un bebé de 1 año y un niño de 8 años: 115€ + 57,50€ = 172,50€/mes",
+    "nota": "Las cuantías se actualizan anualmente. Las cantidades indicadas corresponden a 2024."
+  },
+  "documentos": [
+    "DNI o NIE del solicitante en vigor",
+    "DNI o NIE de los menores (o pasaporte si no tienen NIE)",
+    "Libro de familia o certificado de nacimiento de los menores",
+    "Certificado de empadronamiento del solicitante y los menores",
+    "Declaración de la renta o certificado de no obligación de declarar",
+    "Certificado de convivencia (si los menores no figuran en el libro de familia)",
+    "Resolución de guarda o tutela (si aplica)"
+  ],
+  "como_solicitar": [
+    {
+      "via": "Online",
+      "detalle": "Sede electrónica de la Seguridad Social: sede.seg-social.gob.es — Solicitud de Complemento de Ayuda para la Infancia",
+      "requisito": "Certificado digital, cl@ve o DNI electrónico"
+    },
+    {
+      "via": "Presencial",
+      "detalle": "Oficinas de la Seguridad Social (CAISS) con cita previa",
+      "requisito": "Cita previa a través de sede.seg-social.gob.es o llamando al 900 20 22 22"
+    },
+    {
+      "via": "Teléfono",
+      "detalle": "Línea de atención IMV y complementos: 900 20 22 22 (gratuito)",
+      "requisito": "Ninguno"
+    }
+  ],
+  "plazos": {
+    "solicitud": "Se puede solicitar en cualquier momento mientras haya menores a cargo que cumplan los requisitos",
+    "resolucion": "6 meses desde la solicitud",
+    "silencio_administrativo": "Desestimatorio (si no se recibe respuesta en 6 meses, se entiende denegada)",
+    "efectos_economicos": "Desde el primer día del mes siguiente a la solicitud",
+    "recurso": "30 días desde la notificación de la resolución"
+  },
+  "datos_importantes": [
+    "No necesitas cobrar el IMV para pedir el Complemento de Ayuda para la Infancia. Se puede solicitar por separado.",
+    "Si ya cobras el IMV y tienes menores a cargo, el complemento debería aplicarse automáticamente. Si no lo ves reflejado, solicítalo expresamente.",
+    "La cuantía más alta es para bebés menores de 3 años: 115€ al mes por cada uno.",
+    "Si tienes varios hijos, cobras el complemento por cada uno de ellos según su tramo de edad.",
+    "Es compatible con otras prestaciones como la prestación por nacimiento de las comunidades autónomas.",
+    "Debes comunicar cualquier cambio en la unidad familiar (nacimiento, cambio de custodia, etc.) a la Seguridad Social.",
+    "Si tus ingresos superan el umbral, podrías perder el derecho al complemento — revísalo cada año."
+  ],
+  "fuente_url": "https://www.seg-social.es/wps/portal/wss/internet/Trabajadores/PrestacionesPensionesTrabajadores/65850d68-8d06-4645-bde7-05374ee42ac7",
+  "telefono": "900 20 22 22 (gratuito — línea IMV y complementos)",
+  "verificado": true,
+  "fecha_verificacion": "2026-02-23"
+}

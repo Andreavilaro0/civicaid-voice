@@ -1,0 +1,120 @@
+{
+  "keywords": [
+    "aide etudes",
+    "ajuda estudos",
+    "ajut estudis",
+    "bachelor",
+    "beca",
+    "beca educacion",
+    "beca estudios",
+    "beca fp",
+    "beca master",
+    "beca mec",
+    "beca universidad",
+    "becas generales",
+    "becas mec",
+    "bolsa estudos",
+    "bourse",
+    "bourse etudes",
+    "college grant",
+    "education grant",
+    "estudiar",
+    "estudios",
+    "estudis",
+    "financial aid student",
+    "fp",
+    "matricula",
+    "master",
+    "scholarship",
+    "student aid",
+    "tuition",
+    "universidad",
+    "universitat",
+    "university",
+    "منحة دراسية",
+    "تعليم",
+    "جامعة",
+    "奖学金",
+    "大学",
+    "教育补助"
+  ],
+  "tramite": "becas_educacion",
+  "nombre": "Becas Generales de Educación (Becas MEC)",
+  "organismo": "Ministerio de Educación, Formación Profesional y Deportes",
+  "descripcion": "Becas y ayudas al estudio de carácter general para estudiantes de niveles postobligatorios (Bachillerato, Formación Profesional, enseñanzas artísticas, universidad y máster oficial). Cubren matrícula, cuantías fijas y variables, residencia y transporte, en función de la situación económica familiar y el rendimiento académico del solicitante.",
+  "niveles_cubiertos": [
+    "Bachillerato (1.º y 2.º)",
+    "Formación Profesional de Grado Medio y Superior",
+    "Enseñanzas artísticas profesionales y superiores",
+    "Enseñanzas deportivas",
+    "Grados universitarios",
+    "Másteres universitarios oficiales habilitantes"
+  ],
+  "componentes_beca": {
+    "matricula": "Cuantía variable que cubre el precio público de los créditos matriculados (solo enseñanzas universitarias)",
+    "cuantia_fija_renta": "1.700 € (aprox.) para estudiantes con renta familiar baja",
+    "cuantia_fija_residencia": "1.600 € (aprox.) para quienes necesitan residir fuera del domicilio familiar",
+    "cuantia_variable": "Cantidad adicional calculada según nota media y renta (entre 60 € y 2.800 € aprox.)",
+    "beca_basica": "300 € para estudiantes no universitarios con renta baja"
+  },
+  "requisitos": [
+    "Tener nacionalidad española, de un país de la UE, o residencia legal en España",
+    "No poseer un título de nivel igual o superior al de los estudios para los que se solicita la beca",
+    "Estar matriculado en un centro sostenido con fondos públicos en alguno de los niveles cubiertos",
+    "Cumplir los umbrales económicos establecidos en la convocatoria (renta y patrimonio familiar del ejercicio anterior)",
+    "Cumplir requisitos académicos mínimos: para universitarios, nota media mínima de 5,0 (ciencias de la salud e ingenierías) a 6,5 (ciencias sociales y humanidades) según rama; para no universitarios, matriculación en curso completo",
+    "No estar repitiendo curso (salvo excepciones por causa de fuerza mayor acreditada)",
+    "No superar los umbrales de patrimonio familiar establecidos"
+  ],
+  "umbrales_economicos_orientativos": {
+    "nota": "Los umbrales se actualizan cada convocatoria. Valores orientativos para familias de 4 miembros:",
+    "umbral_1_renta_familiar": "Hasta ~14.112 € (acceso a todos los componentes)",
+    "umbral_2_renta_familiar": "Hasta ~24.089 € (matrícula + cuantía fija de renta)",
+    "umbral_3_renta_familiar": "Hasta ~32.697 € (solo matrícula en enseñanzas universitarias)"
+  },
+  "documentos": [
+    "DNI o NIE en vigor del solicitante y de todos los miembros de la familia",
+    "Declaración de la Renta de todos los miembros de la unidad familiar del ejercicio anterior",
+    "Certificado de matrícula o resguardo de matrícula en el centro de estudios",
+    "Certificado académico con nota media del curso anterior (para universitarios)",
+    "Título de familia numerosa (si aplica)",
+    "Certificado de discapacidad (si aplica, para incremento de umbrales)",
+    "Certificado de empadronamiento (si se solicita componente de residencia)"
+  ],
+  "como_solicitar": [
+    {
+      "via": "Online (única vía)",
+      "detalle": "Sede electrónica del Ministerio de Educación: becaseducacion.gob.es — cumplimentar formulario online durante el plazo de convocatoria",
+      "requisito": "DNI electrónico, certificado digital o cl@ve. Si el solicitante es menor de edad, tramita el padre/madre/tutor."
+    },
+    {
+      "via": "Información presencial",
+      "detalle": "Servicio de becas de la universidad o centro de estudios (oficina de atención al estudiante)",
+      "requisito": "Ninguno"
+    },
+    {
+      "via": "Teléfono información",
+      "detalle": "060 (información general de la Administración) o teléfono de atención de becas del Ministerio: 910 837 937",
+      "requisito": "Ninguno"
+    }
+  ],
+  "plazos": {
+    "convocatoria": "Generalmente se publica entre marzo y mayo. El plazo de solicitud suele ser de aproximadamente 1 mes desde la publicación en el BOE.",
+    "resolucion": "La resolución provisional se publica entre noviembre y diciembre. La definitiva entre diciembre y febrero del curso siguiente.",
+    "alegaciones": "10-15 días hábiles desde la publicación de la resolución provisional para presentar alegaciones",
+    "recurso": "Recurso de reposición en el plazo de 1 mes desde la resolución definitiva"
+  },
+  "datos_importantes": [
+    "La solicitud es SOLO online a través de becaseducacion.gob.es. No se puede presentar en papel.",
+    "Es fundamental presentar la Declaración de la Renta del ejercicio anterior ANTES de solicitar la beca, aunque no sea obligatoria. Si no se presenta, el Ministerio no puede verificar la renta familiar.",
+    "Las becas son incompatibles con otras becas o ayudas de la misma finalidad financiadas con fondos públicos.",
+    "Si repites curso, generalmente pierdes el derecho a la beca salvo causa de fuerza mayor acreditada.",
+    "Los estudiantes universitarios deben aprobar un porcentaje mínimo de créditos para mantener la beca al año siguiente (entre el 50 % y el 65 % según rama).",
+    "Las familias numerosas y personas con discapacidad tienen umbrales económicos incrementados.",
+    "Si tu familia no está obligada a declarar la Renta, igualmente es recomendable presentarla para facilitar la verificación de ingresos."
+  ],
+  "fuente_url": "https://www.becaseducacion.gob.es/",
+  "telefono_info": "910 837 937 / 060",
+  "verificado": true,
+  "fecha_verificacion": "2026-02-23"
+}

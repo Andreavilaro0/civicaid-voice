@@ -1,0 +1,114 @@
+{
+  "keywords": [
+    "adoption",
+    "adopcion",
+    "aide naissance",
+    "ajuda maternidade",
+    "ajuda paternidade",
+    "ajut maternitat",
+    "baja maternal",
+    "baja maternidad",
+    "baja paternidad",
+    "baja paternal",
+    "birth leave",
+    "conge maternite",
+    "conge paternite",
+    "cuidado hijo",
+    "cuidado menor",
+    "licenca maternidade",
+    "licenca paternidade",
+    "maternidad",
+    "maternite",
+    "maternity",
+    "maternity leave",
+    "nacimiento",
+    "naissance",
+    "nascimento",
+    "parto",
+    "paternidad",
+    "paternite",
+    "paternity",
+    "paternity leave",
+    "permiso maternidad",
+    "permiso paternidad",
+    "prestacion nacimiento",
+    "إجازة أمومة",
+    "إجازة أبوة",
+    "ولادة",
+    "产假",
+    "出生",
+    "育儿假"
+  ],
+  "tramite": "prestacion_nacimiento",
+  "nombre": "Prestación por Nacimiento y Cuidado de Menor",
+  "organismo": "Instituto Nacional de la Seguridad Social (INSS)",
+  "descripcion": "Prestación económica que se reconoce a los trabajadores, por cuenta ajena o propia, durante los períodos de descanso por nacimiento, adopción, guarda con fines de adopción o acogimiento familiar. Desde julio de 2025, cada progenitor tiene derecho a 19 semanas de prestación (ampliadas desde las anteriores 16), siendo las 6 primeras obligatorias e ininterrumpidas tras el parto o resolución judicial/administrativa. En familias monoparentales, el progenitor único disfruta de 32 semanas. El subsidio equivale al 100 % de la base reguladora.",
+  "duracion": {
+    "total_por_progenitor": "19 semanas por progenitor (intransferibles, ampliadas desde 16 semanas en julio 2025)",
+    "familias_monoparentales": "32 semanas para el progenitor único en familias monoparentales",
+    "obligatorias": "6 semanas inmediatamente posteriores al parto, adopción o acogimiento (ininterrumpidas y a jornada completa)",
+    "voluntarias": "Las 13 semanas restantes se pueden disfrutar en períodos semanales (consecutivos o no) hasta que el menor cumpla 12 meses",
+    "ampliacion_parto_multiple": "1 semana adicional por cada hijo a partir del segundo",
+    "ampliacion_discapacidad": "1 semana adicional si el hijo tiene discapacidad",
+    "parto_prematuro_hospitalizacion": "Se amplía el descanso en tantos días como el neonato esté hospitalizado (máximo 13 semanas adicionales)"
+  },
+  "cuantia": {
+    "porcentaje": "100 % de la base reguladora",
+    "base_reguladora": "Se calcula dividiendo la base de cotización por contingencias comunes del mes anterior al inicio del descanso entre el número de días de dicho mes",
+    "nota": "La prestación está sujeta a IRPF. No se descuentan cotizaciones a la Seguridad Social durante el periodo de descanso."
+  },
+  "requisitos": [
+    "Estar afiliado y en alta (o situación asimilada al alta) en la Seguridad Social",
+    "Tener cubierto un período mínimo de cotización: 180 días dentro de los 7 años inmediatamente anteriores al inicio del descanso, o 360 días a lo largo de toda la vida laboral",
+    "Si el trabajador tiene entre 21 y 26 años: 90 días en los 7 años anteriores, o 180 días en total",
+    "Si el trabajador es menor de 21 años: no se exige periodo mínimo de cotización",
+    "Estar al corriente en el pago de cuotas si se es trabajador autónomo",
+    "En caso de parto, la madre biológica tiene siempre derecho a las 6 semanas obligatorias aunque no cumpla el período mínimo de cotización (prestación no contributiva)"
+  ],
+  "documentos": [
+    "DNI o NIE en vigor del solicitante",
+    "Informe de maternidad del Servicio Público de Salud (lo emite el médico/matrona del hospital tras el parto)",
+    "Libro de familia o certificado de nacimiento del menor",
+    "En caso de adopción/acogimiento: resolución judicial o administrativa",
+    "Certificado de empresa indicando la fecha de inicio del descanso y la base de cotización (para trabajadores por cuenta ajena)",
+    "Documento bancario con IBAN para el cobro de la prestación",
+    "Si ambos progenitores solicitan: DNI/NIE del otro progenitor"
+  ],
+  "como_solicitar": [
+    {
+      "via": "Online",
+      "detalle": "Sede electrónica de la Seguridad Social: sede.seg-social.gob.es — tramitar 'Prestación por nacimiento y cuidado de menor'",
+      "requisito": "Certificado digital, cl@ve o DNI electrónico"
+    },
+    {
+      "via": "Presencial",
+      "detalle": "Centros de Atención e Información de la Seguridad Social (CAISS) con cita previa",
+      "requisito": "Cita previa en sede.seg-social.gob.es o por teléfono"
+    },
+    {
+      "via": "Teléfono",
+      "detalle": "901 16 65 65 o 91 541 25 30 (Instituto Nacional de la Seguridad Social)",
+      "requisito": "Ninguno"
+    }
+  ],
+  "plazos": {
+    "solicitud": "Se puede solicitar a partir del día del parto, adopción o acogimiento. No hay plazo límite para solicitar, pero se recomienda hacerlo cuanto antes para evitar retrasos en el cobro.",
+    "resolucion": "30 días desde la solicitud",
+    "pago": "Se abona mensualmente por la Seguridad Social, mediante transferencia bancaria. El primer pago puede tardar hasta 2 meses.",
+    "prescripcion": "El derecho a la prestación prescribe a los 5 años desde el hecho causante"
+  },
+  "datos_importantes": [
+    "Desde julio de 2025, ambos progenitores tienen 19 semanas cada uno (ampliadas desde las 16 anteriores). El permiso es individual e intransferible.",
+    "En familias monoparentales, el progenitor único tiene derecho a 32 semanas de prestación.",
+    "Las 6 semanas obligatorias se deben disfrutar a jornada completa e inmediatamente después del parto o resolución.",
+    "Las 13 semanas voluntarias se pueden tomar en períodos semanales (mínimo 1 semana), de forma continua o discontinua, hasta que el menor cumpla 12 meses. Requieren preaviso al empleador de 15 días.",
+    "Si la madre no trabaja ni está en situación asimilada al alta, el otro progenitor puede ampliar su prestación en hasta 13 semanas.",
+    "La prestación es compatible con el trabajo a tiempo parcial (en ese caso, la prestación se reduce proporcionalmente).",
+    "En caso de fallecimiento de la madre, el otro progenitor tiene derecho a la totalidad del periodo de descanso.",
+    "Los trabajadores autónomos tienen exactamente los mismos derechos que los trabajadores por cuenta ajena."
+  ],
+  "fuente_url": "https://www.seg-social.es/wps/portal/wss/internet/Trabajadores/PrestacionesPensionesTrabajadores/ec7c4785-e556-4b3d-855c-df274cf4bb18",
+  "telefono_info": "901 16 65 65 / 91 541 25 30",
+  "verificado": true,
+  "fecha_verificacion": "2026-02-23"
+}

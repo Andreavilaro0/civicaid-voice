@@ -4,8 +4,59 @@ import { useEffect, useRef, useCallback, useState } from "react";
 import ChatBubble from "@/components/ui/ChatBubble";
 import LoadingState from "@/components/ui/LoadingState";
 import AudioPlayer from "@/components/ui/AudioPlayer";
-import { resolveAudioUrl } from "@/lib/api";
 import type { Message, Language, LoadingContext } from "@/lib/types";
+
+/* ------------------------------------------------------------------ */
+/*  Linkify — convert URLs in plain text to clickable <a> tags         */
+/*  Handles: https://..., http://..., www....                          */
+/*  Smart trailing-punctuation trimming so "visita www.x.es." works    */
+/* ------------------------------------------------------------------ */
+
+function linkifyText(text: string): React.ReactNode[] {
+  const urlRegex = /(https?:\/\/[^\s<]+|www\.[^\s<]+)/gi;
+  const parts: React.ReactNode[] = [];
+  let lastIndex = 0;
+  let match;
+
+  while ((match = urlRegex.exec(text)) !== null) {
+    // Text before the URL
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index));
+    }
+
+    let url = match[0];
+    // Trim trailing punctuation that's likely sentence-ending, not URL
+    // But preserve path-valid chars like / and =
+    const trailingPunct = url.match(/[.,;:!?"'\)\]]+$/);
+    let trailing = "";
+    if (trailingPunct) {
+      trailing = trailingPunct[0];
+      url = url.slice(0, -trailing.length);
+    }
+
+    const href = url.startsWith("http") ? url : `https://${url}`;
+    parts.push(
+      <a
+        key={`link-${match.index}`}
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-clara-blue underline underline-offset-2 hover:opacity-80 break-all"
+      >
+        {url}
+      </a>
+    );
+    if (trailing) parts.push(trailing);
+
+    lastIndex = match.index + match[0].length;
+  }
+
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex));
+  }
+
+  return parts.length > 0 ? parts : [text];
+}
 
 interface MessageListProps {
   messages: Message[];
@@ -71,7 +122,7 @@ export default function MessageList({
     <div
       ref={containerRef}
       onScroll={handleScroll}
-      className="flex-1 overflow-y-auto px-4 py-6 space-y-2"
+      className="flex-1 overflow-y-auto px-3 py-4 space-y-1"
       role="log"
       aria-label={l.conversation}
       aria-live="polite"
@@ -91,9 +142,9 @@ export default function MessageList({
               minute: "2-digit",
             })}
           >
-            {/* Texto del mensaje — leading-relaxed para legibilidad, balance en Clara */}
+            {/* Texto del mensaje — URLs auto-linked, whitespace preserved */}
             <p className="whitespace-pre-wrap leading-relaxed">
-              {msg.text}
+              {linkifyText(msg.text)}
             </p>
 
             {/* Boton de accion en errores — REAL button, no texto plano */}
@@ -112,7 +163,7 @@ export default function MessageList({
             {/* Audio player — reproduccion de respuesta de Clara */}
             {msg.audio && msg.audio.url && (
               <AudioPlayer
-                src={resolveAudioUrl(msg.audio.url) || msg.audio.url}
+                src={msg.audio.url}
                 language={language}
                 autoPlay={msg.id === autoPlayId}
               />

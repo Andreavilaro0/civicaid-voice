@@ -1,0 +1,103 @@
+{
+  "keywords": [
+    "convalidacion",
+    "convalidar titulo",
+    "degree recognition",
+    "diploma",
+    "diploma etranger",
+    "diploma recognition",
+    "equivalence diplome",
+    "equivalencia",
+    "equivalencia titulo",
+    "foreign degree",
+    "homologacao",
+    "homologacion",
+    "homologacion titulo",
+    "homologar",
+    "homologar titulo",
+    "homologacio",
+    "nostrification",
+    "recognition diploma",
+    "reconocimiento titulo",
+    "revalidar titulo",
+    "titre etranger",
+    "titulo extranjero",
+    "titol estranger",
+    "titulo universitario",
+    "traduccion jurada",
+    "validate degree",
+    "validation diplome",
+    "اعتراف بالشهادة",
+    "معادلة شهادة",
+    "شهادة أجنبية",
+    "学历认证",
+    "学位认可",
+    "外国文凭"
+  ],
+  "tramite": "homologacion_titulos",
+  "nombre": "Homologación y Equivalencia de Títulos Extranjeros",
+  "organismo": "Ministerio de Educación, Formación Profesional y Deportes — Subdirección General de Títulos y Reconocimiento de Cualificaciones",
+  "descripcion": "Procedimiento administrativo por el cual se reconoce oficialmente en España la validez de un título de educación superior obtenido en el extranjero, otorgándole los mismos efectos académicos y/o profesionales que el título español al que se homologa. También existe la declaración de equivalencia a nivel académico (titulación genérica) y a área y campo de conocimiento específico.",
+  "tipos_procedimiento": {
+    "homologacion": "Reconocimiento del título extranjero como equivalente a un título oficial español concreto. Permite ejercer la profesión regulada asociada (medicina, abogacía, arquitectura, etc.).",
+    "equivalencia_nivel_academico": "Declaración de que el título extranjero corresponde a un nivel de titulación española (Grado, Máster, Doctor) sin equipararlo a un título concreto.",
+    "equivalencia_area_campo": "Declaración de que el título extranjero corresponde a un área y campo de conocimiento específico dentro del sistema educativo español."
+  },
+  "requisitos": [
+    "Que el título extranjero sea oficial y esté expedido por la autoridad competente del país de origen",
+    "Que el título acredite un nivel de formación equivalente al exigido para el título español de referencia",
+    "Que el plan de estudios cubra contenidos similares a los del título español al que se quiere homologar (para homologación a título concreto)",
+    "En caso de profesiones reguladas (medicina, enfermería, abogacía, arquitectura, etc.), pueden exigirse requisitos adicionales como prácticas, exámenes complementarios o período de formación tutelada",
+    "Haber abonado la tasa correspondiente"
+  ],
+  "documentos": [
+    "Copia compulsada o autenticada del título original (legalizado o con Apostilla de La Haya, según el país)",
+    "Copia compulsada del certificado académico oficial con las asignaturas cursadas, calificaciones y carga horaria",
+    "Traducción oficial (jurada) al castellano de todos los documentos, si están en otro idioma (excepto si están en inglés, francés o portugués, que en algunos casos se aceptan sin traducción)",
+    "DNI o NIE del solicitante (o pasaporte si aún no tiene NIE)",
+    "Justificante de pago de la tasa (modelo 790 código 079)",
+    "Documento acreditativo de la nacionalidad (pasaporte)",
+    "Para títulos de países no firmantes del Convenio de La Haya: legalización por vía diplomática"
+  ],
+  "como_solicitar": [
+    {
+      "via": "Online (recomendado)",
+      "detalle": "Sede electrónica del Ministerio de Educación: sede.educacion.gob.es — buscar 'Homologación de títulos y estudios extranjeros de educación superior'",
+      "requisito": "Certificado digital, cl@ve o DNI electrónico"
+    },
+    {
+      "via": "Presencial",
+      "detalle": "Registro General del Ministerio de Educación (c/ Los Madrazo, 15-17, Madrid) o en cualquier registro de la Administración General del Estado (oficinas de correos, delegaciones/subdelegaciones del Gobierno)",
+      "requisito": "Documentación original o copias compulsadas"
+    },
+    {
+      "via": "Teléfono información",
+      "detalle": "060 (información general) o 91 327 76 81 (Subdirección General de Títulos)",
+      "requisito": "Ninguno"
+    }
+  ],
+  "tasas": {
+    "homologacion_titulo_universitario": "Aprox. 160,60 € (tasa modelo 790-079, actualizable anualmente)",
+    "equivalencia_nivel_academico": "Aprox. 160,60 €",
+    "exencion_tasas": "Beneficiarios de protección internacional (refugiados), víctimas de violencia de género y otros supuestos recogidos en la normativa"
+  },
+  "plazos": {
+    "resolucion_estimada": "Variable: entre 6 y 18 meses, dependiendo del volumen de solicitudes y la complejidad del expediente",
+    "silencio_administrativo": "Desestimatorio (si no hay resolución expresa en el plazo máximo, se entiende denegada)",
+    "recurso": "Recurso de reposición (1 mes) o recurso contencioso-administrativo (2 meses) desde la notificación de la resolución",
+    "consulta_estado": "Se puede consultar el estado del expediente en sede.educacion.gob.es con el número de registro"
+  },
+  "datos_importantes": [
+    "La homologación puede tardar entre 6 y 18 meses. Es un proceso largo — se recomienda iniciar el trámite cuanto antes.",
+    "Para ejercer profesiones reguladas en España (médico, enfermero, abogado, arquitecto, ingeniero) es OBLIGATORIO tener el título homologado. No basta con la equivalencia de nivel.",
+    "La Apostilla de La Haya es imprescindible si tu país es firmante del Convenio de La Haya. Si no lo es, necesitas legalización por vía diplomática (consulado/embajada).",
+    "La traducción jurada debe ser realizada por un traductor-intérprete jurado nombrado por el Ministerio de Asuntos Exteriores de España.",
+    "Mientras se tramita la homologación, puedes solicitar una 'volante de inscripción condicional' para poder matricularte en estudios de posgrado o acceder a oposiciones de forma provisional.",
+    "Si el Ministerio detecta diferencias formativas significativas, puede requerir la superación de requisitos complementarios (exámenes, prácticas o período de formación).",
+    "Las credenciales de la NACES (para títulos de la UE) pueden facilitar el proceso pero no sustituyen la homologación oficial española."
+  ],
+  "fuente_url": "https://www.educacion.gob.es/gestiona/",
+  "telefono_info": "060 / 91 327 76 81",
+  "verificado": true,
+  "fecha_verificacion": "2026-02-23"
+}
