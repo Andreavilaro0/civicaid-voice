@@ -212,3 +212,36 @@ def api_health():
             "demo_mode": config.DEMO_MODE,
         }
     })
+
+
+@api_bp.route("/debug/llm", methods=["GET"])
+def debug_llm():
+    """Temporary diagnostic endpoint — remove after debugging."""
+    try:
+        from google import genai
+        import google.genai as genai_mod
+        client = genai.Client(api_key=config.GEMINI_API_KEY)
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents="Respond with only: OK",
+            config=genai.types.GenerateContentConfig(
+                max_output_tokens=10,
+                temperature=0.1,
+            ),
+        )
+        return jsonify({
+            "status": "ok",
+            "response": response.text.strip(),
+            "genai_version": getattr(genai_mod, "__version__", "unknown"),
+            "key_prefix": config.GEMINI_API_KEY[:8] + "..." if config.GEMINI_API_KEY else "none",
+        })
+    except Exception as e:
+        import traceback
+        return jsonify({
+            "status": "error",
+            "error_type": type(e).__name__,
+            "error": str(e),
+            "traceback": traceback.format_exc()[-500:],
+            "genai_version": "unknown",
+            "key_prefix": config.GEMINI_API_KEY[:8] + "..." if config.GEMINI_API_KEY else "none",
+        }), 500
