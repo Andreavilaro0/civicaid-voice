@@ -84,10 +84,30 @@ def get_whisper_model():
     return "gemini" if config.GEMINI_API_KEY else None
 
 
-def _call_gemini(audio_b64: str, mime_type: str, model: str) -> str:
+def _build_prompt(language_hint: str | None = None) -> str:
+    """Build transcription prompt, optionally including user's language hint."""
+    if not language_hint or language_hint == "es":
+        return _TRANSCRIPTION_PROMPT
+
+    lang_names = {
+        "en": "English", "fr": "French", "pt": "Portuguese",
+        "ro": "Romanian", "ca": "Catalan", "zh": "Chinese", "ar": "Arabic",
+    }
+    lang_name = lang_names.get(language_hint, language_hint)
+    hint_line = (
+        f"\nLANGUAGE HINT: The user's interface is set to {lang_name} ({language_hint}). "
+        f"The speaker likely speaks {lang_name}. If you hear {lang_name}, prefer [{language_hint}] as the tag. "
+        f"But always transcribe what you actually hear — do NOT force a wrong language.\n"
+    )
+    return _TRANSCRIPTION_PROMPT + hint_line
+
+
+def _call_gemini(audio_b64: str, mime_type: str, model: str, language_hint: str | None = None) -> str:
     """Call Gemini with audio and return raw text response."""
     from google import genai
     client = genai.Client(api_key=config.GEMINI_API_KEY)
+
+    prompt = _build_prompt(language_hint)
 
     response = client.models.generate_content(
         model=model,
@@ -99,7 +119,7 @@ def _call_gemini(audio_b64: str, mime_type: str, model: str) -> str:
                             mime_type=mime_type, data=audio_b64
                         )
                     ),
-                    genai.types.Part(text=_TRANSCRIPTION_PROMPT),
+                    genai.types.Part(text=prompt),
                 ]
             )
         ],
@@ -137,14 +157,18 @@ def _parse_transcript(raw: str) -> tuple[str, str]:
 
 
 @timed("transcribe")
-def transcribe(audio_bytes: bytes, mime_type: str = "audio/ogg") -> TranscriptResult:
+def transcribe(audio_bytes: bytes, mime_type: str = "audio/ogg", language_hint: str | None = None) -> TranscriptResult:
     """Transcribe audio bytes using Gemini Flash with retry on failure.
 
     Pipeline:
     1. Normalize MIME type
-    2. Try primary model (gemini-2.0-flash — fast)
+    2. Try primary model (gemini-2.0-flash — fast) with optional language hint
     3. On failure or empty result, retry with fallback model (gemini-2.5-flash — stronger)
     4. Parse language tag and return TranscriptResult
+
+    Args:
+        language_hint: Optional 2-letter language code from the user's UI selection.
+                       Helps Gemini prioritize the expected language without forcing it.
     """
     if not config.GEMINI_API_KEY:
         return TranscriptResult(
@@ -162,7 +186,7 @@ def transcribe(audio_bytes: bytes, mime_type: str = "audio/ogg") -> TranscriptRe
         # ── Attempt 1: Primary model (fast) ──
         raw = ""
         try:
-            raw = _call_gemini(audio_b64, mime_type, _PRIMARY_MODEL)
+            raw = _call_gemini(audio_b64, mime_type, _PRIMARY_MODEL, language_hint)
         except Exception as e1:
             log_error("transcribe_primary", f"{_PRIMARY_MODEL}: {e1}")
 
@@ -171,7 +195,7 @@ def transcribe(audio_bytes: bytes, mime_type: str = "audio/ogg") -> TranscriptRe
         # ── Attempt 2: Fallback model if primary failed or returned empty ──
         if not text or language == "unknown":
             try:
-                raw_fallback = _call_gemini(audio_b64, mime_type, _FALLBACK_MODEL)
+                raw_fallback = _call_gemini(audio_b64, mime_type, _FALLBACK_MODEL, language_hint)
                 text_fb, lang_fb = _parse_transcript(raw_fallback)
                 if text_fb:
                     text = text_fb

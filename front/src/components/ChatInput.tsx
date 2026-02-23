@@ -166,10 +166,13 @@ export default function ChatInput({
               "flex-none flex items-center justify-center",
               "w-12 h-12 mr-1",
               "rounded-xl",
-              "text-clara-text-secondary hover:text-clara-blue",
-              "transition-colors duration-150",
-              "disabled:cursor-not-allowed",
+              "bg-clara-orange text-white",
+              "hover:opacity-90",
+              "active:scale-95",
+              "transition-[background-color,transform,opacity] duration-150",
+              "disabled:cursor-not-allowed disabled:opacity-50",
             ].join(" ")}
+            style={!disabled ? { animation: "micHintPulse 2.5s ease-in-out infinite" } : undefined}
           >
             <svg
               width="24"

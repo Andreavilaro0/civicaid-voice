@@ -40,7 +40,7 @@ def chat():
         try:
             from src.core.skills.transcribe import transcribe
             audio_bytes = base64.b64decode(audio_b64)
-            transcript = transcribe(audio_bytes, "audio/webm")
+            transcript = transcribe(audio_bytes, "audio/webm", language_hint=language)
             if transcript.success and transcript.text:
                 text = transcript.text
                 # Use transcription language if confidently detected (not default "es"),

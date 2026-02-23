@@ -32,21 +32,28 @@ function releasePlayback(audio: HTMLAudioElement): void {
 /*  Feedback auditivo sutil al tocar play                             */
 /* ------------------------------------------------------------------ */
 
+/** Reusable AudioContext for click feedback — avoids creating new context per click */
+let feedbackCtx: AudioContext | null = null;
+
 function playClickFeedback(): void {
   if (typeof AudioContext === "undefined") return;
   // Respect reduced-motion preference
   if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   try {
-    const ctx = new AudioContext();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
+    if (!feedbackCtx || feedbackCtx.state === "closed") {
+      feedbackCtx = new AudioContext();
+    }
+    if (feedbackCtx.state === "suspended") {
+      feedbackCtx.resume();
+    }
+    const osc = feedbackCtx.createOscillator();
+    const gain = feedbackCtx.createGain();
     osc.type = "triangle";
     osc.frequency.value = 800;
     gain.gain.value = 0.05;
-    osc.connect(gain).connect(ctx.destination);
+    osc.connect(gain).connect(feedbackCtx.destination);
     osc.start();
-    osc.stop(ctx.currentTime + 0.08);
-    osc.onended = () => ctx.close();
+    osc.stop(feedbackCtx.currentTime + 0.08);
   } catch { /* silent fail — no audio context available */ }
 }
 

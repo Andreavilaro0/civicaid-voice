@@ -66,15 +66,15 @@ interface MessageListProps {
 }
 
 /** Labels bilingues para la lista */
-const labels: Record<Language, { conversation: string; source: string; listen: string }> = {
-  es: { conversation: "Conversacion con Clara", source: "Fuente", listen: "Escuchar respuesta" },
-  en: { conversation: "Conversation with Clara", source: "Source", listen: "Listen to response" },
-  fr: { conversation: "Conversation avec Clara", source: "Source", listen: "Ecouter la reponse" },
-  pt: { conversation: "Conversa com Clara", source: "Fonte", listen: "Ouvir resposta" },
-  ro: { conversation: "Conversație cu Clara", source: "Sursă", listen: "Ascultă răspunsul" },
-  ca: { conversation: "Conversa amb Clara", source: "Font", listen: "Escoltar resposta" },
-  zh: { conversation: "与Clara的对话", source: "来源", listen: "收听回复" },
-  ar: { conversation: "محادثة مع كلارا", source: "المصدر", listen: "استمع للرد" },
+const labels: Record<Language, { conversation: string; source: string; listen: string; voiceMessage: string }> = {
+  es: { conversation: "Conversacion con Clara", source: "Fuente", listen: "Escuchar respuesta", voiceMessage: "Mensaje de voz" },
+  en: { conversation: "Conversation with Clara", source: "Source", listen: "Listen to response", voiceMessage: "Voice message" },
+  fr: { conversation: "Conversation avec Clara", source: "Source", listen: "Ecouter la reponse", voiceMessage: "Message vocal" },
+  pt: { conversation: "Conversa com Clara", source: "Fonte", listen: "Ouvir resposta", voiceMessage: "Mensagem de voz" },
+  ro: { conversation: "Conversație cu Clara", source: "Sursă", listen: "Ascultă răspunsul", voiceMessage: "Mesaj vocal" },
+  ca: { conversation: "Conversa amb Clara", source: "Font", listen: "Escoltar resposta", voiceMessage: "Missatge de veu" },
+  zh: { conversation: "与Clara的对话", source: "来源", listen: "收听回复", voiceMessage: "语音消息" },
+  ar: { conversation: "محادثة مع كلارا", source: "المصدر", listen: "استمع للرد", voiceMessage: "رسالة صوتية" },
 };
 
 export default function MessageList({
@@ -143,9 +143,25 @@ export default function MessageList({
             })}
           >
             {/* Texto del mensaje — URLs auto-linked, whitespace preserved */}
-            <p className="whitespace-pre-wrap leading-relaxed">
-              {linkifyText(msg.text)}
-            </p>
+            {msg.sender === "user" && msg.text === "\u{1F3A4}" ? (
+              /* Voice message indicator — WhatsApp-style waveform instead of plain emoji */
+              <div className="flex items-center gap-2.5 py-0.5">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="opacity-80 shrink-0" aria-hidden="true">
+                  <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" />
+                  <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" />
+                </svg>
+                <div className="flex items-center gap-[3px]" aria-hidden="true">
+                  {[3, 5, 3, 7, 4, 6, 3, 5, 7, 3, 5, 4].map((h, i) => (
+                    <span key={i} className="w-[3px] rounded-full bg-current opacity-50" style={{ height: `${h * 2}px` }} />
+                  ))}
+                </div>
+                <span className="text-[14px] opacity-75">{l.voiceMessage}</span>
+              </div>
+            ) : (
+              <p className="whitespace-pre-wrap leading-relaxed">
+                {linkifyText(msg.text)}
+              </p>
+            )}
 
             {/* Boton de accion en errores — REAL button, no texto plano */}
             {msg.error && (

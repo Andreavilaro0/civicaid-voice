@@ -185,7 +185,10 @@ def process(msg: IncomingMessage) -> None:
                 return
 
             mime_type = msg.media_type or "audio/ogg"
-            transcript: TranscriptResult = transcribe(media_bytes, mime_type)
+            # Pass conversation's last known language as hint for better detection
+            from src.core.skills.detect_lang import get_conversation_lang
+            lang_hint = get_conversation_lang(msg.from_number) if msg.from_number else None
+            transcript: TranscriptResult = transcribe(media_bytes, mime_type, language_hint=lang_hint)
 
             if not transcript.success or not transcript.text:
                 _send_fallback(msg, "whisper_fail", start)
