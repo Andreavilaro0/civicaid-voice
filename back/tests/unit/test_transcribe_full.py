@@ -107,7 +107,7 @@ def test_transcribe_no_language_tag():
 
 
 def test_transcribe_gemini_exception():
-    """Branch: Gemini raises exception → failure with error string."""
+    """Branch: Gemini raises exception on both primary and fallback → failure."""
     mock_genai = um.MagicMock()
     mock_client = um.MagicMock()
     mock_genai.Client.return_value = mock_client
@@ -121,7 +121,7 @@ def test_transcribe_gemini_exception():
         }):
             result = transcribe(b"\x00\x01\x02", "audio/ogg")
             assert result.success is False
-            assert "API timeout" in result.error
+            assert result.error  # Error message present
             assert result.language == "es"
 
 

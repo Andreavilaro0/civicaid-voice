@@ -117,6 +117,28 @@ TEMPLATES = {
         "zh": "抱歉，我这边出了点问题。你可以几秒后再试。如果紧急，请拨打060或访问 administracion.gob.es。",
         "ar": "عذراً، حدثت مشكلة من جانبي. يمكنك المحاولة مرة أخرى بعد ثوانٍ. إذا كان الأمر عاجلاً، اتصل بـ 060 أو زر administracion.gob.es.",
     },
+    # --- Suggested questions: When user seems lost ---
+    "suggest_questions": {
+        "es": "Puedo ayudarte con cosas como:\n- Como pido el *Ingreso Minimo Vital*?\n- Que necesito para *empadronarme*?\n- Como saco la *tarjeta sanitaria*?\n- Como renuevo mi *NIE*?\n\nPreguntame lo que necesites.",
+        "fr": "Je peux vous aider avec des questions comme :\n- Comment demander le *Revenu Minimum Vital* ?\n- Comment m'*inscrire au padron* ?\n- Comment obtenir la *carte sanitaire* ?\n- Comment renouveler mon *NIE* ?\n\nDemandez-moi ce que vous voulez.",
+        "en": "I can help with questions like:\n- How do I apply for the *Minimum Living Income*?\n- How do I *register at the town hall*?\n- How do I get my *health card*?\n- How do I renew my *NIE*?\n\nAsk me anything you need.",
+        "pt": "Posso ajudar-te com coisas como:\n- Como peco o *Rendimento Minimo*?\n- Como me *empadrono*?\n- Como tiro o *cartao de saude*?\n- Como renovo o meu *NIE*?\n\nPergunta-me o que precisares.",
+        "ro": "Te pot ajuta cu lucruri ca:\n- Cum solicit *Venitul Minim*?\n- Cum ma *inregistrez la primarie*?\n- Cum obtin *cardul sanitar*?\n- Cum imi reinnoiesc *NIE-ul*?\n\nIntreaba-ma ce ai nevoie.",
+        "ca": "Puc ajudar-te amb coses com:\n- Com demano el *Ingrés Mínim Vital*?\n- Com m'*empadrono*?\n- Com trec la *targeta sanitaria*?\n- Com renovo el meu *NIE*?\n\nPregunta'm el que necessitis.",
+        "zh": "我可以帮你解答这些问题：\n- 如何申请*最低生活保障*？\n- 如何*登记住址*？\n- 如何办理*医疗卡*？\n- 如何更新*NIE*？\n\n问我任何你需要的。",
+        "ar": "أقدر أساعدك في أشياء مثل:\n- كيف أطلب *الحد الأدنى للدخل*؟\n- كيف *أسجل في البلدية*؟\n- كيف أحصل على *البطاقة الصحية*؟\n- كيف أجدد *NIE*؟\n\nاسألني ما تحتاج.",
+    },
+    # --- Privacy notice: Proactive data reassurance ---
+    "privacy_notice": {
+        "es": "Por cierto, no guardo ningun dato tuyo. Cada conversacion empieza de cero. Tu privacidad es lo primero.",
+        "fr": "Au fait, je ne garde aucune donnee. Chaque conversation repart de zero. Votre vie privee est prioritaire.",
+        "en": "By the way, I don't store any of your data. Each conversation starts fresh. Your privacy comes first.",
+        "pt": "Ja agora, nao guardo nenhum dado teu. Cada conversa comeca de zero. A tua privacidade e o mais importante.",
+        "ro": "Apropo, nu pastrez niciun dat al tau. Fiecare conversatie incepe de la zero. Confidentialitatea ta e pe primul loc.",
+        "ca": "Per cert, no guardo cap dada teva. Cada conversa comenca de zero. La teva privacitat es el primer.",
+        "zh": "顺便说一下，我不保存你的任何数据。每次对话都从零开始。你的隐私是最重要的。",
+        "ar": "بالمناسبة، أنا لا أحتفظ بأي بيانات لك. كل محادثة تبدأ من الصفر. خصوصيتك أولاً.",
+    },
     # --- Closing: Celebrate the hero's journey ---
     "closing": {
         "es": "Ya tienes lo que necesitas. Si te surge otra duda, aqui estoy. Mucho animo, lo vas a sacar adelante.",

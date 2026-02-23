@@ -157,7 +157,7 @@ def llm_generate(
             config=genai.types.GenerateContentConfig(
                 system_instruction=system,
                 max_output_tokens=1024,
-                temperature=0.6,
+                temperature=0.4,
             ),
         )
         elapsed = int((time.time() - start) * 1000)

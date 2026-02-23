@@ -100,17 +100,22 @@ def send_audio_only(to_number: str, audio_url: str) -> bool:
 
 # ── Welcome flow ──────────────────────────────────────────────────────
 
+LEGAL_PAGE_BASE = "https://andreavilaro0.github.io/civicaid-voice/info-legal"
+
 WELCOME = {
     "es": {
         "text": (
             "👋 *Hola, soy Clara.*\n\n"
+            "🤖 Soy una inteligencia artificial, no una persona. "
+            "Mi información es orientativa y no sustituye asesoramiento profesional.\n\n"
             "Te ayudo con trámites sociales en España: "
             "IMV, empadronamiento, tarjeta sanitaria, NIE y más.\n\n"
             "🗣 Puedes *hablarme con audio* o *escribir* tu pregunta.\n"
             "🌍 Hablo español, francés, inglés, portugués, rumano, catalán, chino y árabe.\n"
-            "🔒 Gratis y confidencial."
+            "🔒 Gratis y confidencial.\n\n"
+            f"📋 Info legal: {LEGAL_PAGE_BASE}?lang=es"
         ),
-        "speech": "Hola, soy Clara. Te ayudo con trámites sociales en España. Puedes hablarme o escribir tu pregunta.",
+        "speech": "Nadie debería quedarse solo ante un trámite. Soy Clara, una inteligencia artificial que te escucha. Cuéntame, en tu idioma.",
         "buttons": [
             {"id": "btn_imv", "title": "¿Qué es el IMV?"},
             {"id": "btn_empadronamiento", "title": "Empadronamiento"},
@@ -120,13 +125,16 @@ WELCOME = {
     "fr": {
         "text": (
             "👋 *Salut, je suis Clara.*\n\n"
+            "🤖 Je suis une intelligence artificielle, pas une personne. "
+            "Mes informations sont indicatives et ne remplacent pas un conseil professionnel.\n\n"
             "Je t'aide avec les démarches sociales en Espagne: "
             "RMV, inscription, carte sanitaire, NIE et plus.\n\n"
             "🗣 Tu peux *m'envoyer un audio* ou *écrire* ta question.\n"
             "🌍 Je parle espagnol, français, anglais, portugais, roumain, catalan, chinois et arabe.\n"
-            "🔒 Gratuit et confidentiel."
+            "🔒 Gratuit et confidentiel.\n\n"
+            f"📋 Infos légales : {LEGAL_PAGE_BASE}?lang=fr"
         ),
-        "speech": "Salut, je suis Clara. Je t'aide avec les démarches sociales en Espagne.",
+        "speech": "Personne ne devrait rester seul face à une démarche. Je suis Clara, une intelligence artificielle qui t'écoute. Raconte-moi, dans ta langue.",
         "buttons": [
             {"id": "btn_imv", "title": "Qu'est-ce que le RMV?"},
             {"id": "btn_empadronamiento", "title": "Inscription"},
@@ -136,13 +144,16 @@ WELCOME = {
     "en": {
         "text": (
             "👋 *Hi, I'm Clara.*\n\n"
+            "🤖 I am an artificial intelligence, not a person. "
+            "My information is for guidance only and does not replace professional advice.\n\n"
             "I help you with social services in Spain: "
             "minimum income, registration, health card, NIE and more.\n\n"
             "🗣 You can *send me a voice message* or *type* your question.\n"
             "🌍 I speak Spanish, French, English, Portuguese, Romanian, Catalan, Chinese and Arabic.\n"
-            "🔒 Free and confidential."
+            "🔒 Free and confidential.\n\n"
+            f"📋 Legal info: {LEGAL_PAGE_BASE}?lang=en"
         ),
-        "speech": "Hi, I'm Clara. I help you with social services in Spain. You can talk to me or type your question.",
+        "speech": "Nobody should face a procedure alone. I'm Clara, an artificial intelligence that listens to you. Tell me, in your language.",
         "buttons": [
             {"id": "btn_imv", "title": "What is the IMV?"},
             {"id": "btn_empadronamiento", "title": "Registration"},
@@ -152,13 +163,16 @@ WELCOME = {
     "pt": {
         "text": (
             "👋 *Olá, sou a Clara.*\n\n"
+            "🤖 Sou uma inteligência artificial, não uma pessoa. "
+            "A minha informação é orientativa e não substitui aconselhamento profissional.\n\n"
             "Ajudo-te com os trâmites sociais em Espanha: "
             "rendimento mínimo, inscrição, cartão de saúde, NIE e mais.\n\n"
             "🗣 Podes *enviar-me um áudio* ou *escrever* a tua pergunta.\n"
             "🌍 Falo espanhol, francês, inglês, português, romeno, catalão, chinês e árabe.\n"
-            "🔒 Gratuito e confidencial."
+            "🔒 Gratuito e confidencial.\n\n"
+            f"📋 Info legal: {LEGAL_PAGE_BASE}?lang=pt"
         ),
-        "speech": "Olá, sou a Clara. Ajudo-te com trâmites sociais em Espanha. Podes falar ou escrever a tua pergunta.",
+        "speech": "Ninguém deveria ficar sozinho perante um trâmite. Sou Clara, uma inteligência artificial que te ouve. Conta-me, no teu idioma.",
         "buttons": [
             {"id": "btn_imv", "title": "O que é o IMV?"},
             {"id": "btn_empadronamiento", "title": "Inscrição"},
@@ -168,13 +182,16 @@ WELCOME = {
     "ro": {
         "text": (
             "👋 *Bună, sunt Clara.*\n\n"
+            "🤖 Sunt o inteligență artificială, nu o persoană. "
+            "Informațiile mele sunt orientative și nu înlocuiesc consilierea profesională.\n\n"
             "Te ajut cu procedurile sociale din Spania: "
             "venitul minim, înregistrarea, cardul de sănătate, NIE și altele.\n\n"
             "🗣 Poți să *trimiți un mesaj vocal* sau să *scrii* întrebarea ta.\n"
             "🌍 Vorbesc spaniolă, franceză, engleză, portugheză, română, catalană, chineză și arabă.\n"
-            "🔒 Gratuit și confidențial."
+            "🔒 Gratuit și confidențial.\n\n"
+            f"📋 Info legale: {LEGAL_PAGE_BASE}?lang=ro"
         ),
-        "speech": "Bună, sunt Clara. Te ajut cu procedurile sociale din Spania. Poți să vorbești sau să scrii întrebarea ta.",
+        "speech": "Nimeni nu ar trebui să fie singur în fața unei proceduri. Sunt Clara, o inteligență artificială care te ascultă. Spune-mi, în limba ta.",
         "buttons": [
             {"id": "btn_imv", "title": "Ce este IMV?"},
             {"id": "btn_empadronamiento", "title": "Înregistrare"},
@@ -184,13 +201,16 @@ WELCOME = {
     "ca": {
         "text": (
             "👋 *Hola, soc la Clara.*\n\n"
+            "🤖 Soc una intel·ligència artificial, no una persona. "
+            "La meva informació és orientativa i no substitueix l'assessorament professional.\n\n"
             "T'ajudo amb tràmits socials a Espanya: "
             "IMV, empadronament, targeta sanitària, NIE i més.\n\n"
             "🗣 Pots *enviar-me un àudio* o *escriure* la teva pregunta.\n"
             "🌍 Parlo castellà, francès, anglès, portuguès, romanès, català, xinès i àrab.\n"
-            "🔒 Gratuït i confidencial."
+            "🔒 Gratuït i confidencial.\n\n"
+            f"📋 Info legal: {LEGAL_PAGE_BASE}?lang=ca"
         ),
-        "speech": "Hola, soc la Clara. T'ajudo amb tràmits socials a Espanya. Pots parlar-me o escriure la teva pregunta.",
+        "speech": "Ningú hauria de quedar-se sol davant un tràmit. Soc Clara, una intel·ligència artificial que t'escolta. Explica'm, en el teu idioma.",
         "buttons": [
             {"id": "btn_imv", "title": "Què és l'IMV?"},
             {"id": "btn_empadronamiento", "title": "Empadronament"},
@@ -200,12 +220,15 @@ WELCOME = {
     "zh": {
         "text": (
             "👋 *你好，我是Clara。*\n\n"
+            "🤖 我是人工智能，不是真人。"
+            "我提供的信息仅供参考，不能替代专业建议。\n\n"
             "我帮助你办理西班牙的社会事务：最低收入、登记注册、医疗卡、NIE等。\n\n"
             "🗣 你可以*发送语音*或*输入文字*提问。\n"
             "🌍 我会说西班牙语、法语、英语、葡萄牙语、罗马尼亚语、加泰罗尼亚语、中文和阿拉伯语。\n"
-            "🔒 免费且保密。"
+            "🔒 免费且保密。\n\n"
+            f"📋 法律信息: {LEGAL_PAGE_BASE}?lang=zh"
         ),
-        "speech": "你好，我是Clara。我帮助你办理西班牙的社会事务。你可以语音或文字提问。",
+        "speech": "没有人应该独自面对一项手续。我是Clara，一个倾听你的人工智能。告诉我，用你的语言。",
         "buttons": [
             {"id": "btn_imv", "title": "什么是IMV？"},
             {"id": "btn_empadronamiento", "title": "居民登记"},
@@ -215,13 +238,16 @@ WELCOME = {
     "ar": {
         "text": (
             "👋 *مرحبا، أنا كلارا.*\n\n"
+            "🤖 أنا ذكاء اصطناعي، لست شخصاً حقيقياً. "
+            "معلوماتي إرشادية ولا تحل محل الاستشارة المهنية.\n\n"
             "أساعدك في الإجراءات الاجتماعية في إسبانيا: "
             "الحد الأدنى للدخل، التسجيل البلدي، البطاقة الصحية، NIE والمزيد.\n\n"
             "🗣 يمكنك *إرسال صوت* أو *كتابة* سؤالك.\n"
             "🌍 أتحدث الإسبانية والفرنسية والإنجليزية والبرتغالية والرومانية والكتالونية والصينية والعربية.\n"
-            "🔒 مجاني وسري."
+            "🔒 مجاني وسري.\n\n"
+            f"📋 المعلومات القانونية: {LEGAL_PAGE_BASE}?lang=ar"
         ),
-        "speech": "مرحبا، أنا كلارا. أساعدك في الإجراءات الاجتماعية في إسبانيا.",
+        "speech": "لا أحد يجب أن يواجه إجراء وحده. أنا كلارا، ذكاء اصطناعي يسمعك. أخبرني، بلغتك.",
         "buttons": [
             {"id": "btn_imv", "title": "ما هو الحد الأدنى؟"},
             {"id": "btn_empadronamiento", "title": "التسجيل البلدي"},

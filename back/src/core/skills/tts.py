@@ -132,8 +132,8 @@ _GEMINI_VOICE_NAME = {
     "ar": "Achernar",   # "Soft" — soft and warm for Arabic
 }
 
-# Max words to send to TTS — keeps audio under ~30 seconds
-_TTS_MAX_WORDS = 150
+# Max words to send to TTS — reads the full response
+_TTS_MAX_WORDS = 500
 
 
 _060_SPOKEN = {
@@ -167,18 +167,17 @@ _strip_formatting = _strip_formatting_localized
 
 
 def _truncate_for_tts(text: str) -> str:
-    """Keep only the first ~150 words for TTS.
+    """Truncate only if text exceeds hard limit (500 words).
 
-    Clara's responses follow E-V-I pattern (Empathy-Validate-Inform).
-    We keep the empathy + validation + first few steps, which is the
-    most important part for audio. Full details are in the text message.
+    Clara reads the FULL response in audio so the user hears all steps,
+    links, and phone numbers without having to read the text.
+    Only truncates at the hard cap to prevent extremely long audio.
     """
     words = text.split()
     if len(words) <= _TTS_MAX_WORDS:
         return text
-    # Cut at word boundary, add natural closing
+    # Cut at word boundary at sentence end
     truncated = " ".join(words[:_TTS_MAX_WORDS])
-    # Try to end at a sentence boundary
     last_period = truncated.rfind(".")
     last_question = truncated.rfind("?")
     cut_point = max(last_period, last_question)
@@ -330,8 +329,8 @@ def _synthesize_gtts(text: str, language: str) -> str | None:
 def text_to_audio(text: str, language: str = "es") -> str | None:
     """Convert text to audio. Returns public URL or None on failure.
 
-    Text is automatically stripped of WhatsApp formatting and truncated
-    to ~150 words before synthesis.
+    Text is automatically stripped of WhatsApp formatting before synthesis.
+    Reads the full response (up to 500 words).
 
     Engine selection via TTS_ENGINE env var:
     - "elevenlabs": ElevenLabs premium voice with Gemini/gTTS fallback
