@@ -3,7 +3,8 @@ FROM python:3.11-slim
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
-# ffmpeg skipped — Whisper disabled on free tier to stay under 512MB RAM
+# ffmpeg needed for pydub audio conversion (webm→wav before Gemini transcription)
+RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 

@@ -6,8 +6,10 @@ Improvements (2026-02-23):
 - Retry with superior model on first failure
 - Higher token limit for longer voice messages
 - Domain-aware transcription (trámites, ayudas sociales)
+- WebM→WAV conversion (webm is NOT in Gemini's supported formats)
 """
 
+import io
 import time
 from src.core.models import TranscriptResult
 from src.core.config import config
@@ -72,6 +74,31 @@ def _normalize_mime(mime_type: str) -> str:
     return mime_type
 
 
+def _convert_webm_to_wav(audio_bytes: bytes) -> tuple[bytes, str]:
+    """Convert WebM/unsupported audio to WAV using pydub + ffmpeg.
+
+    WebM is NOT in Gemini's supported format list (WAV, MP3, AIFF, AAC, OGG, FLAC).
+    Browsers record in WebM by default, so we must convert before sending to Gemini.
+    This fixes language detection issues caused by degraded processing of unsupported formats.
+
+    Returns (wav_bytes, "audio/wav").
+    Falls back to original bytes if conversion fails (ffmpeg not available, etc.).
+    """
+    try:
+        from pydub import AudioSegment
+        audio = AudioSegment.from_file(io.BytesIO(audio_bytes))
+        # Convert to mono 16kHz WAV — optimal for speech recognition
+        audio = audio.set_channels(1).set_frame_rate(16000)
+        buf = io.BytesIO()
+        audio.export(buf, format="wav")
+        wav_bytes = buf.getvalue()
+        log_error("transcribe_convert", f"webm→wav OK: {len(audio_bytes)}→{len(wav_bytes)} bytes")
+        return wav_bytes, "audio/wav"
+    except Exception as e:
+        log_error("transcribe_convert", f"webm→wav failed ({e}), using original")
+        return audio_bytes, "audio/webm"
+
+
 def load_whisper_model():
     """No-op — Gemini API needs no local model."""
     pass
@@ -94,10 +121,15 @@ def _build_prompt(language_hint: str | None = None) -> str:
         "ro": "Romanian", "ca": "Catalan", "zh": "Chinese", "ar": "Arabic",
     }
     lang_name = lang_names.get(language_hint, language_hint)
+    # Strong directive — Gemini's auto-detection is unreliable for non-Spanish
+    # (known issue: github.com/livekit/agents/issues/3551)
     hint_line = (
-        f"\nLANGUAGE HINT: The user's interface is set to {lang_name} ({language_hint}). "
-        f"The speaker likely speaks {lang_name}. If you hear {lang_name}, prefer [{language_hint}] as the tag. "
-        f"But always transcribe what you actually hear — do NOT force a wrong language.\n"
+        f"\n\nIMPORTANT — EXPECTED LANGUAGE: {lang_name.upper()} ({language_hint})\n"
+        f"The user has explicitly selected {lang_name} as their language. "
+        f"The audio is MOST LIKELY in {lang_name}. "
+        f"You MUST use [{language_hint}] as the language tag unless the audio is CLEARLY "
+        f"in a completely different language. Do NOT default to [es] — "
+        f"the speaker chose {lang_name} and is speaking {lang_name}.\n"
     )
     return _TRANSCRIPTION_PROMPT + hint_line
 
@@ -178,6 +210,12 @@ def transcribe(audio_bytes: bytes, mime_type: str = "audio/ogg", language_hint: 
 
     start = time.time()
     mime_type = _normalize_mime(mime_type)
+
+    # ── Convert unsupported formats to WAV ──
+    # WebM (browser default) is NOT in Gemini's supported list and causes
+    # degraded language detection. Convert to WAV for reliable results.
+    if mime_type in ("audio/webm", "audio/mp4"):
+        audio_bytes, mime_type = _convert_webm_to_wav(audio_bytes)
 
     try:
         import base64
