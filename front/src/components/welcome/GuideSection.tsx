@@ -224,6 +224,31 @@ export default function GuideSection({ lang }: GuideSectionProps) {
               Clara
             </h2>
 
+            {/* Clara 3D — interactive Spline scene */}
+            <div
+              className="relative mx-auto md:mx-0"
+              style={{
+                width: "clamp(200px, 28vw, 320px)",
+                height: "clamp(200px, 28vw, 320px)",
+                borderRadius: "24px",
+                overflow: "hidden",
+                opacity: visible ? 1 : 0,
+                transform: visible ? "scale(1)" : "scale(0.9)",
+                transition: "opacity 0.8s ease-out 0.3s, transform 0.8s cubic-bezier(0.22,1,0.36,1) 0.3s",
+              }}
+            >
+              <spline-viewer
+                url="https://prod.spline.design/MZxWfrLie5x-h-U9/scene.splinecode"
+                background="rgba(0,0,0,0)"
+                loading="lazy"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "block",
+                }}
+              />
+            </div>
+
             {/* Empathy quote — italic, muted */}
             <p
               className="italic text-clara-text-secondary leading-relaxed"
