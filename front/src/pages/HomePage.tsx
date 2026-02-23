@@ -197,9 +197,9 @@ export default function HomePage() {
 
             <div className="flex items-center gap-2">
               <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 80 80" fill="none" aria-hidden="true">
-                <path d="M 28 23 A 20 20 0 0 1 28 57" stroke="#1B5E7B" strokeWidth="4.5" strokeLinecap="round" fill="none" opacity="0.65" />
-                <path d="M 28 32 A 10 10 0 0 1 28 48" stroke="#1B5E7B" strokeWidth="4.5" strokeLinecap="round" fill="none" />
-                <circle cx="28" cy="40" r="4" fill="#D46A1E" />
+                <path d="M 28 23 A 20 20 0 0 1 28 57" stroke="var(--color-clara-blue)" strokeWidth="4.5" strokeLinecap="round" fill="none" opacity="0.65" />
+                <path d="M 28 32 A 10 10 0 0 1 28 48" stroke="var(--color-clara-blue)" strokeWidth="4.5" strokeLinecap="round" fill="none" />
+                <circle cx="28" cy="40" r="4" fill="var(--color-clara-orange)" />
               </svg>
               <span className="font-display font-bold text-[15px] sm:text-[17px] text-clara-text">Clara</span>
             </div>
@@ -218,10 +218,10 @@ export default function HomePage() {
           <div className="absolute inset-0 rounded-full border-2 border-clara-blue/10" style={{ animation: "logoRipple 3s ease-out infinite" }} />
           <div className="absolute inset-[-12px] rounded-full border border-clara-blue/5" style={{ animation: "logoRipple 3s ease-out 1s infinite" }} />
           <svg className="w-[48px] h-[48px] md:w-[72px] md:h-[72px]" viewBox="0 0 80 80" fill="none" aria-hidden="true">
-            <path d="M 28 14 A 30 30 0 0 1 28 66" stroke="#1B5E7B" strokeWidth="4.5" strokeLinecap="round" fill="none" opacity="0.35" />
-            <path d="M 28 23 A 20 20 0 0 1 28 57" stroke="#1B5E7B" strokeWidth="4.5" strokeLinecap="round" fill="none" opacity="0.65" />
-            <path d="M 28 32 A 10 10 0 0 1 28 48" stroke="#1B5E7B" strokeWidth="4.5" strokeLinecap="round" fill="none" opacity="1" />
-            <circle cx="28" cy="40" r="5.5" fill="#D46A1E" />
+            <path d="M 28 14 A 30 30 0 0 1 28 66" stroke="var(--color-clara-blue)" strokeWidth="4.5" strokeLinecap="round" fill="none" opacity="0.35" />
+            <path d="M 28 23 A 20 20 0 0 1 28 57" stroke="var(--color-clara-blue)" strokeWidth="4.5" strokeLinecap="round" fill="none" opacity="0.65" />
+            <path d="M 28 32 A 10 10 0 0 1 28 48" stroke="var(--color-clara-blue)" strokeWidth="4.5" strokeLinecap="round" fill="none" opacity="1" />
+            <circle cx="28" cy="40" r="5.5" fill="var(--color-clara-orange)" />
           </svg>
         </div>
 
@@ -231,7 +231,7 @@ export default function HomePage() {
           {cycled.text}
         </p>
 
-        <h1 className="font-display font-bold text-[32px] md:text-[44px] lg:text-[56px] leading-[1.08] text-clara-text text-center mb-1 transition-opacity duration-400"
+        <h1 className="font-display font-bold text-[36px] md:text-[48px] lg:text-[60px] leading-[1.08] text-clara-text text-center mb-1 transition-opacity duration-400"
             style={{ opacity: cycleFade ? 1 : 0, direction: cycled.lang === "ar" ? "rtl" : "ltr", animation: "fadeInUp 0.5s ease-out both", animationDelay: "0.15s" }}>
           <span className="text-clara-blue">{cycled.tagline[0]}</span><br />
           <span className="text-clara-orange">{cycled.tagline[1]}</span>

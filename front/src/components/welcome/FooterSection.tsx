@@ -27,9 +27,9 @@ export default function FooterSection({ lang }: FooterSectionProps) {
           {/* Clara mini logo */}
           <div className="footer-logo-shimmer flex items-center gap-2 mb-1" aria-hidden="true">
             <svg width="24" height="24" viewBox="0 0 80 80" fill="none">
-              <path d="M 28 23 A 20 20 0 0 1 28 57" stroke="#1B5E7B" strokeWidth="3" strokeLinecap="round" opacity="0.5" />
-              <path d="M 28 32 A 10 10 0 0 1 28 48" stroke="#1B5E7B" strokeWidth="3" strokeLinecap="round" opacity="0.8" />
-              <circle cx="28" cy="40" r="4" fill="#D46A1E" />
+              <path d="M 28 23 A 20 20 0 0 1 28 57" stroke="var(--color-clara-blue)" strokeWidth="3" strokeLinecap="round" opacity="0.5" />
+              <path d="M 28 32 A 10 10 0 0 1 28 48" stroke="var(--color-clara-blue)" strokeWidth="3" strokeLinecap="round" opacity="0.8" />
+              <circle cx="28" cy="40" r="4" fill="var(--color-clara-orange)" />
             </svg>
             <span className="font-display font-bold text-body-sm text-clara-text-secondary/50">Clara</span>
           </div>

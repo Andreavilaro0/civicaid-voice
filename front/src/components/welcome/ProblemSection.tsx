@@ -208,12 +208,12 @@ function TickerStrip({
               <span
                 style={{
                   display: "block",
-                  fontSize: 11,
+                  fontSize: 13,
                   fontFamily: "var(--font-display)",
                   fontWeight: 700,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  color: "#D46A1E",
+                  color: "var(--color-clara-orange)",
                   marginBottom: 8,
                   opacity: 0.9,
                 }}
@@ -239,12 +239,12 @@ function TickerStrip({
               <span
                 style={{
                   display: "block",
-                  fontSize: 11,
+                  fontSize: 13,
                   fontFamily: "var(--font-display)",
                   fontWeight: 700,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  color: "#4caf7d",
+                  color: "var(--color-clara-green)",
                   marginBottom: 8,
                   opacity: 0.9,
                 }}
@@ -531,7 +531,7 @@ export default function ProblemSection({ lang }: ProblemSectionProps) {
                 fontSize: 14,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
-                color: "#D46A1E",
+                color: "var(--color-clara-orange)",
               }}
             >
               {/* Orange dot */}
@@ -541,7 +541,7 @@ export default function ProblemSection({ lang }: ProblemSectionProps) {
                   width: 8,
                   height: 8,
                   borderRadius: "50%",
-                  background: "#D46A1E",
+                  background: "var(--color-clara-orange)",
                   boxShadow: "0 0 8px rgba(var(--clara-orange-rgb),0.6)",
                   flexShrink: 0,
                   display: "inline-block",
@@ -571,7 +571,7 @@ export default function ProblemSection({ lang }: ProblemSectionProps) {
                 fontSize: 14,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
-                color: "#4caf7d",
+                color: "var(--color-clara-green)",
               }}
             >
               {/* Green dot */}
@@ -581,7 +581,7 @@ export default function ProblemSection({ lang }: ProblemSectionProps) {
                   width: 8,
                   height: 8,
                   borderRadius: "50%",
-                  background: "#2E7D4F",
+                  background: "var(--color-clara-green)",
                   boxShadow: "0 0 8px rgba(var(--clara-green-rgb),0.6)",
                   flexShrink: 0,
                   display: "inline-block",

@@ -66,16 +66,16 @@ export default function PlanSection({ lang }: PlanSectionProps) {
       {/* Decorative voice arcs — reinforcing Clara's sonic identity */}
       <div className="voice-arc-decorative" aria-hidden="true" style={{ top: "20%", left: "-50px", animationDelay: "1.5s" }}>
         <svg width="90" height="90" viewBox="0 0 80 80" fill="none" style={{ opacity: 0.5 }}>
-          <path d="M 50 20 A 22 22 0 0 1 50 60" stroke="#1B5E7B" strokeWidth="1.5" strokeLinecap="round" opacity="0.25" />
-          <path d="M 44 28 A 14 14 0 0 1 44 52" stroke="#1B5E7B" strokeWidth="1.5" strokeLinecap="round" opacity="0.4" />
-          <circle cx="38" cy="40" r="2" fill="#D46A1E" opacity="0.5" />
+          <path d="M 50 20 A 22 22 0 0 1 50 60" stroke="var(--color-clara-blue)" strokeWidth="1.5" strokeLinecap="round" opacity="0.25" />
+          <path d="M 44 28 A 14 14 0 0 1 44 52" stroke="var(--color-clara-blue)" strokeWidth="1.5" strokeLinecap="round" opacity="0.4" />
+          <circle cx="38" cy="40" r="2" fill="var(--color-clara-orange)" opacity="0.5" />
         </svg>
       </div>
       <div className="voice-arc-decorative" aria-hidden="true" style={{ bottom: "10%", right: "-30px", animationDelay: "4s" }}>
         <svg width="80" height="80" viewBox="0 0 80 80" fill="none" style={{ opacity: 0.35, transform: "scaleX(-1)" }}>
-          <path d="M 50 22 A 20 20 0 0 1 50 58" stroke="#2E7D4F" strokeWidth="1.5" strokeLinecap="round" opacity="0.3" />
-          <path d="M 44 30 A 12 12 0 0 1 44 50" stroke="#2E7D4F" strokeWidth="1.5" strokeLinecap="round" opacity="0.45" />
-          <circle cx="38" cy="40" r="2" fill="#D46A1E" opacity="0.5" />
+          <path d="M 50 22 A 20 20 0 0 1 50 58" stroke="var(--color-clara-green)" strokeWidth="1.5" strokeLinecap="round" opacity="0.3" />
+          <path d="M 44 30 A 12 12 0 0 1 44 50" stroke="var(--color-clara-green)" strokeWidth="1.5" strokeLinecap="round" opacity="0.45" />
+          <circle cx="38" cy="40" r="2" fill="var(--color-clara-orange)" opacity="0.5" />
         </svg>
       </div>
 

@@ -51,9 +51,9 @@ export default function SuccessSection({ lang }: SuccessSectionProps) {
         viewBox="0 0 200 200"
         fill="none"
       >
-        <circle cx="100" cy="100" r="90" stroke="#1B5E7B" strokeWidth="1" />
-        <circle cx="100" cy="100" r="65" stroke="#1B5E7B" strokeWidth="0.8" />
-        <circle cx="100" cy="100" r="40" stroke="#2E7D4F" strokeWidth="0.6" />
+        <circle cx="100" cy="100" r="90" stroke="var(--color-clara-blue)" strokeWidth="1" />
+        <circle cx="100" cy="100" r="65" stroke="var(--color-clara-blue)" strokeWidth="0.8" />
+        <circle cx="100" cy="100" r="40" stroke="var(--color-clara-green)" strokeWidth="0.6" />
       </svg>
       <svg
         aria-hidden="true"
@@ -70,8 +70,8 @@ export default function SuccessSection({ lang }: SuccessSectionProps) {
         viewBox="0 0 200 200"
         fill="none"
       >
-        <circle cx="100" cy="100" r="80" stroke="#D46A1E" strokeWidth="0.8" />
-        <circle cx="100" cy="100" r="55" stroke="#D46A1E" strokeWidth="0.6" />
+        <circle cx="100" cy="100" r="80" stroke="var(--color-clara-orange)" strokeWidth="0.8" />
+        <circle cx="100" cy="100" r="55" stroke="var(--color-clara-orange)" strokeWidth="0.6" />
       </svg>
 
       <div className="relative w-full max-w-5xl mx-auto flex flex-col items-center gap-12 px-6">
@@ -87,7 +87,7 @@ export default function SuccessSection({ lang }: SuccessSectionProps) {
               position: "relative",
               background: "var(--color-clara-card)",
               borderRadius: "20px",
-              borderLeft: "4px solid #D46A1E",
+              borderLeft: "4px solid var(--color-clara-orange)",
               padding: "clamp(24px, 4vw, 36px) clamp(24px, 4vw, 32px)",
               boxShadow: "0 2px 16px rgba(0,0,0,0.04), 0 0 0 1px rgba(var(--clara-blue-rgb),0.04)",
             }}
@@ -119,11 +119,11 @@ export default function SuccessSection({ lang }: SuccessSectionProps) {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "6px",
-                  fontSize: "11px",
+                  fontSize: "13px",
                   fontWeight: 700,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  color: "#D46A1E",
+                  color: "var(--color-clara-orange)",
                   marginBottom: "12px",
                 }}
               >
@@ -152,7 +152,7 @@ export default function SuccessSection({ lang }: SuccessSectionProps) {
               position: "relative",
               background: "var(--color-clara-card)",
               borderRadius: "20px",
-              borderLeft: "4px solid #2E7D4F",
+              borderLeft: "4px solid var(--color-clara-green)",
               padding: "clamp(24px, 4vw, 36px) clamp(24px, 4vw, 32px)",
               boxShadow: "0 2px 16px rgba(0,0,0,0.04), 0 0 0 1px rgba(var(--clara-blue-rgb),0.04)",
             }}
@@ -184,11 +184,11 @@ export default function SuccessSection({ lang }: SuccessSectionProps) {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "6px",
-                  fontSize: "11px",
+                  fontSize: "13px",
                   fontWeight: 700,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  color: "#2E7D4F",
+                  color: "var(--color-clara-green)",
                   marginBottom: "12px",
                 }}
               >
@@ -216,7 +216,7 @@ export default function SuccessSection({ lang }: SuccessSectionProps) {
           style={{
             width: "48px",
             height: "2px",
-            background: "#D46A1E",
+            background: "var(--color-clara-orange)",
             opacity: visible ? 1 : 0,
             transition: "opacity 0.6s ease-out 0.5s",
           }}

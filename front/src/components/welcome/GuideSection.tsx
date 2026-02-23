@@ -93,7 +93,7 @@ function StatRing({ value, label, fill, visible, delay }: StatRingProps) {
       <span
         className="uppercase tracking-widest text-clara-text-secondary text-center"
         style={{
-          fontSize: 12,
+          fontSize: 14,
           opacity: visible ? 1 : 0,
           transform: visible ? "translateY(0)" : "translateY(8px)",
           transition: `opacity 0.5s ease-out ${delay + 300}ms, transform 0.5s ease-out ${delay + 300}ms`,
@@ -152,19 +152,20 @@ export default function GuideSection({ lang }: GuideSectionProps) {
           style={{ transform: "rotate(0deg)" }}
         >
           {/* Concentric voice arc rings — Clara's sonic identity */}
-          <circle cx="100" cy="100" r="20" stroke="#1B5E7B" strokeWidth="1.5" />
-          <circle cx="100" cy="100" r="40" stroke="#1B5E7B" strokeWidth="1.2" />
-          <circle cx="100" cy="100" r="60" stroke="#1B5E7B" strokeWidth="1" />
-          <circle cx="100" cy="100" r="80" stroke="#1B5E7B" strokeWidth="0.8" />
-          <circle cx="100" cy="100" r="95" stroke="#1B5E7B" strokeWidth="0.6" />
+          <circle cx="100" cy="100" r="20" stroke="currentColor" strokeWidth="1.5" className="text-clara-blue" />
+          <circle cx="100" cy="100" r="40" stroke="currentColor" strokeWidth="1.2" className="text-clara-blue" />
+          <circle cx="100" cy="100" r="60" stroke="currentColor" strokeWidth="1" className="text-clara-blue" />
+          <circle cx="100" cy="100" r="80" stroke="currentColor" strokeWidth="0.8" className="text-clara-blue" />
+          <circle cx="100" cy="100" r="95" stroke="currentColor" strokeWidth="0.6" className="text-clara-blue" />
           {/* Arc slices suggesting sound wave directionality */}
           <path
             d="M 100 100 m -12 0 a 12 12 0 1 1 24 0"
-            stroke="#D46A1E"
+            stroke="currentColor"
             strokeWidth="2"
             fill="none"
+            className="text-clara-orange"
           />
-          <circle cx="100" cy="100" r="4" fill="#D46A1E" />
+          <circle cx="100" cy="100" r="4" fill="currentColor" className="text-clara-orange" />
         </svg>
       </div>
 
@@ -182,17 +183,17 @@ export default function GuideSection({ lang }: GuideSectionProps) {
       {/* Decorative voice arcs — Clara's sonic identity */}
       <div className="voice-arc-decorative" aria-hidden="true" style={{ top: "10%", right: "-60px", animationDelay: "0s" }}>
         <svg width="120" height="120" viewBox="0 0 80 80" fill="none" style={{ opacity: 0.6 }}>
-          <path d="M 50 15 A 28 28 0 0 1 50 65" stroke="#1B5E7B" strokeWidth="1.5" strokeLinecap="round" opacity="0.2" />
-          <path d="M 44 24 A 18 18 0 0 1 44 56" stroke="#1B5E7B" strokeWidth="1.5" strokeLinecap="round" opacity="0.35" />
-          <path d="M 38 33 A 8 8 0 0 1 38 47" stroke="#1B5E7B" strokeWidth="2" strokeLinecap="round" opacity="0.5" />
-          <circle cx="34" cy="40" r="2.5" fill="#D46A1E" opacity="0.6" />
+          <path d="M 50 15 A 28 28 0 0 1 50 65" stroke="var(--color-clara-blue)" strokeWidth="1.5" strokeLinecap="round" opacity="0.2" />
+          <path d="M 44 24 A 18 18 0 0 1 44 56" stroke="var(--color-clara-blue)" strokeWidth="1.5" strokeLinecap="round" opacity="0.35" />
+          <path d="M 38 33 A 8 8 0 0 1 38 47" stroke="var(--color-clara-blue)" strokeWidth="2" strokeLinecap="round" opacity="0.5" />
+          <circle cx="34" cy="40" r="2.5" fill="var(--color-clara-orange)" opacity="0.6" />
         </svg>
       </div>
       <div className="voice-arc-decorative" aria-hidden="true" style={{ bottom: "15%", left: "-40px", animationDelay: "3s" }}>
         <svg width="100" height="100" viewBox="0 0 80 80" fill="none" style={{ opacity: 0.4, transform: "scaleX(-1)" }}>
-          <path d="M 50 20 A 22 22 0 0 1 50 60" stroke="#2E7D4F" strokeWidth="1.5" strokeLinecap="round" opacity="0.25" />
-          <path d="M 44 28 A 14 14 0 0 1 44 52" stroke="#2E7D4F" strokeWidth="1.5" strokeLinecap="round" opacity="0.4" />
-          <circle cx="38" cy="40" r="2.5" fill="#D46A1E" opacity="0.5" />
+          <path d="M 50 20 A 22 22 0 0 1 50 60" stroke="var(--color-clara-green)" strokeWidth="1.5" strokeLinecap="round" opacity="0.25" />
+          <path d="M 44 28 A 14 14 0 0 1 44 52" stroke="var(--color-clara-green)" strokeWidth="1.5" strokeLinecap="round" opacity="0.4" />
+          <circle cx="38" cy="40" r="2.5" fill="var(--color-clara-orange)" opacity="0.5" />
         </svg>
       </div>
 
@@ -234,7 +235,7 @@ export default function GuideSection({ lang }: GuideSectionProps) {
             {/* Thin orange divider accent */}
             <div
               className="h-[2px] w-12 rounded-full"
-              style={{ background: "#D46A1E" }}
+              style={{ background: "var(--color-clara-orange)" }}
               aria-hidden="true"
             />
           </div>

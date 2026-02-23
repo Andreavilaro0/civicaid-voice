@@ -80,6 +80,12 @@ html, body {
   max-width: 100vw;
 }
 
+/* Base font size — 18px minimum for elderly users (PMC research) */
+body {
+  font-size: var(--font-size-body-sm);
+  line-height: var(--font-size-body-sm--line-height);
+}
+
 /* Max line width para legibilidad optima */
 p, li, dd {
   max-width: 70ch;
@@ -1285,6 +1291,9 @@ body::after {
 .dark svg [stroke="#2E7D4F"] { stroke: #6EC08D; }
 .dark svg [stroke="#D46A1E"] { stroke: #E8934E; }
 .dark svg [fill="#1B5E7B"] { fill: #6BBFE0; }
+.dark svg [fill="#D46A1E"] { fill: #E8934E; }
+.dark svg [fill="#2E7D4F"] { fill: #6EC08D; }
+.dark svg [fill="#4caf7d"] { fill: #6EC08D; }
 
 /* Gradient utility — brand blue gradient adapts to dark mode */
 .brand-gradient {
