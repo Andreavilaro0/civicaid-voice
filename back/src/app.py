@@ -58,6 +58,11 @@ def create_app() -> Flask:
     gh_pages = "https://andreavilaro0.github.io"
     if gh_pages not in frontend_origins:
         frontend_origins.append(gh_pages)
+    # Include common local dev ports (Vite may use 5173-5180)
+    for port in range(5173, 5181):
+        local = f"http://localhost:{port}"
+        if local not in frontend_origins:
+            frontend_origins.append(local)
     CORS(app, resources={
         r"/api/*": {"origins": frontend_origins},
         r"/static/*": {"origins": frontend_origins},

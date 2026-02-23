@@ -16,17 +16,17 @@ _CACHE_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "..", "data", "
 # Voice IDs: pre-selected warm female voices per language
 # Model: eleven_multilingual_v2 (29 languages, natural prosody)
 # ---------------------------------------------------------------------------
-# Sara Martin — Gentle and Layered: warm, natural, empathetic
-# Works across all 8 languages via eleven_multilingual_v2
+# Language-optimized voices via eleven_multilingual_v2
+# Native speakers where available; Sara Martin (ES) as fallback for languages without native options
 _ELEVENLABS_VOICE_ID = {
     "es": "KHCvMklQZZo0O30ERnVn",  # Sara Martin — gentle, layered, perfect for Clara
-    "fr": "KHCvMklQZZo0O30ERnVn",
-    "en": "KHCvMklQZZo0O30ERnVn",
-    "pt": "KHCvMklQZZo0O30ERnVn",
-    "ro": "KHCvMklQZZo0O30ERnVn",
-    "ca": "KHCvMklQZZo0O30ERnVn",
-    "zh": "KHCvMklQZZo0O30ERnVn",
-    "ar": "KHCvMklQZZo0O30ERnVn",
+    "fr": "lvQdCgwZfBuOzxyV5pxu",  # AudIA — friendly, professional French female, natural warm tone
+    "en": "EXAVITQu4vr4xnSDxMaL",  # Sarah (premade) — confident, natural English
+    "pt": "KHCvMklQZZo0O30ERnVn",  # Sara Martin — best multilingual option for Portuguese
+    "ro": "KHCvMklQZZo0O30ERnVn",  # Sara Martin — best multilingual option for Romanian
+    "ca": "KHCvMklQZZo0O30ERnVn",  # Sara Martin — Spanish-adjacent, best for Catalan
+    "zh": "bhJUNIXWQQ94l8eI2VUf",  # Amy — young, natural, relaxed Mandarin female
+    "ar": "LjKPkQHpXCsWoy7Pjq4U",  # Alice — young Egyptian woman, soft warm Arabic tone
 }
 
 _ELEVENLABS_MODEL = "eleven_multilingual_v2"       # High quality (for cached/static)

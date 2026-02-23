@@ -196,20 +196,14 @@ export default function HomePage() {
       document.removeEventListener("touchstart", playWelcome);
       document.removeEventListener("keydown", playWelcome);
     };
-    // Try autoplay first (works if browser allows it)
+    // Try autoplay directly (no test audio — avoids double playback)
     const timer = setTimeout(() => {
-      const audio = new Audio(WELCOME_AUDIO_URL);
-      audio.play().then(() => {
-        audio.pause();
-        audio.currentTime = 0;
-        playWelcome();
-      }).catch(() => {
-        // Autoplay blocked — wait for first user interaction
-        document.addEventListener("click", playWelcome, { once: false });
-        document.addEventListener("touchstart", playWelcome, { once: false });
-        document.addEventListener("keydown", playWelcome, { once: false });
-      });
+      playWelcome();
     }, 600);
+    // If autoplay was blocked, wait for first user interaction
+    document.addEventListener("click", playWelcome, { once: false });
+    document.addEventListener("touchstart", playWelcome, { once: false });
+    document.addEventListener("keydown", playWelcome, { once: false });
     return () => {
       clearTimeout(timer);
       hasSpokenRef.current = false;
