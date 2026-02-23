@@ -10,7 +10,8 @@
 - **KB:** Extensible — cualquier .json en data/tramites/ con campo "keywords" se carga automaticamente
 - **RAG:** PostgreSQL + pgvector, hybrid BM25+vector search, fallback chain, response cache
 - **Tono:** Fase 5 completada — Clara habla como amiga del ayuntamiento (E-V-I pattern, sin emoji en ACKs)
-- **Estado:** Fases 0-5 completadas, Fase 3 Q1-Q4 RAG completada (FULL PASS)
+- **Frontend:** `front/` (React + Vite, port 5173) — unico frontend activo
+- **Estado (2026-02-23):** Fases 0-5 completadas, Fase 3 Q1-Q4 RAG completada (FULL PASS). clara-web/ eliminado, front/ es el unico frontend
 
 ## Arquitectura
 
@@ -41,7 +42,7 @@ civicaid-voice/
 │   ├── Dockerfile, docker-compose.yml
 │   ├── requirements.txt, pyproject.toml
 │   └── render.yaml (rootDir: back)
-├── clara-web/                     # Frontend Next.js (actual)
+├── front/                         # Frontend React + Vite (port 5173)
 ├── clase/                         # Material escolar
 │   ├── presentacion/              # Pitch, demos HTML, PPTX, PDF, guion
 │   └── design/                    # Branding, mockups, videos, marketing
@@ -95,11 +96,8 @@ back/
 | DEMO_MODE | false | Cache-only, skip LLM tras cache miss |
 | LLM_LIVE | true | Habilita Gemini |
 | WHISPER_ON | true | Habilita transcripcion audio |
-| LLM_TIMEOUT | 6 | Segundos max Gemini |
-| WHISPER_TIMEOUT | 12 | Segundos max Whisper |
 | GUARDRAILS_ON | true | Habilita guardrails de contenido |
 | VISION_ENABLED | true | Habilita analisis de imagenes via Gemini Vision |
-| VISION_TIMEOUT | 10 | Segundos max Gemini Vision |
 | TTS_ENGINE | "gtts" | Motor TTS: "gtts" (robotico) o "gemini" (voz calida Clara) |
 | STRUCTURED_OUTPUT_ON | false | Habilita salida estructurada JSON |
 | OBSERVABILITY_ON | true | Habilita metricas y trazas |
@@ -189,8 +187,8 @@ cd back && docker build -t civicaid-voice . && docker run -p 10000:10000 --env-f
 # Health
 curl http://localhost:5000/health | python3 -m json.tool
 
-# Frontend (clara-web/)
-cd clara-web && npm run dev
+# Frontend (front/ — React + Vite)
+cd front && npm run dev
 
 # RAG Ingestion
 cd back && python scripts/run_ingestion.py --all --dry-run
@@ -202,22 +200,11 @@ cd back && python scripts/run_rag_eval.py
 curl -H "Authorization: Bearer $ADMIN_TOKEN" http://localhost:5000/admin/rag-metrics
 ```
 
-## Welcome Page — Estado Actual (2026-02-21)
+## Welcome Page — Estado Actual (2026-02-23)
 
-### Completado
-- `clara-web/src/app/page.tsx` — Reescrito sin GSAP: layout compacto mobile-first con CSS `fadeInUp`/`scaleIn`, speak() simplificado (ElevenLabs static → Browser Speech API, sin backend TTS fallback)
-- `clara-web/src/app/layout.tsx` — GSAP CDN `<script>` eliminado
-- `clara-web/src/app/globals.css` — `@keyframes scaleIn` agregado
-- `clara-web/public/audio/welcome-es.mp3` — Regenerado con Charlotte, Multilingual v2 (stability=0.50, similarity_boost=0.70, style=0.15, speed=0.95)
-- Build limpio: `tsc --noEmit` + `npm run build` sin errores
-
-### Pendiente: Regenerar audio FR y AR
-Los audios FR y AR son de una sesion anterior (voz Laura, params suboptimos). Regenerar con:
-- **Tool:** `mcp__elevenlabs__text_to_speech` o `mcp__kie-ai__elevenlabs_tts`
-- **Voz:** Charlotte | **Modelo:** eleven_multilingual_v2
-- **Params:** stability=0.50, similarity_boost=0.70, style=0.15, speed=0.95
-- **FR:** `"Bonjour, je suis Clara. Je suis là pour t'aider. Parle ou écris dans ta langue."` → `clara-web/public/audio/welcome-fr.mp3`
-- **AR:** `"مرحبا، أنا كلارا. أنا هنا لمساعدتك. تحدث أو اكتب بلغتك."` → `clara-web/public/audio/welcome-ar.mp3`
+- **Frontend unico:** `front/` (React + Vite, port 5173) — `clara-web/` fue eliminado
+- **Audio de bienvenida:** `front/public/audio/welcome-multilingual.mp3` (unico archivo, multilingue)
+- Build limpio, frontend funcional
 
 ## Equipo Humano
 

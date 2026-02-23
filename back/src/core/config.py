@@ -34,8 +34,6 @@ class Config:
     DEMO_MODE: bool = field(default_factory=lambda: _bool(os.getenv("DEMO_MODE", "false")))
     LLM_LIVE: bool = field(default_factory=lambda: _bool(os.getenv("LLM_LIVE", "true")))
     WHISPER_ON: bool = field(default_factory=lambda: _bool(os.getenv("WHISPER_ON", "true")))
-    LLM_TIMEOUT: int = field(default_factory=lambda: int(os.getenv("LLM_TIMEOUT", "6")))
-    WHISPER_TIMEOUT: int = field(default_factory=lambda: int(os.getenv("WHISPER_TIMEOUT", "12")))
     AUDIO_BASE_URL: str = field(default_factory=lambda: os.getenv("AUDIO_BASE_URL", ""))
 
     # --- Observability ---
@@ -55,7 +53,6 @@ class Config:
 
     # --- Vision ---
     VISION_ENABLED: bool = field(default_factory=lambda: _bool(os.getenv("VISION_ENABLED", "true")))
-    VISION_TIMEOUT: int = field(default_factory=lambda: int(os.getenv("VISION_TIMEOUT", "10")))
 
     # --- TTS ---
     TTS_ENGINE: str = field(default_factory=lambda: os.getenv("TTS_ENGINE", "gtts"))
