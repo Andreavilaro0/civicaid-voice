@@ -65,4 +65,13 @@ def post_check(response_text: str) -> str:
         if re.search(pattern, result):
             result = re.sub(pattern, f'[{pii_type} REDACTADO]', result)
 
+    # Validate URLs in final response against domain policy
+    from src.core.config import config
+    if config.DOMAIN_VALIDATION_ON:
+        from src.core.domain_validator import extract_urls, is_domain_approved
+        _FALLBACK_URL = "https://administracion.gob.es"
+        for url in extract_urls(result):
+            if not is_domain_approved(url):
+                result = result.replace(url, _FALLBACK_URL)
+
     return result

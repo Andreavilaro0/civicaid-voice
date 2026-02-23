@@ -12,6 +12,24 @@ from src.core.models import KBContext
 logger = logging.getLogger(__name__)
 
 
+def _validate_source_url(ctx: KBContext) -> bool:
+    """Check fuente_url against domain policy. Returns True if OK or validation off."""
+    from src.core.config import config
+    if not config.DOMAIN_VALIDATION_ON:
+        return True
+    url = ctx.fuente_url or ctx.datos.get("fuente_url", "")
+    if not url:
+        return True  # No URL to validate
+    from src.core.domain_validator import is_domain_approved
+    if not is_domain_approved(url):
+        logger.warning(
+            "Retriever rejected result for '%s': fuente_url domain not approved: %s",
+            ctx.tramite, url,
+        )
+        return False
+    return True
+
+
 class Retriever(ABC):
     @abstractmethod
     def retrieve(self, query: str, language: str) -> Optional[KBContext]:
@@ -22,7 +40,10 @@ class JSONKBRetriever(Retriever):
     """Wraps the existing kb_lookup as a Retriever implementation."""
     def retrieve(self, query: str, language: str) -> Optional[KBContext]:
         from src.core.skills.kb_lookup import kb_lookup
-        return kb_lookup(query, language)
+        result = kb_lookup(query, language)
+        if result and not _validate_source_url(result):
+            return None
+        return result
 
 
 class PGVectorRetriever(Retriever):
@@ -90,13 +111,16 @@ class PGVectorRetriever(Retriever):
             for r in procedure_chunks[:config.RAG_MAX_CHUNKS_IN_PROMPT]
         ]
 
-        return KBContext(
+        ctx = KBContext(
             tramite=procedure_id,
             datos=datos,
             fuente_url=source_url,
             verificado=bool(datos.get("verified_at")),
             chunks_used=chunks_used,
         )
+        if not _validate_source_url(ctx):
+            return None
+        return ctx
 
     def _build_datos(self, procedure_id: str, chunks: list[dict]) -> dict:
         """Reconstruct a datos dict compatible with the LLM context builder."""
