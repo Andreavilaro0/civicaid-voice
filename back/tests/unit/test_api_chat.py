@@ -7,7 +7,7 @@ import base64
 import pytest
 from unittest.mock import patch, MagicMock
 from src.app import create_app
-from src.core.models import TranscriptResult, LLMResponse, KBContext
+from src.core.models import TranscriptResult, LLMResponse
 
 
 @pytest.fixture

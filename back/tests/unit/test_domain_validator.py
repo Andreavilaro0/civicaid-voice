@@ -3,7 +3,6 @@
 import pytest
 
 from src.core.domain_validator import (
-    DomainValidator,
     extract_urls,
     is_domain_approved,
     reset_validator,
