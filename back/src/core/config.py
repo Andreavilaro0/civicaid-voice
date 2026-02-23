@@ -51,11 +51,14 @@ class Config:
     # --- Guardrails ---
     GUARDRAILS_ON: bool = field(default_factory=lambda: _bool(os.getenv("GUARDRAILS_ON", "true")))
 
+    # --- Domain Validation ---
+    DOMAIN_VALIDATION_ON: bool = field(default_factory=lambda: _bool(os.getenv("DOMAIN_VALIDATION_ON", "true")))
+
     # --- Vision ---
     VISION_ENABLED: bool = field(default_factory=lambda: _bool(os.getenv("VISION_ENABLED", "true")))
 
     # --- TTS ---
-    TTS_ENGINE: str = field(default_factory=lambda: os.getenv("TTS_ENGINE", "gtts"))
+    TTS_ENGINE: str = field(default_factory=lambda: os.getenv("TTS_ENGINE", "gemini"))
     ELEVENLABS_API_KEY: str = field(default_factory=lambda: os.getenv("ELEVENLABS_API_KEY", ""))
 
     # --- RAG ---

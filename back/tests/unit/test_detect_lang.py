@@ -137,6 +137,19 @@ class TestKeywordHint:
     def test_ar_marhaba(self):
         assert _keyword_hint("marhaba shukran") == "ar"
 
+    # --- Arabic script ---
+    def test_ar_arabic_script_marhaba(self):
+        """Arabic script 'مرحبا' should detect as Arabic."""
+        assert _keyword_hint("مرحبا") == "ar"
+
+    def test_ar_arabic_script_ahlan(self):
+        """Arabic script 'أهلاً' should detect as Arabic."""
+        assert _keyword_hint("أهلاً") == "ar"
+
+    def test_ar_arabic_script_musaada(self):
+        """Arabic script 'مساعدة' (help) should detect as Arabic."""
+        assert _keyword_hint("مساعدة") == "ar"
+
     # --- No match ---
     def test_empty_string(self):
         assert _keyword_hint("") is None
@@ -275,6 +288,18 @@ class TestDetectLanguage:
             result = detect_language("unha frase longa en galego sen keywords")
             assert result == "es"
 
+    def test_chinese_long_text_detected_by_langdetect(self):
+        """Chinese text long enough for langdetect should detect as 'zh', not fall to default."""
+        from unittest.mock import patch
+        with patch("src.core.skills.detect_lang.detect", return_value="zh-cn"):
+            result = detect_language("我需要帮助办理居住登记和健康卡申请流程")
+            assert result == "zh"
+
+    def test_chinese_short_text_keyword_hint(self):
+        """Short Chinese text should match via CJK character check."""
+        result = detect_language("你好")
+        assert result == "zh"
+
     # --- Unsupported language fallback ---
     def test_unsupported_lang_uses_hint_or_default(self):
         from unittest.mock import patch
@@ -351,6 +376,14 @@ class TestConversationScenarios:
         lang = detect_language("", phone=phone)
         assert lang == "es"
 
+    def test_fallback_uses_stored_language_not_default_es(self):
+        """If pipeline crashes, _send_fallback should use conversation memory language."""
+        phone = "+34test_fallback_lang"
+        set_conversation_lang(phone, "fr")
+        # detect_language with empty body but stored phone = "fr"
+        lang = detect_language("", phone=phone)
+        assert lang == "fr"
+
 
 # ===========================================================================
 # 6. GREETING DETECTION (templates.py)
@@ -399,11 +432,30 @@ class TestGreetingDetection:
         assert not is_greeting("")
 
     def test_greeting_with_punctuation(self):
-        """'Hello!' — is_greeting should handle this."""
+        """'Hello!' — is_greeting should handle this after punctuation stripping."""
         from src.core.prompts.templates import is_greeting
         result = is_greeting("Hello!")
-        # "hello!" not in set — punctuation prevents match
-        assert not result  # BUG: punctuation prevents greeting detection!
+        assert result  # Fixed: punctuation is now stripped before matching
+
+    def test_pt_ola_with_accent(self):
+        """Portuguese 'olá' with accent should be recognized as greeting."""
+        from src.core.prompts.templates import is_greeting
+        assert is_greeting("olá")
+
+    def test_ro_buna_with_accent(self):
+        """Romanian 'bună' with accent should be recognized as greeting."""
+        from src.core.prompts.templates import is_greeting
+        assert is_greeting("bună")
+
+    def test_greeting_with_punctuation_fixed(self):
+        """'Hello!' should be recognized as greeting after stripping punctuation."""
+        from src.core.prompts.templates import is_greeting
+        assert is_greeting("Hello!")
+
+    def test_ar_script_greeting(self):
+        """Arabic script greeting should be recognized."""
+        from src.core.prompts.templates import is_greeting
+        assert is_greeting("مرحبا")
 
     def test_greeting_multiword(self):
         """'buenos dias' is a multi-word greeting in _GREETING_WORDS."""
@@ -475,10 +527,11 @@ class TestTranscriptionParsing:
         assert lang == "es"
         assert text == "Hello world without tag"
 
-    def test_three_letter_tag_not_parsed(self):
-        """[eng] has ']' at index 4 — within raw[:5] so it IS parsed."""
-        lang, text = self._parse_language_tag("[eng] Hello")
-        assert lang == "eng"  # BUG: 3-letter codes not mapped to 2-letter
+    def test_three_letter_tag_is_parsed_and_mapped(self):
+        """[eng] is parsed and mapped to 'en' via _LANG_3_TO_2."""
+        from src.core.skills.transcribe import _parse_transcript
+        text, lang = _parse_transcript("[eng] Hello")
+        assert lang == "en"  # Fixed: 3-letter codes now mapped to 2-letter
         assert text == "Hello"
 
     def test_long_tag_not_parsed(self):
@@ -490,6 +543,34 @@ class TestTranscriptionParsing:
         """Text starting with [ but no ] nearby."""
         lang, text = self._parse_language_tag("[some long text without close bracket")
         assert lang == "es"
+
+    def test_three_letter_eng_maps_to_en(self):
+        """[eng] should be mapped to [en]."""
+        from src.core.skills.transcribe import _parse_transcript
+        text, lang = _parse_transcript("[eng] Hello world")
+        assert lang == "en"
+        assert text == "Hello world"
+
+    def test_three_letter_fra_maps_to_fr(self):
+        """[fra] should be mapped to [fr]."""
+        from src.core.skills.transcribe import _parse_transcript
+        text, lang = _parse_transcript("[fra] Bonjour le monde")
+        assert lang == "fr"
+        assert text == "Bonjour le monde"
+
+    def test_three_letter_por_maps_to_pt(self):
+        """[por] should be mapped to [pt]."""
+        from src.core.skills.transcribe import _parse_transcript
+        text, lang = _parse_transcript("[por] Ola mundo")
+        assert lang == "pt"
+        assert text == "Ola mundo"
+
+    def test_three_letter_spa_maps_to_es(self):
+        """[spa] should be mapped to [es]."""
+        from src.core.skills.transcribe import _parse_transcript
+        text, lang = _parse_transcript("[spa] Hola mundo")
+        assert lang == "es"
+        assert text == "Hola mundo"
 
 
 # ===========================================================================

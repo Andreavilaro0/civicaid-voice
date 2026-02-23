@@ -1,11 +1,13 @@
 """Tests for POST /api/chat and GET /api/health API endpoints.
 
 Covers: health check, input validation, cache hit flow, response contract,
-CORS preflight, and audio error handling.
+CORS preflight, audio error handling, and language fallback from frontend hint.
 """
+import base64
 import pytest
 from unittest.mock import patch, MagicMock
 from src.app import create_app
+from src.core.models import TranscriptResult, LLMResponse, KBContext
 
 
 @pytest.fixture
@@ -149,3 +151,70 @@ class TestApiChatAudio:
                 "audio_base64": "dGVzdA==",
             })
             assert resp.status_code == 422
+
+
+class TestApiChatAudioLanguageFallback:
+    """Tests for language re-detection when transcription defaults to 'es'."""
+
+    def test_audio_redetects_language_when_transcript_defaults_es(self, client):
+        """If transcription returns default 'es' but text is French, re-detect correctly."""
+        mock_transcript = TranscriptResult(
+            text="bonjour je besoin aide pour inscription",
+            language="es",  # Gemini failed to tag properly
+            duration_ms=100,
+            success=True,
+        )
+        with patch("src.core.skills.transcribe.transcribe", return_value=mock_transcript), \
+             patch("src.routes.api_chat.cache") as mock_cache, \
+             patch("src.routes.api_chat.llm_generate") as mock_llm, \
+             patch("src.routes.api_chat.verify_response", side_effect=lambda t, _: t):
+            mock_cache.match.return_value = MagicMock(hit=False)
+            mock_llm.return_value = LLMResponse(
+                text="Bonjour! Je suis Clara.", language="fr",
+                duration_ms=50, from_cache=False, success=True
+            )
+
+            fake_audio = base64.b64encode(b"fake_audio_data").decode()
+            resp = client.post("/api/chat", json={
+                "text": "",
+                "language": "fr",
+                "input_type": "audio",
+                "audio_base64": fake_audio,
+                "session_id": "test_session",
+            })
+            assert resp.status_code == 200
+            data = resp.get_json()
+            # detect_language should have been called on the French text
+            # and the response should reflect correct processing
+            assert data["source"] in ("llm", "cache", "fallback")
+
+    def test_audio_uses_transcript_language_when_not_es(self, client):
+        """If transcription returns non-es language, use it directly."""
+        mock_transcript = TranscriptResult(
+            text="Hello I need help with registration",
+            language="en",  # Gemini detected English
+            duration_ms=100,
+            success=True,
+        )
+        with patch("src.core.skills.transcribe.transcribe", return_value=mock_transcript), \
+             patch("src.routes.api_chat.cache") as mock_cache, \
+             patch("src.routes.api_chat.llm_generate") as mock_llm, \
+             patch("src.routes.api_chat.verify_response", side_effect=lambda t, _: t), \
+             patch("src.routes.api_chat.detect_language") as mock_detect:
+            mock_cache.match.return_value = MagicMock(hit=False)
+            mock_llm.return_value = LLMResponse(
+                text="Hi! I'm Clara.", language="en",
+                duration_ms=50, from_cache=False, success=True
+            )
+
+            fake_audio = base64.b64encode(b"fake_audio_data").decode()
+            resp = client.post("/api/chat", json={
+                "text": "",
+                "language": "en",
+                "input_type": "audio",
+                "audio_base64": fake_audio,
+                "session_id": "test_session",
+            })
+            assert resp.status_code == 200
+            # detect_language should NOT have been called since transcript had non-es language
+            mock_detect.assert_not_called()

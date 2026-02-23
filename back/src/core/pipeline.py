@@ -104,11 +104,12 @@ def process(msg: IncomingMessage) -> None:
         is_greeting = cmd_text in (
             "hola", "hi", "hello", "hey",          # es / en
             "salut", "bonjour",                      # fr
-            "oi", "ola",                             # pt
+            "oi", "ola", "olá",                      # pt
             "buna", "bună",                          # ro
             "bon dia",                               # ca
             "你好", "nihao",                          # zh
-            "مرحبا",                                 # ar
+            "مرحبا", "أهلا", "سلام",                 # ar (script)
+            "salam", "marhaba", "ahlan",             # ar (romanized)
             "start", "inicio",                       # commands
         )
         is_restart = cmd_text in ("menu", "reiniciar", "restart", "clear", "borrar", "reset")
@@ -442,7 +443,8 @@ def process(msg: IncomingMessage) -> None:
 
 def _send_fallback(msg: IncomingMessage, template_key: str, start: float) -> None:
     """Send a fallback response when something fails."""
-    language = detect_language(msg.body) if msg.body else "es"
+    language = detect_language(msg.body, phone=msg.from_number) if msg.body else \
+        detect_language("", phone=msg.from_number)
     elapsed_ms = int((time.time() - start) * 1000)
     fallback_text = get_template(template_key, language)
     response = FinalResponse(

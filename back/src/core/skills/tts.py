@@ -132,32 +132,42 @@ _GEMINI_VOICE_NAME = {
     "ar": "Achernar",   # "Soft" — soft and warm for Arabic
 }
 
-# Max words to send to TTS — keeps audio under ~15 seconds
-_TTS_MAX_WORDS = 45
+# Max words to send to TTS — keeps audio under ~30 seconds
+_TTS_MAX_WORDS = 150
 
 
-def _strip_formatting(text: str) -> str:
+_060_SPOKEN = {
+    "es": "cero sesenta",
+    "fr": "zéro soixante",
+    "en": "zero sixty",
+    "pt": "zero sessenta",
+    "ro": "zero șaizeci",
+    "ca": "zero seixanta",
+    "zh": "零六零",
+    "ar": "صفر ستين",
+}
+
+
+def _strip_formatting_localized(text: str, language: str = "es") -> str:
     """Remove WhatsApp formatting that sounds bad when spoken aloud."""
-    # Remove *bold* markers
     result = re.sub(r'\*([^*]+)\*', r'\1', text)
-    # Remove URLs
     result = re.sub(r'https?://\S+', '', result)
-    # Remove phone numbers like 060, 900 xxx xxx
     result = re.sub(r'\b\d{3}[\s-]?\d{3}[\s-]?\d{3}\b', '', result)
-    # Remove standalone short numbers (like "060") at end of sentences
-    result = re.sub(r'\b060\b', 'cero sesenta', result)
-    # Remove [C1], [C2] citation markers
+    spoken_060 = _060_SPOKEN.get(language, _060_SPOKEN["es"])
+    result = re.sub(r'\b060\b', spoken_060, result)
     result = re.sub(r'\[C\d+\]', '', result)
-    # Clean up numbered list formatting: "1. " → "Primero, "
     result = re.sub(r'^\s*\d+\.\s*', '', result, flags=re.MULTILINE)
-    # Remove multiple spaces and blank lines
     result = re.sub(r'\n{2,}', '. ', result)
     result = re.sub(r'\s{2,}', ' ', result)
     return result.strip()
 
 
+# Keep backward compat alias
+_strip_formatting = _strip_formatting_localized
+
+
 def _truncate_for_tts(text: str) -> str:
-    """Keep only the first ~80 words for TTS.
+    """Keep only the first ~150 words for TTS.
 
     Clara's responses follow E-V-I pattern (Empathy-Validate-Inform).
     We keep the empathy + validation + first few steps, which is the
@@ -177,9 +187,9 @@ def _truncate_for_tts(text: str) -> str:
     return truncated
 
 
-def _prepare_text_for_tts(text: str) -> str:
+def _prepare_text_for_tts(text: str, language: str = "es") -> str:
     """Pre-process text for natural TTS: strip formatting, truncate, add pauses."""
-    result = _strip_formatting(text)
+    result = _strip_formatting_localized(text, language)
     result = _truncate_for_tts(result)
     # Add micro-pause before parenthetical explanations
     result = re.sub(r'\(', '... (', result)
@@ -321,7 +331,7 @@ def text_to_audio(text: str, language: str = "es") -> str | None:
     """Convert text to audio. Returns public URL or None on failure.
 
     Text is automatically stripped of WhatsApp formatting and truncated
-    to ~80 words before synthesis (keeps audio under ~30s).
+    to ~150 words before synthesis.
 
     Engine selection via TTS_ENGINE env var:
     - "elevenlabs": ElevenLabs premium voice with Gemini/gTTS fallback
@@ -332,7 +342,7 @@ def text_to_audio(text: str, language: str = "es") -> str | None:
         return None
 
     # Prepare text ONCE — strip formatting + truncate for all engines
-    prepared = _prepare_text_for_tts(text)
+    prepared = _prepare_text_for_tts(text, language)
     if not prepared or len(prepared.strip()) < 5:
         return None
 

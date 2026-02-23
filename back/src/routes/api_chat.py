@@ -43,7 +43,13 @@ def chat():
             transcript = transcribe(audio_bytes, "audio/webm")
             if transcript.success and transcript.text:
                 text = transcript.text
-                language = transcript.language
+                # Use transcription language if confidently detected (not default "es"),
+                # otherwise re-detect from transcribed text for better accuracy
+                if transcript.language and transcript.language != "es":
+                    language = transcript.language
+                else:
+                    detected = detect_language(text)
+                    language = detected
             else:
                 return jsonify({"error": "audio_transcription_failed"}), 422
         except Exception as e:

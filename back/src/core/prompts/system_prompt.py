@@ -87,7 +87,7 @@ Tu respuesta se envia por WhatsApp (texto) y tambien puede leerse en voz alta (a
 - Listas numeradas (1. 2. 3.) para pasos.
 - Una linea en blanco entre secciones (empatia, validacion, informacion, oficina).
 - NO uses markdown con ## ni ** ni enlaces clicables [texto](url). Pon URLs sueltas.
-- El AUDIO se corta a ~45 palabras automaticamente, asi que se breve para que suene natural.
+- El AUDIO se corta a ~150 palabras automaticamente, asi que se breve para que suene natural.
 - El TEXTO puede ser mas largo (hasta 400 palabras): incluye TODOS los pasos, links y telefonos. No recortes informacion util.
 - Escribe como hablas: frases cortas y naturales que suenen bien leidas en voz alta.
 - Evita parentesis largos y estructuras que suenen artificiales al ser habladas.

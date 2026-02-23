@@ -8,16 +8,16 @@ _GREETING_WORDS = {
     "bonjour", "salut", "bonsoir",
     # English
     "hello", "hi", "hey", "help", "start",
-    # Portuguese
-    "ola", "oi", "bom dia", "boa tarde", "boa noite",
-    # Romanian
-    "buna", "buna ziua", "salut",
+    # Portuguese (with and without accents)
+    "ola", "olá", "oi", "bom dia", "boa tarde", "boa noite",
+    # Romanian (with and without accents)
+    "buna", "bună", "buna ziua", "bună ziua", "salut",
     # Catalan
     "bon dia", "bona tarda",
     # Chinese
     "你好", "nihao",
-    # Arabic (transliterated)
-    "salam", "marhaba", "ahlan",
+    # Arabic (transliterated + script)
+    "salam", "marhaba", "ahlan", "مرحبا", "أهلا", "سلام",
     # Generic
     "join", "empezar", "ayuda",
 }
@@ -25,9 +25,11 @@ _GREETING_WORDS = {
 
 def is_greeting(text: str) -> bool:
     """Check if message is a greeting/first contact."""
-    words = text.lower().strip().split()
+    import re
+    clean = re.sub(r'[^\w\s]', '', text.lower().strip())
+    words = clean.split()
     if len(words) <= 4:
-        return any(w in _GREETING_WORDS for w in words) or text.lower().strip() in _GREETING_WORDS
+        return any(w in _GREETING_WORDS for w in words) or clean in _GREETING_WORDS
     return False
 
 

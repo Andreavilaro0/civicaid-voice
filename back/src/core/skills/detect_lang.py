@@ -50,11 +50,15 @@ _ZH_KEYWORDS = {
 }
 
 _AR_KEYWORDS = {
+    # Romanized
     "salam", "marhaba", "shukran", "musaada", "ahlan",
+    # Arabic script
+    "مرحبا", "أهلاً", "سلام", "شكرا", "مساعدة", "أهلا",
+    "أريد", "أحتاج",
 }
 
 # Supported language codes — map langdetect output to our codes
-_SUPPORTED = {"es", "fr", "en", "pt", "ro", "ca", "ar"}
+_SUPPORTED = {"es", "fr", "en", "pt", "ro", "ca", "ar", "zh"}
 
 
 def _strip_punctuation(text: str) -> str:
@@ -66,6 +70,10 @@ def _keyword_hint(text: str) -> str | None:
     """Check for language-specific keywords. Returns lang code or None."""
     lower = _strip_punctuation(text).lower()
     words = set(lower.split())
+
+    # Arabic detection: check for Arabic characters directly
+    if any('\u0600' <= c <= '\u06ff' for c in text):
+        return "ar"
 
     # Chinese detection: check for CJK characters directly
     if any('\u4e00' <= c <= '\u9fff' for c in text):
@@ -108,7 +116,8 @@ def detect_language(text: str, phone: str = "") -> str:
 
     If phone is provided, remembers the language for future ACKs.
     """
-    if not text or len(text.strip()) < 3:
+    has_cjk = text and any('\u4e00' <= c <= '\u9fff' for c in text)
+    if not text or (len(text.strip()) < 3 and not has_cjk):
         # No text — use conversation memory or default
         lang = get_conversation_lang(phone) if phone else "es"
         return lang

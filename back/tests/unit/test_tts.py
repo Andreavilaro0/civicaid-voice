@@ -347,3 +347,43 @@ def test_truncate_english_prefers_sentence_boundary():
     sentence = " ".join(prefix) + ". " + " ".join(suffix)
     result = _truncate_for_tts(sentence)
     assert result.endswith(".")
+
+
+def test_default_tts_engine_is_gemini():
+    """Default TTS engine should be 'gemini' for warm Clara voice, not 'gtts'."""
+    import os
+    env_backup = os.environ.pop("TTS_ENGINE", None)
+    try:
+        from src.core.config import Config
+        cfg = Config()
+        assert cfg.TTS_ENGINE == "gemini", f"Default TTS_ENGINE should be 'gemini', got '{cfg.TTS_ENGINE}'"
+    finally:
+        if env_backup is not None:
+            os.environ["TTS_ENGINE"] = env_backup
+
+
+def test_tts_max_words_is_at_least_150():
+    """TTS word limit should be >= 150 for complete E-V-I responses."""
+    from src.core.skills.tts import _TTS_MAX_WORDS
+    assert _TTS_MAX_WORDS >= 150, f"TTS_MAX_WORDS is {_TTS_MAX_WORDS}, should be >= 150"
+
+
+def test_strip_formatting_060_spanish():
+    """Spanish: 060 should be replaced with 'cero sesenta'."""
+    from src.core.skills.tts import _strip_formatting_localized
+    result = _strip_formatting_localized("Llama al 060 para informacion", "es")
+    assert "cero sesenta" in result
+
+
+def test_strip_formatting_060_french():
+    """French: 060 should be replaced with 'zéro soixante'."""
+    from src.core.skills.tts import _strip_formatting_localized
+    result = _strip_formatting_localized("Appelez le 060 pour information", "fr")
+    assert "zéro soixante" in result
+
+
+def test_strip_formatting_060_english():
+    """English: 060 should be replaced with 'zero sixty'."""
+    from src.core.skills.tts import _strip_formatting_localized
+    result = _strip_formatting_localized("Call 060 for information", "en")
+    assert "zero sixty" in result
