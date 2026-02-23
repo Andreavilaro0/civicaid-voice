@@ -40,7 +40,7 @@ class TestApiChatValidation:
         resp = client.post("/api/chat", json={})
         assert resp.status_code == 400
         data = resp.get_json()
-        assert data["error"] == "text or audio_base64 required"
+        assert data["error"] == "text, audio_base64, or image_base64 required"
 
     def test_rejects_blank_text(self, client):
         resp = client.post("/api/chat", json={"text": "   "})

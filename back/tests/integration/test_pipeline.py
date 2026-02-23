@@ -21,17 +21,27 @@ def test_t8_pipeline_text_cache_hit():
         timestamp=1000.0,
     )
 
-    with patch("twilio.rest.Client") as MockClient:
-        instance = MockClient.return_value
-        instance.messages.create.return_value = MagicMock(sid="SM123")
+    from src.core.models import CacheEntry, CacheResult
+    fake_entry = CacheEntry(
+        id="imv_es",
+        patterns=["imv", "ingreso mínimo vital"],
+        match_mode="any_keyword",
+        idioma="es",
+        respuesta="El Ingreso Mínimo Vital (IMV) es una prestación de la Seguridad Social.",
+        audio_file=None,
+    )
+    fake_result = CacheResult(hit=True, entry=fake_entry, score=1.0)
+
+    with patch("src.core.cache.match", return_value=fake_result), \
+         patch("src.core.pipeline.send_final_message") as mock_send:
+        mock_send.return_value = True
 
         from src.core import pipeline
         pipeline.process(msg)
 
-        assert instance.messages.create.called
-        call_kwargs = instance.messages.create.call_args
-        body = call_kwargs.kwargs.get("body", call_kwargs[1].get("body", ""))
-        assert "Ingreso Mínimo Vital" in body
+        assert mock_send.called
+        response = mock_send.call_args[0][0]
+        assert "Ingreso Mínimo Vital" in response.body
 
 
 def test_pipeline_text_cache_miss_llm_disabled():

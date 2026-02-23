@@ -4,8 +4,13 @@ import sys
 import os
 import json
 import tempfile
+import pytest
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# These scripts require jsonschema and yaml — skip if not installed
+_jsonschema = pytest.importorskip("jsonschema", reason="jsonschema not installed")
+_yaml = pytest.importorskip("yaml", reason="PyYAML not installed")
 
 
 def _run(script, *args):
@@ -36,7 +41,6 @@ class TestValidateProcedureDoc:
             "evidence", "samples", "proceduredoc.sample.json",
         )
         if not os.path.exists(sample):
-            import pytest
             pytest.skip("proceduredoc.sample.json not found (docs moved in repo restructuring)")
         r = _run("validate_proceduredoc_schema.py", sample)
         assert r.returncode == 0, f"FAIL:\n{r.stdout}\n{r.stderr}"
