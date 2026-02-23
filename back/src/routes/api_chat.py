@@ -63,16 +63,21 @@ def chat():
             image_bytes = base64.b64decode(image_b64)
             result = analyze_image(image_bytes, "image/jpeg", language)
             if result.success and result.text:
+                # Apply guardrails post-check (PII redaction, domain validation)
+                response_text = result.text
+                if config.GUARDRAILS_ON:
+                    from src.core.guardrails import post_check
+                    response_text = post_check(response_text)
                 elapsed = int((time.time() - start) * 1000)
                 # Generate TTS for the analysis
                 audio_url = None
                 try:
                     from src.core.skills.tts import text_to_audio
-                    audio_url = text_to_audio(result.text, language)
+                    audio_url = text_to_audio(response_text, language)
                 except Exception:
                     pass
                 return jsonify({
-                    "response": result.text,
+                    "response": response_text,
                     "source": "llm",
                     "language": language,
                     "duration_ms": elapsed,
