@@ -23,8 +23,9 @@ class TestLanguageTones:
         assert "you" in _LANGUAGE_TONES["en"].lower()
 
     def test_ar_tone_mentions_msa(self):
-        tone = _LANGUAGE_TONES["ar"].lower()
-        assert "estandar" in tone or "msa" in tone
+        tone = _LANGUAGE_TONES["ar"]
+        # Arabic tone is now written in Arabic — check for key Arabic words
+        assert "عربية" in tone or "فصحى" in tone or "estandar" in tone.lower()
 
     def test_each_tone_at_least_50_chars(self):
         for lang, tone in _LANGUAGE_TONES.items():
@@ -53,7 +54,8 @@ class TestBuildPrompt:
 
     def test_ar_prompt_contains_ar_tone(self):
         result = build_prompt(language="ar")
-        assert "estandar" in result.lower() or "MSA" in result
+        # Arabic tone is now in Arabic — check for key Arabic words or enforcement
+        assert "عربية" in result or "فصحى" in result or "العربية" in result
 
     def test_unknown_language_falls_back_to_es(self):
         result = build_prompt(language="xx")
@@ -61,7 +63,8 @@ class TestBuildPrompt:
 
     def test_language_code_injected(self):
         result = build_prompt(language="fr")
-        assert "IDIOMA DE RESPUESTA: fr" in result
+        # French uses closing enforcement instead of generic "IDIOMA DE RESPUESTA"
+        assert "RAPPEL" in result or "francais" in result.lower()
 
     def test_kb_context_injected(self):
         result = build_prompt(kb_context="Informacion sobre el IMV")
