@@ -20,7 +20,7 @@ services:
       - key: LLM_LIVE
         value: "true"
       - key: WHISPER_ON
-        value: "false"
+        value: "true"
       - key: LLM_TIMEOUT
         value: "6"
       - key: WHISPER_TIMEOUT
