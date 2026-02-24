@@ -2,7 +2,60 @@
 
 Restructured for primacy effect: critical rules (veracidad, seguridad) at top,
 language-specific tone loaded dynamically, positive framing throughout.
+
+Language enforcement: strong directive prepended IN THE USER'S LANGUAGE to combat
+Gemini's tendency to respond in the prompt's language (Spanish) instead of the
+user's detected language. See: arxiv.org/html/2406.20052v1
 """
+
+# ---------------------------------------------------------------------------
+# Language enforcement — prepended IN THE USER'S LANGUAGE at prompt start.
+# Must be first thing Gemini reads to override primacy effect of Spanish prompt.
+# ---------------------------------------------------------------------------
+_LANGUAGE_ENFORCEMENT = {
+    "en": (
+        "CRITICAL INSTRUCTION: You MUST respond ENTIRELY in English. "
+        "The user speaks English. Every word of your response must be in English. "
+        "Do NOT respond in Spanish even though these instructions are in Spanish. "
+        "RESPOND IN ENGLISH ONLY.\n\n"
+    ),
+    "fr": (
+        "INSTRUCTION CRITIQUE : Vous DEVEZ repondre ENTIEREMENT en francais. "
+        "L'utilisateur parle francais. Chaque mot de votre reponse doit etre en francais. "
+        "Ne repondez PAS en espagnol meme si ces instructions sont en espagnol. "
+        "REPONDEZ EN FRANCAIS UNIQUEMENT.\n\n"
+    ),
+    "pt": (
+        "INSTRUCAO CRITICA: Voce DEVE responder INTEIRAMENTE em portugues. "
+        "O utilizador fala portugues. Cada palavra da sua resposta deve ser em portugues. "
+        "NAO responda em espanhol mesmo que estas instrucoes estejam em espanhol. "
+        "RESPONDA EM PORTUGUES APENAS.\n\n"
+    ),
+    "ro": (
+        "INSTRUCTIUNE CRITICA: TREBUIE sa raspundeti INTEGRAL in romana. "
+        "Utilizatorul vorbeste romana. Fiecare cuvant al raspunsului trebuie sa fie in romana. "
+        "NU raspundeti in spaniola chiar daca aceste instructiuni sunt in spaniola. "
+        "RASPUNDETI NUMAI IN ROMANA.\n\n"
+    ),
+    "ca": (
+        "INSTRUCCIO CRITICA: Has de respondre COMPLETAMENT en catala. "
+        "L'usuari parla catala. Cada paraula de la teva resposta ha de ser en catala. "
+        "NO responguis en castella encara que aquestes instruccions siguin en castella. "
+        "RESPON NOMES EN CATALA.\n\n"
+    ),
+    "zh": (
+        "关键指令：你必须完全用中文回复。"
+        "用户说中文。你的回复中的每一个字都必须是中文。"
+        "即使这些指令是西班牙语的，也不要用西班牙语回复。"
+        "只用中文回复。\n\n"
+    ),
+    "ar": (
+        "تعليمات حاسمة: يجب أن ترد بالكامل باللغة العربية. "
+        "المستخدم يتحدث العربية. يجب أن تكون كل كلمة في ردك باللغة العربية. "
+        "لا ترد بالإسبانية حتى لو كانت هذه التعليمات بالإسبانية. "
+        "رد باللغة العربية فقط.\n\n"
+    ),
+}
 
 # ---------------------------------------------------------------------------
 # Language-specific tone rules — only the target language is injected
@@ -344,10 +397,18 @@ def build_prompt(
     # Load only the target language tone rules
     language_tone = _LANGUAGE_TONES.get(language, _LANGUAGE_TONES["es"])
 
-    return SYSTEM_PROMPT.format(
+    prompt = SYSTEM_PROMPT.format(
         kb_context=kb_context,
         language=language,
         memory_blocks=blocks,
         chunks_block=chunks_block,
         language_tone=language_tone,
     )
+
+    # Prepend strong language enforcement for non-Spanish languages.
+    # Must be FIRST thing Gemini reads to override primacy effect of Spanish prompt.
+    enforcement = _LANGUAGE_ENFORCEMENT.get(language, "")
+    if enforcement:
+        prompt = enforcement + prompt
+
+    return prompt
