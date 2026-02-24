@@ -89,6 +89,7 @@ def llm_generate(
     memory_summary: str = "",
     memory_case: str = "",
     office_info: dict | None = None,
+    conversation_history: list[dict] | None = None,
 ) -> LLMResponse:
     """Call Gemini Flash to generate a response. Returns LLMResponse."""
     if not config.LLM_LIVE or not config.GEMINI_API_KEY:
@@ -151,9 +152,33 @@ def llm_generate(
     try:
         from google import genai
         client = genai.Client(api_key=config.GEMINI_API_KEY)
+
+        # Build multi-turn contents if conversation history is available
+        if conversation_history:
+            try:
+                contents = []
+                for msg in conversation_history:
+                    contents.append(genai.types.Content(
+                        role=msg["role"],
+                        parts=[genai.types.Part(text=msg["content"])],
+                    ))
+                contents.append(genai.types.Content(
+                    role="user",
+                    parts=[genai.types.Part(text=user_message)],
+                ))
+            except Exception:
+                # Fallback: prepend history as plain text
+                history_text = "\n".join(
+                    f"{'Usuario' if m['role'] == 'user' else 'Clara'}: {m['content']}"
+                    for m in conversation_history
+                )
+                contents = f"[Conversacion anterior]\n{history_text}\n\n[Mensaje actual]\n{user_message}"
+        else:
+            contents = user_message
+
         response = client.models.generate_content(
             model="gemini-2.5-flash-lite",
-            contents=user_message,
+            contents=contents,
             config=genai.types.GenerateContentConfig(
                 system_instruction=system,
                 max_output_tokens=1024,

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import {
   sendMessage,
   generateSessionId,
@@ -9,6 +9,7 @@ import {
   getErrorMessage,
   ApiError,
 } from "@/lib/api";
+import { API_BASE_URL } from "@/lib/constants";
 import type {
   Message,
   Language,
@@ -92,6 +93,57 @@ const loadingMessages: Record<Language, Record<LoadingContext, string>> = {
 };
 
 /* ------------------------------------------------------------------ */
+/*  Follow-up & goodbye messages                                       */
+/* ------------------------------------------------------------------ */
+
+const FOLLOWUP_DELAY_MS = 5 * 60 * 1000; // 5 minutes
+const GOODBYE_DELAY_MS = 3 * 60 * 1000;  // 3 minutes after follow-up
+
+const FOLLOWUP_MESSAGES: Record<Language, string> = {
+  es: "¿Sigues ahí? Si necesitas algo más, estoy aquí para ayudarte.",
+  en: "Are you still there? If you need anything else, I'm here to help.",
+  fr: "Tu es encore là? Si tu as besoin d'autre chose, je suis là pour t'aider.",
+  pt: "Ainda estás aí? Se precisas de mais alguma coisa, estou aqui para ajudar.",
+  ro: "Mai ești acolo? Dacă ai nevoie de altceva, sunt aici să te ajut.",
+  ca: "Encara hi ets? Si necessites alguna cosa més, soc aquí per ajudar-te.",
+  zh: "你还在吗？如果还需要帮助，我在这里。",
+  ar: "هل لا تزال هنا؟ إذا كنت بحاجة إلى شيء آخر، أنا هنا لمساعدتك.",
+};
+
+const FOLLOWUP_SPEECH: Record<Language, string> = {
+  es: "¿Sigues ahí? Si necesitas algo más, estoy aquí para ayudarte.",
+  en: "Are you still there? If you need anything else, I'm here to help.",
+  fr: "Tu es encore là? Si tu as besoin d'autre chose, je suis là.",
+  pt: "Ainda estás aí? Se precisas de mais alguma coisa, estou aqui.",
+  ro: "Mai ești acolo? Dacă ai nevoie de altceva, sunt aici.",
+  ca: "Encara hi ets? Si necessites alguna cosa més, soc aquí.",
+  zh: "你还在吗？如果还需要帮助，我在这里。",
+  ar: "هل لا تزال هنا؟ أنا هنا لمساعدتك.",
+};
+
+const GOODBYE_MESSAGES: Record<Language, string> = {
+  es: `Parece que ya no estás. No guardamos ningún dato tuyo, tu privacidad es lo primero. Si vuelves a necesitar ayuda, aquí me tienes. ¡Cuídate mucho!\n\nInfo legal y privacidad: ${LEGAL_PAGE}?lang=es`,
+  en: `It seems you've left. We don't store any of your data — your privacy comes first. If you need help again, I'll be here. Take care!\n\nLegal info & privacy: ${LEGAL_PAGE}?lang=en`,
+  fr: `Il semble que tu sois parti. Nous ne conservons aucune de tes données, ta vie privée est notre priorité. Si tu as encore besoin d'aide, je suis là. Prends soin de toi!\n\nInfos légales et confidentialité: ${LEGAL_PAGE}?lang=fr`,
+  pt: `Parece que já foste. Não guardamos nenhum dado teu, a tua privacidade é o mais importante. Se voltares a precisar de ajuda, estou aqui. Cuida-te!\n\nInfo legal e privacidade: ${LEGAL_PAGE}?lang=pt`,
+  ro: `Se pare că ai plecat. Nu stocăm niciun fel de date ale tale, confidențialitatea ta este prioritară. Dacă ai nevoie de ajutor din nou, sunt aici. Ai grijă de tine!\n\nInfo legale și confidențialitate: ${LEGAL_PAGE}?lang=ro`,
+  ca: `Sembla que ja no hi ets. No guardem cap dada teva, la teva privacitat és el primer. Si tornes a necessitar ajuda, aquí em tens. Cuida't molt!\n\nInfo legal i privacitat: ${LEGAL_PAGE}?lang=ca`,
+  zh: `看起来你已经离开了。我们不保存你的任何数据，你的隐私是第一位的。如果你再次需要帮助，我在这里。保重！\n\n法律信息与隐私: ${LEGAL_PAGE}?lang=zh`,
+  ar: `يبدو أنك غادرت. لا نحتفظ بأي من بياناتك، خصوصيتك هي الأولوية. إذا احتجت المساعدة مرة أخرى، أنا هنا. اعتنِ بنفسك!\n\nالمعلومات القانونية والخصوصية: ${LEGAL_PAGE}?lang=ar`,
+};
+
+const GOODBYE_SPEECH: Record<Language, string> = {
+  es: "Parece que ya no estás. No guardamos ningún dato tuyo. Si vuelves a necesitar ayuda, aquí me tienes. Cuídate mucho.",
+  en: "It seems you've left. We don't store any of your data. If you need help again, I'll be here. Take care.",
+  fr: "Il semble que tu sois parti. Nous ne conservons aucune de tes données. Si tu as encore besoin d'aide, je suis là. Prends soin de toi.",
+  pt: "Parece que já foste. Não guardamos nenhum dado teu. Se voltares a precisar de ajuda, estou aqui. Cuida-te.",
+  ro: "Se pare că ai plecat. Nu stocăm niciun fel de date ale tale. Dacă ai nevoie de ajutor din nou, sunt aici. Ai grijă de tine.",
+  ca: "Sembla que ja no hi ets. No guardem cap dada teva. Si tornes a necessitar ajuda, aquí em tens. Cuida't molt.",
+  zh: "看起来你已经离开了。我们不保存你的任何数据。如果你再次需要帮助，我在这里。保重。",
+  ar: "يبدو أنك غادرت. لا نحتفظ بأي من بياناتك. إذا احتجت المساعدة مرة أخرى، أنا هنا. اعتنِ بنفسك.",
+};
+
+/* ------------------------------------------------------------------ */
 /*  Hook                                                              */
 /* ------------------------------------------------------------------ */
 
@@ -119,11 +171,101 @@ export function useChat(initialLang: Language = "es"): UseChatReturn {
   const isSendingRef = useRef(false);
   const initialLangRef = useRef<Language>(initialLang);
   const hasWelcomedRef = useRef(false);
+  const followupTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const goodbyeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const getLoadingMessage = useCallback(
     (context: LoadingContext) => loadingMessages[language][context],
     [language],
   );
+
+  const clearInactivityTimers = useCallback(() => {
+    if (followupTimerRef.current) {
+      clearTimeout(followupTimerRef.current);
+      followupTimerRef.current = null;
+    }
+    if (goodbyeTimerRef.current) {
+      clearTimeout(goodbyeTimerRef.current);
+      goodbyeTimerRef.current = null;
+    }
+  }, []);
+
+  const startInactivityTimers = useCallback(
+    (lang: Language) => {
+      clearInactivityTimers();
+
+      followupTimerRef.current = setTimeout(() => {
+        // Add follow-up message from Clara
+        const followupId = createId();
+        const followupText = FOLLOWUP_MESSAGES[lang];
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: followupId,
+            sender: "clara" as const,
+            text: followupText,
+            timestamp: new Date(),
+          },
+        ]);
+
+        // Generate TTS for follow-up (best-effort)
+        generateTTS(FOLLOWUP_SPEECH[lang], lang).then((audioUrl) => {
+          if (audioUrl) {
+            setMessages((prev) =>
+              prev.map((m) =>
+                m.id === followupId
+                  ? { ...m, audio: { url: audioUrl, state: "idle" as const } }
+                  : m,
+              ),
+            );
+          }
+        });
+
+        // Start goodbye timer (3 min after follow-up)
+        goodbyeTimerRef.current = setTimeout(() => {
+          const goodbyeId = createId();
+          const goodbyeText = GOODBYE_MESSAGES[lang];
+          setMessages((prev) => [
+            ...prev,
+            {
+              id: goodbyeId,
+              sender: "clara" as const,
+              text: goodbyeText,
+              timestamp: new Date(),
+            },
+          ]);
+
+          // Generate TTS for goodbye (best-effort)
+          generateTTS(GOODBYE_SPEECH[lang], lang).then((audioUrl) => {
+            if (audioUrl) {
+              setMessages((prev) =>
+                prev.map((m) =>
+                  m.id === goodbyeId
+                    ? { ...m, audio: { url: audioUrl, state: "idle" as const } }
+                    : m,
+                ),
+              );
+            }
+          });
+
+          // Call session/end to clear backend history
+          fetch(`${API_BASE_URL}/api/session/end`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ session_id: sessionId.current }),
+          }).catch(() => {});
+        }, GOODBYE_DELAY_MS);
+      }, FOLLOWUP_DELAY_MS);
+    },
+    [clearInactivityTimers],
+  );
+
+  // Cleanup timers on unmount
+  useEffect(() => {
+    return () => {
+      clearInactivityTimers();
+    };
+  }, [clearInactivityTimers]);
 
   const addWelcome = useCallback(() => {
     if (hasWelcomedRef.current) return;
@@ -276,9 +418,11 @@ export function useChat(initialLang: Language = "es"): UseChatReturn {
       } finally {
         setIsLoading(false);
         isSendingRef.current = false;
+        // Start inactivity timers after every message exchange
+        startInactivityTimers(language);
       }
     },
-    [language],
+    [language, startInactivityTimers],
   );
 
   const retryLast = useCallback(() => {

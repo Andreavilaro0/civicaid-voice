@@ -28,6 +28,11 @@ def create_app() -> Flask:
         obs_init(app)
         app.logger.info("Observability enabled (OTEL_ENDPOINT=%s)", config.OTEL_ENDPOINT or "none")
 
+    # Start conversation history cleanup thread
+    from src.core.conversation_history import start_cleanup_thread
+    start_cleanup_thread()
+    app.logger.info("Conversation history cleanup thread started")
+
     # Register blueprints
     from src.routes.health import health_bp
     from src.routes.webhook import webhook_bp

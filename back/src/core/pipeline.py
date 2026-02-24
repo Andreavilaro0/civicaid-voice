@@ -25,27 +25,29 @@ from src.core.memory.update import update_memory_after_response
 from src.utils.logger import log_cache, log_error, log_memory, log_observability, log_pipeline_result
 from src.utils.observability import get_context
 
-# ── Inactivity follow-up tracking ──
-# {phone_number: {"timestamp": float, "language": str, "timer": Timer}}
+# ── Inactivity follow-up + goodbye tracking ──
+# {phone_number: {"timestamp": float, "language": str, "timer": Timer, "goodbye_timer": Timer|None}}
 _user_activity: dict[str, dict] = {}
 _activity_lock = threading.Lock()
 FOLLOWUP_DELAY = 300  # 5 minutes
+GOODBYE_DELAY = 180   # 3 minutes after follow-up
 
 
 def _schedule_followup(phone: str, language: str) -> None:
     """Schedule a follow-up message after FOLLOWUP_DELAY seconds of inactivity."""
-    if config.WHATSAPP_PROVIDER != "meta":
-        return
     with _activity_lock:
-        # Cancel previous timer
+        # Cancel previous timers (both followup and goodbye)
         prev = _user_activity.get(phone)
-        if prev and prev.get("timer"):
-            prev["timer"].cancel()
+        if prev:
+            if prev.get("timer"):
+                prev["timer"].cancel()
+            if prev.get("goodbye_timer"):
+                prev["goodbye_timer"].cancel()
         # Schedule new timer
         timer = threading.Timer(FOLLOWUP_DELAY, _send_followup_if_idle, args=[phone, language, time.time()])
         timer.daemon = True
         timer.start()
-        _user_activity[phone] = {"timestamp": time.time(), "language": language, "timer": timer}
+        _user_activity[phone] = {"timestamp": time.time(), "language": language, "timer": timer, "goodbye_timer": None}
 
 
 def _send_followup_if_idle(phone: str, language: str, scheduled_at: float) -> None:
@@ -55,10 +57,72 @@ def _send_followup_if_idle(phone: str, language: str, scheduled_at: float) -> No
         if not entry or entry["timestamp"] > scheduled_at:
             return  # User sent a message after this was scheduled
     try:
-        from src.core.skills.send_response_meta import send_followup
-        send_followup(phone, language)
+        if config.WHATSAPP_PROVIDER == "meta":
+            from src.core.skills.send_response_meta import send_followup
+            send_followup(phone, language)
+        else:
+            # Twilio: send plain text follow-up
+            from src.core.skills.send_response_meta import FOLLOWUP, FOLLOWUP_SPEECH
+            followup_text = FOLLOWUP.get(language, FOLLOWUP["es"])
+            response = FinalResponse(
+                to_number=phone, body=followup_text,
+                source="followup", total_ms=0,
+            )
+            send_final_message(response)
+            _send_audio_async(phone, FOLLOWUP_SPEECH.get(language, FOLLOWUP_SPEECH["es"]), language)
     except Exception as e:
         log_error("followup_timer", str(e))
+
+    # Schedule goodbye after follow-up
+    _schedule_goodbye(phone, language)
+
+
+def _schedule_goodbye(phone: str, language: str) -> None:
+    """Schedule a goodbye message after GOODBYE_DELAY seconds post-follow-up."""
+    with _activity_lock:
+        entry = _user_activity.get(phone)
+        if not entry:
+            return
+        # Cancel previous goodbye timer if any
+        if entry.get("goodbye_timer"):
+            entry["goodbye_timer"].cancel()
+        goodbye_timer = threading.Timer(GOODBYE_DELAY, _send_goodbye_if_idle, args=[phone, language, time.time()])
+        goodbye_timer.daemon = True
+        goodbye_timer.start()
+        entry["goodbye_timer"] = goodbye_timer
+
+
+def _send_goodbye_if_idle(phone: str, language: str, scheduled_at: float) -> None:
+    """Send goodbye only if user hasn't sent anything since the follow-up."""
+    with _activity_lock:
+        entry = _user_activity.get(phone)
+        if not entry or entry["timestamp"] > scheduled_at:
+            return  # User sent a message after follow-up
+    try:
+        if config.WHATSAPP_PROVIDER == "meta":
+            from src.core.skills.send_response_meta import send_goodbye
+            send_goodbye(phone, language)
+        else:
+            # Twilio: send plain text goodbye
+            from src.core.skills.send_response_meta import GOODBYE, GOODBYE_SPEECH
+            goodbye_text = GOODBYE.get(language, GOODBYE["es"])
+            response = FinalResponse(
+                to_number=phone, body=goodbye_text,
+                source="goodbye", total_ms=0,
+            )
+            send_final_message(response)
+            _send_audio_async(phone, GOODBYE_SPEECH.get(language, GOODBYE_SPEECH["es"]), language)
+    except Exception as e:
+        log_error("goodbye_timer", str(e))
+
+    # Clean up history and activity
+    try:
+        from src.core.conversation_history import clear_history
+        clear_history(phone)
+    except Exception:
+        pass
+    with _activity_lock:
+        _user_activity.pop(phone, None)
 
 
 def _send_audio_async(to_number: str, text: str, language: str) -> None:
@@ -370,6 +434,11 @@ def process(msg: IncomingMessage) -> None:
                 case_parts.append(f"intent={memory.current_case_intent}")
             memory_case_str = sanitize_for_prompt(", ".join(case_parts)) if case_parts else ""
 
+        # --- CONVERSATION HISTORY ---
+        from src.core.conversation_history import get_history, add_message as add_history
+        history = get_history(msg.from_number)
+        add_history(msg.from_number, "user", text)
+
         # --- LLM GENERATE ---
         llm_resp: LLMResponse = llm_generate(
             text, language, kb_context,
@@ -377,10 +446,14 @@ def process(msg: IncomingMessage) -> None:
             memory_summary=memory_summary_str,
             memory_case=memory_case_str,
             office_info=office_info,
+            conversation_history=history,
         )
 
         # --- VERIFY ---
         verified_text = verify_response(llm_resp.text, kb_context)
+
+        # --- SAVE MODEL RESPONSE TO HISTORY ---
+        add_history(msg.from_number, "model", verified_text)
 
         # --- STRUCTURED OUTPUT (optional) ---
         if config.STRUCTURED_OUTPUT_ON:

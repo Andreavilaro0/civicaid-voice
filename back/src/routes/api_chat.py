@@ -16,6 +16,7 @@ from src.core.skills.kb_lookup import kb_lookup
 from src.core.skills.llm_generate import llm_generate
 from src.core.skills.verify_response import verify_response
 from src.core.prompts.templates import get_template
+from src.core.conversation_history import get_history, add_message as add_history, clear_history
 
 logger = logging.getLogger("clara")
 api_bp = Blueprint("api", __name__, url_prefix="/api")
@@ -141,10 +142,20 @@ def chat():
             "duration_ms": elapsed, "audio_url": None, "sources": []
         })
 
+    # --- Conversation history ---
+    session_id = data.get("session_id", "")
+    history = get_history(session_id) if session_id else []
+    if session_id:
+        add_history(session_id, "user", text)
+
     # --- KB lookup + LLM generate ---
     kb_context = kb_lookup(text, language)
-    llm_resp = llm_generate(text, language, kb_context)
+    llm_resp = llm_generate(text, language, kb_context, conversation_history=history)
     verified = verify_response(llm_resp.text, kb_context)
+
+    # --- Save model response to history ---
+    if session_id:
+        add_history(session_id, "model", verified)
 
     # --- Structured output (opcional) ---
     if config.STRUCTURED_OUTPUT_ON:
@@ -203,6 +214,16 @@ def tts():
     except Exception as e:
         logger.error("TTS API error: %s", e)
         return jsonify({"audio_url": None})
+
+
+@api_bp.route("/session/end", methods=["POST"])
+def session_end():
+    """Clear conversation history for a session (called on goodbye/tab close)."""
+    data = request.get_json(silent=True) or {}
+    session_id = data.get("session_id", "")
+    if session_id:
+        clear_history(session_id)
+    return jsonify({"status": "ok"})
 
 
 @api_bp.route("/health", methods=["GET"])

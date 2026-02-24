@@ -352,6 +352,65 @@ FOLLOWUP_BUTTONS = {
 }
 
 
+GOODBYE = {
+    "es": f"Parece que ya no estas. No guardamos ningun dato tuyo, tu privacidad es lo primero. Si vuelves a necesitar ayuda, aqui me tienes. Cuidate mucho!\n\n📋 Info legal y privacidad: {LEGAL_PAGE_BASE}?lang=es",
+    "en": f"It seems you've left. We don't store any of your data — your privacy comes first. If you need help again, I'll be here. Take care!\n\n📋 Legal info & privacy: {LEGAL_PAGE_BASE}?lang=en",
+    "fr": f"Il semble que tu sois parti. Nous ne conservons aucune de tes donnees, ta vie privee est notre priorite. Si tu as encore besoin d'aide, je suis la. Prends soin de toi!\n\n📋 Infos legales et confidentialite: {LEGAL_PAGE_BASE}?lang=fr",
+    "pt": f"Parece que ja foste. Nao guardamos nenhum dado teu, a tua privacidade e o mais importante. Se voltares a precisar de ajuda, estou aqui. Cuida-te!\n\n📋 Info legal e privacidade: {LEGAL_PAGE_BASE}?lang=pt",
+    "ro": f"Se pare ca ai plecat. Nu stocam niciun fel de date ale tale, confidentialitatea ta este prioritara. Daca ai nevoie de ajutor din nou, sunt aici. Ai grija de tine!\n\n📋 Info legale si confidentialitate: {LEGAL_PAGE_BASE}?lang=ro",
+    "ca": f"Sembla que ja no hi ets. No guardem cap dada teva, la teva privacitat es el primer. Si tornes a necessitar ajuda, aqui em tens. Cuida't molt!\n\n📋 Info legal i privacitat: {LEGAL_PAGE_BASE}?lang=ca",
+    "zh": f"看起来你已经离开了。我们不保存你的任何数据，你的隐私是第一位的。如果你再次需要帮助，我在这里。保重！\n\n📋 法律信息与隐私: {LEGAL_PAGE_BASE}?lang=zh",
+    "ar": f"يبدو أنك غادرت. لا نحتفظ بأي من بياناتك، خصوصيتك هي الأولوية. إذا احتجت المساعدة مرة أخرى، أنا هنا. اعتنِ بنفسك!\n\n📋 المعلومات القانونية والخصوصية: {LEGAL_PAGE_BASE}?lang=ar",
+}
+
+GOODBYE_SPEECH = {
+    "es": "Parece que ya no estas. No guardamos ningun dato tuyo. Si vuelves a necesitar ayuda, aqui me tienes. Cuidate mucho.",
+    "en": "It seems you've left. We don't store any of your data. If you need help again, I'll be here. Take care.",
+    "fr": "Il semble que tu sois parti. Nous ne conservons aucune de tes donnees. Si tu as encore besoin d'aide, je suis la. Prends soin de toi.",
+    "pt": "Parece que ja foste. Nao guardamos nenhum dado teu. Se voltares a precisar de ajuda, estou aqui. Cuida-te.",
+    "ro": "Se pare ca ai plecat. Nu stocam niciun fel de date ale tale. Daca ai nevoie de ajutor din nou, sunt aici. Ai grija de tine.",
+    "ca": "Sembla que ja no hi ets. No guardem cap dada teva. Si tornes a necessitar ajuda, aqui em tens. Cuida't molt.",
+    "zh": "看起来你已经离开了。我们不保存你的任何数据。如果你再次需要帮助，我在这里。保重。",
+    "ar": "يبدو أنك غادرت. لا نحتفظ بأي من بياناتك. إذا احتجت المساعدة مرة أخرى، أنا هنا. اعتنِ بنفسك.",
+}
+
+
+def send_goodbye(to_number: str, language: str = "es") -> bool:
+    """Send goodbye message after prolonged inactivity: text + audio in background."""
+    import threading
+    to_number = _normalize_mx_number(to_number)
+    text = GOODBYE.get(language, GOODBYE["es"])
+
+    # 1. Send goodbye text IMMEDIATELY
+    try:
+        payload = {
+            "messaging_product": "whatsapp",
+            "to": to_number,
+            "type": "text",
+            "text": {"body": text},
+        }
+        resp = requests.post(_url(), json=payload, headers=_headers(), timeout=10)
+        resp.raise_for_status()
+    except Exception as e:
+        log_error("send_goodbye_text", str(e))
+        return False
+
+    # 2. Send goodbye audio in BACKGROUND
+    def _send_goodbye_audio():
+        try:
+            from src.core.skills.tts import text_to_audio
+            speech = GOODBYE_SPEECH.get(language, GOODBYE_SPEECH["es"])
+            audio_url = text_to_audio(speech, language)
+            if audio_url:
+                send_audio_only(to_number, audio_url)
+        except Exception as e:
+            log_error("send_goodbye_audio", str(e))
+
+    t = threading.Thread(target=_send_goodbye_audio, daemon=True)
+    t.start()
+    return True
+
+
 def send_followup(to_number: str, language: str = "es") -> bool:
     """Send follow-up after inactivity: buttons first, audio in background."""
     import threading
