@@ -174,7 +174,8 @@ def llm_generate(
                 )
                 contents = f"[Conversacion anterior]\n{history_text}\n\n[Mensaje actual]\n{user_message}"
         else:
-            contents = user_message
+            # First interaction — signal to LLM to include legal/AI disclosure
+            contents = "[PRIMERA_INTERACCION]\n" + user_message
 
         response = client.models.generate_content(
             model="gemini-2.5-flash-lite",
