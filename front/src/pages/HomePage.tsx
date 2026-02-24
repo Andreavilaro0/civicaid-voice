@@ -23,8 +23,8 @@ let _currentAudio: HTMLAudioElement | null = null;
 /** Single multilingual welcome audio (ES + FR + AR in one clip) */
 const WELCOME_AUDIO_URL = `${import.meta.env.BASE_URL}audio/welcome-multilingual.mp3`;
 
-/** Play only the multilingual welcome MP3 — no browser TTS fallback */
-async function playWelcomeAudio() {
+/** Play only the multilingual welcome MP3 — returns true if playback started */
+async function playWelcomeAudio(): Promise<boolean> {
   if (_currentAudio) { _currentAudio.pause(); _currentAudio = null; }
   try {
     const audio = new Audio(WELCOME_AUDIO_URL);
@@ -34,7 +34,10 @@ async function playWelcomeAudio() {
       audio.oncanplaythrough = () => { audio.play().then(resolve).catch(reject); };
       audio.onerror = reject;
     });
-  } catch { /* autoplay blocked or network error — silently skip */ }
+    return true;
+  } catch {
+    return false; // autoplay blocked — will retry on user interaction
+  }
 }
 
 const content: Record<Lang, { description: string; footer: string }> = {
@@ -283,28 +286,35 @@ export default function HomePage() {
 
   useEffect(() => {
     if (hasSpokenRef.current) return;
-    const triggerWelcome = () => {
+    const cleanup = () => {
+      document.removeEventListener("click", onInteraction);
+      document.removeEventListener("touchstart", onInteraction);
+      document.removeEventListener("keydown", onInteraction);
+    };
+    const onInteraction = async () => {
       if (hasSpokenRef.current) return;
       hasSpokenRef.current = true;
-      playWelcomeAudio();
-      document.removeEventListener("click", triggerWelcome);
-      document.removeEventListener("touchstart", triggerWelcome);
-      document.removeEventListener("keydown", triggerWelcome);
+      cleanup();
+      await playWelcomeAudio();
     };
-    // Try autoplay directly
-    const timer = setTimeout(() => {
-      triggerWelcome();
+    // Try autoplay directly (works if user has interacted with site before)
+    const timer = setTimeout(async () => {
+      if (hasSpokenRef.current) return;
+      const played = await playWelcomeAudio();
+      if (played) {
+        hasSpokenRef.current = true;
+        cleanup();
+      }
+      // If autoplay failed, listeners below will handle it on first interaction
     }, 600);
-    // If autoplay was blocked, wait for first user interaction
-    document.addEventListener("click", triggerWelcome, { once: false });
-    document.addEventListener("touchstart", triggerWelcome, { once: false });
-    document.addEventListener("keydown", triggerWelcome, { once: false });
+    // Wait for first user interaction (click, tap, keypress)
+    document.addEventListener("click", onInteraction, { once: false });
+    document.addEventListener("touchstart", onInteraction, { once: false });
+    document.addEventListener("keydown", onInteraction, { once: false });
     return () => {
       clearTimeout(timer);
       hasSpokenRef.current = false;
-      document.removeEventListener("click", triggerWelcome);
-      document.removeEventListener("touchstart", triggerWelcome);
-      document.removeEventListener("keydown", triggerWelcome);
+      cleanup();
     };
   }, []);
 

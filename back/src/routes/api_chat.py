@@ -70,7 +70,7 @@ def chat():
                 response_text = result.text
                 if config.GUARDRAILS_ON:
                     from src.core.guardrails import post_check
-                    response_text = post_check(response_text)
+                    response_text = post_check(response_text, language)
                 elapsed = int((time.time() - start) * 1000)
                 # Generate TTS for the analysis
                 audio_url = None
@@ -167,7 +167,7 @@ def chat():
     # --- Guardrails post-check ---
     if config.GUARDRAILS_ON:
         from src.core.guardrails import post_check
-        verified = post_check(verified)
+        verified = post_check(verified, language)
 
     # --- TTS (text-to-speech, best-effort) ---
     audio_url = None

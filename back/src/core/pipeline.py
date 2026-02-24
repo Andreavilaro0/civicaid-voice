@@ -465,7 +465,7 @@ def process(msg: IncomingMessage) -> None:
         # --- GUARDRAILS POST-CHECK ---
         if config.GUARDRAILS_ON:
             from src.core.guardrails import post_check
-            verified_text = post_check(verified_text)
+            verified_text = post_check(verified_text, language)
 
         # --- WHATSAPP FORMATTING ---
         from src.core.skills.whatsapp_format import format_for_whatsapp

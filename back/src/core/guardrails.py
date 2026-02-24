@@ -24,11 +24,20 @@ BLOCKED_PATTERNS = [
      'No puedo ayudar con eso. Si necesitas orientacion legal gratuita, llama al 060 o pide un abogado de oficio en tu juzgado mas cercano.'),
 ]
 
-# --- DISCLAIMER: Always appended for legal/medical topics ---
-LEGAL_DISCLAIMER = (
-    "\n\nIMPORTANTE: Esta informacion es orientativa. Para tu caso concreto, "
-    "te recomiendo consultar con un profesional o visitar las fuentes oficiales."
-)
+# --- DISCLAIMER: Always appended for legal/medical topics (multilingual) ---
+LEGAL_DISCLAIMERS = {
+    "es": "\n\nIMPORTANTE: Esta informacion es orientativa. Para tu caso concreto, te recomiendo consultar con un profesional o visitar las fuentes oficiales.",
+    "en": "\n\nIMPORTANT: This information is for guidance only. For your specific case, I recommend consulting a professional or visiting official sources.",
+    "fr": "\n\nIMPORTANT: Ces informations sont indicatives. Pour votre cas specifique, je vous recommande de consulter un professionnel ou de visiter les sources officielles.",
+    "pt": "\n\nIMPORTANTE: Esta informacao e orientativa. Para o seu caso concreto, recomendo consultar um profissional ou visitar as fontes oficiais.",
+    "ro": "\n\nIMPORTANT: Aceste informatii sunt orientative. Pentru cazul dvs. concret, va recomand sa consultati un profesionist sau sa vizitati sursele oficiale.",
+    "ca": "\n\nIMPORTANT: Aquesta informacio es orientativa. Per al teu cas concret, et recomano consultar amb un professional o visitar les fonts oficials.",
+    "zh": "\n\n重要提示：此信息仅供参考。对于您的具体情况，建议咨询专业人士或访问官方来源。",
+    "ar": "\n\nمهم: هذه المعلومات إرشادية فقط. لحالتك المحددة، أنصحك باستشارة متخصص أو زيارة المصادر الرسمية.",
+}
+
+# Clara's own domain — always allowed, never replaced
+_CLARA_DOMAINS = {"andreavilaro0.github.io"}
 
 LEGAL_TRIGGERS = re.compile(
     r'\b(abogado|legal|juridic|demanda|denuncia|juicio|medic|diagnostic|receta|tratamiento)\b',
@@ -52,13 +61,14 @@ def pre_check(user_text: str) -> GuardrailResult:
     return GuardrailResult(safe=True)
 
 
-def post_check(response_text: str) -> str:
+def post_check(response_text: str, language: str = "es") -> str:
     """Check and modify LLM output BEFORE sending to user."""
     result = response_text
 
-    # Add legal disclaimer if legal/medical topics detected
-    if LEGAL_TRIGGERS.search(result) and LEGAL_DISCLAIMER not in result:
-        result += LEGAL_DISCLAIMER
+    # Add legal disclaimer if legal/medical topics detected (in user's language)
+    disclaimer = LEGAL_DISCLAIMERS.get(language, LEGAL_DISCLAIMERS["es"])
+    if LEGAL_TRIGGERS.search(result) and disclaimer not in result:
+        result += disclaimer
 
     # Check for PII in response (should not be echoed back)
     for pattern, pii_type in PII_PATTERNS:
@@ -71,6 +81,9 @@ def post_check(response_text: str) -> str:
         from src.core.domain_validator import extract_urls, is_domain_approved
         _FALLBACK_URL = "https://administracion.gob.es"
         for url in extract_urls(result):
+            # Skip Clara's own domain (info-legal page, etc.)
+            if any(d in url for d in _CLARA_DOMAINS):
+                continue
             if not is_domain_approved(url):
                 result = result.replace(url, _FALLBACK_URL)
 
