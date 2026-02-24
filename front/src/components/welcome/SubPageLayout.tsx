@@ -42,12 +42,14 @@ export default function SubPageLayout({ slug, children, fullBleed }: SubPageLayo
               <path d="M12 19l-7-7 7-7" />
             </svg>
           </button>
-          <h1 className="font-display font-bold text-h2 text-clara-text text-center flex-1">
+          <h1 className="font-display font-bold text-clara-text text-center flex-1 truncate" style={{ fontSize: "clamp(16px, 4vw, 28px)" }}>
             {title}
           </h1>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 min-w-0">
             <ThemeToggleCompact />
-            <LanguageBar lang={lang} onChangeLang={setLang} />
+            <div className="overflow-hidden min-w-0 max-w-[180px] sm:max-w-[260px]">
+              <LanguageBar lang={lang} onChangeLang={setLang} compact />
+            </div>
           </div>
         </div>
       </header>

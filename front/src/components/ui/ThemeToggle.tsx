@@ -8,7 +8,7 @@ export function ThemeToggleCompact() {
     <button
       onClick={() => setTheme(resolved === "dark" ? "light" : "dark")}
       aria-label={resolved === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
-      className="w-10 h-10 sm:w-touch-sm sm:h-touch-sm flex items-center justify-center rounded-xl
+      className="w-11 h-11 sm:w-touch-sm sm:h-touch-sm flex items-center justify-center rounded-xl
                  hover:bg-clara-hover transition-colors text-clara-text-secondary"
     >
       {resolved === "dark" ? (

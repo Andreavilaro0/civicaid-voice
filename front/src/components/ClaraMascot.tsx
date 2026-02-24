@@ -10,11 +10,12 @@ const RENDER_W = 1920;
 const RENDER_H = 1080;
 
 /** Responsive widget size based on viewport width and route */
-function useWidgetSize(isChat: boolean) {
+function useWidgetSize(isChat: boolean, isHome: boolean) {
   const getSize = useCallback((w: number) => {
     if (isChat) return w < 640 ? 100 : w < 1024 ? 120 : 130;
+    if (isHome) return w < 640 ? 120 : w < 1024 ? 160 : 200;
     return w < 640 ? 120 : w < 1024 ? 160 : 200;
-  }, [isChat]);
+  }, [isChat, isHome]);
 
   const [size, setSize] = useState(() => getSize(window.innerWidth));
 
@@ -32,9 +33,10 @@ function useWidgetSize(isChat: boolean) {
  * Adaptive scale + offset so the character fills the widget at any size.
  * Larger widgets → lower scale (see more scene). Smaller → zoom in.
  */
-function getScaleAndOffset(widgetSize: number) {
+function getScaleAndOffset(widgetSize: number, smallRobot = false) {
   // Scale proportional to widget: 200px → 0.4, 120px → 0.5, 100px → 0.55
-  const scale = Math.max(0.35, Math.min(0.6, 0.25 + (200 - widgetSize) * 0.0015));
+  let scale = Math.max(0.35, Math.min(0.6, 0.25 + (200 - widgetSize) * 0.0015));
+  if (smallRobot) scale *= 0.55;
   const scaledW = RENDER_W * scale;
   const scaledH = RENDER_H * scale;
   const ox = -scaledW / 2 + widgetSize / 2;
@@ -53,7 +55,8 @@ const stateAnimations: Record<string, string> = {
 export default function ClaraMascot() {
   const location = useLocation();
   const isChat = location.pathname === "/chat";
-  const widgetSize = useWidgetSize(isChat);
+  const isHome = location.pathname === "/";
+  const widgetSize = useWidgetSize(isChat, isHome);
   const { state } = useMascotState();
   const [routeBounce, setRouteBounce] = useState(false);
   const prevPath = useRef(location.pathname);
@@ -76,7 +79,8 @@ export default function ClaraMascot() {
     ? "animate-[bounce_0.6s_ease-in-out]"
     : stateAnimations[state] ?? stateAnimations.idle;
 
-  const { scale, ox, oy } = getScaleAndOffset(widgetSize);
+  const smallRobot = isHome && widgetSize <= 120;
+  const { scale, ox, oy } = getScaleAndOffset(widgetSize, smallRobot);
 
   return (
     <div
@@ -85,6 +89,7 @@ export default function ClaraMascot() {
         width: widgetSize,
         height: widgetSize,
         overflow: "hidden",
+        maxWidth: "100%",
         borderRadius: "1.25rem",
         opacity: isChat ? 0.85 : 1,
       }}

@@ -343,7 +343,7 @@ export default function HomePage() {
         <header className="fixed top-0 left-0 right-0 z-20 bg-clara-bg/70 backdrop-blur-md border-b border-clara-border/30">
           <div className="max-w-3xl mx-auto flex items-center justify-between px-4 h-[56px] sm:h-[60px]">
             <button onClick={() => setMenuOpen(true)} aria-label="Abrir menu"
-              className="w-10 h-10 sm:w-touch-sm sm:h-touch-sm flex items-center justify-center rounded-xl
+              className="w-11 h-11 sm:w-touch-sm sm:h-touch-sm flex items-center justify-center rounded-xl
                          hover:bg-clara-hover transition-colors flex-shrink-0">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -351,7 +351,7 @@ export default function HomePage() {
               </svg>
             </button>
 
-            <div className="flex-1 flex justify-center overflow-hidden mx-2">
+            <div className="flex-1 flex justify-center overflow-hidden mx-2 min-w-0 max-w-[50vw] sm:max-w-none">
               <LanguageBar lang={lang} onChangeLang={handleLangChange} compact />
             </div>
 
@@ -389,8 +389,8 @@ export default function HomePage() {
           {cycled.text}
         </p>
 
-        <h1 className="font-display font-bold text-[36px] md:text-[48px] lg:text-[60px] leading-[1.08] text-clara-text text-center mb-1 transition-opacity duration-400"
-            style={{ opacity: cycleFade ? 1 : 0, direction: cycled.lang === "ar" ? "rtl" : "ltr", animation: "fadeInUp 0.5s ease-out both", animationDelay: "0.15s" }}>
+        <h1 className="font-display font-bold leading-[1.08] text-clara-text text-center mb-1 transition-opacity duration-400"
+            style={{ fontSize: "clamp(28px, 8vw, 36px)", opacity: cycleFade ? 1 : 0, direction: cycled.lang === "ar" ? "rtl" : "ltr", animation: "fadeInUp 0.5s ease-out both", animationDelay: "0.15s" }}>
           <span className="text-clara-blue">{cycled.tagline[0]}</span><br />
           <span className="text-clara-orange">{cycled.tagline[1]}</span>
         </h1>

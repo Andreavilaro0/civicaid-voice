@@ -87,7 +87,7 @@ export default function Header({ language, onLanguageChange }: HeaderProps) {
         <button
           onClick={() => navigate("/")}
           aria-label={labels.back}
-          className="min-w-[40px] min-h-[40px] flex items-center justify-center rounded-xl
+          className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl
                      text-clara-text-secondary hover:bg-clara-card transition-colors duration-150 flex-shrink-0"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -121,7 +121,7 @@ export default function Header({ language, onLanguageChange }: HeaderProps) {
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? labels.closeMenu : labels.menu}
             aria-expanded={menuOpen}
-            className="min-w-[40px] min-h-[40px] flex items-center justify-center rounded-xl
+            className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl
                        text-clara-text-secondary hover:bg-clara-card transition-colors duration-150"
           >
             {menuOpen ? (

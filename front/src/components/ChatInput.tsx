@@ -55,13 +55,13 @@ export default function ChatInput({
 
   return (
     <div
-      className="px-3 py-2 bg-clara-bg/80 backdrop-blur-lg border-t border-clara-border/30 flex-shrink-0"
+      className="px-2 sm:px-3 py-2 bg-clara-bg/80 backdrop-blur-lg border-t border-clara-border/30 flex-shrink-0"
       style={{ paddingBottom: "max(8px, env(safe-area-inset-bottom))" }}
     >
       <form
         onSubmit={handleSubmit}
         className={[
-          "chat-form flex items-center gap-2",
+          "chat-form flex items-center gap-1.5 sm:gap-2 overflow-hidden",
           "bg-white dark:bg-[#2a2a4a]",
           "border border-clara-border/60",
           "rounded-full",
@@ -80,7 +80,7 @@ export default function ChatInput({
           aria-label={labels.photo}
           className={[
             "flex-none flex items-center justify-center",
-            "w-10 h-10",
+            "w-9 h-9 sm:w-11 sm:h-11",
             "rounded-full",
             "text-clara-text-secondary/60 hover:text-clara-blue hover:bg-clara-card",
             "transition-colors duration-150",
@@ -104,7 +104,7 @@ export default function ChatInput({
           aria-label={placeholders[language]}
           dir={language === "ar" ? "rtl" : "ltr"}
           className={[
-            "flex-1 h-10 px-2",
+            "flex-1 h-11 px-2",
             "bg-transparent border-none outline-none",
             "text-[16px] font-body",
             "text-clara-text placeholder:text-clara-text-secondary/50",
@@ -163,7 +163,7 @@ export default function ChatInput({
       </form>
 
       {/* Legal footer text */}
-      <p className="text-center text-[10px] text-clara-text-secondary/40 mt-1.5 px-4 leading-tight">
+      <p className="text-center text-[12px] text-clara-text-secondary/40 mt-1.5 px-4 leading-tight">
         Clara es IA orientativa. Consulta siempre fuentes oficiales.
       </p>
     </div>

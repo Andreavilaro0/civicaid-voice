@@ -61,7 +61,7 @@ export default function ChatBubble({ sender, children, timestamp }: ChatBubblePr
             </div>
 
             {timestamp && (
-              <p className="text-[12px] text-clara-text-secondary/70 mt-2.5 text-right select-none tabular-nums">
+              <p className="text-[13px] text-clara-text-secondary/70 mt-2.5 text-right select-none tabular-nums">
                 {timestamp}
               </p>
             )}
@@ -81,6 +81,7 @@ export default function ChatBubble({ sender, children, timestamp }: ChatBubblePr
           px-4 py-3.5
           max-w-[82%] md:max-w-[70%]
           shadow-[0_1px_3px_rgba(0,0,0,0.1)]
+          overflow-hidden break-words
         "
         role="article"
         aria-label="Your message"
@@ -88,7 +89,7 @@ export default function ChatBubble({ sender, children, timestamp }: ChatBubblePr
         <div className="text-[16px] leading-relaxed space-y-2">{children}</div>
 
         {timestamp && (
-          <p className="text-[12px] text-white/50 mt-2.5 text-right select-none tabular-nums">
+          <p className="text-[13px] text-white/50 mt-2.5 text-right select-none tabular-nums">
             {timestamp}
           </p>
         )}

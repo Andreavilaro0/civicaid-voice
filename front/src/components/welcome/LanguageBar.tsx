@@ -56,7 +56,7 @@ export default function LanguageBar({ lang, onChangeLang, compact = false }: Lan
               focus-visible:outline focus-visible:outline-[3px]
               focus-visible:outline-clara-blue focus-visible:outline-offset-2
               ${compact
-                ? "px-2.5 py-1.5 text-[13px]"
+                ? "px-2.5 py-1.5 text-[14px]"
                 : "px-3.5 py-2 text-[14px] min-h-touch-sm"
               }
               ${isActive
@@ -66,7 +66,7 @@ export default function LanguageBar({ lang, onChangeLang, compact = false }: Lan
             `}
           >
             <span className="text-[15px] leading-none" aria-hidden="true">{l.flag}</span>
-            <span>{l.short}</span>
+            <span style={{ fontSize: "max(12px, 1em)" }}>{l.short}</span>
           </button>
         );
       })}

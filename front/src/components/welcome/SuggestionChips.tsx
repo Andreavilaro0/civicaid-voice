@@ -13,9 +13,9 @@ export default function SuggestionChips({
 }: SuggestionChipsProps) {
   return (
     <div
-      className="suggestion-chips-scroll w-full max-w-[560px] md:max-w-[640px]
+      className="suggestion-chips-scroll w-full max-w-[calc(100vw-48px)] md:max-w-[640px]
                  flex gap-2 overflow-x-auto md:flex-wrap md:justify-center
-                 px-1 py-1 transition-opacity duration-400"
+                 px-1 pr-4 py-1 transition-opacity duration-400"
       style={{ opacity: cycleFade ? 1 : 0 }}
     >
       {suggestions.map((text) => (
