@@ -18,72 +18,33 @@ export default function LoadingState({
       role="status"
       aria-live="polite"
       aria-label={message}
-      className="flex items-end gap-2.5 justify-start mb-3"
+      className="flex items-start gap-3 justify-start mb-4"
     >
-      {/* Clara avatar — mirrors ChatBubble's clara-side avatar */}
+      {/* Clara avatar — matches ChatBubble's mascot avatar */}
       <div
         aria-hidden="true"
-        className="
-          flex-shrink-0
-          w-8 h-8
-          rounded-full
-          bg-clara-blue
-          flex items-center justify-center
-          shadow-sm
-        "
+        className="flex-shrink-0 w-9 h-9 rounded-xl bg-clara-blue flex items-center justify-center"
       >
-        {/* Voice-arc SVG identical to the one used in ChatBubble for Clara */}
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 16 16"
-          fill="none"
-          aria-hidden="true"
-        >
-          {/* Centre bar */}
-          <rect x="7" y="4" width="2" height="8" rx="1" fill="white" />
-          {/* Inner arcs */}
-          <path
-            d="M5 6 Q3.5 8 5 10"
-            stroke="white"
-            strokeWidth="1.4"
-            strokeLinecap="round"
-            fill="none"
-          />
-          <path
-            d="M11 6 Q12.5 8 11 10"
-            stroke="white"
-            strokeWidth="1.4"
-            strokeLinecap="round"
-            fill="none"
-          />
-          {/* Outer arcs */}
-          <path
-            d="M3 4.5 Q0.5 8 3 11.5"
-            stroke="white"
-            strokeWidth="1.2"
-            strokeLinecap="round"
-            fill="none"
-            opacity="0.6"
-          />
-          <path
-            d="M13 4.5 Q15.5 8 13 11.5"
-            stroke="white"
-            strokeWidth="1.2"
-            strokeLinecap="round"
-            fill="none"
-            opacity="0.6"
-          />
+        <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
+          <rect x="6" y="4" width="20" height="18" rx="6" stroke="white" strokeWidth="1.8" fill="none" />
+          <circle cx="12" cy="13" r="2" fill="white" />
+          <circle cx="20" cy="13" r="2" fill="white" />
+          <path d="M11 18 Q16 22 21 18" stroke="white" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+          <line x1="16" y1="4" x2="16" y2="1" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+          <circle cx="16" cy="0.5" r="1.2" fill="white" />
+          <rect x="2" y="10" width="4" height="6" rx="2" fill="white" opacity="0.7" />
+          <rect x="26" y="10" width="4" height="6" rx="2" fill="white" opacity="0.7" />
         </svg>
       </div>
 
       {/* Bubble */}
       <div
         className="
-          max-w-[85%]
-          px-4 py-3
-          bg-clara-card border border-clara-border/60 shadow-sm
-          rounded-2xl rounded-tl-sm
+          max-w-[82%]
+          px-4 py-3.5
+          bg-white dark:bg-[#2a2a4a] border border-clara-border/50
+          shadow-[0_1px_3px_rgba(0,0,0,0.06)]
+          rounded-2xl rounded-tl-md
           flex flex-col gap-2
         "
       >

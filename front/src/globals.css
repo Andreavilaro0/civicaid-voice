@@ -4,23 +4,23 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Clara palette — WCAG AAA validated + colorblind safe */
-  --color-clara-blue: #1B5E7B;
+  /* Clara palette — teal-forward, WCAG AAA validated + colorblind safe */
+  --color-clara-blue: #2D6A5A;
   --color-clara-orange: #D46A1E;
-  --color-clara-green: #2E7D4F;
+  --color-clara-green: #2D6A5A;
   --color-clara-bg: #FAFAFA;
   --color-clara-text: #1A1A2E;
-  --color-clara-text-secondary: #4A4A5A;
+  --color-clara-text-secondary: #6B7280;
   --color-clara-error: #C62828;
   --color-clara-warning: #F9A825;
-  --color-clara-info: #E3F2FD;
-  --color-clara-card: #F5F5F5;
-  --color-clara-border: #E0E0E0;
-  --color-clara-surface-1: #F0F7FA;
+  --color-clara-info: #E8F5F1;
+  --color-clara-card: #F3F4F6;
+  --color-clara-border: #E5E7EB;
+  --color-clara-surface-1: #E8F5F1;
   --color-clara-hover: #F0F0F0;
-  --color-clara-blue-hover: #164d66;
-  --color-clara-blue-pressed: #123f54;
-  --color-clara-green-hover: #256940;
+  --color-clara-blue-hover: #245850;
+  --color-clara-blue-pressed: #1D4A44;
+  --color-clara-green-hover: #245850;
 
   /* Typography — Atkinson Hyperlegible (Braille Institute) + Inter */
   --font-display: "Atkinson Hyperlegible", system-ui, sans-serif;
@@ -50,12 +50,12 @@
 }
 
 :root {
-  --color-clara-blue: #1B5E7B;
+  --color-clara-blue: #2D6A5A;
   --color-clara-orange: #D46A1E;
-  --color-clara-green: #2E7D4F;
-  --clara-blue-rgb: 27, 94, 123;
+  --color-clara-green: #2D6A5A;
+  --clara-blue-rgb: 45, 106, 90;
   --clara-orange-rgb: 212, 106, 30;
-  --clara-green-rgb: 46, 125, 79;
+  --clara-green-rgb: 45, 106, 90;
   --focus-ring: 3px solid var(--color-clara-blue);
 }
 
@@ -110,10 +110,10 @@ p, li, dd {
   50% { transform: scale(1.05); }
 }
 
-/* ChatInput mic button — warm orange glow pulse to invite voice interaction */
+/* ChatInput mic button — teal glow pulse to invite voice interaction */
 @keyframes micHintPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 106, 30, 0.35); }
-  50% { box-shadow: 0 0 0 5px rgba(212, 106, 30, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(45, 106, 90, 0.35); }
+  50% { box-shadow: 0 0 0 5px rgba(45, 106, 90, 0); }
 }
 
 /* Logo ripple — "ondas concentricas de una voz finalmente escuchada" */

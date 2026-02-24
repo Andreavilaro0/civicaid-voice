@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useMemo } from "react";
 import { useAudioPlayer } from "@/hooks/useAudioPlayer";
 import type { Language } from "@/lib/types";
 
@@ -100,7 +100,7 @@ const labels = {
 } as const;
 
 /* ------------------------------------------------------------------ */
-/*  Utilidad: formatear tiempo                                        */
+/*  Utility                                                           */
 /* ------------------------------------------------------------------ */
 
 function formatTime(seconds: number): string {
@@ -111,20 +111,34 @@ function formatTime(seconds: number): string {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Waveform bars — pseudo-random heights for visual interest          */
+/* ------------------------------------------------------------------ */
+
+const WAVEFORM_BARS = 28;
+
+function generateBarHeights(seed: number): number[] {
+  const bars: number[] = [];
+  let x = seed;
+  for (let i = 0; i < WAVEFORM_BARS; i++) {
+    x = ((x * 1103515245 + 12345) & 0x7fffffff) >>> 0;
+    const h = 0.2 + (x % 100) / 125; // 0.2 – 1.0
+    bars.push(h);
+  }
+  return bars;
+}
+
+/* ------------------------------------------------------------------ */
 /*  Props                                                             */
 /* ------------------------------------------------------------------ */
 
 interface AudioPlayerProps {
-  /** URL resuelta del audio (ya procesada con resolveAudioUrl) */
   src: string;
-  /** Idioma para labels bilingues */
   language: Language;
-  /** Auto-reproducir al cargar (misma experiencia que WhatsApp) */
   autoPlay?: boolean;
 }
 
 /* ------------------------------------------------------------------ */
-/*  Componente                                                        */
+/*  Component                                                         */
 /* ------------------------------------------------------------------ */
 
 export default function AudioPlayer({ src, language, autoPlay }: AudioPlayerProps) {
@@ -142,23 +156,27 @@ export default function AudioPlayer({ src, language, autoPlay }: AudioPlayerProp
     cycleSpeed,
   } = useAudioPlayer(src, { autoPlay });
 
-  const progressBarRef = useRef<HTMLDivElement>(null);
+  const waveformRef = useRef<HTMLDivElement>(null);
   const l = labels[language];
 
-  /* --- Seek al hacer click/touch en la barra --- */
+  // Stable bar heights based on src hash
+  const barHeights = useMemo(() => {
+    let hash = 0;
+    for (let i = 0; i < src.length; i++) hash = ((hash << 5) - hash + src.charCodeAt(i)) | 0;
+    return generateBarHeights(Math.abs(hash));
+  }, [src]);
 
+  /* --- Seek via waveform click/touch --- */
   const handleSeek = useCallback(
     (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
-      const bar = progressBarRef.current;
+      const bar = waveformRef.current;
       if (!bar || !duration) return;
-
       let clientX: number;
       if ("touches" in e) {
         clientX = e.touches[0].clientX;
       } else {
         clientX = e.clientX;
       }
-
       const rect = bar.getBoundingClientRect();
       const percent = ((clientX - rect.left) / rect.width) * 100;
       seek(percent);
@@ -166,9 +184,8 @@ export default function AudioPlayer({ src, language, autoPlay }: AudioPlayerProp
     [seek, duration],
   );
 
-  /* --- Keyboard en la barra de progreso --- */
-
-  const handleProgressKeyDown = useCallback(
+  /* --- Keyboard on waveform --- */
+  const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key === "ArrowRight") {
         e.preventDefault();
@@ -181,8 +198,6 @@ export default function AudioPlayer({ src, language, autoPlay }: AudioPlayerProp
     [seek, progress],
   );
 
-  /* --- Aria label dinamico para play/pause --- */
-
   const playButtonLabel = (() => {
     if (hasError) return l.error;
     if (hasEnded) return l.replay;
@@ -192,72 +207,59 @@ export default function AudioPlayer({ src, language, autoPlay }: AudioPlayerProp
     return l.play;
   })();
 
-  /* --- Idle state: invitar a Maria a tocar play --- */
   const isIdle = !isPlaying && !hasEnded && !isLoading && progress === 0;
 
-  /* --- Estado de error --- */
-
+  /* --- Error state --- */
   if (hasError) {
     return (
-      <div
-        className="flex items-center gap-3 bg-clara-error/10 rounded-xl px-3 py-2.5 mt-2"
-        role="alert"
-      >
-        <div className="min-w-[48px] min-h-[48px] flex items-center justify-center
-                        bg-clara-text-secondary/20 rounded-full">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
+      <div className="flex items-center gap-3 bg-clara-error/10 rounded-xl px-3 py-2.5 mt-2" role="alert">
+        <div className="min-w-[40px] min-h-[40px] flex items-center justify-center bg-clara-text-secondary/20 rounded-full">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"
                className="text-clara-text-secondary" aria-hidden="true">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-2h2v2h-2zm0-4V7h2v6h-2z" />
           </svg>
         </div>
-        <span className="text-[16px] text-clara-text-secondary">{l.error}</span>
+        <span className="text-[14px] text-clara-text-secondary">{l.error}</span>
       </div>
     );
   }
 
+  const filledBars = Math.floor((progress / 100) * WAVEFORM_BARS);
+
   return (
-    <div className="flex items-center gap-3 bg-clara-green/10 rounded-xl px-3 py-2.5 mt-2">
-      {/* ---- Boton Play/Pause ---- */}
+    <div className="flex items-center gap-3 rounded-xl px-3 py-3 mt-2 bg-clara-blue/[0.06]">
+      {/* ---- Play/Pause button ---- */}
       <button
         onClick={togglePlay}
         disabled={isLoading && !isPlaying}
         aria-label={playButtonLabel}
-        className="min-w-[48px] min-h-[48px] flex items-center justify-center
-                   bg-clara-green text-white rounded-full shrink-0
-                   hover:bg-[var(--color-clara-green-hover)] active:scale-95
+        className="min-w-[42px] min-h-[42px] flex items-center justify-center
+                   bg-clara-blue text-white rounded-full shrink-0
+                   hover:bg-[var(--color-clara-blue-hover)] active:scale-95
                    transition-[background-color,transform] duration-150
-                   [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]
                    focus-visible:outline focus-visible:outline-[3px]
-                   focus-visible:outline-clara-green focus-visible:outline-offset-2
+                   focus-visible:outline-clara-blue focus-visible:outline-offset-2
                    disabled:opacity-50 disabled:cursor-not-allowed"
         style={isIdle ? { animation: "playHintPulse 2s ease-in-out infinite" } : undefined}
       >
         {isLoading && !isPlaying ? (
-          /* Spinner de carga — 3 dots animados */
           <div className="flex gap-1" aria-hidden="true">
             <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
             <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse [animation-delay:150ms]" />
             <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse [animation-delay:300ms]" />
           </div>
         ) : (
-          <span
-            className="inline-flex transition-[transform,opacity] duration-150"
-            style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
-            aria-hidden="true"
-          >
+          <span className="inline-flex" aria-hidden="true">
             {hasEnded ? (
-              /* Icono replay */
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" />
               </svg>
             ) : isPlaying ? (
-              /* Icono pause */
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
               </svg>
             ) : (
-              /* Icono play */
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M8 5v14l11-7z" />
               </svg>
             )}
@@ -265,11 +267,10 @@ export default function AudioPlayer({ src, language, autoPlay }: AudioPlayerProp
         )}
       </button>
 
-      {/* ---- Barra de progreso + tiempo ---- */}
+      {/* ---- Waveform + time ---- */}
       <div className="flex-1 min-w-0">
-        {/* Zona seekable — area tactil de 32px, barra visual de 8px */}
         <div
-          ref={progressBarRef}
+          ref={waveformRef}
           role="slider"
           aria-label={l.progress}
           aria-valuemin={0}
@@ -278,48 +279,46 @@ export default function AudioPlayer({ src, language, autoPlay }: AudioPlayerProp
           tabIndex={0}
           onClick={handleSeek}
           onTouchStart={handleSeek}
-          onKeyDown={handleProgressKeyDown}
-          className="relative h-8 flex items-center cursor-pointer group
+          onKeyDown={handleKeyDown}
+          className="relative h-8 flex items-center gap-[2px] cursor-pointer group
                      focus-visible:outline focus-visible:outline-[3px]
-                     focus-visible:outline-clara-green focus-visible:outline-offset-1
-                     rounded"
+                     focus-visible:outline-clara-blue focus-visible:outline-offset-1 rounded"
         >
-          {/* Track */}
-          <div className="relative w-full h-2 bg-clara-border rounded-full overflow-visible">
-            {/* Fill */}
-            <div
-              className="h-full bg-clara-green rounded-full transition-[width] duration-250 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]"
-              style={{ width: `${progress}%` }}
-            />
-            {/* Thumb indicator — appears on hover/focus */}
-            <div
-              className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-clara-green rounded-full
-                         shadow-sm opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100
-                         transition-opacity duration-200 pointer-events-none"
-              style={{ left: `calc(${progress}% - 8px)` }}
-              aria-hidden="true"
-            />
-          </div>
+          {barHeights.map((h, i) => {
+            const isFilled = i < filledBars;
+            return (
+              <span
+                key={i}
+                className="flex-1 rounded-full transition-colors duration-100"
+                style={{
+                  height: `${h * 24}px`,
+                  minHeight: "4px",
+                  backgroundColor: isFilled
+                    ? "var(--color-clara-blue)"
+                    : "color-mix(in srgb, var(--color-clara-blue) 25%, transparent)",
+                }}
+              />
+            );
+          })}
         </div>
 
-        {/* Tiempo */}
-        <div className="flex justify-between text-[13px] text-clara-text-secondary -mt-1">
+        <div className="flex justify-between text-[12px] text-clara-text-secondary/70 -mt-0.5">
           <span className="tabular-nums">{formatTime(currentTime)}</span>
           <span className="tabular-nums">{formatTime(duration)}</span>
         </div>
       </div>
 
-      {/* ---- Boton velocidad ---- */}
+      {/* ---- Speed button ---- */}
       <button
         onClick={cycleSpeed}
         aria-label={l.speed(speed)}
-        className="min-w-[44px] min-h-[44px] flex items-center justify-center shrink-0
-                   text-[14px] font-bold text-clara-green tabular-nums
-                   border border-clara-green/30 rounded-lg
-                   hover:bg-clara-green/10 active:scale-95
+        className="min-w-[38px] min-h-[38px] flex items-center justify-center shrink-0
+                   text-[13px] font-bold text-clara-blue tabular-nums
+                   border border-clara-blue/20 rounded-lg
+                   hover:bg-clara-blue/10 active:scale-95
                    transition-[background-color,transform] duration-150
                    focus-visible:outline focus-visible:outline-[3px]
-                   focus-visible:outline-clara-green focus-visible:outline-offset-2"
+                   focus-visible:outline-clara-blue focus-visible:outline-offset-2"
       >
         {speed}x
       </button>

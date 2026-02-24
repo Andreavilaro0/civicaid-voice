@@ -1,15 +1,6 @@
 import { useState, useRef } from "react";
 import type { Language } from "@/lib/types";
 
-// Usage:
-// <ChatInput
-//   onSendText={(text) => console.log(text)}
-//   onStartVoice={() => console.log("voice")}
-//   onOpenCamera={() => console.log("camera")}
-//   disabled={false}
-//   language="es"
-// />
-
 interface ChatInputProps {
   onSendText: (text: string) => void;
   onStartVoice: () => void;
@@ -47,7 +38,6 @@ export default function ChatInput({
   onOpenCamera,
   disabled,
   language,
-  activeMode = "text",
 }: ChatInputProps) {
   const [text, setText] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -65,26 +55,24 @@ export default function ChatInput({
 
   return (
     <div
-      className={[
-        "px-3 py-3",
-        "bg-clara-bg/80",
-        "backdrop-blur-lg",
-        "border-t border-clara-border/50",
-      ].join(" ")}
-      style={{ paddingBottom: "max(12px, env(safe-area-inset-bottom))" }}
+      className="px-3 py-2 bg-clara-bg/80 backdrop-blur-lg border-t border-clara-border/30 flex-shrink-0"
+      style={{ paddingBottom: "max(8px, env(safe-area-inset-bottom))" }}
     >
       <form
         onSubmit={handleSubmit}
         className={[
-          "chat-form flex items-center",
-          "border-2 border-clara-border",
-          "rounded-2xl",
+          "chat-form flex items-center gap-2",
+          "bg-white dark:bg-[#2a2a4a]",
+          "border border-clara-border/60",
+          "rounded-full",
+          "shadow-[0_1px_4px_rgba(0,0,0,0.06)]",
+          "pl-2 pr-1.5 py-1.5",
           "transition-[border-color,box-shadow] duration-150",
-          "focus-within:border-clara-blue focus-within:shadow-[0_0_0_3px_rgba(var(--clara-blue-rgb),0.1)]",
+          "focus-within:border-clara-blue/50 focus-within:shadow-[0_0_0_3px_rgba(45,106,90,0.08)]",
           disabled ? "opacity-50" : "",
         ].join(" ")}
       >
-        {/* Camera button — left */}
+        {/* Camera button — subtle, left side */}
         <button
           type="button"
           onClick={onOpenCamera}
@@ -92,26 +80,20 @@ export default function ChatInput({
           aria-label={labels.photo}
           className={[
             "flex-none flex items-center justify-center",
-            "w-12 h-12 ml-1",
-            "rounded-xl",
-            "text-clara-text-secondary hover:text-clara-blue",
+            "w-10 h-10",
+            "rounded-full",
+            "text-clara-text-secondary/60 hover:text-clara-blue hover:bg-clara-card",
             "transition-colors duration-150",
             "disabled:cursor-not-allowed",
           ].join(" ")}
         >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            aria-hidden="true"
-          >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M12 12m-3.2 0a3.2 3.2 0 1 0 6.4 0a3.2 3.2 0 1 0-6.4 0" />
             <path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z" />
           </svg>
         </button>
 
-        {/* Text input — middle */}
+        {/* Text input */}
         <input
           ref={inputRef}
           type="text"
@@ -122,15 +104,15 @@ export default function ChatInput({
           aria-label={placeholders[language]}
           dir={language === "ar" ? "rtl" : "ltr"}
           className={[
-            "flex-1 h-12 px-3",
+            "flex-1 h-10 px-2",
             "bg-transparent border-none outline-none",
-            "text-body-sm font-body",
-            "text-clara-text placeholder:text-clara-text-secondary",
+            "text-[16px] font-body",
+            "text-clara-text placeholder:text-clara-text-secondary/50",
             "disabled:cursor-not-allowed",
           ].join(" ")}
         />
 
-        {/* Voice or Send button — right */}
+        {/* Voice or Send button — teal circle */}
         {hasText ? (
           <button
             type="submit"
@@ -138,22 +120,20 @@ export default function ChatInput({
             aria-label={labels.send}
             className={[
               "flex-none flex items-center justify-center",
-              "w-12 h-12 mr-1",
-              "rounded-xl",
+              "w-11 h-11",
+              "rounded-full",
               "bg-clara-blue text-white",
               "hover:bg-[var(--color-clara-blue-hover)]",
-              "transition-colors duration-150",
+              "active:scale-95",
+              "transition-[background-color,transform] duration-150",
               "disabled:cursor-not-allowed disabled:opacity-50",
             ].join(" ")}
           >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+            {/* Arrow-up send icon */}
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <line x1="12" y1="19" x2="12" y2="5" />
+              <polyline points="5 12 12 5 19 12" />
             </svg>
           </button>
         ) : (
@@ -164,9 +144,9 @@ export default function ChatInput({
             aria-label={labels.voice}
             className={[
               "flex-none flex items-center justify-center",
-              "w-12 h-12 mr-1",
-              "rounded-xl",
-              "bg-clara-orange text-white",
+              "w-11 h-11",
+              "rounded-full",
+              "bg-clara-blue text-white",
               "hover:opacity-90",
               "active:scale-95",
               "transition-[background-color,transform,opacity] duration-150",
@@ -174,19 +154,18 @@ export default function ChatInput({
             ].join(" ")}
             style={!disabled ? { animation: "micHintPulse 2.5s ease-in-out infinite" } : undefined}
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              aria-hidden="true"
-            >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" />
               <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" />
             </svg>
           </button>
         )}
       </form>
+
+      {/* Legal footer text */}
+      <p className="text-center text-[10px] text-clara-text-secondary/40 mt-1.5 px-4 leading-tight">
+        Clara es IA orientativa. Consulta siempre fuentes oficiales.
+      </p>
     </div>
   );
 }
