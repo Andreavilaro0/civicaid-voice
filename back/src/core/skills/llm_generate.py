@@ -196,6 +196,9 @@ def llm_generate(
                 from_cache=False, success=False, error="Empty response"
             )
         text = raw_text.strip()
+        # Strip "Clara:" prefix if Gemini adds it despite prompt instructions
+        import re
+        text = re.sub(r'^(?:Clara|كلارا)\s*:\s*', '', text, flags=re.IGNORECASE).strip()
         log_llm(True, elapsed, "gemini")
         return LLMResponse(
             text=text, language=language, duration_ms=elapsed,
