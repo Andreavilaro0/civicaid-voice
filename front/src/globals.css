@@ -1397,3 +1397,109 @@ body::after {
   -webkit-mask-image: linear-gradient(to right, transparent, black 8px, black calc(100% - 8px), transparent);
 }
 
+/* ══════════════════════════════════════════════════════════════════════ */
+/*  COMO USAR PAGE — Bento grid, floating dock, micro-interactions      */
+/* ══════════════════════════════════════════════════════════════════════ */
+
+/* ── Bento grid layout ── */
+.bento-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  width: 100%;
+}
+@media (min-width: 640px) {
+  .bento-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+}
+
+/* ── Bento card glow on hover ── */
+.bento-card-glow {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.bento-card-glow:hover {
+  box-shadow:
+    0 8px 32px rgba(var(--clara-blue-rgb), 0.15),
+    0 0 0 1px rgba(var(--clara-blue-rgb), 0.08);
+}
+.dark .bento-card-glow:hover {
+  box-shadow:
+    0 8px 32px rgba(var(--clara-blue-rgb), 0.25),
+    0 0 0 1px rgba(var(--clara-blue-rgb), 0.15);
+}
+
+/* ── Floating dock — fixed bottom center, glass pill ── */
+.como-usar-dock {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(var(--clara-blue-rgb), 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.dark .como-usar-dock {
+  background: rgba(37, 37, 66, 0.85);
+  border: 1px solid rgba(var(--clara-blue-rgb), 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), 0 1px 0 rgba(58, 58, 96, 0.3) inset;
+}
+.como-usar-dock[data-visible="false"] {
+  opacity: 0;
+  transform: translateX(-50%) translateY(20px);
+  pointer-events: none;
+}
+
+/* ── Chip tap feedback ── */
+.chip-tap {
+  transition: transform 0.12s ease;
+  cursor: pointer;
+}
+.chip-tap:active {
+  transform: scale(0.93);
+}
+
+/* ── Magnetic hover for buttons ── */
+.btn-magnetic {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-magnetic:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+.btn-magnetic:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* ── Dot pulse keyframe ── */
+@keyframes dotPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+.dot-pulse {
+  animation: dotPulse 2.5s ease-in-out infinite;
+}
+
+/* ── Reduced motion safety for new animations ── */
+@media (prefers-reduced-motion: reduce) {
+  .bento-card-glow { transition: none; }
+  .como-usar-dock { transition: none; }
+  .chip-tap { transition: none; }
+  .btn-magnetic { transition: none; }
+  .dot-pulse { animation: none; opacity: 0.5; }
+}
+
+/* ── RTL adjustments for dock ── */
+[dir="rtl"] .como-usar-dock {
+  flex-direction: row-reverse;
+}
+

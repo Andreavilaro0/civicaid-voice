@@ -39,7 +39,7 @@ async function playWelcomeAudio() {
 
 const content: Record<Lang, { description: string; footer: string }> = {
   es: {
-    description: "Te ayudo con tramites sociales en Espana. Habla o escribe en tu idioma.",
+    description: "Te ayudo con trámites sociales en España. Habla o escribe en tu idioma.",
     footer: "Gratis · Confidencial · En tu idioma",
   },
   en: {
@@ -47,7 +47,7 @@ const content: Record<Lang, { description: string; footer: string }> = {
     footer: "Free · Confidential · In your language",
   },
   fr: {
-    description: "Je t'aide avec les demarches sociales en Espagne. Parle ou ecris dans ta langue.",
+    description: "Je t'aide avec les démarches sociales en Espagne. Parle ou écris dans ta langue.",
     footer: "Gratuit · Confidentiel · Dans ta langue",
   },
   pt: {
@@ -85,6 +85,162 @@ const CYCLE_GREETINGS: { text: string; tagline: [string, string]; mic: string; l
 
 const CYCLE_INTERVAL = 5000;
 const PAUSE_DURATION = 15000;
+
+/* ------------------------------------------------------------------ */
+/*  Sección datos + WhatsApp                                           */
+/* ------------------------------------------------------------------ */
+
+const DATA_WA_CONTENT: Record<Lang, {
+  title: string;
+  stats: { value: string; label: string }[];
+  whatsapp_title: string;
+  whatsapp_body: string;
+  whatsapp_badge: string;
+}> = {
+  es: {
+    title: "La realidad en números",
+    stats: [
+      { value: "4.5M", label: "personas inmigrantes en España" },
+      { value: "1/5", label: "residentes en España nacieron en otro país" },
+      { value: "8", label: "idiomas que habla Clara" },
+      { value: "20+", label: "trámites cubiertos" },
+    ],
+    whatsapp_title: "Próximamente en WhatsApp",
+    whatsapp_body: "Clara fue construida con la API de Meta para WhatsApp. Nuestro plan es tener la línea activa para que cualquier persona pueda escribir o hablar con Clara directamente desde WhatsApp, sin descargar nada.",
+    whatsapp_badge: "En desarrollo",
+  },
+  en: {
+    title: "The reality in numbers",
+    stats: [
+      { value: "4.5M", label: "immigrants in Spain" },
+      { value: "1/5", label: "residents in Spain were born abroad" },
+      { value: "8", label: "languages Clara speaks" },
+      { value: "20+", label: "procedures covered" },
+    ],
+    whatsapp_title: "Coming soon on WhatsApp",
+    whatsapp_body: "Clara was built with Meta's WhatsApp API. Our plan is to have the line active so anyone can write or speak to Clara directly from WhatsApp, without downloading anything.",
+    whatsapp_badge: "In development",
+  },
+  fr: {
+    title: "La réalité en chiffres",
+    stats: [
+      { value: "4.5M", label: "immigrés en Espagne" },
+      { value: "1/5", label: "résidents en Espagne sont nés à l'étranger" },
+      { value: "8", label: "langues parlées par Clara" },
+      { value: "20+", label: "démarches couvertes" },
+    ],
+    whatsapp_title: "Bientôt sur WhatsApp",
+    whatsapp_body: "Clara a été construite avec l'API WhatsApp de Meta. Notre plan est d'avoir la ligne active pour que n'importe qui puisse écrire ou parler avec Clara directement depuis WhatsApp, sans rien télécharger.",
+    whatsapp_badge: "En développement",
+  },
+  pt: {
+    title: "A realidade em números",
+    stats: [
+      { value: "4.5M", label: "imigrantes em Espanha" },
+      { value: "1/5", label: "residentes em Espanha nasceram noutro país" },
+      { value: "8", label: "idiomas que Clara fala" },
+      { value: "20+", label: "trâmites cobertos" },
+    ],
+    whatsapp_title: "Em breve no WhatsApp",
+    whatsapp_body: "Clara foi construída com a API do WhatsApp da Meta. O nosso plano é ter a linha ativa para que qualquer pessoa possa escrever ou falar com Clara diretamente do WhatsApp, sem descarregar nada.",
+    whatsapp_badge: "Em desenvolvimento",
+  },
+  ro: {
+    title: "Realitatea în cifre",
+    stats: [
+      { value: "4.5M", label: "imigranți în Spania" },
+      { value: "1/5", label: "rezidenți în Spania s-au născut în altă țară" },
+      { value: "8", label: "limbi vorbite de Clara" },
+      { value: "20+", label: "proceduri acoperite" },
+    ],
+    whatsapp_title: "În curând pe WhatsApp",
+    whatsapp_body: "Clara a fost construită cu API-ul WhatsApp de la Meta. Planul nostru este să avem linia activă pentru ca oricine să poată scrie sau vorbi cu Clara direct din WhatsApp, fără să descarce nimic.",
+    whatsapp_badge: "În dezvoltare",
+  },
+  ca: {
+    title: "La realitat en xifres",
+    stats: [
+      { value: "4.5M", label: "immigrants a Espanya" },
+      { value: "1/5", label: "residents a Espanya van néixer a un altre país" },
+      { value: "8", label: "idiomes que parla Clara" },
+      { value: "20+", label: "tràmits coberts" },
+    ],
+    whatsapp_title: "Properament a WhatsApp",
+    whatsapp_body: "Clara va ser construïda amb l'API de WhatsApp de Meta. El nostre pla és tenir la línia activa perquè qualsevol persona pugui escriure o parlar amb Clara directament des de WhatsApp, sense descarregar res.",
+    whatsapp_badge: "En desenvolupament",
+  },
+  zh: {
+    title: "数据中的现实",
+    stats: [
+      { value: "4.5M", label: "西班牙的移民人口" },
+      { value: "1/5", label: "西班牙居民出生在其他国家" },
+      { value: "8", label: "Clara会说的语言" },
+      { value: "20+", label: "覆盖的事务类型" },
+    ],
+    whatsapp_title: "即将登陆WhatsApp",
+    whatsapp_body: "Clara使用Meta的WhatsApp API构建。我们的计划是开通WhatsApp热线，让任何人都可以直接通过WhatsApp与Clara交流，无需下载任何应用。",
+    whatsapp_badge: "开发中",
+  },
+  ar: {
+    title: "الواقع بالأرقام",
+    stats: [
+      { value: "4.5M", label: "مهاجر في إسبانيا" },
+      { value: "1/5", label: "من سكان إسبانيا ولدوا في بلد آخر" },
+      { value: "8", label: "لغات تتحدثها كلارا" },
+      { value: "20+", label: "إجراء مغطى" },
+    ],
+    whatsapp_title: "قريباً على واتساب",
+    whatsapp_body: "تم بناء كلارا باستخدام واجهة برمجة تطبيقات واتساب من ميتا. خطتنا هي تفعيل الخط حتى يتمكن أي شخص من الكتابة أو التحدث مع كلارا مباشرة من واتساب، دون تحميل أي شيء.",
+    whatsapp_badge: "قيد التطوير",
+  },
+};
+
+function DataWhatsAppSection({ lang }: { lang: Lang }) {
+  const t = DATA_WA_CONTENT[lang];
+  return (
+    <section className="relative w-full bg-clara-bg px-6 py-16 overflow-hidden">
+      <div className="max-w-3xl mx-auto flex flex-col items-center gap-12">
+        {/* Stats grid */}
+        <div className="text-center">
+          <h2 className="font-display font-bold text-[28px] md:text-[36px] text-clara-text mb-8">
+            {t.title}
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {t.stats.map((stat) => (
+              <div key={stat.value} className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-clara-card border border-clara-border/50">
+                <span className="font-display font-bold text-[32px] md:text-[40px] text-clara-orange leading-none">
+                  {stat.value}
+                </span>
+                <span className="text-body-sm text-clara-text-secondary text-center leading-snug">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* WhatsApp card */}
+        <div className="w-full max-w-lg p-6 rounded-2xl bg-clara-card border border-clara-border/50 shadow-lg flex flex-col items-center gap-4 text-center">
+          <div className="flex items-center gap-3">
+            <svg className="w-10 h-10 text-[#25D366] flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            <h3 className="font-display font-bold text-[22px] md:text-[26px] text-clara-text">
+              {t.whatsapp_title}
+            </h3>
+          </div>
+          <p className="text-body-sm text-clara-text-secondary leading-relaxed">
+            {t.whatsapp_body}
+          </p>
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-clara-orange/10 text-clara-orange text-label font-medium">
+            <span className="w-2 h-2 rounded-full bg-clara-orange animate-pulse" />
+            {t.whatsapp_badge}
+          </span>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -310,7 +466,12 @@ export default function HomePage() {
       <SuccessSection lang={lang} />
 
       {/* ═══════════════════════════════════════════════════════════════ */}
-      {/* SECTION 7: SEGUNDO CTA                                        */}
+      {/* SECTION 7: DATOS + WHATSAPP                                   */}
+      {/* ═══════════════════════════════════════════════════════════════ */}
+      <DataWhatsAppSection lang={lang} />
+
+      {/* ═══════════════════════════════════════════════════════════════ */}
+      {/* SECTION 8: SEGUNDO CTA                                        */}
       {/* ═══════════════════════════════════════════════════════════════ */}
       <section className="section-viewport section-dark section-grain relative w-full flex flex-col items-center justify-center px-6
                           cta-dark-gradient overflow-hidden">

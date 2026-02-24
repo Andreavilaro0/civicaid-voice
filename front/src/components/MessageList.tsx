@@ -67,9 +67,9 @@ interface MessageListProps {
 
 /** Labels bilingues para la lista */
 const labels: Record<Language, { conversation: string; source: string; listen: string; voiceMessage: string }> = {
-  es: { conversation: "Conversacion con Clara", source: "Fuente", listen: "Escuchar respuesta", voiceMessage: "Mensaje de voz" },
+  es: { conversation: "Conversación con Clara", source: "Fuente", listen: "Escuchar respuesta", voiceMessage: "Mensaje de voz" },
   en: { conversation: "Conversation with Clara", source: "Source", listen: "Listen to response", voiceMessage: "Voice message" },
-  fr: { conversation: "Conversation avec Clara", source: "Source", listen: "Ecouter la reponse", voiceMessage: "Message vocal" },
+  fr: { conversation: "Conversation avec Clara", source: "Source", listen: "Écouter la réponse", voiceMessage: "Message vocal" },
   pt: { conversation: "Conversa com Clara", source: "Fonte", listen: "Ouvir resposta", voiceMessage: "Mensagem de voz" },
   ro: { conversation: "Conversație cu Clara", source: "Sursă", listen: "Ascultă răspunsul", voiceMessage: "Mesaj vocal" },
   ca: { conversation: "Conversa amb Clara", source: "Font", listen: "Escoltar resposta", voiceMessage: "Missatge de veu" },

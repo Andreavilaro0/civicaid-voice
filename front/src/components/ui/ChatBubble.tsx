@@ -40,7 +40,7 @@ export default function ChatBubble({ sender, children, timestamp }: ChatBubblePr
       <div className="flex items-start gap-3 justify-start mb-4">
         <ClaraAvatar />
 
-        <div className="flex flex-col items-start max-w-[82%] md:max-w-[70%]">
+        <div className="flex flex-col items-start max-w-[82%] md:max-w-[70%] min-w-0">
           <span className="text-clara-blue font-display font-semibold text-[13px] mb-1.5 ml-1 tracking-wide uppercase">
             Clara
           </span>
@@ -51,6 +51,7 @@ export default function ChatBubble({ sender, children, timestamp }: ChatBubblePr
               shadow-[0_1px_3px_rgba(0,0,0,0.06)]
               rounded-2xl rounded-tl-md
               px-4 py-3.5
+              overflow-hidden break-words
             "
             role="article"
             aria-label="Clara message"

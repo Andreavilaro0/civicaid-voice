@@ -35,12 +35,12 @@ function createId(): string {
 const LEGAL_PAGE = "https://andreavilaro0.github.io/civicaid-voice/info-legal";
 
 const welcomeMessages: Record<Language, string> = {
-  es: `Hola, soy Clara!\n\nSoy una inteligencia artificial, no una persona. Mi informacion es orientativa y no sustituye asesoramiento profesional.\n\nTe ayudo con mas de 20 tramites sociales en Espana: IMV, empadronamiento, tarjeta sanitaria, NIE, pensiones, bono social electrico, reagrupacion familiar, arraigo, becas, prestaciones por nacimiento y mas.\n\nPuedes hablarme con audio o escribir tu pregunta.\nHablo espanol, frances, ingles, portugues, rumano, catalan, chino y arabe.\nGratis y confidencial.\n\nInfo legal: ${LEGAL_PAGE}?lang=es`,
+  es: `Hola, soy Clara!\n\nSoy una inteligencia artificial, no una persona. Mi información es orientativa y no sustituye asesoramiento profesional.\n\nTe ayudo con más de 20 trámites sociales en España: IMV, empadronamiento, tarjeta sanitaria, NIE, pensiones, bono social eléctrico, reagrupación familiar, arraigo, becas, prestaciones por nacimiento y más.\n\nPuedes hablarme con audio o escribir tu pregunta.\nHablo español, francés, inglés, portugués, rumano, catalán, chino y árabe.\nGratis y confidencial.\n\nInfo legal: ${LEGAL_PAGE}?lang=es`,
   en: `Hi, I'm Clara!\n\nI am an artificial intelligence, not a person. My information is for guidance only and does not replace professional advice.\n\nI help you with over 20 social services in Spain: minimum income, registration, health card, NIE, pensions, electricity social bonus, family reunification, residency, scholarships, parental leave and more.\n\nYou can send me a voice message or type your question.\nI speak Spanish, French, English, Portuguese, Romanian, Catalan, Chinese and Arabic.\nFree and confidential.\n\nLegal info: ${LEGAL_PAGE}?lang=en`,
-  fr: `Salut, je suis Clara!\n\nJe suis une intelligence artificielle, pas une personne. Mes informations sont indicatives et ne remplacent pas un conseil professionnel.\n\nJe t'aide avec plus de 20 demarches sociales en Espagne: RMV, inscription, carte sanitaire, NIE, pensions, bon social electrique, regroupement familial, enracinement, bourses, conge parental et plus.\n\nTu peux m'envoyer un audio ou ecrire ta question.\nJe parle espagnol, francais, anglais, portugais, roumain, catalan, chinois et arabe.\nGratuit et confidentiel.\n\nInfos legales: ${LEGAL_PAGE}?lang=fr`,
-  pt: `Ola, sou a Clara!\n\nSou uma inteligencia artificial, nao uma pessoa. A minha informacao e orientativa e nao substitui aconselhamento profissional.\n\nAjudo-te com mais de 20 tramites sociais em Espanha: rendimento minimo, inscricao, cartao de saude, NIE, pensoes, bonus social eletrico, reagrupamento familiar, arraigo, bolsas, licenca parental e mais.\n\nPodes enviar-me um audio ou escrever a tua pergunta.\nFalo espanhol, frances, ingles, portugues, romeno, catalao, chines e arabe.\nGratuito e confidencial.\n\nInfo legal: ${LEGAL_PAGE}?lang=pt`,
-  ro: `Buna, sunt Clara!\n\nSunt o inteligenta artificiala, nu o persoana. Informatiile mele sunt orientative si nu inlocuiesc consilierea profesionala.\n\nTe ajut cu peste 20 de proceduri sociale din Spania: venitul minim, inregistrarea, cardul de sanatate, NIE, pensii, bonusul social electric, reintregirea familiei, arraigo, burse, concediu parental si altele.\n\nPoti sa trimiti un mesaj vocal sau sa scrii intrebarea ta.\nVorbesc spaniola, franceza, engleza, portugheza, romana, catalana, chineza si araba.\nGratuit si confidential.\n\nInfo legale: ${LEGAL_PAGE}?lang=ro`,
-  ca: `Hola, soc la Clara!\n\nSoc una intel·ligencia artificial, no una persona. La meva informacio es orientativa i no substitueix l'assessorament professional.\n\nT'ajudo amb mes de 20 tramits socials a Espanya: IMV, empadronament, targeta sanitaria, NIE, pensions, bo social electric, reagrupament familiar, arrelament, beques, baixa per naixement i mes.\n\nPots enviar-me un audio o escriure la teva pregunta.\nParlo castella, frances, angles, portugues, romanes, catala, xines i arab.\nGratuit i confidencial.\n\nInfo legal: ${LEGAL_PAGE}?lang=ca`,
+  fr: `Salut, je suis Clara!\n\nJe suis une intelligence artificielle, pas une personne. Mes informations sont indicatives et ne remplacent pas un conseil professionnel.\n\nJe t'aide avec plus de 20 démarches sociales en Espagne: RMV, inscription, carte sanitaire, NIE, pensions, bon social électrique, regroupement familial, enracinement, bourses, congé parental et plus.\n\nTu peux m'envoyer un audio ou écrire ta question.\nJe parle espagnol, français, anglais, portugais, roumain, catalan, chinois et arabe.\nGratuit et confidentiel.\n\nInfos légales: ${LEGAL_PAGE}?lang=fr`,
+  pt: `Olá, sou a Clara!\n\nSou uma inteligência artificial, não uma pessoa. A minha informação é orientativa e não substitui aconselhamento profissional.\n\nAjudo-te com mais de 20 trâmites sociais em Espanha: rendimento mínimo, inscrição, cartão de saúde, NIE, pensões, bónus social elétrico, reagrupamento familiar, arraigo, bolsas, licença parental e mais.\n\nPodes enviar-me um áudio ou escrever a tua pergunta.\nFalo espanhol, francês, inglês, português, romeno, catalão, chinês e árabe.\nGratuito e confidencial.\n\nInfo legal: ${LEGAL_PAGE}?lang=pt`,
+  ro: `Bună, sunt Clara!\n\nSunt o inteligență artificială, nu o persoană. Informațiile mele sunt orientative și nu înlocuiesc consilierea profesională.\n\nTe ajut cu peste 20 de proceduri sociale din Spania: venitul minim, înregistrarea, cardul de sănătate, NIE, pensii, bonusul social electric, reîntregirea familiei, arraigo, burse, concediu parental și altele.\n\nPoți să trimiți un mesaj vocal sau să scrii întrebarea ta.\nVorbesc spaniolă, franceză, engleză, portugheză, română, catalană, chineză și arabă.\nGratuit și confidențial.\n\nInfo legale: ${LEGAL_PAGE}?lang=ro`,
+  ca: `Hola, soc la Clara!\n\nSoc una intel·ligència artificial, no una persona. La meva informació és orientativa i no substitueix l'assessorament professional.\n\nT'ajudo amb més de 20 tràmits socials a Espanya: IMV, empadronament, targeta sanitària, NIE, pensions, bo social elèctric, reagrupament familiar, arrelament, beques, baixa per naixement i més.\n\nPots enviar-me un àudio o escriure la teva pregunta.\nParlo castellà, francès, anglès, portuguès, romanès, català, xinès i àrab.\nGratuït i confidencial.\n\nInfo legal: ${LEGAL_PAGE}?lang=ca`,
   zh: `你好，我是Clara!\n\n我是人工智能，不是真人。我提供的信息仅供参考，不能替代专业建议。\n\n我帮助你办理西班牙20多项社会事务：最低收入、登记注册、医疗卡、NIE、养老金、电力社会补贴、家庭团聚、扎根居留、奖学金、产假等。\n\n你可以发送语音或输入文字提问。\n我会说西班牙语、法语、英语、葡萄牙语、罗马尼亚语、加泰罗尼亚语、中文和阿拉伯语。\n免费且保密。\n\n法律信息: ${LEGAL_PAGE}?lang=zh`,
   ar: `مرحبا، أنا كلارا!\n\nأنا ذكاء اصطناعي، لست شخصاً حقيقياً. معلوماتي إرشادية ولا تحل محل الاستشارة المهنية.\n\nأساعدك في أكثر من 20 إجراء اجتماعي في إسبانيا: الحد الأدنى للدخل، التسجيل البلدي، البطاقة الصحية، NIE، المعاشات، المكافأة الاجتماعية للكهرباء، لم شمل الأسرة، الإقامة، المنح، إجازة الولادة والمزيد.\n\nيمكنك إرسال صوت أو كتابة سؤالك.\nأتحدث الإسبانية والفرنسية والإنجليزية والبرتغالية والرومانية والكتالونية والصينية والعربية.\nمجاني وسري.\n\nالمعلومات القانونية: ${LEGAL_PAGE}?lang=ar`,
 };
@@ -52,7 +52,7 @@ const welcomeMessages: Record<Language, string> = {
 const loadingMessages: Record<Language, Record<LoadingContext, string>> = {
   es: {
     listening: "Te escucho. Dame un momento.",
-    thinking: "Buena pregunta. Dame un momento que busco la informacion.",
+    thinking: "Buena pregunta. Dame un momento que busco la información.",
     reading: "Voy a mirar tu documento. Dame un segundo.",
   },
   en: {
@@ -61,23 +61,23 @@ const loadingMessages: Record<Language, Record<LoadingContext, string>> = {
     reading: "Let me look at your document. One second.",
   },
   fr: {
-    listening: "Je vous ecoute. Un instant.",
+    listening: "Je vous écoute. Un instant.",
     thinking: "Bonne question. Un instant, je cherche l'information.",
     reading: "Je regarde votre document. Un instant.",
   },
   pt: {
-    listening: "Estou a ouvir-te. Da-me um momento.",
-    thinking: "Boa pergunta. Da-me um momento que procuro a informacao.",
-    reading: "Vou ver o teu documento. Da-me um segundo.",
+    listening: "Estou a ouvir-te. Dá-me um momento.",
+    thinking: "Boa pergunta. Dá-me um momento que procuro a informação.",
+    reading: "Vou ver o teu documento. Dá-me um segundo.",
   },
   ro: {
-    listening: "Te aud. Da-mi un moment.",
-    thinking: "Intrebare buna. Da-mi un moment sa caut informatia.",
-    reading: "Ma uit la documentul tau. O secunda.",
+    listening: "Te aud. Dă-mi un moment.",
+    thinking: "Întrebare bună. Dă-mi un moment să caut informația.",
+    reading: "Mă uit la documentul tău. O secundă.",
   },
   ca: {
     listening: "T'escolto. Dona'm un moment.",
-    thinking: "Bona pregunta. Dona'm un moment que busco la informacio.",
+    thinking: "Bona pregunta. Dona'm un moment que busco la informació.",
     reading: "Vaig a mirar el teu document. Dona'm un segon.",
   },
   zh: {
@@ -297,6 +297,40 @@ export function useChat(initialLang: Language = "es"): UseChatReturn {
     });
   }, []); // sin dependencias — solo ejecuta una vez, usa ref para idioma
 
+  // When language changes, update the welcome message text + regenerate TTS
+  const welcomeIdRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!hasWelcomedRef.current) return; // Welcome not yet shown
+    const newText = welcomeMessages[language];
+    const newId = createId();
+    welcomeIdRef.current = newId;
+
+    // Replace the first message (welcome) with the new language version
+    setMessages((prev) => {
+      if (prev.length === 0) return prev;
+      const first = prev[0];
+      if (first.sender !== "clara") return prev;
+      return [
+        { ...first, id: newId, text: newText, audio: undefined },
+        ...prev.slice(1),
+      ];
+    });
+
+    // Regenerate TTS for the new language
+    const ttsText = newText.split("\n\n")[0];
+    generateTTS(ttsText, language).then((audioUrl) => {
+      if (audioUrl && welcomeIdRef.current === newId) {
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === newId
+              ? { ...m, audio: { url: audioUrl, state: "idle" as const } }
+              : m,
+          ),
+        );
+      }
+    });
+  }, [language]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const send = useCallback(
     async (text: string, audioBase64?: string, imageBase64?: string) => {
       // Guard sincronico contra double-submit (Maria tiene temblor en las manos)
@@ -381,9 +415,9 @@ export function useChat(initialLang: Language = "es"): UseChatReturn {
           actionLabel = errInfo.actionLabel;
         } else {
           const fallbackText: Record<Language, string> = {
-            es: "Perdona, algo no ha ido bien. Sigo aqui contigo.",
+            es: "Perdona, algo no ha ido bien. Sigo aquí contigo.",
             en: "Sorry, something went wrong. I'm still here with you.",
-            fr: "Desolee, quelque chose s'est mal passe.",
+            fr: "Désolée, quelque chose s'est mal passé.",
             pt: "Desculpa, algo correu mal. Continuo aqui contigo.",
             ro: "Scuze, ceva nu a mers bine. Sunt încă aici cu tine.",
             ca: "Perdona, alguna cosa no ha anat bé. Segueixo aquí amb tu.",
@@ -393,7 +427,7 @@ export function useChat(initialLang: Language = "es"): UseChatReturn {
           const fallbackLabel: Record<Language, string> = {
             es: "Reintentar",
             en: "Retry",
-            fr: "Reessayer",
+            fr: "Réessayer",
             pt: "Tentar novamente",
             ro: "Reîncearcă",
             ca: "Reintentar",

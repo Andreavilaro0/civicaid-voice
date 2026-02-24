@@ -183,3 +183,79 @@ export const STEP_ILLUSTRATIONS: React.ReactNode[] = [
   <IllustrationMic key="mic" />,
   <IllustrationDocument key="d" />,
 ];
+
+/* ── Large mic illustration (240x240) for bento Paso 3 ── */
+export function IllustrationMicLarge() {
+  return (
+    <svg width="240" height="240" viewBox="0 0 240 240" fill="none" aria-hidden="true">
+      {/* Mic body */}
+      <rect x="96" y="40" width="48" height="80" rx="24" fill="#D46A1E" opacity="0.12" stroke="#D46A1E" strokeWidth="2.5" />
+      {/* Mic grille lines */}
+      <line x1="108" y1="60" x2="132" y2="60" stroke="#D46A1E" strokeWidth="1.5" opacity="0.25" />
+      <line x1="108" y1="72" x2="132" y2="72" stroke="#D46A1E" strokeWidth="1.5" opacity="0.25" />
+      <line x1="108" y1="84" x2="132" y2="84" stroke="#D46A1E" strokeWidth="1.5" opacity="0.25" />
+      <line x1="108" y1="96" x2="132" y2="96" stroke="#D46A1E" strokeWidth="1.5" opacity="0.25" />
+      {/* Mic stand */}
+      <path d="M 76 116 A 44 44 0 0 0 164 116" stroke="#D46A1E" strokeWidth="2.5" strokeLinecap="round" opacity="0.4" fill="none" />
+      <line x1="120" y1="160" x2="120" y2="180" stroke="#D46A1E" strokeWidth="2.5" opacity="0.4" />
+      <line x1="100" y1="180" x2="140" y2="180" stroke="#D46A1E" strokeWidth="2.5" strokeLinecap="round" opacity="0.4" />
+      {/* Sound waves — left */}
+      <path d="M 72 64 A 28 28 0 0 0 72 108" stroke="#1B5E7B" strokeWidth="2" strokeLinecap="round" opacity="0.2" />
+      <path d="M 56 52 A 40 40 0 0 0 56 120" stroke="#1B5E7B" strokeWidth="1.5" strokeLinecap="round" opacity="0.12" />
+      <path d="M 40 40 A 52 52 0 0 0 40 132" stroke="#1B5E7B" strokeWidth="1" strokeLinecap="round" opacity="0.06" />
+      {/* Sound waves — right */}
+      <path d="M 168 64 A 28 28 0 0 1 168 108" stroke="#1B5E7B" strokeWidth="2" strokeLinecap="round" opacity="0.2" />
+      <path d="M 184 52 A 40 40 0 0 1 184 120" stroke="#1B5E7B" strokeWidth="1.5" strokeLinecap="round" opacity="0.12" />
+      <path d="M 200 40 A 52 52 0 0 1 200 132" stroke="#1B5E7B" strokeWidth="1" strokeLinecap="round" opacity="0.06" />
+      {/* Decorative dot */}
+      <circle cx="120" cy="80" r="4" fill="#D46A1E" opacity="0.6" />
+    </svg>
+  );
+}
+
+/* ── Quick help icons (40x40) ── */
+export function IconMicrophone() {
+  return (
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#D46A1E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="9" y="2" width="6" height="11" rx="3" />
+      <path d="M5 10a7 7 0 0014 0" />
+      <line x1="12" y1="17" x2="12" y2="21" />
+      <line x1="8" y1="21" x2="16" y2="21" />
+    </svg>
+  );
+}
+
+export function IconVolume() {
+  return (
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1B5E7B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+      <path d="M19.07 4.93a10 10 0 010 14.14" />
+      <path d="M15.54 8.46a5 5 0 010 7.07" />
+    </svg>
+  );
+}
+
+export function IconShare() {
+  return (
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#2E7D4F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="18" cy="5" r="3" />
+      <circle cx="6" cy="12" r="3" />
+      <circle cx="18" cy="19" r="3" />
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+    </svg>
+  );
+}
+
+export function IconList() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <line x1="8" y1="6" x2="21" y2="6" />
+      <line x1="8" y1="12" x2="21" y2="12" />
+      <line x1="8" y1="18" x2="21" y2="18" />
+      <line x1="3" y1="6" x2="3.01" y2="6" />
+      <line x1="3" y1="12" x2="3.01" y2="12" />
+      <line x1="3" y1="18" x2="3.01" y2="18" />
+    </svg>
+  );
+}

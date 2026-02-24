@@ -7,7 +7,7 @@ import { ThemeToggleCompact } from "@/components/ui/ThemeToggle";
 
 interface SubPageLayoutProps {
   slug: string;
-  children: (lang: Language) => React.ReactNode;
+  children: (lang: Language, setLang: (l: Language) => void) => React.ReactNode;
   fullBleed?: boolean;
 }
 
@@ -52,7 +52,7 @@ export default function SubPageLayout({ slug, children, fullBleed }: SubPageLayo
         </div>
       </header>
       <main className={fullBleed ? "" : "max-w-3xl mx-auto px-6 py-8"}>
-        {children(lang)}
+        {children(lang, setLang)}
       </main>
       <footer className="text-center py-6 text-label text-clara-text-secondary/60">
         Clara &mdash; Tu voz tiene poder

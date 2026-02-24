@@ -3,7 +3,7 @@
  *
  * Usage:
  *   <LoadingState />
- *   <LoadingState message="Buscando informacion..." />
+ *   <LoadingState message="Buscando información..." />
  */
 
 interface LoadingStateProps {
@@ -11,7 +11,7 @@ interface LoadingStateProps {
 }
 
 export default function LoadingState({
-  message = "Clara esta buscando informacion...",
+  message = "Clara está buscando información...",
 }: LoadingStateProps) {
   return (
     <div
