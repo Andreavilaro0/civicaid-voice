@@ -23,6 +23,8 @@ You ask Clara a question in your own language, by text or by voice. Clara answer
 - **Definitions** — what administrative and legal terms mean.
 - **Links** — direct links to the official websites and forms.
 
+**Highlight — voice-first, in production:** Clara ran in production on WhatsApp and on the web with a voice-first flow. The user sends a voice note, Clara detects the spoken language, and it replies with synthesized audio in that same language.
+
 Main features:
 
 - **Two channels:** a web chat and WhatsApp (Meta Cloud API; Twilio is also supported).
