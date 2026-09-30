@@ -1,205 +1,175 @@
 # Clara — CivicAid Voice
 
-> **Resumen en una linea:** Asistente conversacional multicanal (Web + WhatsApp) que ayuda a personas vulnerables en Espana a navegar ayudas y tramites del gobierno espanol, en 8 idiomas, con texto y voz.
+**Clara is a voice and chat assistant that helps people in Spain understand public aid and government procedures. It works on the web and on WhatsApp, in 8 languages, with text, voice and images.**
 
-**Demo en vivo:** [https://andreavilaro0.github.io/civicaid-voice/](https://andreavilaro0.github.io/civicaid-voice/)
+**Live demo:** [andreavilaro0.github.io/civicaid-voice](https://andreavilaro0.github.io/civicaid-voice/)
 
-## Que es
+> The backend runs on Render. The first request after a quiet period can take around 20–30 seconds while the server wakes up.
 
-Clara es un **asistente conversacional** accesible por web y WhatsApp que orienta sobre el gobierno espanol:
-
-- **Ayudas** — Prestaciones, subsidios y programas sociales disponibles
-- **Definiciones** — Explicacion clara de conceptos administrativos y legales
-- **Links** — Enlaces directos a webs oficiales y formularios
-- **Procesos** — Guia paso a paso de tramites y gestiones gubernamentales
-
-Soporta texto, audio (via Gemini/ElevenLabs) e imagenes. Responde en **8 idiomas**: espanol, ingles, frances, portugues, rumano, catalan, chino y arabe.
-
-## Para quien
-
-- **Personas vulnerables en Espana:** inmigrantes, mayores, personas en riesgo de exclusion social.
-- **Jurado del hackathon OdiseIA4Good:** Para evaluar el proyecto.
-- **Desarrolladores:** Para contribuir o extender la funcionalidad.
-
-## Que incluye
-
-### Frontend Web (React)
-- Landing page multilingue con 6 secciones (problema, personas, guia, plan, exito, CTA)
-- Chat interactivo con texto, voz y subida de documentos
-- Mascota 3D animada (Spline) con estados reactivos (idle/greeting/thinking/talking)
-- 5 paginas: Home, Chat, Como Usar, Quienes Somos, Futuro
-- 8 idiomas con traduccion completa
-- Desplegado en GitHub Pages
-
-### Backend (Python/Flask)
-- Pipeline de 13 skills para procesamiento de mensajes
-- 8 respuestas precalculadas en cache para demo
-- 50 feature flags configurables
-- RAG con busqueda hibrida (BM25 + vector) sobre PostgreSQL + pgvector
-- 8 tramites en base de conocimiento (IMV, empadronamiento, tarjeta sanitaria, NIE/TIE, paro, alquiler, discapacidad, justicia gratuita)
-- TTS con ElevenLabs (voz Sara Martin)
-- 469+ tests automatizados (443 unit + 26 integration)
-- Desplegado en Render
+<p align="center">
+  <img src="docs/screenshots/clara-home-es.jpg" width="49%" alt="Clara home page in Spanish: the headline 'Tu voz tiene poder', a language selector with 8 languages (ES, EN, FR, PT, RO, CA, 中文, AR), a large microphone button, and suggested questions about the IMV, municipal registration, the health card and renewing a NIE">
+  <img src="docs/screenshots/clara-home-en.jpg" width="49%" alt="Clara home page in English: the headline 'Your voice has power', a 'Tap to speak' microphone button, suggested questions (What is the IMV?, Municipal registration, Health card, Renew NIE) and a text box to ask Clara something">
+</p>
 
 ---
 
-**Hackathon:** OdiseIA4Good — UDIT | **Fecha:** Febrero 2026 | **Estado:** Fases 0-5 completadas
+## The problem
 
-## Arquitectura
+Government procedures in Spain are hard to follow. The information is spread across many official websites, it uses legal language, and it is almost always in Spanish only.
+
+This is a real barrier for the people who need help the most: migrants, older people, and people at risk of social exclusion. Many of them use WhatsApp every day but not complex websites, and some prefer to speak instead of type.
+
+## What Clara does
+
+You ask Clara a question in your own language, by text or by voice. Clara answers in simple words and explains:
+
+- **Aid** — benefits and social programmes you may be able to get (for example, the Ingreso Mínimo Vital).
+- **Procedures** — step-by-step guides (for example, registering your address, getting a NIE/TIE, or a health card).
+- **Definitions** — what administrative and legal terms mean.
+- **Links** — direct links to the official websites and forms.
+
+**Highlight — voice-first, in production:** Clara ran in production on WhatsApp and on the web with a voice-first flow. The user sends a voice note, Clara detects the spoken language, and it replies with synthesized audio in that same language.
+
+Main features:
+
+- **Two channels:** a web chat and WhatsApp (Meta Cloud API; Twilio is also supported).
+- **8 languages:** Spanish, English, French, Portuguese, Romanian, Catalan, Chinese and Arabic.
+- **Voice in and voice out:** audio messages are transcribed, and answers can be read aloud with ElevenLabs.
+- **Images:** you can send a photo of an official document and Clara explains what it says.
+- **Curated knowledge base:** 23 Spanish procedures stored as JSON files in `back/data/tramites/`.
+- **Guardrails:** safety checks before and after the AI model writes an answer.
+
+## Architecture
 
 ```
-                      ┌─────────────────────────────────────┐
-                      │         Frontend (React)             │
-                      │   GitHub Pages / Vite / Tailwind     │
-                      │   8 idiomas, voz, chat, mascota 3D   │
-                      └──────────────┬──────────────────────┘
-                                     │ HTTPS
-                      ┌──────────────▼──────────────────────┐
-                      │         Backend (Flask)               │
-                      │   Render / Docker / Gunicorn          │
-                      │   Pipeline: 13 skills + Gemini 2.5    │
-                      └──────────────┬──────────────────────┘
-                                     │
-              ┌──────────────────────┼──────────────────────┐
-              │                      │                      │
-      ┌───────▼───────┐    ┌────────▼────────┐    ┌───────▼───────┐
-      │   WhatsApp     │    │   Knowledge     │    │   TTS          │
-      │   (Meta API)   │    │   Base (JSON)   │    │   (ElevenLabs) │
-      └───────────────┘    └─────────────────┘    └───────────────┘
+   Web (React)                      WhatsApp
+   GitHub Pages                     Meta Cloud API / Twilio
+        │                                 │
+        │ HTTPS  /api/chat                │ webhook
+        └───────────────┬─────────────────┘
+                        ▼
+              Backend (Python · Flask)
+              Docker on Render
+                        │
+        message pipeline (one step after another):
+        detect input → detect language → transcribe audio
+        → knowledge base lookup → Gemini answer
+        → verify answer → text-to-speech → send
+                        │
+        ┌───────────────┼────────────────┐
+        ▼               ▼                ▼
+   Gemini 2.5      Knowledge base    ElevenLabs
+   Flash (LLM)     (23 JSON files)   (voice)
 ```
 
-## Inicio Rapido
+How a message flows:
 
-### Frontend (React)
+1. The user writes or sends audio from the web or from WhatsApp.
+2. The backend detects the type of input and the language, and transcribes audio if needed.
+3. It finds the matching procedure in the knowledge base.
+4. Gemini writes an answer using that information, and the answer goes through the guardrails.
+5. The backend sends the answer back as text, and as audio if needed.
+
+The pipeline steps live in `back/src/core/skills/`, and the orchestrator is `back/src/core/pipeline.py`.
+
+A hybrid RAG search (BM25 + vectors on PostgreSQL/pgvector) is also implemented, but it is **turned off in production** (`RAG_ENABLED=false` in `render.yaml`). Production uses the curated JSON knowledge base instead.
+
+## Tech stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | React 19, TypeScript, Vite, Tailwind CSS, Spline (3D mascot) |
+| Backend | Python 3.11, Flask, Gunicorn, Docker |
+| AI | Google Gemini 2.5 Flash (answers, audio, images), ElevenLabs (text-to-speech) |
+| Messaging | WhatsApp via Meta Cloud API and Twilio |
+| Data | JSON knowledge base; optional PostgreSQL + pgvector for RAG |
+| Hosting | GitHub Pages (frontend), Render (backend) |
+| Tests | pytest (backend) |
+
+## Run it locally
+
+### Frontend
 
 ```bash
 cd front
 npm install
 npm run dev
-# > http://localhost:5173
+# open http://localhost:5173
 ```
 
-Para desplegar en GitHub Pages:
+To point the web app to your own backend, set `VITE_API_URL` (for example `http://localhost:5000`).
+
+### Backend
 
 ```bash
-cd front
-npm run deploy
-# > https://andreavilaro0.github.io/civicaid-voice/
-```
-
-### Backend (Python)
-
-```bash
+cp .env.example back/.env   # then add your own API keys
 cd back
-python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env   # Editar con claves reales
 bash scripts/run-local.sh
-# > http://localhost:5000/health
+# health check: http://localhost:5000/health
 ```
 
-Variables de entorno necesarias:
+The script creates a virtual environment, installs `requirements.txt` and starts Flask on port 5000.
+
+The main environment variables are:
 
 ```bash
-GEMINI_API_KEY=AIzaxxxxxxxx
-ELEVENLABS_API_KEY=xxxxxxxx
-# Para WhatsApp (opcional):
-META_WHATSAPP_TOKEN=xxxxxxxx
-META_PHONE_NUMBER_ID=xxxxxxxx
+GEMINI_API_KEY=...
+ELEVENLABS_API_KEY=...
+# Optional, for WhatsApp:
+META_WHATSAPP_TOKEN=...
+META_PHONE_NUMBER_ID=...
 ```
 
----
+See `.env.example` for the full list.
 
-## Estructura del Proyecto
+### Tests
+
+```bash
+cd back && pytest tests/ -v --tb=short   # backend
+cd front && npm run build                # frontend build check
+```
+
+## Project structure
 
 ```
 civicaid-voice/
-├── front/                         # Frontend React (Vite + Tailwind)
+├── front/            # React web app (pages, chat, 3D mascot, translations)
+├── back/
 │   ├── src/
-│   │   ├── pages/                 # 5 paginas (Home, Chat, ComoUsar, QuienesSomos, Futuro)
-│   │   ├── components/            # 20 componentes (chat, welcome, UI)
-│   │   ├── hooks/                 # 4 hooks (useChat, useAudioPlayer, useAudioRecorder, useMascotState)
-│   │   ├── contexts/              # MascotContext (estado de la mascota 3D)
-│   │   └── lib/                   # API client, i18n, types, constants
-│   ├── index.html
-│   └── package.json
-├── back/                          # Backend Python (Flask + Gemini)
-│   ├── src/
-│   │   ├── app.py                 # Punto de entrada Flask
-│   │   ├── routes/                # webhook, health, admin, static_files
-│   │   ├── core/
-│   │   │   ├── config.py          # 50 feature flags
-│   │   │   ├── pipeline.py        # Orquestador de 13 skills
-│   │   │   ├── guardrails.py      # Seguridad pre/post
-│   │   │   ├── skills/            # 13 skills (LLM, TTS, vision, etc.)
-│   │   │   └── prompts/           # System prompt + plantillas
-│   │   └── utils/                 # logger, timing, observability
-│   ├── data/
-│   │   ├── cache/                 # Respuestas pre-calculadas + MP3s
-│   │   └── tramites/              # 8 KBs JSON
-│   ├── tests/                     # 469+ tests
-│   ├── Dockerfile
-│   └── render.yaml
-├── clase/                         # Material escolar (presentacion, branding)
-├── docs/                          # Documentacion tecnica
-├── CLAUDE.md                      # Contexto para Claude Code
-└── README.md
+│   │   ├── app.py            # Flask entry point
+│   │   ├── routes/           # web chat API, WhatsApp webhooks, health
+│   │   └── core/             # pipeline, skills, guardrails, prompts, config
+│   ├── data/tramites/        # knowledge base (23 procedures)
+│   ├── tests/                # pytest suite
+│   └── Dockerfile
+├── docs/             # technical docs and design notes (in Spanish)
+├── clase/            # class material (presentation, branding)
+└── render.yaml       # Render deployment config
 ```
 
----
+## Current status and known limitations
 
-## Tests
+- The web demo and the backend are deployed and working.
+- The backend has more than 1,200 automated tests. **Some tests currently fail** and CI is red. The main causes are a database driver mismatch in `requirements.txt` (`psycopg2` installed, `psycopg` 3 expected) and tests that were not updated when the knowledge base grew.
+- The keyword search in the knowledge base is too permissive: some off-topic questions still match a procedure.
+- The public API endpoints do not have rate limiting yet, and the WhatsApp webhooks do not verify request signatures yet.
 
-```bash
-# Backend
-cd back && pytest tests/ -v --tb=short
+## Hackathon context
 
-# Frontend (build check)
-cd front && npm run build
-```
+Clara was built for **OdiseIA4Good 2026** (UDIT, February 2026), a 48-hour hackathon with more than 300 participants, focused on using AI for social good. After the hackathon the project kept growing (more procedures, more tests, WhatsApp through Meta).
 
----
+## Credits
 
-## Deploy
+**Design & development: Andrea Ávila (sole developer)** — Python/Flask backend and message pipeline, React/TypeScript frontend, Gemini and ElevenLabs integration, WhatsApp, and deployment.
 
-| Componente | Plataforma | URL |
-|------------|-----------|-----|
-| Frontend | GitHub Pages | [andreavilaro0.github.io/civicaid-voice](https://andreavilaro0.github.io/civicaid-voice/) |
-| Backend | Render | civicaid-voice.onrender.com |
-| WhatsApp | Meta Cloud API | Via webhook |
+**Hackathon team:** Robert, Marcos, Lucas and Daniel.
 
----
+> Built with AI-assisted development (Claude); architecture, review and validation by the author.
 
-## Tech Stack
+## Documentation
 
-| Capa | Tecnologia |
-|------|-----------|
-| Frontend | React 19, TypeScript 5.9, Vite 7, Tailwind 4, Spline 3D |
-| Backend | Python 3.11, Flask, Gemini 2.5 Flash, ElevenLabs |
-| Infra | GitHub Pages (front), Render/Docker (back) |
-| WhatsApp | Meta Cloud API |
-| Base de conocimiento | JSON (8 tramites), RAG con pgvector (opcional) |
+Full index (in Spanish): [docs/00-DOCS-INDEX.md](docs/00-DOCS-INDEX.md)
 
----
+## License
 
-## Equipo
-
-| Persona | Rol |
-|---------|-----|
-| Robert | Backend lead, pipeline, presentador de demo |
-| Marcos | Routes, Twilio, deploy, pipeline de audio |
-| Lucas | Investigacion KB, testing, assets de demo |
-| Daniel | Web Gradio (backup), video |
-| Andrea | Notion, slides, coordinacion, frontend |
-
----
-
-## Documentacion
-
-Indice completo: [docs/00-DOCS-INDEX.md](docs/00-DOCS-INDEX.md)
-
----
-
-## Licencia
-
-Proyecto de hackathon OdiseIA4Good — UDIT (Febrero 2026). Uso educativo.
+Hackathon project for OdiseIA4Good — UDIT (February 2026). For educational use.
