@@ -6,6 +6,11 @@
 
 > The backend runs on Render. The first request after a quiet period can take around 20–30 seconds while the server wakes up.
 
+<p align="center">
+  <img src="docs/screenshots/clara-home-es.jpg" width="49%" alt="Clara home page in Spanish: the headline 'Tu voz tiene poder', a language selector with 8 languages (ES, EN, FR, PT, RO, CA, 中文, AR), a large microphone button, and suggested questions about the IMV, municipal registration, the health card and renewing a NIE">
+  <img src="docs/screenshots/clara-home-en.jpg" width="49%" alt="Clara home page in English: the headline 'Your voice has power', a 'Tap to speak' microphone button, suggested questions (What is the IMV?, Municipal registration, Health card, Renew NIE) and a text box to ask Clara something">
+</p>
+
 ---
 
 ## The problem
@@ -153,15 +158,11 @@ civicaid-voice/
 
 Clara was built for **OdiseIA4Good 2026** (UDIT, February 2026), a 48-hour hackathon with more than 300 participants, focused on using AI for social good. After the hackathon the project kept growing (more procedures, more tests, WhatsApp through Meta).
 
-## Team
+## Credits
 
-| Person | Role |
-|---|---|
-| **Andrea Ávila** | **Team lead · full-stack: built the backend and the frontend end to end** — Python/Flask backend and message pipeline, React/TypeScript frontend, Gemini and ElevenLabs integration, WhatsApp, deployment |
-| Robert | Team member |
-| Marcos | Team member |
-| Lucas | Team member |
-| Daniel | Team member |
+**Design & development: Andrea Ávila (sole developer)** — Python/Flask backend and message pipeline, React/TypeScript frontend, Gemini and ElevenLabs integration, WhatsApp, and deployment.
+
+**Hackathon team:** Robert, Marcos, Lucas and Daniel.
 
 > Built with AI-assisted development (Claude); architecture, review and validation by the author.
 
